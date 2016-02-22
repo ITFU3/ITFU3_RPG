@@ -1,22 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package backpack;
-import characters.*;
-/**
- *
- * @author steffen
- */
 public class Backpack {
+
+	private String name;
+    private double pStrength;
+    private Object[] backpack;
+    private int baseBackpackSpaces;
     
-    double pStrength;
-    Object[] backpack;
-    int baseBackpackSpaces = 6;
-    
-    public Backpack() {
-        this.backpack = new Object[baseBackpackSpaces];
+    public Backpack()
+	{
+		setName(this.getClass().getSimpleName());
+		setBaseBackpackSpaces(6);
+        setBackpack(new Object[getBaseBackpackSpaces()]);
     }
-    
+	
+	public Backpack(String name, double pStrength, Object[] backpack, int baseBackpackSpaces)
+	{
+		setName(name);
+		setPStrength(pStrength);
+		setBaseBackpackSpaces(baseBackpackSpaces);
+		setBackpack(backpack);
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	public String getName(){
+		return this.name;
+	}
+	public void setPStrength(double pStrength){
+		this.pStrength = pStrength;
+	}
+    public double getPStrength(){
+		return this.pStrength;
+	}
+	public void setBackpack(Object[] backpack){
+		this.backpack = backpack;
+	}
+	public Object[] getBackpack(){
+		return this.backpack;
+	}
+	public void setBaseBackpackSpaces(int baseBackpackSpaces){
+		this.baseBackpackSpaces = setBaseBackpackSpaces;
+	}
+	public int getBaseBackpackSpaces(){
+		return this.setBaseBackpackSpaces;
+	}
 }

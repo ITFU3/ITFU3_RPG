@@ -22,6 +22,12 @@ public class PlayerClass
 	}
   }
   
+  public PlayerClass(Object[] input)
+  {
+	setName((String) input[0]);
+	setStatsBonus((double[]) input[1]);	
+  }
+  
   public PlayerClass(Warrior warrior)
   {
 	setName(warrior.getName());
@@ -34,23 +40,16 @@ public class PlayerClass
 	setStatsBonus(cleric.getStatsBonus());
   }
   
-  public double[] getStatsBonus()
-  {
+  public double[] getStatsBonus(){
 	return BonusStats;
   }
-  
-  public void setStatsBonus(double[] input)
-  {
+  public void setStatsBonus(double[] input){
 	BonusStats = input;
   }
-  
-  public String getName()
-  {
+  public String getName(){
 	return name;
   }
-  
-  public void setName(String name)
-  {
+  public void setName(String name){
 	this.name = name;
   }
 }

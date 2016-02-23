@@ -1,7 +1,7 @@
 package classes;
-public class Warrior extends PlayerClass
+public class Wizzard extends PlayerClass
 {
-  public Warrior()
+  public Wizzard()
   {
 	setName(this.getClass().getSimpleName());
 	double[] BonusStats = super.getStatsBonus();

@@ -12,6 +12,13 @@ public class Armor
 	setArmorValue(10.0);
   }
   
+  public Armor(Object[] input)
+  {
+	setName((String) input[0]);
+	setType((String) input[1]);
+	setArmorValue((double) input[2]);
+  }
+  
   public Armor(Plate input)
   {
 	setName(input.getName());
@@ -25,6 +32,8 @@ public class Armor
 	setType(input.getType());
 	setArmorValue(input.getArmorValue());
   }
+  
+  // ########### Getter / Setter ###########
   
   public String getName() {
 	return name;

@@ -14,7 +14,7 @@ public class Race
   
   public Race()
   {
-	name = "PlayerRace";
+	setName("PlayerRace");
 	BonusStats = new double[8];
 	for(int i = 0; i < BonusStats.length; i++)
 	{
@@ -22,22 +22,28 @@ public class Race
 	}
   }
   
-  public Race(Human human)
+  public Race(Object[] input)
   {
-	this.name = human.getName();
-	this.BonusStats = human.getStatsBonus();
+	setName((String) input[0]);
+	setStatsBonus((double[]) input[1]);	
   }
   
-  public Race(Elf elf)
+  public Race(Human input)
   {
-	this.name = elf.getName();
-	this.BonusStats = elf.getStatsBonus();
+	setName(input.getName());
+	setStatsBonus(input.getStatsBonus());
   }
   
-  public Race(Dwarf dwarf)
+  public Race(Elf input)
   {
-	this.name = dwarf.getName();
-	this.BonusStats = dwarf.getStatsBonus();
+	setName(input.getName());
+	setStatsBonus(input.getStatsBonus());
+  }
+  
+  public Race(Dwarf input)
+  {
+	setName(input.getName());
+	setStatsBonus(input.getStatsBonus());
   }
   
   public double[] getStatsBonus()

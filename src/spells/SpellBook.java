@@ -7,24 +7,30 @@ public class SpellBook
   
   public SpellBook()
   {
-	listOfSpells = new ArrayList();
+	setSpellBook(new ArrayList());
   }
 
   public void addSpell(Spell input)
   {
-	listOfSpells.add(input);
+	getSpellBook().add(input);
   }
   
   public String showSpellBook()
   {
-	return "";
+    String output = "";
+    for(int i = 0; i < getSpellBook().size(); i++)
+    {
+        output += getSpellBook().get(i).getClass().getSimpleName() + (((i+1) < getSpellBook().size())? ", ":"\n");
+    }
+    return output;
   }
   
   public void copyIntoSpellBook(SpellBook input)
   {
-	listOfSpells.addAll(input.getSpellBook());
+	getSpellBook().addAll(input.getSpellBook());
   }
   
+// ######### Getter / Setter #########
   public ArrayList getSpellBook() {
 	return listOfSpells;
   }

@@ -5,7 +5,7 @@ public class Plate extends Armor
   {
 	setName(this.getClass().getSimpleName());
 	setType(this.getClass().getSimpleName());
-	setArmorValue(14.0);
+	setArmorValue(15.0);
   }
   
   public Plate(String inputName, double inputArmorValue)

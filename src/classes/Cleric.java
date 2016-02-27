@@ -1,4 +1,5 @@
 package classes;
+
 public class Cleric extends PlayerClass
 {
   public Cleric()

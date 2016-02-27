@@ -8,7 +8,7 @@ public class Armor
   public Armor()
   {
 	setName("None");
-	setType("Cloth");
+	setType("None");
 	setArmorValue(10.0);
   }
   
@@ -33,7 +33,19 @@ public class Armor
 	setArmorValue(input.getArmorValue());
   }
   
-  // ########### Getter / Setter ###########
+  public Armor(Leather input)
+  {
+	setName(input.getName());
+	setType(input.getType());
+	setArmorValue(input.getArmorValue());
+  }
+  
+  public Armor(Cloth input)
+  {
+	setName(input.getName());
+	setType(input.getType());
+	setArmorValue(input.getArmorValue());
+  }
   
   public String getName() {
 	return name;

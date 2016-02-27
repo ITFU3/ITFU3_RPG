@@ -75,6 +75,8 @@ public class PlayerCharacter
 		  + "Weaponname: " + pWeapon.getName() + "\n"
 		  + "DMG Die: " + pWeapon.getDamageDie() + "\n"
 		  + "Die Count: " + pWeapon.getDieCount() + "\n"
+		  + "Weapon Type: " + pWeapon.getType() + "\n"
+		  + "Weapon Range: " + pWeapon.getDistance() + "\n"
 		  + "= = = = = = = = = = = = = =\n"
 		  ;
 	System.out.println(output);
@@ -87,10 +89,8 @@ public class PlayerCharacter
 	{
 	  cth = tryHit();
 	  output += "Attack " + i + ": ";
-	  // Machmal funktioniert das IF nicht 
-	  // und ein Wert der größer 10 macht 0 Schaden
 	  if( (double) cth >= (double) 10.0 ){
-		output += "Hits for " + meleeDamage() + " dmg "; 
+		output += "Hits for " + doDamage() + " dmg "; 
 	  }else{
 		output += "Is a miss. ";
 	  }
@@ -101,19 +101,71 @@ public class PlayerCharacter
   
   public double tryHit()
   {
+	// Stread D20 roll.
 	return main.Die.rollDie(20.0, 1.0);
   }
-  public double meleeDamage()
+  
+  public double doDamage()
   {
-	double dmg = main.Die.rollDie(
-								  pWeapon.getDamageDie(),
-								  pWeapon.getDieCount()
-								);
-	dmg += getModifier(getStrength());
-	// + Proficiency Bonus If exist
+	double dmg = 0.0;
+	switch(this.pWeapon.getCat())
+	{
+	  // do I have melee weapon?
+	  case "melee":
+		dmg = doMeleeDamage();
+		break;
+		// do I have range weapon?
+	  case "range":
+		dmg = doRangeDamage();
+		break;
+	  case "spell":
+//		dmg
+		break;
+	}
+	return dmg;
+  }
+  
+  public double doMeleeDamage()
+  {
+	double dmg = 0.0;
+	// am I close enough to attack?
+	if(true)
+	{
+	  dmg = calcDamage();
+	}
+	else
+	{
+	  // move closer.
+	}
+	return dmg;
+  }
+  
+  public double doRangeDamage()
+  {
+	double dmg = 0.0;
+	// am I distant enough to attack?
+	if(true)
+	{
+	  dmg = calcDamage();
+	}
+	else
+	{
+	  // move away.
+	}
 	return dmg;
   }
 
+  private double calcDamage()
+  {
+	double dmg = main.Die.rollDie(
+						  pWeapon.getDamageDie(),
+						  pWeapon.getDieCount()
+						);
+	dmg += getModifier(getStrength());
+	//TODO: add Proficiency Bonus If exist
+	return dmg;
+  }
+  
   private double getModifier(double input){
 	double output = 0.0;
 	switch((int)input)
@@ -194,11 +246,23 @@ public class PlayerCharacter
   }
   public void addArmor(Armor input)
   {
+	if(input.getType().equalsIgnoreCase("None"))
+	{
+	  input.setArmorValue(
+			  input.getArmorValue() 
+			  + this.getModifier(this.getDexterity())
+			);
+	}
 	setpArmor(input);
   }
   public void removeArmor()
   {
-	setpArmor(new Armor());
+	Armor input = new Armor();
+	input.setArmorValue(
+		  input.getArmorValue() 
+		  + this.getModifier(this.getDexterity())
+		);
+	setpArmor(input);
   }
   
 // ################# GETTER | SETTER #################

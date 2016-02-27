@@ -28,16 +28,22 @@ public class PlayerClass
 	setStatsBonus((double[]) input[1]);	
   }
   
-  public PlayerClass(Warrior warrior)
+  public PlayerClass(Warrior input)
   {
-	setName(warrior.getName());
-	setStatsBonus(warrior.getStatsBonus());
+	setName(input.getName());
+	setStatsBonus(input.getStatsBonus());
   }
   
-  public PlayerClass(Cleric cleric)
+  public PlayerClass(Cleric input)
   {
-	setName(cleric.getName());
-	setStatsBonus(cleric.getStatsBonus());
+	setName(input.getName());
+	setStatsBonus(input.getStatsBonus());
+  }
+  
+  public PlayerClass(Ranger input)
+  {
+	setName(input.getName());
+	setStatsBonus(input.getStatsBonus());
   }
   
   public double[] getStatsBonus(){

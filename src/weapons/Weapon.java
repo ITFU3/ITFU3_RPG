@@ -8,6 +8,7 @@ public class Weapon
   private int dieCount;
   private String type;
   private String cat;
+  private double distance;
   
   public Weapon()
   {
@@ -17,6 +18,7 @@ public class Weapon
 	setDieCount(2);
 	setType("Hand");
 	setCat("melee");
+	setDistance(1.0);
   }
   
   // per Array. Try is funktional.
@@ -28,6 +30,7 @@ public class Weapon
 	setDieCount((int)input[3]);
 	setType((String) input[4]);
 	setCat((String) input[5]);
+	setDistance((double) input[6]);
   }
   
   public Weapon(LongSword input)
@@ -38,6 +41,7 @@ public class Weapon
 	setDieCount(input.getDieCount());
 	setType(input.getType());
 	setCat(input.getCat());
+	setDistance(input.getDistance());
   }
   
   public Weapon(Mace input)
@@ -48,6 +52,29 @@ public class Weapon
 	setDieCount(input.getDieCount());
 	setType(input.getType());
 	setCat(input.getCat());
+	setDistance(input.getDistance());
+  }
+  
+  public Weapon(ShortBow input)
+  {
+	setName(input.getName());
+	setDamageDie(input.getDamageDie());
+	setDurability(input.getDurability());
+	setDieCount(input.getDieCount());
+	setType(input.getType());
+	setCat(input.getCat());
+	setDistance(input.getDistance());
+  }
+  
+  public Weapon(LongBow input)
+  {
+	setName(input.getName());
+	setDamageDie(input.getDamageDie());
+	setDurability(input.getDurability());
+	setDieCount(input.getDieCount());
+	setType(input.getType());
+	setCat(input.getCat());
+	setDistance(input.getDistance());
   }
 
   public String getName() {
@@ -85,5 +112,11 @@ public class Weapon
   }
   public void setCat(String cat) {
 	this.cat = cat;
+  }
+  public double getDistance() {
+	return distance;
+  }
+  public void setDistance(double distance) {
+	this.distance = distance;
   }
 }

@@ -5,7 +5,7 @@ public class ChainMail extends Armor
   {
 	setName(this.getClass().getSimpleName());
 	setType(this.getClass().getSimpleName());
-	setArmorValue(13.0);
+	setArmorValue(14.0);
   }
   
   public ChainMail(String inputName, double inputArmorValue)

@@ -23,7 +23,7 @@ public class Demos
 	  cTh = p1.tryHit();
 	  output += "Round " + i + ": " + p1.getName() + " ";
 	  if(cTh >= p2ArmorValue){
-		dmg = p1.meleeDamage();
+		dmg = p1.doDamage();
 		if(cTh == 20.0){dmg *= 2;}
 		p2Health -= dmg;
 		output += "hits " + p2.getName() + " with a " + cTh 
@@ -42,7 +42,7 @@ public class Demos
 	  cTh = p2.tryHit();
 	  output += "Round " + i + ": " + p2.getName() + " ";
 	  if(cTh >= p1ArmorValue){
-		dmg = p2.meleeDamage();
+		dmg = p2.doDamage();
 		if(cTh == 20.0){dmg *= 2;}
 		p1Health -= dmg;
 		output += "hits " + p1.getName() + " with a " + cTh 

@@ -21,7 +21,6 @@ public class Weapon
 	setDistance(1.0);
   }
   
-  // per Array. Try is funktional.
   public Weapon(Object[] input)
   {
 	setName((String)input[0]);
@@ -32,51 +31,8 @@ public class Weapon
 	setCat((String) input[5]);
 	setDistance((double) input[6]);
   }
-  
-  public Weapon(LongSword input)
-  {
-	setName(input.getName());
-	setDamageDie(input.getDamageDie());
-	setDurability(input.getDurability());
-	setDieCount(input.getDieCount());
-	setType(input.getType());
-	setCat(input.getCat());
-	setDistance(input.getDistance());
-  }
-  
-  public Weapon(Mace input)
-  {
-	setName(input.getName());
-	setDamageDie(input.getDamageDie());
-	setDurability(input.getDurability());
-	setDieCount(input.getDieCount());
-	setType(input.getType());
-	setCat(input.getCat());
-	setDistance(input.getDistance());
-  }
-  
-  public Weapon(ShortBow input)
-  {
-	setName(input.getName());
-	setDamageDie(input.getDamageDie());
-	setDurability(input.getDurability());
-	setDieCount(input.getDieCount());
-	setType(input.getType());
-	setCat(input.getCat());
-	setDistance(input.getDistance());
-  }
-  
-  public Weapon(LongBow input)
-  {
-	setName(input.getName());
-	setDamageDie(input.getDamageDie());
-	setDurability(input.getDurability());
-	setDieCount(input.getDieCount());
-	setType(input.getType());
-	setCat(input.getCat());
-	setDistance(input.getDistance());
-  }
 
+  // ######### Getter / Setter #########
   public String getName() {
 	return name;
   }

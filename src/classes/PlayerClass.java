@@ -23,41 +23,16 @@ public class PlayerClass
           {
             BonusStats[i] = 0;
           }
+          setMyBook(new SpellBook());
     }
 
     public PlayerClass(Object[] input)
     {
           setName((String) input[0]);
-          setStatsBonus((double[]) input[1]);	
-    }
-
-    public PlayerClass(Warrior input)
-    {
-          setName(input.getName());
-          setStatsBonus(input.getStatsBonus());
+          setStatsBonus((double[]) input[1]);
           setMyBook(new SpellBook());
     }
 
-    public PlayerClass(Cleric input)
-    {
-          setName(input.getName());
-          setStatsBonus(input.getStatsBonus());
-          setMyBook(new SpellBook());
-    }
-
-    public PlayerClass(Ranger input)
-    {
-          setName(input.getName());
-          setStatsBonus(input.getStatsBonus());
-          setMyBook(new SpellBook());
-    }
-
-    public PlayerClass(Wizzard input)
-    {
-          setName(input.getName());
-          setStatsBonus(input.getStatsBonus());
-          setMyBook(input.getMyBook());
-    }
     // TODO:
     public SpellBook getPBook()
     {
@@ -71,6 +46,7 @@ public class PlayerClass
         }
     }
 
+    // ######### Getter / Setter #########
     public double[] getStatsBonus(){
           return BonusStats;
     }

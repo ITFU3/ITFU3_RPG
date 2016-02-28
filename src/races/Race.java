@@ -28,41 +28,17 @@ public class Race
 	setStatsBonus((double[]) input[1]);	
   }
   
-  public Race(Human input)
-  {
-	setName(input.getName());
-	setStatsBonus(input.getStatsBonus());
-  }
-  
-  public Race(Elf input)
-  {
-	setName(input.getName());
-	setStatsBonus(input.getStatsBonus());
-  }
-  
-  public Race(Dwarf input)
-  {
-	setName(input.getName());
-	setStatsBonus(input.getStatsBonus());
-  }
-  
-  public double[] getStatsBonus()
-  {
+  // ######### Getter / Setter #########
+  public double[] getStatsBonus(){
 	return BonusStats;
   }
-  
-  public void setStatsBonus(double[] input)
-  {
+  public void setStatsBonus(double[] input){
 	BonusStats = input;
   }
-  
-  public String getName()
-  {
+  public String getName(){
 	return name;
   }
-  
-  public void setName(String name)
-  {
+  public void setName(String name){
 	this.name = name;
   }
 }

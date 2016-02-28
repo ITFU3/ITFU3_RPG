@@ -18,35 +18,8 @@ public class Armor
 	setType((String) input[1]);
 	setArmorValue((double) input[2]);
   }
-  
-  public Armor(Plate input)
-  {
-	setName(input.getName());
-	setType(input.getType());
-	setArmorValue(input.getArmorValue());
-  }
-
-  public Armor(ChainMail input)
-  {
-	setName(input.getName());
-	setType(input.getType());
-	setArmorValue(input.getArmorValue());
-  }
-  
-  public Armor(Leather input)
-  {
-	setName(input.getName());
-	setType(input.getType());
-	setArmorValue(input.getArmorValue());
-  }
-  
-  public Armor(Cloth input)
-  {
-	setName(input.getName());
-	setType(input.getType());
-	setArmorValue(input.getArmorValue());
-  }
-  
+    
+// ######### Getter / Setter #########
   public String getName() {
 	return name;
   }

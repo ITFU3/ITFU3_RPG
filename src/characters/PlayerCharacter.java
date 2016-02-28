@@ -3,6 +3,7 @@ import classes.*;
 import races.*;
 import weapons.*;
 import armor.*;
+import spells.*;
 
 public class PlayerCharacter 
 {
@@ -101,8 +102,20 @@ public class PlayerCharacter
   
   public double tryHit()
   {
-	// Stread D20 roll.
-	return main.Die.rollDie(20.0, 1.0);
+    // Stread D20 roll.
+    double output = main.Die.rollDie(20.0, 1.0);
+    switch(this.getpClass().getName())
+    {
+      case "wizzard":
+        output += this.getModifier(this.getIntelegent());
+        break;
+      case "ranger":
+        output += this.getModifier(this.getDexterity());
+        break;
+      default:
+        output += this.getModifier(this.getStrength());
+    }
+    return output;
   }
   
   public double doDamage()
@@ -166,6 +179,26 @@ public class PlayerCharacter
 	return dmg;
   }
   
+  public double castSpell(String spellname)
+  {
+    double output = 0.0;
+    int spellBookSize = getpClass().getMyBook().getSpellBook().size();
+    String tempName;
+    for(int i = 0; i < spellBookSize; i++)
+    {
+        tempName = getpClass().getMyBook().getSpellBook().get(i).getClass().getSimpleName();
+        if(tempName.equalsIgnoreCase(spellname))
+        {
+          Spell tempSpell = (Spell) getpClass().getMyBook().getSpellBook().get(i);
+          output = main.Die.rollDie(
+                            tempSpell.getDamageDie(),
+                            tempSpell.getDieCount()
+                          );
+        }
+    }
+    return output;
+  }
+    
   private double getModifier(double input){
 	double output = 0.0;
 	switch((int)input)

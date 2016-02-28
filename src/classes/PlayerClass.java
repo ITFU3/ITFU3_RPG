@@ -33,19 +33,6 @@ public class PlayerClass
           setMyBook(new SpellBook());
     }
 
-    // TODO:
-    public SpellBook getPBook()
-    {
-        if(this.getName().equalsIgnoreCase("Wizzard"))
-        {
-          return getMyBook();
-        }
-        else
-        {
-            return getMyBook();
-        }
-    }
-
     // ######### Getter / Setter #########
     public double[] getStatsBonus(){
           return BonusStats;

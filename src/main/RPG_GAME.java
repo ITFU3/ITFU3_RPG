@@ -33,6 +33,9 @@ public class RPG_GAME
 	player2.addArmor(new ChainMail());
 	player2.DebugChar();
 //	player2.DebugDMG(5);
+  player2.getpClass().getMyBook().addSpell(new HealingWord());
+  System.out.println(player2.getpClass().getMyBook().showSpellBook());
+  System.out.println("= = = = = = = = = = = = = =");
 // =============================================================================
 	PlayerCharacter player3 = new PlayerCharacter(
                                     "Vahlran",
@@ -45,21 +48,22 @@ public class RPG_GAME
 	player3.DebugChar();
 //	player3.DebugDMG(5);
 // =============================================================================
-        PlayerCharacter player4 = new PlayerCharacter(
-                                    "Simon",
-                                    'm',
-                                    new Wizzard(), 
-                                    new Human()
-                                  );
-        player4.addWeapon(new Weapon());
-        player4.addArmor(new Cloth());
-        player4.DebugChar();
+  PlayerCharacter player4 = new PlayerCharacter(
+                              "Simon",
+                              'm',
+                              new Wizzard(), 
+                              new Human()
+                            );
+  player4.addWeapon(new Weapon());
+  player4.addArmor(new Cloth());
+  player4.DebugChar();
 // =============================================================================
-        System.out.println("################################");
-        player4.getpClass().getPBook().addSpell(new Fireball());
-        System.out.println(player4.getpClass().getPBook().showSpellBook());
+  player4.getpClass().getMyBook().addSpell(new Fireball());
+  System.out.println(player4.getpClass().getMyBook().showSpellBook());
+  System.out.println("= = = = = = = = = = = = = =");
 // =============================================================================
 //	System.out.println(Demos.firstFight(player1, player2));
+  System.out.println(Demos.secendFight(player4, player2));
 // =============================================================================
 //	Demos.alphaVersion(player1);
   }

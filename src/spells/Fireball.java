@@ -6,8 +6,8 @@ public class Fireball extends Spell
   {
 	setName(this.getClass().getSimpleName());
 	setCastingTime(1);
-	setSpellEffect("An explosion of fire, with an areal effect.");
+	setSpellEffect("damage");
 	setDamageDie(6);
-	setDieCount(3);
+	setDieCount(4);
   }
 }

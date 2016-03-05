@@ -21,7 +21,7 @@ public class RPG_GAME
 	player1.addWeapon(new LongSword("Excalibur", 10, 1, 1));
 	player1.addArmor(new Plate());
 	player1.DebugChar();
-//	player1.DebugDMG(5);	
+	player1.DebugDMG(5);	
 // =============================================================================
 	PlayerCharacter player2 = new PlayerCharacter(
                                     "Gwen",
@@ -63,7 +63,7 @@ public class RPG_GAME
   System.out.println("= = = = = = = = = = = = = =");
 // =============================================================================
 //	System.out.println(Demos.firstFight(player1, player2));
-  System.out.println(Demos.secendFight(player1, player2));
+//  System.out.println(Demos.secendFight(player1, player2));
 //  System.out.println(Demos.secendFight(player4, player2));
 // =============================================================================
 //	Demos.alphaVersion(player1);

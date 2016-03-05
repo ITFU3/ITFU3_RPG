@@ -496,20 +496,30 @@ public class PlayerCharacter
   }
   public void DebugDMG(int Hit_X_Times)
   {
-	int[] cth = new int[2];
-	String output = "";
-	for(int i = 1; i <= Hit_X_Times; i++)
-	{
-	  cth = this.tryHit();
-	  output += "Attack " + i + ": ";
-	  if( (int) cth[1] >= (int) 10 ){
-		output += "Hits for " + this.doDamage() + " dmg "; 
-	  }else{
-		output += "Is a miss. ";
-	  }
-	  output += "(Rolled: " + cth + ")\n";
-	}
-	System.out.println(output + "= = = = = = = = = = = = = =\n");
+    String output = "";
+    int[] cTh = new int[2];
+    int dmg = 0;
+    for(int i = 1; i <= Hit_X_Times; i++)
+    {
+      cTh = this.tryHit();
+      output += "Attack " + i + ": " + this.getName() + " ";;
+      if(cTh[0] == 20 || cTh[1] >= this.getAC())
+      {
+        dmg = this.doDamage();
+        if(cTh[0] == 20)
+        {
+          dmg *= 2;
+          output += "*";
+        }
+      output += "hits with a " + cTh[1] 
+              + " for " + dmg + " damage.\n"; 
+      }
+      else
+      {
+        output += "misses with a " + cTh[1] + "\n";
+      }
+    }
+    System.out.println(output + "= = = = = = = = = = = = = =\n");
   }
   
 // ################# GETTER | SETTER #################

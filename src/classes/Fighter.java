@@ -1,12 +1,13 @@
-package races;
-public class Dwarf extends Race
+package classes;
+public class Fighter extends PlayerClass
 {
-  public Dwarf()
+  public Fighter()
   {
     this.setName(this.getClass().getSimpleName());
     int[] BonusStats = super.getStatsBonus();
+    BonusStats[0] += 2;
     BonusStats[2] += 2;
-    BonusStats[6] -= 2;
+    BonusStats[7] += 10;
     this.setStatsBonus(BonusStats);
   }
 }

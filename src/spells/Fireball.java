@@ -4,10 +4,10 @@ public class Fireball extends Spell
 {
   public Fireball()
   {
-	setName(this.getClass().getSimpleName());
-	setCastingTime(1);
-	setSpellEffect("damage");
-	setDamageDie(6);
-	setDieCount(4);
+    this.setName(this.getClass().getSimpleName());
+    this.setCastingTime(1);
+    this.setSpellEffect("damage");
+    this.setDamageDie(6);
+    this.setDieCount(4);
   }
 }

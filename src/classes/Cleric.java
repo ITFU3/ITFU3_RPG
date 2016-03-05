@@ -4,10 +4,11 @@ public class Cleric extends PlayerClass
 {
   public Cleric()
   {
-	setName(this.getClass().getSimpleName());
-	double[] BonusStats = super.getStatsBonus();
+	this.setName(this.getClass().getSimpleName());
+	int[] BonusStats = super.getStatsBonus();
 	BonusStats[3] += 2;
 	BonusStats[5] += 2;
-	setStatsBonus(BonusStats);
+  BonusStats[7] += 8;
+	this.setStatsBonus(BonusStats);
   }
 }

@@ -3,23 +3,23 @@ public class LongSword extends Weapon
 {
   public LongSword()
   {
-	setName("NoName");
-	setDamageDie(8);
-	setDieCount(1);
-	setDurability(100.0);
-	setType(this.getClass().getSimpleName());
-	setCat("melee");
-	setDistance(1.0);
+    this.setName("NoName");
+    this.setDamageDie(8);
+    this.setDieCount(1);
+    this.setDurability(100);
+    this.setType(this.getClass().getSimpleName());
+    this.setCat("melee");
+    this.setDistance(1);
   }
   
-  public LongSword(String name, int damageDie, int dieCount, double distance)
+  public LongSword(String name, int damageDie, int dieCount, int distance)
   {
-	setName(name);
-	setDamageDie(damageDie);
-	setDieCount(dieCount);
-	setDurability(100.0);
-	setType(this.getClass().getSimpleName());
-	setCat("melee");
-	setDistance(distance);
+    this.setName(name);
+    this.setDamageDie(damageDie);
+    this.setDieCount(dieCount);
+    this.setDurability(100);
+    this.setType(this.getClass().getSimpleName());
+    this.setCat("melee");
+    this.setDistance(distance);
   }
 }

@@ -6,25 +6,25 @@ public class Demos
 {
   public static String firstFight(PlayerCharacter p1, PlayerCharacter p2)
   {
-	double p1Health = p1.getHealth();
-	double p1ArmorValue = p1.getpArmor().getArmorValue();
+	int p1Health = p1.getHealth();
+	int p1ArmorValue = p1.getAC();
 	
-	double p2Health = p2.getHealth();
-	double p2ArmorValue = p2.getpArmor().getArmorValue();
+	int p2Health = p2.getHealth();
+	int p2ArmorValue = p2.getAC();
 	
 	String output = "";
-	double cTh = 0.0;
-	double dmg = 0.0;
+	int cTh = 0;
+	int dmg = 0;
 	
 	int i = 1;
-	while(p1Health > 0.0 || p2Health > 0.0)
+	while(p1Health > 0 || p2Health > 0)
 	{
 // =============================================================================
 	  cTh = p1.tryHit();
 	  output += "Round " + i + ": " + p1.getName() + " ";
 	  if(cTh >= p2ArmorValue){
 		dmg = p1.doDamage();
-		if(cTh == 20.0){dmg *= 2;}
+		if(cTh == 20){dmg *= 2;}
 		p2Health -= dmg;
 		output += "hits " + p2.getName() + " with a " + cTh 
 			  + " and does " + dmg + ". " 
@@ -33,7 +33,7 @@ public class Demos
 	  }else{
 		output += "misses with a " + cTh + "\n";
 	  }
-	  if(p2Health <= 0.0){
+	  if(p2Health <= 0){
 		output += p2.getName() + " is no more.\n";
 		output += p1.getName() + " has " + p1Health + " HP left.\n";
 		break;
@@ -43,7 +43,7 @@ public class Demos
 	  output += "Round " + i + ": " + p2.getName() + " ";
 	  if(cTh >= p1ArmorValue){
 		dmg = p2.doDamage();
-		if(cTh == 20.0){dmg *= 2;}
+		if(cTh == 20){dmg *= 2;}
 		p1Health -= dmg;
 		output += "hits " + p1.getName() + " with a " + cTh 
 				+ " and does " + dmg + ". " 
@@ -52,7 +52,7 @@ public class Demos
 	  }else{
 		output += "misses with a " + cTh + "\n";
 	  }
-	  if(p1Health <= 0.0){
+	  if(p1Health <= 0){
 		output += p1.getName() + " is no more.\n";
 		output += p2.getName() + " has " + p2Health + " HP left.\n";
 		break;
@@ -65,21 +65,21 @@ public class Demos
   
   public static String secendFight(PlayerCharacter p1, PlayerCharacter p2)
   {
-    double p1Health = p1.getHealth();
-    double p1ArmorValue = p1.getpArmor().getArmorValue();
+    int p1Health = p1.getHealth();
+    int p1ArmorValue = p1.getpArmor().getArmorValue();
 
-    double p2Health = p2.getHealth();
-    double p2ArmorValue = p2.getpArmor().getArmorValue();
+    int p2Health = p2.getHealth();
+    int p2ArmorValue = p2.getpArmor().getArmorValue();
 
     String output = "";
-    double cTh = 0.0;
-    double dmg = 0.0;
+    int cTh = 0;
+    int dmg = 0;
 
-    double tempheal = 0.0;
+    int tempheal = 0;
     
     int i = 1;
     
-  while(p1Health > 0.0 || p2Health > 0.0)
+  while(p1Health > 0 || p2Health > 0)
   {
     // =============================================================================
     cTh = p1.tryHit();
@@ -90,7 +90,7 @@ public class Demos
       }else{
         dmg = p1.doDamage();
       }
-      if(cTh == 20.0){dmg *= 2;}
+      if(cTh == 20){dmg *= 2;}
       p2Health -= dmg;
       output += "hits " + p2.getName() + " with a " + cTh 
         + " and does " + dmg + ". " 
@@ -109,7 +109,7 @@ public class Demos
         output += p1.getName() + " did self healing for " 
                 + tempheal + "\n";
     }
-    if(p2Health <= 0.0){
+    if(p2Health <= 0){
       output += p2.getName() + " is no more.\n";
       output += p1.getName() + " has " + p1Health + " HP left.\n";
       break;
@@ -123,7 +123,7 @@ public class Demos
       }else{
         dmg = p1.doDamage();
       }
-      if(cTh == 20.0){dmg *= 2;}
+      if(cTh == 20){dmg *= 2;}
       p1Health -= dmg;
       output += "hits " + p1.getName() + " with a " + cTh 
         + " and does " + dmg + ". " 
@@ -142,7 +142,7 @@ public class Demos
         output += "\t" + p2.getName() + " did self healing for " 
                 + tempheal + "\n";
     }
-    if(p1Health <= 0.0){
+    if(p1Health <= 0){
       output += p1.getName() + " is no more.\n";
       output += p2.getName() + " has " + p2Health + " HP left.\n";
       break;

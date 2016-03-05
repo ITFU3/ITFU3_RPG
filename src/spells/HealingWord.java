@@ -4,10 +4,10 @@ public class HealingWord extends Spell
 {
   public HealingWord()
   {
-    setName(this.getClass().getSimpleName());
-    setCastingTime(1);
-    setSpellEffect("heal");
-    setDamageDie(4);
-    setDieCount(2);
+    this.setName(this.getClass().getSimpleName());
+    this.setCastingTime(1);
+    this.setSpellEffect("heal");
+    this.setDamageDie(4);
+    this.setDieCount(2);
   }
 }  

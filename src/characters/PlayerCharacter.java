@@ -9,12 +9,12 @@ public class PlayerCharacter
 {
   private String name;
   private char gender;
-  private double experience;
+  private int experience;
   private PlayerClass pClass;
   private Race pRace;
   private Weapon pWeapon;
   private Armor pArmor;
-  private double[] basicStats = new double[8];
+  private int[] basicStats = new int[8];
 /*
  *	[0] strength
  *	[1] dexterity
@@ -28,70 +28,111 @@ public class PlayerCharacter
  *	[8] initiative => Fehlt auch noch
  */
   
-  public PlayerCharacter()
-  {
-	setName("PlayerCharacter");
-	setGender('m');
-	double[] defaultStats = {10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 50.0};
-	setBasicStats(defaultStats);
-  }
   public PlayerCharacter(String inputName, char inputGender, PlayerClass inputClass, Race inputRace)
   {
-	setName(inputName);
-	setGender(inputGender);
-	double[] defaultStats = {10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 50.0};
-	setBasicStats(defaultStats);
-	setpClass(inputClass);
-	setpRace(inputRace);
+    this.setName(inputName);
+    this.setGender(inputGender);
+    this.setpClass(inputClass);
+    this.setpRace(inputRace);
+    int[] inputStats = {10, 10, 10, 10, 10, 10, 10, 0};
+    this.setBasicStats(inputStats);
+    inputStats[0] += this.getpClass().getStatsBonus()[0] 
+                  + this.getpRace().getStatsBonus()[0];
+    inputStats[1] += this.getpClass().getStatsBonus()[1] 
+                  + this.getpRace().getStatsBonus()[1];
+    inputStats[2] += this.getpClass().getStatsBonus()[2] 
+                  + this.getpRace().getStatsBonus()[2];
+    inputStats[3] += this.getpClass().getStatsBonus()[3] 
+                  + this.getpRace().getStatsBonus()[3];
+    inputStats[4] += this.getpClass().getStatsBonus()[4] 
+                  + this.getpRace().getStatsBonus()[4];
+    inputStats[5] += this.getpClass().getStatsBonus()[5] 
+                  + this.getpRace().getStatsBonus()[5];
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    inputStats[6] += this.getpClass().getStatsBonus()[6] 
+                  + this.getpRace().getStatsBonus()[6];
+    inputStats[7] = this.getpClass().getStatsBonus()[7];
+    inputStats[7] += this.getModifier(this.getConstitution());
+    if(this.getpClass().getLevel() > 1){
+      for(int i = 2; i <= this.getpClass().getLevel(); i++){
+        inputStats[7] += main.Die.rollDie(this.getpClass().getHitDie(),1);
+      }
+    }
+    this.setBasicStats(inputStats);
   }
-  public PlayerCharacter(String inputName, char inputGender, double[] inputStats, PlayerClass inputClass, Race inputRace)
+  public PlayerCharacter(String inputName, char inputGender, int[] inputStats, PlayerClass inputClass, Race inputRace)
   {
-	setName(inputName);
-	setGender(inputGender);
-	setpClass(inputClass);
-	setpRace(inputRace);
-	setBasicStats(inputStats);
+    this.setName(inputName);
+    this.setGender(inputGender);
+    this.setpClass(inputClass);
+    this.setpRace(inputRace);
+    this.setBasicStats(inputStats);
+    inputStats[0] += this.getpClass().getStatsBonus()[0] 
+                  + this.getpRace().getStatsBonus()[0];
+    inputStats[1] += this.getpClass().getStatsBonus()[1] 
+                  + this.getpRace().getStatsBonus()[1];
+    inputStats[2] += this.getpClass().getStatsBonus()[2] 
+                  + this.getpRace().getStatsBonus()[2];
+    inputStats[3] += this.getpClass().getStatsBonus()[3] 
+                  + this.getpRace().getStatsBonus()[3];
+    inputStats[4] += this.getpClass().getStatsBonus()[4] 
+                  + this.getpRace().getStatsBonus()[4];
+    inputStats[5] += this.getpClass().getStatsBonus()[5] 
+                  + this.getpRace().getStatsBonus()[5];
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    inputStats[6] += this.getpClass().getStatsBonus()[6] 
+                  + this.getpRace().getStatsBonus()[6];
+    inputStats[7] = this.getpClass().getStatsBonus()[7];
+    inputStats[7] += this.getModifier(this.getConstitution());
+    if(this.getpClass().getLevel() > 1){
+      for(int i = 2; i <= this.getpClass().getLevel(); i++){
+        inputStats[7] += main.Die.rollDie(this.getpClass().getHitDie(),1);
+      }
+    }
+    this.setBasicStats(inputStats);
   }
   
   public void DebugChar()
   {
 	String output = "";
 	
-	output = "Playername: " + getName() + "\n"
-		  + "Racename: " + getpRace().getName() + "\n"
-		  + "Classname: " + getpClass().getName() + "\n"
-		  + "Gender: "+ getGender() + "\n"
-		  + "HP: " + getHealth() + "\n"
-		  + "Armor: " + getpArmor().getType() + " (" + getpArmor().getArmorValue() + ")\n"
-		  + "Mov: " + getMovement() + "\n"
+	output = "Playername: " + this.getName() + "\n"
+		  + "Racename: " + this.getpRace().getName() + "\n"
+		  + "Classname: " + this.getpClass().getName() + "\n"
+		  + "Gender: " + this.getGender() + "\n"
+      + "Level: " + this.getpClass().getLevel() + "\n"
+		  + "HP: " + this.getHealth() + "\n"
+		  + "Armor: " + this.getpArmor().getType() + " (" 
+                  + this.getAC() + ")\n"
+		  + "Mov: " + this.getMovement() + "\n"
 		  + "\n"
-		  + "Str: " + getStrength() + "\n"
-		  + "Dex: " + getDexterity() + "\n"
-		  + "Con: " + getConstitution() + "\n"
-		  + "Wis: " + getWisdom() + "\n"
-		  + "Int: " + getIntelegent() + "\n"
-		  + "Cha: " + getCharisma() + "\n"
+		  + "Str: " + this.getStrength() + " | " + this.getModifier(this.getStrength()) + "\n"
+		  + "Dex: " + this.getDexterity() + " | " + this.getModifier(this.getDexterity())+ "\n"
+		  + "Con: " + this.getConstitution() + " | " + this.getModifier(this.getConstitution())+ "\n"
+		  + "Wis: " + this.getWisdom() + " | " + this.getModifier(this.getWisdom())+ "\n"
+		  + "Int: " + this.getIntelegent() + " | " + this.getModifier(this.getIntelegent())+ "\n"
+		  + "Cha: " + this.getCharisma() + " | " + this.getModifier(this.getCharisma())+ "\n"
 		  + "\n"
-		  + "Weapon: " + getpWeapon().getType() + "\n"
-		  + "Weaponname: " + getpWeapon().getName() + "\n"
-		  + "DMG Die: " + getpWeapon().getDamageDie() + "\n"
-		  + "Die Count: " + getpWeapon().getDieCount() + "\n"
-		  + "Weapon Type: " + getpWeapon().getType() + "\n"
-		  + "Weapon Range: " + getpWeapon().getDistance() + "\n"
+		  + "Weapon: " + this.getpWeapon().getType() + "\n"
+		  + "Weaponname: " + this.getpWeapon().getName() + "\n"
+		  + "DMG Die: " + this.getpWeapon().getDamageDie() + "\n"
+		  + "Die Count: " + this.getpWeapon().getDieCount() + "\n"
+		  + "Weapon Type: " + this.getpWeapon().getType() + "\n"
+		  + "Weapon Range: " + this.getpWeapon().getDistance() + "\n"
 		  + "= = = = = = = = = = = = = =\n"
 		  ;
 	System.out.println(output);
   }
   public void DebugDMG(int Hit_X_Times)
   {
-	double cth = 0.0;
+	int cth = 0;
 	String output = "";
 	for(int i = 1; i <= Hit_X_Times; i++)
 	{
-	  cth = tryHit();
+	  cth = this.tryHit();
 	  output += "Attack " + i + ": ";
-	  if( (double) cth >= (double) 10.0 ){
-		output += "Hits for " + doDamage() + " dmg "; 
+	  if( (int) cth >= (int) 10 ){
+		output += "Hits for " + this.doDamage() + " dmg "; 
 	  }else{
 		output += "Is a miss. ";
 	  }
@@ -100,10 +141,10 @@ public class PlayerCharacter
 	System.out.println(output + "= = = = = = = = = = = = = =\n");
   }
   
-  public double tryHit()
+  public int tryHit()
   {
     // Stread D20 roll.
-    double output = main.Die.rollDie(20.0, 1.0);
+    int output = main.Die.rollDie(20, 1);
     switch(this.getpClass().getName())
     {
       case "wizzard":
@@ -118,18 +159,18 @@ public class PlayerCharacter
     return output;
   }
   
-  public double doDamage()
+  public int doDamage()
   {
-	double dmg = 0.0;
-	switch(getpWeapon().getCat())
+	int dmg = 0;
+	switch(this.getpWeapon().getCat())
 	{
 	  // do I have melee weapon?
 	  case "melee":
-		dmg = doMeleeDamage();
+		dmg = this.doMeleeDamage();
 		break;
 		// do I have range weapon?
 	  case "range":
-		dmg = doRangeDamage();
+		dmg = this.doRangeDamage();
 		break;
 	  case "spell":
 //		dmg
@@ -138,13 +179,13 @@ public class PlayerCharacter
 	return dmg;
   }
   
-  public double doMeleeDamage()
+  public int doMeleeDamage()
   {
-	double dmg = 0.0;
+	int dmg = 0;
 	// am I close enough to attack?
 	if(true)
 	{
-	  dmg = calcDamage();
+	  dmg = this.calcDamage();
 	}
 	else
 	{
@@ -153,13 +194,13 @@ public class PlayerCharacter
 	return dmg;
   }
   
-  public double doRangeDamage()
+  public int doRangeDamage()
   {
-	double dmg = 0.0;
+	int dmg = 0;
 	// am I distant enough to attack?
 	if(true)
 	{
-	  dmg = calcDamage();
+	  dmg = this.calcDamage();
 	}
 	else
 	{
@@ -168,28 +209,28 @@ public class PlayerCharacter
 	return dmg;
   }
 
-  private double calcDamage()
+  private int calcDamage()
   {
-	double dmg = main.Die.rollDie(
-                    getpWeapon().getDamageDie(),
-                    getpWeapon().getDieCount()
+	int dmg = main.Die.rollDie(
+                    this.getpWeapon().getDamageDie(),
+                    this.getpWeapon().getDieCount()
                   );
-	dmg += getModifier(getStrength());
+	dmg += this.getModifier(this.getStrength());
 	//TODO: add Proficiency Bonus If exist
 	return dmg;
   }
   
-  public double castSpell(String spellname)
+  public int castSpell(String spellname)
   {
-    double output = 0.0;
-    int spellBookSize = getpClass().getMyBook().getSpellBook().size();
+    int output = 0;
+    int spellBookSize = this.getpClass().getMyBook().getSpellBook().size();
     String tempName;
     for(int i = 0; i < spellBookSize; i++)
     {
-        tempName = getpClass().getMyBook().getSpellBook().get(i).getClass().getSimpleName();
+        tempName = this.getpClass().getMyBook().getSpellBook().get(i).getClass().getSimpleName();
         if(tempName.equalsIgnoreCase(spellname))
         {
-          Spell tempSpell = (Spell) getpClass().getMyBook().getSpellBook().get(i);
+          Spell tempSpell = (Spell) this.getpClass().getMyBook().getSpellBook().get(i);
           output = main.Die.rollDie(
                             tempSpell.getDamageDie(),
                             tempSpell.getDieCount()
@@ -199,71 +240,71 @@ public class PlayerCharacter
     return output;
   }
     
-  private double getModifier(double input){
-	double output = 0.0;
+  private int getModifier(int input){
+	int output = 0;
 	switch((int)input)
 	{
 	  case 1:
-		output = -5.0;
+		output = -5;
 		break;
 	  case 2:
 	  case 3:
-		output = -4.0;
+		output = -4;
 		break;
 	  case 4:
 	  case 5:
-		output = -3.0;
+		output = -3;
 		break;
 	  case 6:
 	  case 7:
-		output = -2.0;
+		output = -2;
 		break;
 	  case 8:
 	  case 9:
-		output = -1.0;
+		output = -1;
 		break;
 	  case 10:
 	  case 11:
-		output = 0.0;
+		output = 0;
 		break;
 	  case 12:
 	  case 13:
-		output = 1.0;
+		output = 1;
 		break;
 	  case 14:
 	  case 15:
-		output = 2.0;
+		output = 2;
 		break;
 	  case 16:
 	  case 17:
-		output = 3.0;
+		output = 3;
 		break;
 	  case 18:
 	  case 19:
-		output = 4.0;
+		output = 4;
 		break;
 	  case 20:
 	  case 21:
-		output = 5.0;
+		output = 5;
 		break;
 	  case 22:
 	  case 23:
-		output = 6.0;
+		output = 6;
 		break;
 	  case 24:
 	  case 25:
-		output = 7.0;
+		output = 7;
 		break;
 	  case 26:
 	  case 27:
-		output = 8.0;
+		output = 8;
 		break;
 	  case 28:
 	  case 29:
-		output = 9.0;
+		output = 9;
 		break;
 	  case 30:
-		output = 10.0;
+		output = 10;
 		break;
 	}
 	return output;
@@ -271,11 +312,11 @@ public class PlayerCharacter
   
   public void addWeapon(Weapon input)
   {
-	setpWeapon(input);
+	this.setpWeapon(input);
   }
   public void removeWeapon()
   {
-	setpWeapon(new Weapon());
+	this.setpWeapon(new Weapon());
   }
   public void addArmor(Armor input)
   {
@@ -295,12 +336,25 @@ public class PlayerCharacter
 		  input.getArmorValue() 
 		  + this.getModifier(this.getDexterity())
 		);
-	setpArmor(input);
+	this.setpArmor(input);
+  }
+  
+  public int getAC()
+  {
+    if(this.getpArmor().getCat().equalsIgnoreCase("heavy"))
+    {
+      return this.getpArmor().getArmorValue();
+    }
+    else
+    {
+      return (this.getpArmor().getArmorValue() 
+            + this.getModifier(this.getDexterity()));
+    }
   }
   
 // ################# GETTER | SETTER #################
-  public void setBasicStats(double[] input){
-	basicStats = input;
+  public void setBasicStats(int[] input){
+	this.basicStats = input;
   }
   public String getName() {
 	return name;
@@ -314,73 +368,58 @@ public class PlayerCharacter
   public void setGender(char gender) {
 	this.gender = gender;
   }
-  public double getStrength(){
-	return basicStats[0] 
-            + getpClass().getStatsBonus()[0] 
-            + getpRace().getStatsBonus()[0];
+  public int getStrength(){
+	return basicStats[0];
   }
-  public void setStrength(double input){
-	basicStats[0] = input;
+  public void setStrength(int input){
+	this.basicStats[0] = input;
   }
-  public double getDexterity(){
-	return basicStats[1] 
-            + getpClass().getStatsBonus()[1] 
-            + getpRace().getStatsBonus()[1];
+  public int getDexterity(){
+	return basicStats[1];
   }
-  public void setDexterity(double input){
-	basicStats[1] = input;
+  public void setDexterity(int input){
+	this.basicStats[1] = input;
   }
-  public double getConstitution(){
-	return basicStats[2] 
-            + getpClass().getStatsBonus()[2] 
-            + getpRace().getStatsBonus()[2];
+  public int getConstitution(){
+	return basicStats[2];
   }
-  public void setConstitution(double input){
-	basicStats[2] = input;
+  public void setConstitution(int input){
+	this.basicStats[2] = input;
   }
-  public double getWisdom(){
-	return basicStats[3] 
-            + getpClass().getStatsBonus()[3] 
-            + getpRace().getStatsBonus()[3];
+  public int getWisdom(){
+	return basicStats[3];
   }
-  public void setWisdom(double input){
-	basicStats[3] = input;
+  public void setWisdom(int input){
+	this.basicStats[3] = input;
   }
-  public double getIntelegent(){
-	return basicStats[4] 
-            + getpClass().getStatsBonus()[4] 
-            + getpRace().getStatsBonus()[4];
+  public int getIntelegent(){
+	return basicStats[4];
   }
-  public void setInteligent(double input){
-	basicStats[4] = input;
+  public void setInteligent(int input){
+	this.basicStats[4] = input;
   }
-  public double getCharisma(){
-	return basicStats[5] 
-            + getpClass().getStatsBonus()[5] 
-            + getpRace().getStatsBonus()[5];
+  public int getCharisma(){
+	return basicStats[5];
   }
-  public void setCharisma(double input){
-	basicStats[5] = input;
+  public void setCharisma(int input){
+	this.basicStats[5] = input;
   }
-  public double getMovement(){
-	return basicStats[6] 
-            + getpClass().getStatsBonus()[6] 
-            + getpRace().getStatsBonus()[6];
+  public int getMovement(){
+	return basicStats[6];
   }
-  public void setMovement(double input){
-	basicStats[6] = input;
+  public void setMovement(int input){
+	this.basicStats[6] = input;
   }
-  public double getHealth(){
-	return basicStats[7] 
-            + getModifier(getConstitution());
+  public int getHealth(){
+	return basicStats[7];
   }
-  public void setHealth(double input){
-	basicStats[7] = input;
+  public void setHealth(int input){
+	this.basicStats[7] = input;
   }
-  public double getExperience() {
+  public int getExperience() {
 	return experience;
   }
-  public void setExperience(double experience) {
+  public void setExperience(int experience) {
 	this.experience = experience;
   }
   public PlayerClass getpClass() {

@@ -4,15 +4,16 @@ public class Cloth extends Armor
 {
   public Cloth()
   {
-	setName(this.getClass().getSimpleName());
-	setType(this.getClass().getSimpleName());
-	setArmorValue(12.0);
+    this.setName(this.getClass().getSimpleName());
+    this.setType(this.getClass().getSimpleName());
+    this.setArmorValue(10);
+    this.setCat("light");
   }
   
-  public Cloth(String inputName, double inputArmorValue)
+  public Cloth(String inputName, int inputArmorValue)
   {
-	setName(inputName);
-	setType(this.getClass().getSimpleName());
-	setArmorValue(inputArmorValue);
+    this.setName(inputName);
+    this.setType(this.getClass().getSimpleName());
+    this.setArmorValue(inputArmorValue);
   }
 }

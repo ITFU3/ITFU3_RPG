@@ -4,23 +4,23 @@ public class ShortBow extends Weapon
 {
   public ShortBow()
   {
-	setName("NoName");
-	setDamageDie(8);
-	setDieCount(1);
-	setDurability(100.0);
-	setType(this.getClass().getSimpleName());
-	setCat("range");
-	setDistance(10.0);
+    this.setName("NoName");
+    this.setDamageDie(8);
+    this.setDieCount(1);
+    this.setDurability(100);
+    this.setType(this.getClass().getSimpleName());
+    this.setCat("range");
+    this.setDistance(10);
   }
   
-  public ShortBow(String name, int damageDie, int dieCount, double distance)
+  public ShortBow(String name, int damageDie, int dieCount, int distance)
   {
-	setName(name);
-	setDamageDie(damageDie);
-	setDieCount(dieCount);
-	setDurability(100.0);
-	setType(this.getClass().getSimpleName());
-	setCat("range");
-	setDistance(distance);
+    this.setName(name);
+    this.setDamageDie(damageDie);
+    this.setDieCount(dieCount);
+    this.setDurability(100);
+    this.setType(this.getClass().getSimpleName());
+    this.setCat("range");
+    this.setDistance(distance);
   }
 }

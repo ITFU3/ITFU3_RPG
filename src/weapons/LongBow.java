@@ -4,23 +4,23 @@ public class LongBow extends Weapon
 {
   public LongBow()
   {
-	setName("NoName");
-	setDamageDie(10);
-	setDieCount(1);
-	setDurability(100.0);
-	setType(this.getClass().getSimpleName());
-	setCat("range");
-	setDistance(15.0);
+    this.setName("NoName");
+    this.setDamageDie(10);
+    this.setDieCount(1);
+    this.setDurability(100);
+    this.setType(this.getClass().getSimpleName());
+    this.setCat("range");
+    this.setDistance(15);
   }
   
-  public LongBow(String name, int damageDie, int dieCount, double distance)
+  public LongBow(String name, int damageDie, int dieCount, int distance)
   {
-	setName(name);
-	setDamageDie(damageDie);
-	setDieCount(dieCount);
-	setDurability(100.0);
-	setType(this.getClass().getSimpleName());
-	setCat("range");
-	setDistance(distance);
+    this.setName(name);
+    this.setDamageDie(damageDie);
+    this.setDieCount(dieCount);
+    this.setDurability(100);
+    this.setType(this.getClass().getSimpleName());
+    this.setCat("range");
+    this.setDistance(distance);
   }
 }

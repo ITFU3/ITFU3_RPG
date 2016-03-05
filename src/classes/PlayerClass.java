@@ -8,6 +8,7 @@ public class PlayerClass
   private SpellBook myBook;
   private int level;
   private int hitDie;
+  private String[] proficiencies;
   // [0] strength
   // [1] dexterity
   // [2] Constitution
@@ -67,5 +68,11 @@ public class PlayerClass
   }
   public void setHitDie(int hitDie) {
     this.hitDie = hitDie;
+  }
+  public String[] getProficiencies() {
+    return proficiencies;
+  }
+  public void setProficiencies(String[] proficiencies) {
+    this.proficiencies = proficiencies;
   }
 }

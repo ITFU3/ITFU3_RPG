@@ -11,5 +11,8 @@ public class Ranger extends PlayerClass
     BonusStats[6] += 2;
     BonusStats[7] += 10;
     this.setStatsBonus(BonusStats);
+    String[] profs = {"light armor","medium armor","shields", 
+      "simple weapons","martial weapons","strength","dexterity"};
+    this.setProficiencies(profs);
   }
 }

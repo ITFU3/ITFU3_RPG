@@ -13,7 +13,7 @@ public class Demos
 	int p2ArmorValue = p2.getAC();
 	
 	String output = "";
-	int cTh = 0;
+	int[] cTh = new int[2];
 	int dmg = 0;
 	
 	int i = 1;
@@ -22,16 +22,20 @@ public class Demos
 // =============================================================================
 	  cTh = p1.tryHit();
 	  output += "Round " + i + ": " + p1.getName() + " ";
-	  if(cTh >= p2ArmorValue){
+	  if(cTh[0] == 20 || cTh[1] >= p2ArmorValue){
 		dmg = p1.doDamage();
-		if(cTh == 20){dmg *= 2;}
+    if(cTh[0] == 20)
+    {
+      dmg *= 2;
+      output += "*";
+    }
 		p2Health -= dmg;
-		output += "hits " + p2.getName() + " with a " + cTh 
-			  + " and does " + dmg + ". " 
+		output += "hits " + p2.getName() + " with a " + cTh[1] 
+			  + " and does " + dmg + " damage. " 
 			  + p2.getName() + " has " + p2Health + "/" + p2.getHealth()
 			  + " HP left.\n";
 	  }else{
-		output += "misses with a " + cTh + "\n";
+		output += "misses with a " + cTh[1] + "\n";
 	  }
 	  if(p2Health <= 0){
 		output += p2.getName() + " is no more.\n";
@@ -41,16 +45,20 @@ public class Demos
 // =============================================================================
 	  cTh = p2.tryHit();
 	  output += "Round " + i + ": " + p2.getName() + " ";
-	  if(cTh >= p1ArmorValue){
+	  if(cTh[0] == 20 || cTh[1] >= p1ArmorValue){
 		dmg = p2.doDamage();
-		if(cTh == 20){dmg *= 2;}
+    if(cTh[0] == 20)
+    {
+      dmg *= 2;
+      output += "*";
+    }
 		p1Health -= dmg;
-		output += "hits " + p1.getName() + " with a " + cTh 
-				+ " and does " + dmg + ". " 
+		output += "hits " + p1.getName() + " with a " + cTh[1] 
+				+ " and does " + dmg + " damage. " 
 				+ p1.getName() + " has " + p1Health + "/" + p1.getHealth() 
 				+ " HP left.\n";
 	  }else{
-		output += "misses with a " + cTh + "\n";
+		output += "misses with a " + cTh[1] + "\n";
 	  }
 	  if(p1Health <= 0){
 		output += p1.getName() + " is no more.\n";
@@ -72,7 +80,7 @@ public class Demos
     int p2ArmorValue = p2.getpArmor().getArmorValue();
 
     String output = "";
-    int cTh = 0;
+    int[] cTh = new int[2];
     int dmg = 0;
 
     int tempheal = 0;
@@ -84,20 +92,24 @@ public class Demos
     // =============================================================================
     cTh = p1.tryHit();
     output += "Round " + i + ": " + p1.getName() + " ";
-    if(cTh >= p2ArmorValue){
+    if(cTh[0] == 20 || cTh[1] >= p2ArmorValue){
       if(p1.getpClass().getName().equalsIgnoreCase("wizzard")){
         dmg = p1.castSpell("fireball");
       }else{
         dmg = p1.doDamage();
       }
-      if(cTh == 20){dmg *= 2;}
+      if(cTh[0] == 20)
+      {
+        dmg *= 2;
+        output += "*";
+      }
       p2Health -= dmg;
-      output += "hits " + p2.getName() + " with a " + cTh 
-        + " and does " + dmg + ". " 
+      output += "hits " + p2.getName() + " with a " + cTh[1] 
+        + " and does " + dmg + " damage. " 
         + p2.getName() + " has " + p2Health + "/" + p2.getHealth()
         + " HP left.\n";
     }else{
-      output += "misses with a " + cTh + "\n";
+      output += "misses with a " + cTh[1] + "\n";
     }
     if(p1.getpClass().getName().equalsIgnoreCase("cleric") && (p1Health < p1.getHealth()))
     {
@@ -117,20 +129,24 @@ public class Demos
     // =============================================================================
     cTh = p2.tryHit();
     output += "Round " + i + ": " + p2.getName() + " ";
-    if(cTh >= p1ArmorValue){
+    if(cTh[0] == 20 || cTh[1] >= p1ArmorValue){
       if(p1.getpClass().getName().equalsIgnoreCase("wizzard")){
         dmg = p1.castSpell("fireball");
       }else{
         dmg = p1.doDamage();
       }
-      if(cTh == 20){dmg *= 2;}
+      if(cTh[0] == 20)
+      {
+        dmg *= 2;
+        output += "*";
+      }
       p1Health -= dmg;
-      output += "hits " + p1.getName() + " with a " + cTh 
-        + " and does " + dmg + ". " 
+      output += "hits " + p1.getName() + " with a " + cTh[1] 
+        + " and does " + dmg + " damage. " 
         + p1.getName() + " has " + p1Health + "/" + p1.getHealth() 
         + " HP left.\n";
     }else{
-      output += "misses with a " + cTh + "\n";
+      output += "misses with a " + cTh[1] + "\n";
     }
     if(p2.getpClass().getName().equalsIgnoreCase("cleric") && (p2Health < p2.getHealth()))
     {

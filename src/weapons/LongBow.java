@@ -11,6 +11,7 @@ public class LongBow extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat("range");
     this.setDistance(15);
+    this.setWeaponGroup("martial weapons");
   }
   
   public LongBow(String name, int damageDie, int dieCount, int distance)
@@ -22,5 +23,6 @@ public class LongBow extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat("range");
     this.setDistance(distance);
+    this.setWeaponGroup("martial weapons");
   }
 }

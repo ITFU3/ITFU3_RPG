@@ -10,6 +10,7 @@ public class Mace extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat("melee");
     this.setDistance(1);
+    this.setWeaponGroup("simple weapons");
   }
   
   public Mace(String name, int damageDie, int dieCount, int distance)
@@ -21,5 +22,6 @@ public class Mace extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat("melee");
     this.setDistance(distance);
+    this.setWeaponGroup("simple weapons");
   }
 }

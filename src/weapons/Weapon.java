@@ -9,6 +9,7 @@ public class Weapon
   private String type;
   private String cat;
   private int distance;
+  private String weaponGroup;
   
   public Weapon()
   {
@@ -19,6 +20,7 @@ public class Weapon
     this.setType("Hand");
     this.setCat("melee");
     this.setDistance(1);
+    this.setWeaponGroup("none");
   }
   
   public Weapon(Object[] input)
@@ -30,6 +32,7 @@ public class Weapon
     this.setType((String) input[4]);
     this.setCat((String) input[5]);
     this.setDistance((int) input[6]);
+    this.setWeaponGroup((String) input[7]);
   }
 
   // ######### Getter / Setter #########
@@ -74,5 +77,11 @@ public class Weapon
   }
   public void setDistance(int distance) {
     this.distance = distance;
+  }
+  public String getWeaponGroup() {
+    return weaponGroup;
+  }
+  public void setWeaponGroup(String weaponGroup) {
+    this.weaponGroup = weaponGroup;
   }
 }

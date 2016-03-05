@@ -13,6 +13,10 @@ public class Wizzard extends PlayerClass
     BonusStats[7] += 6;
     this.setStatsBonus(BonusStats);
     this.setNewBook();
+    String[] profs = {"dagger","quaterstaff",
+      "darts","sling","light crossbow",
+      "intelligence","wisdom"};
+    this.setProficiencies(profs);
   }
 
     public void setNewBook(){

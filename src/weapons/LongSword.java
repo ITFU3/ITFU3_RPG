@@ -10,6 +10,7 @@ public class LongSword extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat("melee");
     this.setDistance(1);
+    this.setWeaponGroup("martial weapons");
   }
   
   public LongSword(String name, int damageDie, int dieCount, int distance)
@@ -21,5 +22,6 @@ public class LongSword extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat("melee");
     this.setDistance(distance);
+    this.setWeaponGroup("martial weapons");
   }
 }

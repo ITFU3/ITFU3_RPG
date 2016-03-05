@@ -63,6 +63,7 @@ public class RPG_GAME
   System.out.println("= = = = = = = = = = = = = =");
 // =============================================================================
 //	System.out.println(Demos.firstFight(player1, player2));
+  System.out.println(Demos.secendFight(player1, player2));
 //  System.out.println(Demos.secendFight(player4, player2));
 // =============================================================================
 //	Demos.alphaVersion(player1);

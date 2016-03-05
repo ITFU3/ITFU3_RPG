@@ -24,10 +24,8 @@ public class PlayerCharacter
  *	[5] charisma
  *	[6] movement
  *	[7] health (calculated)
- *	---
- *	[8] initiative => Fehlt auch noch
  */
-  
+// ################# CONSTRUCTOR #################
   public PlayerCharacter(String inputName, char inputGender, PlayerClass inputClass, Race inputRace)
   {
     this.setName(inputName);
@@ -59,6 +57,7 @@ public class PlayerCharacter
       }
     }
     this.setBasicStats(inputStats);
+    this.setExperience(0);
   }
   public PlayerCharacter(String inputName, char inputGender, int[] inputStats, PlayerClass inputClass, Race inputRace)
   {
@@ -90,8 +89,380 @@ public class PlayerCharacter
       }
     }
     this.setBasicStats(inputStats);
+    this.setExperience(0);
   }
   
+// ################# EQUIPMENT #################
+  public void addWeapon(Weapon input)
+  {
+    this.setpWeapon(input);
+  }
+  public void removeWeapon()
+  {
+    this.setpWeapon(new Weapon());
+  }
+  public void addArmor(Armor input)
+  {
+    if(input.getType().equalsIgnoreCase("None"))
+    {
+      input.setArmorValue(
+                      input.getArmorValue() 
+                      + this.getModifier(this.getDexterity())
+                    );
+    }
+    setpArmor(input);
+  }
+  public void removeArmor()
+  {
+    Armor input = new Armor();
+    input.setArmorValue(
+        input.getArmorValue() 
+        + this.getModifier(this.getDexterity())
+      );
+    this.setpArmor(input);
+  }
+  
+// ################# CALCULATIONS #################
+  private int getModifier(int ability)
+  {
+	int output = -5;
+	switch(ability)
+	{
+	  case 1:
+      output = -5;
+      break;
+	  case 2:
+	  case 3:
+      output = -4;
+      break;
+	  case 4:
+	  case 5:
+      output = -3;
+      break;
+	  case 6:
+	  case 7:
+      output = -2;
+      break;
+	  case 8:
+	  case 9:
+      output = -1;
+      break;
+	  case 10:
+	  case 11:
+      output = 0;
+      break;
+	  case 12:
+	  case 13:
+      output = 1;
+      break;
+	  case 14:
+	  case 15:
+      output = 2;
+      break;
+	  case 16:
+	  case 17:
+      output = 3;
+      break;
+	  case 18:
+	  case 19:
+      output = 4;
+      break;
+	  case 20:
+	  case 21:
+      output = 5;
+      break;
+	  case 22:
+	  case 23:
+      output = 6;
+      break;
+	  case 24:
+	  case 25:
+      output = 7;
+      break;
+	  case 26:
+	  case 27:
+      output = 8;
+      break;
+	  case 28:
+	  case 29:
+      output = 9;
+      break;
+	  case 30:
+      output = 10;
+      break;
+	}
+	return output;
+  }
+  public int getAC()
+  {
+    if(this.getpArmor().getCat().equalsIgnoreCase("heavy"))
+    {
+      return this.getpArmor().getArmorValue();
+    }
+    else
+    {
+      return (this.getpArmor().getArmorValue() 
+            + this.getModifier(this.getDexterity()));
+    }
+  }
+  public int getInitiativeBonus()
+  {
+    return this.getModifier(this.getDexterity());
+  }
+  public int getPassivPerception()
+  {
+    return (10 + this.getWisdom());
+  }
+  public int getActivPerception()
+  {
+    return (main.Die.rollDie_recursively(20, 1) + this.getModifier(this.getWisdom()));
+  }
+  private boolean isProfThere(String inputType)
+  {
+    boolean output = false;
+    for(String proficiency : this.getpClass().getProficiencies())
+    {
+      if(proficiency.equalsIgnoreCase(inputType))
+      {
+        output = true;
+      }
+    }
+    return output;
+  }
+  private int getProficiencyOrLevel(char fork)
+  {
+    int xp = this.getExperience();
+    int output = 0;
+    if(xp >= 0){
+      if(fork == 'l'){
+        output = 1;
+      }else if(fork == 'p'){
+        output = 2;
+      }
+    }else if(xp >= 300){
+      if(fork == 'l')
+      {
+        output = 2;
+      }
+      else if(fork == 'p')
+      {
+        output = 2;
+      }
+    }else if(xp >= 900){
+      if(fork == 'l'){
+        output = 3;
+      }else if(fork == 'p'){
+        output = 2;
+      }
+    }else if(xp >= 2700){
+     if(fork == 'l'){
+        output = 4;
+      }else if(fork == 'p'){
+        output = 2;
+      }
+    }else if(xp >= 6500){
+      if(fork == 'l'){
+        output = 5;
+      }else if(fork == 'p'){
+        output = 3;
+      }
+    }else if(xp >= 14000){
+      if(fork == 'l'){
+        output = 6;
+      }else if(fork == 'p'){
+        output = 3;
+      }
+    }else if(xp >= 23000){
+      if(fork == 'l'){
+        output = 7;
+      }else if(fork == 'p'){
+        output = 3;
+      }
+    }else if(xp >= 34000){
+      if(fork == 'l'){
+        output = 8;
+      }else if(fork == 'p'){
+        output = 3;
+      }
+    }else if(xp >= 48000){
+      if(fork == 'l'){
+        output = 9;
+      }else if(fork == 'p'){
+        output = 4;
+      }
+    }else if(xp >= 64000){
+      if(fork == 'l'){
+        output = 10;
+      }else if(fork == 'p'){
+        output = 4;
+      }
+    }else if(xp >= 85000){
+      if(fork == 'l'){
+        output = 11;
+      }else if(fork == 'p'){
+        output = 4;
+      }
+    }else if(xp >= 100000){
+      if(fork == 'l'){
+        output = 12;
+      }else if(fork == 'p'){
+        output = 4;
+      }
+    }else if(xp >= 120000){
+      if(fork == 'l'){
+        output = 13;
+      }else if(fork == 'p'){
+        output = 5;
+      }
+    }else if(xp >= 140000){
+      if(fork == 'l'){
+        output = 14;
+      }else if(fork == 'p'){
+        output = 5;
+      }
+    }else if(xp >= 165000){
+      if(fork == 'l'){
+        output = 15;
+      }else if(fork == 'p'){
+        output = 5;
+      }
+    }else if(xp >= 195000){
+      if(fork == 'l'){
+        output = 16;
+      }else if(fork == 'p'){
+        output = 5;
+      }
+    }else if(xp >= 225000){
+      if(fork == 'l'){
+        output = 17;
+      }else if(fork == 'p'){
+        output = 6;
+      }
+    }else if(xp >= 265000){
+      if(fork == 'l'){
+        output = 18;
+      }else if(fork == 'p'){
+        output = 6;
+      }
+    }else if(xp >= 305000){
+      if(fork == 'l'){
+        output = 19;
+      }else if(fork == 'p'){
+        output = 6;
+      }
+    }else if(xp >= 355000){
+      if(fork == 'l'){
+        output = 20;
+      }else if(fork == 'p'){
+        output = 6;
+      }
+    }
+    return output;
+  }
+  
+// ################# COMBAT #################
+  public int[] tryHit()
+  {
+    // Stread D20 roll.
+    int[] output = new int[2];
+    output[0] = main.Die.rollDie(20, 1);
+    output[1] = output[0];
+    switch(this.getpClass().getName())
+    {
+      case "wizzard":
+        output[1] += this.getModifier(this.getIntelegent());
+        break;
+      case "ranger":
+        output[1] += this.getModifier(this.getDexterity());
+        break;
+      default:
+        output[1] += this.getModifier(this.getStrength());
+    }
+    
+    if(this.isProfThere(this.getpWeapon().getWeaponGroup())
+    || this.isProfThere(this.getpWeapon().getType()))
+    {
+    output[1] += this.getProficiencyOrLevel('p');
+    }
+    return output;
+  }
+  
+  private int calcDamage()
+  {
+    int dmg = main.Die.rollDie(
+                      this.getpWeapon().getDamageDie(),
+                      this.getpWeapon().getDieCount()
+                    );
+    dmg += this.getModifier(this.getStrength());
+    return dmg;
+  }
+  public int doDamage()
+  {
+    int dmg = 0;
+    switch(this.getpWeapon().getCat())
+    {
+      case "melee":
+      dmg = this.doMeleeDamage();
+      break;
+      case "range":
+      dmg = this.doRangeDamage();
+      break;
+      case "spell":
+//		dmg
+      break;
+    }
+    return dmg;
+  }
+  public int doMeleeDamage()
+  {
+	int dmg = 0;
+	// am I close enough to attack?
+	if(true)
+	{
+	  dmg = this.calcDamage();
+	}
+	else
+	{
+	  // move closer.
+	}
+	return dmg;
+  }
+  public int doRangeDamage()
+  {
+	int dmg = 0;
+	// am I distant enough to attack?
+	if(true)
+	{
+	  dmg = this.calcDamage();
+	}
+	else
+	{
+	  // move away.
+	}
+	return dmg;
+  }
+  
+  public int castSpell(String spellname)
+  {
+    int output = 0;
+    int spellBookSize = this.getpClass().getMyBook().getSpellBook().size();
+    String tempName;
+    for(int i = 0; i < spellBookSize; i++)
+    {
+      tempName = this.getpClass().getMyBook().getSpellBook().get(i).getClass().getSimpleName();
+      if(tempName.equalsIgnoreCase(spellname))
+      {
+        Spell tempSpell = (Spell) this.getpClass().getMyBook().getSpellBook().get(i);
+        output = main.Die.rollDie(
+                  tempSpell.getDamageDie(),
+                  tempSpell.getDieCount()
+                );
+      }
+    }
+    return output;
+  }
+  
+// ################# DEBUG OUTPUT #################
   public void DebugChar()
   {
 	String output = "";
@@ -125,13 +496,13 @@ public class PlayerCharacter
   }
   public void DebugDMG(int Hit_X_Times)
   {
-	int cth = 0;
+	int[] cth = new int[2];
 	String output = "";
 	for(int i = 1; i <= Hit_X_Times; i++)
 	{
 	  cth = this.tryHit();
 	  output += "Attack " + i + ": ";
-	  if( (int) cth >= (int) 10 ){
+	  if( (int) cth[1] >= (int) 10 ){
 		output += "Hits for " + this.doDamage() + " dmg "; 
 	  }else{
 		output += "Is a miss. ";
@@ -139,217 +510,6 @@ public class PlayerCharacter
 	  output += "(Rolled: " + cth + ")\n";
 	}
 	System.out.println(output + "= = = = = = = = = = = = = =\n");
-  }
-  
-  public int tryHit()
-  {
-    // Stread D20 roll.
-    int output = main.Die.rollDie(20, 1);
-    switch(this.getpClass().getName())
-    {
-      case "wizzard":
-        output += this.getModifier(this.getIntelegent());
-        break;
-      case "ranger":
-        output += this.getModifier(this.getDexterity());
-        break;
-      default:
-        output += this.getModifier(this.getStrength());
-    }
-    return output;
-  }
-  
-  public int doDamage()
-  {
-	int dmg = 0;
-	switch(this.getpWeapon().getCat())
-	{
-	  // do I have melee weapon?
-	  case "melee":
-		dmg = this.doMeleeDamage();
-		break;
-		// do I have range weapon?
-	  case "range":
-		dmg = this.doRangeDamage();
-		break;
-	  case "spell":
-//		dmg
-		break;
-	}
-	return dmg;
-  }
-  
-  public int doMeleeDamage()
-  {
-	int dmg = 0;
-	// am I close enough to attack?
-	if(true)
-	{
-	  dmg = this.calcDamage();
-	}
-	else
-	{
-	  // move closer.
-	}
-	return dmg;
-  }
-  
-  public int doRangeDamage()
-  {
-	int dmg = 0;
-	// am I distant enough to attack?
-	if(true)
-	{
-	  dmg = this.calcDamage();
-	}
-	else
-	{
-	  // move away.
-	}
-	return dmg;
-  }
-
-  private int calcDamage()
-  {
-	int dmg = main.Die.rollDie(
-                    this.getpWeapon().getDamageDie(),
-                    this.getpWeapon().getDieCount()
-                  );
-	dmg += this.getModifier(this.getStrength());
-	//TODO: add Proficiency Bonus If exist
-	return dmg;
-  }
-  
-  public int castSpell(String spellname)
-  {
-    int output = 0;
-    int spellBookSize = this.getpClass().getMyBook().getSpellBook().size();
-    String tempName;
-    for(int i = 0; i < spellBookSize; i++)
-    {
-        tempName = this.getpClass().getMyBook().getSpellBook().get(i).getClass().getSimpleName();
-        if(tempName.equalsIgnoreCase(spellname))
-        {
-          Spell tempSpell = (Spell) this.getpClass().getMyBook().getSpellBook().get(i);
-          output = main.Die.rollDie(
-                            tempSpell.getDamageDie(),
-                            tempSpell.getDieCount()
-                          );
-        }
-    }
-    return output;
-  }
-    
-  private int getModifier(int input){
-	int output = 0;
-	switch((int)input)
-	{
-	  case 1:
-		output = -5;
-		break;
-	  case 2:
-	  case 3:
-		output = -4;
-		break;
-	  case 4:
-	  case 5:
-		output = -3;
-		break;
-	  case 6:
-	  case 7:
-		output = -2;
-		break;
-	  case 8:
-	  case 9:
-		output = -1;
-		break;
-	  case 10:
-	  case 11:
-		output = 0;
-		break;
-	  case 12:
-	  case 13:
-		output = 1;
-		break;
-	  case 14:
-	  case 15:
-		output = 2;
-		break;
-	  case 16:
-	  case 17:
-		output = 3;
-		break;
-	  case 18:
-	  case 19:
-		output = 4;
-		break;
-	  case 20:
-	  case 21:
-		output = 5;
-		break;
-	  case 22:
-	  case 23:
-		output = 6;
-		break;
-	  case 24:
-	  case 25:
-		output = 7;
-		break;
-	  case 26:
-	  case 27:
-		output = 8;
-		break;
-	  case 28:
-	  case 29:
-		output = 9;
-		break;
-	  case 30:
-		output = 10;
-		break;
-	}
-	return output;
-  }
-  
-  public void addWeapon(Weapon input)
-  {
-	this.setpWeapon(input);
-  }
-  public void removeWeapon()
-  {
-	this.setpWeapon(new Weapon());
-  }
-  public void addArmor(Armor input)
-  {
-	if(input.getType().equalsIgnoreCase("None"))
-	{
-	  input.setArmorValue(
-                    input.getArmorValue() 
-                    + this.getModifier(this.getDexterity())
-                  );
-	}
-	setpArmor(input);
-  }
-  public void removeArmor()
-  {
-	Armor input = new Armor();
-	input.setArmorValue(
-		  input.getArmorValue() 
-		  + this.getModifier(this.getDexterity())
-		);
-	this.setpArmor(input);
-  }
-  
-  public int getAC()
-  {
-    if(this.getpArmor().getCat().equalsIgnoreCase("heavy"))
-    {
-      return this.getpArmor().getArmorValue();
-    }
-    else
-    {
-      return (this.getpArmor().getArmorValue() 
-            + this.getModifier(this.getDexterity()));
-    }
   }
   
 // ################# GETTER | SETTER #################

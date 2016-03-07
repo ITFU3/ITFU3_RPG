@@ -3,10 +3,10 @@ public class Dwarf extends Race
 {
   public Dwarf()
   {
-	setName(this.getClass().getSimpleName());
-	double[] BonusStats = super.getStatsBonus();
+    this.setName(this.getClass().getSimpleName());
+    int[] BonusStats = super.getStatsBonus();
     BonusStats[2] += 2;
     BonusStats[6] -= 2;
-	setStatsBonus(BonusStats);
+    this.setStatsBonus(BonusStats);
   }
 }

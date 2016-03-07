@@ -3,76 +3,85 @@ package weapons;
 public class Weapon
 {
   private String name;
-  private double damageDie;
-  private double durability;
-  private double dieCount;
+  private int damageDie;
+  private int durability;
+  private int dieCount;
   private String type;
   private String cat;
+  private int distance;
+  private String weaponGroup;
   
   public Weapon()
   {
-	name = "Fist";
-	damageDie = 4.0;
-	durability = 100.0;
-	dieCount = 2.0;
-	type = "Hand";
-	cat = "melee";
+    this.setName("Fist");
+    this.setDamageDie(4);
+    this.setDurability(100);
+    this.setDieCount(2);
+    this.setType("Hand");
+    this.setCat("melee");
+    this.setDistance(1);
+    this.setWeaponGroup("none");
   }
   
-  public Weapon(LongSword input)
+  public Weapon(Object[] input)
   {
-	this.name = input.getName();
-	this.damageDie = input.getDamageDie();
-	this.durability = input.getDurability();
-	this.dieCount = input.getDieCount();
-	this.type = input.getType();
-	this.cat = input.getCat();
-  }
-  
-  public Weapon(Mace input)
-  {
-	this.name = input.getName();
-	this.damageDie = input.getDamageDie();
-	this.durability = input.getDurability();
-	this.dieCount = input.getDieCount();
-	this.type = input.getType();
-	this.cat = input.getCat();
+    this.setName((String)input[0]);
+    this.setDamageDie((int) input[1]);
+    this.setDurability((int) input[2]);
+    this.setDieCount((int)input[3]);
+    this.setType((String) input[4]);
+    this.setCat((String) input[5]);
+    this.setDistance((int) input[6]);
+    this.setWeaponGroup((String) input[7]);
   }
 
+  // ######### Getter / Setter #########
   public String getName() {
-	return name;
+    return name;
   }
   public void setName(String name) {
-	this.name = name;
+    this.name = name;
   }
-  public double getDamageDie() {
-	return damageDie;
+  public int getDamageDie() {
+    return damageDie;
   }
-  public void setDamageDie(double damageDie) {
-	this.damageDie = damageDie;
+  public void setDamageDie(int damageDie) {
+  	this.damageDie = damageDie;
   }
-  public double getDurability() {
-	return durability;
+  public int getDurability() {
+  	return durability;
   }
-  public void setDurability(double durability) {
-	this.durability = durability;
+  public void setDurability(int durability) {
+    this.durability = durability;
   }
-  public double getDieCount() {
-	return dieCount;
+  public int getDieCount() {
+    return dieCount;
   }
-  public void setDieCount(double dieCount) {
-	this.dieCount = dieCount;
+  public void setDieCount(int dieCount) {
+  	this.dieCount = dieCount;
   }
   public String getType() {
-	return type;
+  	return type;
   }
   public void setType(String type) {
-	this.type = type;
+    this.type = type;
   }
   public String getCat() {
-	return cat;
+  	return cat;
   }
   public void setCat(String cat) {
-	this.cat = cat;
+    this.cat = cat;
+  }
+  public int getDistance() {
+    return distance;
+  }
+  public void setDistance(int distance) {
+    this.distance = distance;
+  }
+  public String getWeaponGroup() {
+    return weaponGroup;
+  }
+  public void setWeaponGroup(String weaponGroup) {
+    this.weaponGroup = weaponGroup;
   }
 }

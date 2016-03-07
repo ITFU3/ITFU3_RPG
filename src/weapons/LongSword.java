@@ -1,30 +1,27 @@
 package weapons;
 public class LongSword extends Weapon
 {
-  private String name;
-  private double damageDie;
-  private double durability;
-  private double dieCount;
-  private String type;
-  private String cat;
-  
   public LongSword()
   {
-	this.name = "NoName";
-	this.damageDie = 8.0;
-	this.dieCount = 1.0;
-	this.durability = 100.0;
-	this.type = this.getClass().getSimpleName();
-	this.cat = "melee";
+    this.setName("NoName");
+    this.setDamageDie(8);
+    this.setDieCount(1);
+    this.setDurability(100);
+    this.setType(this.getClass().getSimpleName());
+    this.setCat("melee");
+    this.setDistance(1);
+    this.setWeaponGroup("martial weapons");
   }
   
-  public LongSword(String name, double damageDie, double dieCount)
+  public LongSword(String name, int damageDie, int dieCount, int distance)
   {
-	this.name = name;
-	this.damageDie = damageDie;
-	this.dieCount = dieCount;
-	this.durability = 100.0;
-	this.type = this.getClass().getSimpleName();
-	this.cat = "melee";
+    this.setName(name);
+    this.setDamageDie(damageDie);
+    this.setDieCount(dieCount);
+    this.setDurability(100);
+    this.setType(this.getClass().getSimpleName());
+    this.setCat("melee");
+    this.setDistance(distance);
+    this.setWeaponGroup("martial weapons");
   }
 }

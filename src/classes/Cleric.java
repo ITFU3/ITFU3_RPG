@@ -2,25 +2,16 @@ package classes;
 
 public class Cleric extends PlayerClass
 {
-  private String name;
-  private double[] BonusStats;
-  // [0] strength
-  // [1] dexterity
-  // [2] Constitution
-  // [3] wisdom
-  // [4] inteligent
-  // [5] charisma
-  // [6] movement
-  // [7] health (calculated)
-  
   public Cleric()
   {
-	name = this.getClass().getSimpleName();
-	super.setName(name);
-	BonusStats = new double[8];
-	BonusStats = super.getStatsBonus();
+	this.setName(this.getClass().getSimpleName());
+	int[] BonusStats = super.getStatsBonus();
 	BonusStats[3] += 2;
 	BonusStats[5] += 2;
-	
+  BonusStats[7] += 8;
+	this.setStatsBonus(BonusStats);
+  String[] profs = {"light armor","medium armor", "shields",
+    "simple weapons","wisdom","charisma"};
+  this.setProficiencies(profs);
   }
 }

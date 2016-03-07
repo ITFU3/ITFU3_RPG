@@ -2,7 +2,7 @@ package races;
 public class Race
 {
   private String name;
-  private double[] BonusStats;
+  private int[] BonusStats;
   // [0] strength
   // [1] dexterity
   // [2] Constitution
@@ -14,49 +14,31 @@ public class Race
   
   public Race()
   {
-	name = "PlayerRace";
-	BonusStats = new double[8];
-	for(int i = 0; i < BonusStats.length; i++)
-	{
-	  BonusStats[i] = 0;
-	}
+    this.setName("PlayerRace");
+    this.BonusStats = new int[8];
+    for(int i = 0; i < this.BonusStats.length; i++)
+    {
+      this.BonusStats[i] = 0;
+    }
   }
   
-  public Race(Human human)
+  public Race(Object[] input)
   {
-	this.name = human.getName();
-	this.BonusStats = human.getStatsBonus();
+    this.setName((String) input[0]);
+    this.setStatsBonus((int[]) input[1]);	
   }
   
-  public Race(Elf elf)
-  {
-	this.name = elf.getName();
-	this.BonusStats = elf.getStatsBonus();
+  // ######### Getter / Setter #########
+  public int[] getStatsBonus(){
+    return BonusStats;
   }
-  
-  public Race(Dwarf dwarf)
-  {
-	this.name = dwarf.getName();
-	this.BonusStats = dwarf.getStatsBonus();
+  public void setStatsBonus(int[] input){
+    this.BonusStats = input;
   }
-  
-  public double[] getStatsBonus()
-  {
-	return BonusStats;
+  public String getName(){
+    return name;
   }
-  
-  public void setStatsBonus(double[] input)
-  {
-	BonusStats = input;
-  }
-  
-  public String getName()
-  {
-	return name;
-  }
-  
-  public void setName(String name)
-  {
-	this.name = name;
+  public void setName(String name){
+    this.name = name;
   }
 }

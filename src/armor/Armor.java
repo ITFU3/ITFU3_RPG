@@ -3,45 +3,47 @@ public class Armor
 {
   private String name;
   private String type;
-  private double armorValue;
+  private int armorValue;
+  private String cat;
   
   public Armor()
   {
-	setName("None");
-	setType("Cloth");
-	setArmorValue(10.0);
+    this.setName("None");
+    this.setType("None");
+    this.setArmorValue(10);
+    this.setCat("light");
   }
   
-  public Armor(Plate input)
+  public Armor(Object[] input)
   {
-	setName(input.getName());
-	setType(input.getType());
-	setArmorValue(input.getArmorValue());
+    this.setName((String) input[0]);
+    this.setType((String) input[1]);
+    this.setArmorValue((int) input[2]);
   }
-
-  public Armor(ChainMail input)
-  {
-	setName(input.getName());
-	setType(input.getType());
-	setArmorValue(input.getArmorValue());
-  }
-  
+    
+// ######### Getter / Setter #########
   public String getName() {
-	return name;
+    return name;
   }
   public void setName(String name) {
-	this.name = name;
+    this.name = name;
   }
   public String getType() {
-	return type;
+    return type;
   }
   public void setType(String type) {
-	this.type = type;
+    this.type = type;
   }
-  public double getArmorValue() {
-	return armorValue;
+  public int getArmorValue() {
+    return armorValue;
   }
-  public void setArmorValue(double armorValue) {
-	this.armorValue = armorValue;
+  public void setArmorValue(int armorValue) {
+    this.armorValue = armorValue;
+  }
+  public String getCat() {
+    return cat;
+  }
+  public void setCat(String cat) {
+    this.cat = cat;
   }
 }

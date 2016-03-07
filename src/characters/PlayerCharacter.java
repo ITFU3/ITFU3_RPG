@@ -3,6 +3,7 @@ import classes.*;
 import races.*;
 import weapons.*;
 import armor.*;
+import backpack.Backpack;
 import spells.*;
 
 public class PlayerCharacter 
@@ -14,6 +15,7 @@ public class PlayerCharacter
   private Race pRace;
   private Weapon pWeapon;
   private Armor pArmor;
+  private Backpack backpack;
   private int[] basicStats = new int[8];
 /*
  *	[0] strength
@@ -58,6 +60,7 @@ public class PlayerCharacter
     }
     this.setBasicStats(inputStats);
     this.setExperience(0);
+    this.setBackpack(new Backpack());
   }
   public PlayerCharacter(String inputName, char inputGender, int[] inputStats, PlayerClass inputClass, Race inputRace)
   {
@@ -90,6 +93,7 @@ public class PlayerCharacter
     }
     this.setBasicStats(inputStats);
     this.setExperience(0);
+    this.setBackpack(new Backpack());
   }
   
 // ################# EQUIPMENT #################
@@ -615,5 +619,11 @@ public class PlayerCharacter
   }
   public void setpArmor(Armor pArmor) {
 	this.pArmor = pArmor;
+  }
+  public Backpack getBackpack() {
+    return backpack;
+  }
+  public void setBackpack(Backpack backpack) {
+    this.backpack = backpack;
   }
 }

@@ -5,6 +5,8 @@ import races.*;
 import weapons.*;
 import armor.*;
 import spells.*;
+import backpack.*;
+import BaseStats.*;
 
 public class RPG_GAME
 {
@@ -67,5 +69,21 @@ public class RPG_GAME
 //  System.out.println(Demos.secendFight(player4, player2));
 // =============================================================================
 //	Demos.alphaVersion(player1);
+  
+      System.out.println("BAG testing");
+  Item item1 = new Item();
+  Item item2;
+      item2 = new Item(2.0, 2.0, 2.0);
+      System.out.println(item1.getWeigth());
+  Bag bag = new Bag();
+  bag.addItem(item1);
+  bag.addItem(item2);
+  if (bag.addItem(item1)) {
+      System.out.println("Oh it worked!!!");
+  } else {
+      System.out.println("It did not work, but I won't tell you why.");
+  }
+  
+  
   }
 }

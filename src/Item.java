@@ -8,6 +8,14 @@
  *
  * @author steffen
  */
-public class BaseObject {
+public class Item {
+    double weight;
     
+    public Item() {
+        this.weight = 1.0;
+    }
+    
+    public Item(double weight) {
+        this.weight = weight;
+    }
 }

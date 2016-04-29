@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package backpack;
-import baseStats.*;
+import BaseStats.*;
+import java.util.ArrayList;
 /**
  *
  * @author steffen
@@ -12,35 +13,51 @@ import baseStats.*;
 public class Bag {
     
     int space;
-    BaseObject[] objects;
+    ArrayList<Item> items;
     double allowedTotalWeight;
-    double currentWeigth;
+    double currentWeigth = 0.0;
+    int maxNumberOfItems = 3;
     
-    public Bag(int space, BaseObject[] objects, int characterStrength, double armorCategory) {
-        this.space = space;
-        this.objects = objects;
+    public Bag() {
+        this.space = 20;
+        this.allowedTotalWeight = 100;
+        // three as base
+        this.items = new ArrayList();
+        
+        
+    }
+    
+    public Bag(ArrayList<Item> items, int characterStrength, double armorCategory) {
+        
+        this.space = 20;
+        this.items = items;
         this.currentWeigth = setCurrentWeigth();
+        // to be defined how much can go into bags etc with 
         this.allowedTotalWeight = characterStrength * armorCategory * 100;
     }
     
     private double setCurrentWeigth() {
         double objectsWeigth = 0.0;
-        for (int i = 0; i< objects.length; i++) {
-            objectsWeigth += objects[i].weight;
+        for (int i = 0; i< items.size(); i++) {
+            objectsWeigth += items.get(i).getWeigth();
         }
         return objectsWeigth;
     }
     /// add object to objectd in Bag
-    public boolean addObject(BaseObject object) {
-        if (object.weight + currentWeigth > allowedTotalWeight) {
-            BaseObject[] newObjects = new BaseObject[objects.length];
-            for (int i = 0; i<objects.length; i++) {
-                newObjects[i] = object[i];
+    // returns true if success
+    // returns false if no success
+    public boolean addItem(Item item) {
+        //TODO: to heavy or out of bounds
+        if (item.getWeigth() + currentWeigth < allowedTotalWeight) {
+            if (items.size() + 1 < this.maxNumberOfItems) {
+               this.items.add(item);
+            return true; 
+            } else {
+                return false;  
             }
-            newObjects[objects.length] = object;
-            return true;
+        } else {
+            return false;
         }
-        return false;
     }
     
 }

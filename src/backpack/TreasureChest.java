@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package backpack;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,10 +12,14 @@ package backpack;
  */
 public class TreasureChest extends Bag {
     
+    boolean locked;
+    
     public TreasureChest() {
         this.allowedTotalWeight = 10000000000000000000000.0;
-        this.maxNumberOfItems = 100;
+        this.maxNumberOfItems = 10;
         this.space = 100;
-        
+        this.items = new ArrayList();
+        this.currentWeigth = 0;
+        this.locked = false;
     }
 }

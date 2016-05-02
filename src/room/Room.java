@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package room;
+import java.util.ArrayList;
 
 /**
  *
  * @author steffen
  */
-public class Room {
-    
+public class Room extends BaseSpace {
+    ArrayList<Door> doors;
+       
 }

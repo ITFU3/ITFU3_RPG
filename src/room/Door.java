@@ -5,10 +5,17 @@
  */
 package room;
 
+enum DoorType {
+    HEAVY,
+    LIGHT
+}
 /**
  *
  * @author steffen
  */
 public class Door {
-    
+    boolean open = false;
+    boolean locked = false;
+    DoorType type = DoorType.LIGHT;
 }
+

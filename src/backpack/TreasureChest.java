@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class TreasureChest extends Bag {
     
-    boolean locked;
+    private boolean locked;
     
     public TreasureChest() {
         this.allowedTotalWeight = 10000000000000000000000.0;
@@ -21,5 +21,19 @@ public class TreasureChest extends Bag {
         this.items = new ArrayList();
         this.currentWeigth = 0;
         this.locked = false;
+    }
+
+    /**
+     * @return the locked
+     */
+    public boolean isLocked() {
+        return locked;
+    }
+
+    /**
+     * @param locked the locked to set
+     */
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }

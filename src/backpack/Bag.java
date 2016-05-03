@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package backpack;
-import BaseStats.*;
+import Base.Item;
 import java.util.ArrayList;
 /**
  *

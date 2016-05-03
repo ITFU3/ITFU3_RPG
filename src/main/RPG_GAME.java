@@ -1,4 +1,5 @@
 package main;
+import Base.*;
 import characters.*;
 import classes.*;
 import races.*;
@@ -6,7 +7,6 @@ import weapons.*;
 import armor.*;
 import spells.*;
 import backpack.*;
-import BaseStats.*;
 
 public class RPG_GAME
 {
@@ -84,6 +84,7 @@ public class RPG_GAME
       System.out.println("It did not work, but I won't tell you why.");
   }
   
+      System.out.println(Base.randomName(9));
   
   }
 }

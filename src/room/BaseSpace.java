@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package room;
-import BaseStats.*;
+import Base.Item;
 import characters.*;
 import java.util.ArrayList;
 
@@ -76,5 +76,7 @@ public class BaseSpace {
      public void addCharacter(Character character) {
          this.characters.add(character);
      }
+     
+     
    
 }

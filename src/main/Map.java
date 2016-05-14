@@ -9,6 +9,9 @@ public class Map
   private int sX;				  // the X of starting point
   private int sY;				  // the Y of starting point
   
+  private int mX; // till I get more monster
+  private int mY; // till I get more monster
+  
   private int LastX;			  // the X Position I came from
   private int LastY;			  // the Y Position I came from
   private int newX;				  // the X to go to
@@ -23,6 +26,10 @@ public class Map
     this.height = height;
     this.sX = 0;
     this.sY = 0;
+    
+    this.mX = 0;
+    this.mY = 0;
+    
     this.buildLabyrinth();
 
     this.LastY = this.sY;
@@ -45,6 +52,11 @@ public class Map
         {
           this.sX = x;
           this.sY = y;
+        }
+        if(field == 'M')
+        {
+          this.mX = x;
+          this.mY = y;
         }
       }
     }
@@ -69,39 +81,53 @@ public class Map
     }
   }
   
-  public void walkOnMap(String input)
+  public int walkOnMap(String input, int tempPlayerMovement, int steps)
   {
-	
-	switch(input)
-	{
-	  case "walk left":
-		this.moveLeft(this.LastY, this.LastX);
-		break;
-	  case "walk right":
-		this.moveRight(this.LastY, this.LastX);
-		break;
-	  case "walk down":
-		this.moveDown(this.LastY, this.LastX);
-		break;
-	  case "walk up":
-		this.moveUp(this.LastY, this.LastX);
-		break;
-	}
-	
-	switch(this.labyrinthMap[this.newY][this.newX])	  // the field I'm in right now!
-	{
-    case 'M':
-      System.out.println("\nYou are confronted with a monster.\n");
-	  case ' ':
-      this.resetPlayerOnMap(this.LastY, this.LastX);
-      this.setPlayerOnMap(this.newY, this.newX);
-      this.setLastPos(this.newY, this.newX); // set Last GOOD pos !!!
-      break;
-	  case '#':
-      break;
-	  default:
-	}
-	showLabyrinth();
+    if(steps <= tempPlayerMovement)
+    {
+      for(int i=0;i<steps;i++)
+      {
+        switch(input)
+        {
+          case "walk left":
+          this.moveLeft(this.LastY, this.LastX);
+          break;
+          case "walk right":
+          this.moveRight(this.LastY, this.LastX);
+          break;
+          case "walk down":
+          this.moveDown(this.LastY, this.LastX);
+          break;
+          case "walk up":
+          this.moveUp(this.LastY, this.LastX);
+          break;
+        }
+        
+        char playerIndicator = 'P';
+        
+        switch(this.labyrinthMap[this.newY][this.newX])	  // the field I'm in right now!
+        {
+          case 'M':
+            System.out.println("\nYou are confronted with a monster.\n");
+            playerIndicator = 'C'; // for combat
+          case ' ':
+            this.resetPlayerOnMap(this.LastY, this.LastX);
+            this.setPlayerOnMap(this.newY, this.newX, playerIndicator);
+            this.setLastPos(this.newY, this.newX); // set Last GOOD pos !!!
+            break;
+          case '#':
+            break;
+          default:
+        }
+        showLabyrinth();
+        tempPlayerMovement--;
+      }
+    }
+    else
+    {
+      System.out.println("That is " + (steps-tempPlayerMovement) + " too far.");
+    }
+    return tempPlayerMovement;
   }
    
   //##### MOVEMENT #####
@@ -136,9 +162,9 @@ public class Map
     this.LastX = x;
   }
 
-  private void setPlayerOnMap(int y, int x)
+  private void setPlayerOnMap(int y, int x, char mark)
   {
-    this.labyrinthMap[y][x] = 'P';
+    this.labyrinthMap[y][x] = mark;
   }
   private void resetPlayerOnMap(int y, int x)
   {
@@ -151,6 +177,18 @@ public class Map
   }
   public int getSY(){
     return this.sY;
+  }
+  public int getmX() {
+    return mX;
+  }
+  public int getmY() {
+    return mY;
+  }
+  public int getPlayerX(){
+    return this.LastX;
+  }
+  public int getPlayerY(){
+    return this.LastY;
   }
     
 //##### DEBUGING #####

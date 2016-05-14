@@ -219,20 +219,9 @@ public class Demos
         case "walk up":
           if(tempPlayerMovement>0)
           {
-            System.out.println("how many steps want you to move?");
+            System.out.println("how many steps want you to move?(Up to " + tempPlayerMovement + " steps)");
             int steps = Integer.parseInt(command.nextLine());
-            if(steps <= tempPlayerMovement)
-            {
-              for(int i=0;i<steps;i++)
-              {
-                dungeon.walkOnMap(input);
-                tempPlayerMovement--;
-              }
-            }
-            else
-            {
-              System.out.println("That is " + (steps-tempPlayerMovement) + " too far.");
-            }
+            tempPlayerMovement = dungeon.walkOnMap(input, tempPlayerMovement, steps);
           }
           else
           {
@@ -252,10 +241,22 @@ public class Demos
           break;
         }
       }
-      monsterTurn = false;
+      
       while(monsterTurn)
-      {
-//        ...
+      {        
+        // till the monster turn gets implemented.
+        monsterTurn = false;
+        game = false;
+        
+        if(dungeon.getPlayerX() != dungeon.getmX() || dungeon.getPlayerY() != dungeon.getmY())
+        {
+          // move to player
+        }
+        else
+        {
+          // same spott
+          // attack player
+        }
       }
     }
   }

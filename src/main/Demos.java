@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 public class Demos 
 {
-  public static String firstFight(PlayerCharacter p1, PlayerCharacter p2)
+  public static String fight_1(PlayerCharacter p1, PlayerCharacter p2)
   {
+	System.out.println("## fight_1 ##");
 	int p1Health = p1.getHealth();
 	int p1ArmorValue = p1.getAC();
 	
@@ -71,8 +72,9 @@ public class Demos
 	return output;
   }
   
-  public static String secendFight(PlayerCharacter p1, PlayerCharacter p2)
+  public static String fight_2(PlayerCharacter p1, PlayerCharacter p2)
   {
+	System.out.println("## fight_2 ##");
     int p1Health = p1.getHealth();
     int p1ArmorValue = p1.getpArmor().getArmorValue();
 
@@ -170,31 +172,91 @@ public class Demos
     return output;
   }
   
-  public static void alphaVersion(PlayerCharacter p1)
+  public static void alphaVersion(PlayerCharacter p1, PlayerCharacter p2)
   {
-	Scanner scanner = new Scanner(System.in);
-	boolean quit = false;
-	String input = "";
-	System.out.println("Welcome adventurer.");
-	while(!quit){
-	  System.out.println("What would you like to do?");
-	  input = scanner.nextLine();
-	  switch(input)
-	  {
-		case "exit":
-		  System.out.println("Thanks for playering.");
-		  quit = true;
-		  break;
-		case "":
-		  System.out.println("You need to type in a command.");
-		  break;
-		case "help":
-		  break;
-		case "my name":
-		  System.out.println("My is " + p1.getName());
-		  break;
-		
-	  }
-	}
+    String map =  "#########S#############################" +
+          "#            #   #                    #" +
+          "#            #   #                    #" +
+          "#            #   #                    #" +
+          "#  M         #   ###############      #" +
+          "#            #                        #" +
+          "#  ###########                        #" +
+          "#            #                        #" +
+          "#            #                        #" +
+          "#            #                        #" +
+          "#                                     #" +
+          "#######################################";
+    Scanner command = new Scanner(System.in);
+    Map dungeon = new Map(map, 39, 12);
+    // just testing wise ....
+    boolean playerTurn = true;
+    boolean monsterTurn = true;
+    boolean game = true;
+    
+    int tempPlayerMovement = p1.getMovement();
+    while(game)
+    {
+      while(playerTurn)
+      {
+        System.out.println("What do you want to do?");
+        String input = command.nextLine();
+        switch(input)
+        {
+        case "help":
+          System.out.println(
+                  "These are your command options:\n"
+                + "\twalk left\n"
+                + "\twalk right\n"
+                + "\twalk down\n"
+                + "\twalk up\n"
+                + "\tauto fight monster\n"
+                + "\tquit game\n"
+                + "\tend turn\n"
+          );
+        case "walk left":
+        case "walk right":
+        case "walk down":
+        case "walk up":
+          if(tempPlayerMovement>0)
+          {
+            System.out.println("how many steps want you to move?");
+            int steps = Integer.parseInt(command.nextLine());
+            if(steps <= tempPlayerMovement)
+            {
+              for(int i=0;i<steps;i++)
+              {
+                dungeon.walkOnMap(input);
+                tempPlayerMovement--;
+              }
+            }
+            else
+            {
+              System.out.println("That is " + (steps-tempPlayerMovement) + " too far.");
+            }
+          }
+          else
+          {
+            System.out.println("You hav no Movement left to use.");
+          }
+          break;
+        case "auto fight monster": // only if M and p is on the same spott!!
+          System.out.println(Demos.fight_1(p1, p2));
+          break;
+        case "end turn":
+          playerTurn = false;
+          break;
+        case "quit game":
+          playerTurn = false;
+          monsterTurn = false;
+          game = false;
+          break;
+        }
+      }
+      monsterTurn = false;
+      while(monsterTurn)
+      {
+//        ...
+      }
+    }
   }
 }

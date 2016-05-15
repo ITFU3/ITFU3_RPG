@@ -89,16 +89,16 @@ public class Map
       {
         switch(input)
         {
-          case "walk left":
+          case "left":
           this.moveLeft(this.LastY, this.LastX);
           break;
-          case "walk right":
+          case "right":
           this.moveRight(this.LastY, this.LastX);
           break;
-          case "walk down":
+          case "down":
           this.moveDown(this.LastY, this.LastX);
           break;
-          case "walk up":
+          case "up":
           this.moveUp(this.LastY, this.LastX);
           break;
         }

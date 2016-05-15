@@ -199,46 +199,65 @@ public class Demos
       while(playerTurn)
       {
         System.out.println("What do you want to do?");
-        String input = command.nextLine();
-        switch(input)
+        String[] input = command.nextLine().split(" ");
+                
+        switch(input[0])
         {
-        case "help":
-          System.out.println(
-                  "These are your command options:\n"
-                + "\twalk left\n"
-                + "\twalk right\n"
-                + "\twalk down\n"
-                + "\twalk up\n"
-                + "\tauto fight monster\n"
-                + "\tquit game\n"
-                + "\tend turn\n"
-          );
-        case "walk left":
-        case "walk right":
-        case "walk down":
-        case "walk up":
-          if(tempPlayerMovement>0)
-          {
-            System.out.println("how many steps want you to move?(Up to " + tempPlayerMovement + " steps)");
-            int steps = Integer.parseInt(command.nextLine());
-            tempPlayerMovement = dungeon.walkOnMap(input, tempPlayerMovement, steps);
-          }
-          else
-          {
-            System.out.println("You hav no Movement left to use.");
-          }
-          break;
-        case "auto fight monster": // only if M and p is on the same spott!!
-          System.out.println(Demos.fight_1(p1, p2));
-          break;
-        case "end turn":
-          playerTurn = false;
-          break;
-        case "quit game":
-          playerTurn = false;
-          monsterTurn = false;
-          game = false;
-          break;
+          case "":
+          case "help":
+            System.out.println(
+                    "These are your command options: \n"
+                  + "\t help \n"
+                  + "\t walk left [steps] \n"
+                  + "\t walk right [steps] \n"
+                  + "\t walk down [steps] \n"
+                  + "\t walk up [steps] \n"
+                  + "\t demofight \n"
+                  + "\t end turn \n"
+                  + "\t end game \n"
+            );
+          case "walk":
+            if(tempPlayerMovement>0)
+            {
+              tempPlayerMovement = dungeon.walkOnMap(input[1], tempPlayerMovement, Integer.parseInt(input[2]));
+            }
+            else
+            {
+              System.out.println("You hav no Movement left to use.");
+            }
+            break;
+          case "demofight": // only if M and p is on the same spott!!
+            System.out.println(Demos.fight_1(p1, p2));
+            break;
+          case "attack":
+            if(dungeon.getPlayerX() == dungeon.getmX()
+              && dungeon.getPlayerY() == dungeon.getmY())
+            {
+              int[] cTh = p1.tryHit();
+              if(cTh[0] == 20 || cTh[1] >= p2.getpArmor().getArmorValue())
+              {
+                int dmg = p1.doDamage();
+                if(cTh[0] == 20)
+                {
+                  dmg *= 2;
+                }
+                int newHealth = p2.getHealth() - dmg;
+                // go on.
+              }
+            }
+            break;
+          case "end":
+            if(input[1].equalsIgnoreCase("turn"))
+            {
+              playerTurn = false;
+            }
+            else if(input[1].equalsIgnoreCase("game"))
+            {
+              playerTurn = false;
+              monsterTurn = false;
+              game = false;
+            }
+            break;
         }
       }
       

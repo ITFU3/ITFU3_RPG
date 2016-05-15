@@ -4,6 +4,9 @@ import races.*;
 import weapons.*;
 import armor.*;
 import spells.*;
+import backpack.*;
+import Base.*;
+import main.Die;
 
 public class PlayerCharacter 
 {
@@ -14,17 +17,20 @@ public class PlayerCharacter
   private Race pRace;
   private Weapon pWeapon;
   private Armor pArmor;
+  private Backpack backpack = new Backpack();
   private int[] basicStats = new int[8];
-/*
- *	[0] strength
- *	[1] dexterity
- *	[2] Constitution
- *	[3] wisdom
- *	[4] inteligent
- *	[5] charisma
- *	[6] movement
- *	[7] health (calculated)
- */
+  private int tempHP;
+
+  protected final int strength = 0;
+  protected final int dexterity = 1;
+  protected final int Constitution = 2;
+  protected final int wisdom = 3;
+  protected final int inteligence = 4;
+  protected final int charisma = 5;
+  protected final int movement = 6;
+  protected final int health = 7;
+  
+ 
 // ################# CONSTRUCTOR #################
   public PlayerCharacter(String inputName, char inputGender, PlayerClass inputClass, Race inputRace)
   {
@@ -58,6 +64,7 @@ public class PlayerCharacter
     }
     this.setBasicStats(inputStats);
     this.setExperience(0);
+    this.tempHP = this.getHealth();
   }
   public PlayerCharacter(String inputName, char inputGender, int[] inputStats, PlayerClass inputClass, Race inputRace)
   {
@@ -90,6 +97,22 @@ public class PlayerCharacter
     }
     this.setBasicStats(inputStats);
     this.setExperience(0);
+    this.tempHP = this.getHealth();
+  }
+  
+  public PlayerCharacter () {
+      this.setName (Base.randomName(5));
+      this.setGender(Base.randomGender());
+      this.setExperience(100);
+      this.setpClass(new PlayerClass());
+      this.setpRace(new Race());
+      this.setpWeapon(new Weapon());
+      this.setpArmor(new Armor());
+      this.setBackpack(new Backpack());
+      
+      int[] inputStats = {10, 10, 10, 10, 10, 10, 10, 0};
+      this.setBasicStats(inputStats);
+      this.tempHP = this.getHealth();
   }
   
 // ################# EQUIPMENT #################
@@ -643,4 +666,32 @@ public class PlayerCharacter
   public void setpArmor(Armor pArmor) {
 	this.pArmor = pArmor;
   }
+
+    /**
+     * @return the backpack
+     */
+    public Backpack getBackpack() {
+        return backpack;
+    }
+
+    /**
+     * @param backpack the backpack to set
+     */
+    public void setBackpack(Backpack backpack) {
+        this.backpack = backpack;
+    }
+
+    /**
+     * @return the tempHP
+     */
+    public int getTempHP() {
+        return tempHP;
+    }
+
+    /**
+     * @param tempHP the tempHP to set
+     */
+    public void setTempHP(int tempHP) {
+        this.tempHP = tempHP;
+    }
 }

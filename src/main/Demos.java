@@ -212,12 +212,22 @@ public class Demos
                   + "\t walk right [steps] \n"
                   + "\t walk down [steps] \n"
                   + "\t walk up [steps] \n"
+                  + "\t attack [target] \n"
                   + "\t demofight \n"
                   + "\t end turn \n"
                   + "\t end game \n"
             );
+            break;
+          case "inspect":
+            if(input.length>=2 && input[1].equalsIgnoreCase("monster"))
+            {
+              System.out.println(p2.getName());
+            }
+            break;
+//          case "":
+//            break;
           case "walk":
-            if(tempPlayerMovement>0)
+            if(input.length>=3 && tempPlayerMovement>0)
             {
               tempPlayerMovement = dungeon.walkOnMap(input[1], tempPlayerMovement, Integer.parseInt(input[2]));
             }
@@ -230,28 +240,23 @@ public class Demos
             System.out.println(Demos.fight_1(p1, p2));
             break;
           case "attack":
-            if(dungeon.getPlayerX() == dungeon.getmX()
-              && dungeon.getPlayerY() == dungeon.getmY())
+            if(input.length>=2 && input[1].equalsIgnoreCase(p2.getName()))
             {
-              int[] cTh = p1.tryHit();
-              if(cTh[0] == 20 || cTh[1] >= p2.getpArmor().getArmorValue())
+// if melee BUT if range calc distance
+// OR do in Character (doMeleeDamage / doRangeDamage)
+              if(dungeon.getPlayerX() == dungeon.getmX()
+                && dungeon.getPlayerY() == dungeon.getmY())
               {
-                int dmg = p1.doDamage();
-                if(cTh[0] == 20)
-                {
-                  dmg *= 2;
-                }
-                int newHealth = p2.getHealth() - dmg;
-                // go on.
-              }
-            }
+                System.out.println(p1.doAttack(p2));
+              }else{System.out.println("XY");}
+            }else{System.out.println("Who??");}
             break;
           case "end":
-            if(input[1].equalsIgnoreCase("turn"))
+            if(input.length>=2 && input[1].equalsIgnoreCase("turn"))
             {
               playerTurn = false;
             }
-            else if(input[1].equalsIgnoreCase("game"))
+            else if(input.length>=2 && input[1].equalsIgnoreCase("game"))
             {
               playerTurn = false;
               monsterTurn = false;

@@ -442,6 +442,33 @@ public class PlayerCharacter
 	return dmg;
   }
   
+  public String doAttack(PlayerCharacter p2)
+  {
+    String output = this.getName() + " ";
+    int[] cTh = this.tryHit();
+    if(cTh[0] == 20 || cTh[1] >= p2.getpArmor().getArmorValue())
+    {
+      int dmg = this.doDamage();
+      if(cTh[0] == 20)
+      {
+        dmg *= 2;
+        output += "*";
+      }
+      int newHealth = p2.getHealth() - dmg;
+      output += "hits " + p2.getName() + " with a " + cTh[1] 
+              + " and does " + dmg + " damage."
+              + " And has " + newHealth + " HP left.";
+      if(newHealth <= 0){
+        output += p2.getName() + " is no more.\n";
+      }
+    }
+    else
+    {
+      output += "misses with a " + cTh[1] + "\n";
+    }
+    return output;
+  }
+  
   public int castSpell(String spellname)
   {
     int output = 0;

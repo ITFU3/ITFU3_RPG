@@ -1,6 +1,20 @@
 package races;
 public class Race
 {
+    
+    public enum Type {
+      NORMAL("normal"),
+      EVIL("evil"),
+      OFDOOM("of doom");
+      
+      public String value;
+      
+      private Type(String value) {
+          this.value = value;
+      }
+      
+  }
+    
   private String name;
   private int[] BonusStats;
   // [0] strength
@@ -22,11 +36,11 @@ public class Race
     }
   }
   
-  public Race(Object[] input)
-  {
-    this.setName((String) input[0]);
-    this.setStatsBonus((int[]) input[1]);	
-  }
+//  public Race(Object[] input)
+//  {
+//    this.setName((String) input[0]);
+//    this.setStatsBonus((int[]) input[1]);	
+//  }
   
   // ######### Getter / Setter #########
   public int[] getStatsBonus(){

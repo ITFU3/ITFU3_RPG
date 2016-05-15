@@ -20,7 +20,7 @@ public class PlayerClass
 
   public PlayerClass()
   {
-    this.setName("PlayerClass");
+    this.setName("None");
     BonusStats = new int[8];
     for(int i = 0; i < BonusStats.length; i++)
     {

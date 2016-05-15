@@ -35,4 +35,36 @@ public class Base {
         return String.valueOf(nameAsCharArray);
     }
     
+    public static String randomBossName(int nameLength) {
+        Random r = new Random();
+        String[] bossSuffixes = {
+            "des Todes",
+            "der Verruchte",
+            "der Schlächter",
+            "der Böse",
+            "die Bestie",
+            "von und zu Haudraufbisnurnochmatschedais",
+            "der Nee",
+            "der Blutige",
+            "die Geile",
+            "der Hacker",
+            "der Spalter",
+            "der Vernichter",
+            "des Bösen"
+        };
+        
+        String suffix = bossSuffixes[r.nextInt(bossSuffixes.length)];
+        String bossName = randomName(nameLength) + " "+  suffix;
+       return   bossName;
+    }
+    
+    public static char randomGender() {
+         char gender;
+        int genderInt = main.Die.rollDie(2, 1);
+        return (genderInt == 1)? 'm' : 'w';
+      
+    }
+    
+   
+    
 }

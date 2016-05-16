@@ -3,11 +3,11 @@ import java.util.ArrayList;
 
 public class SpellBook
 {
-  private ArrayList listOfSpells;
+  private ArrayList<Spell> listOfSpells;
   
   public SpellBook()
   {
-    this.setSpellBook(new ArrayList());
+    this.setSpellBook(new ArrayList<Spell>());
   }
 
   public void addSpell(Spell input)
@@ -33,21 +33,22 @@ public class SpellBook
   
   public Spell getSpellByName(String spellname)
   {
+    Spell output = new Spell();
     for(int i = 0; i < this.listOfSpells.size(); i++)
     {
-      Spell tmp = (Spell) this.listOfSpells.get(i);
-      if(tmp.getName().equalsIgnoreCase(spellname))
+      output = (Spell) this.listOfSpells.get(i);
+      if(output.getName().equalsIgnoreCase(spellname))
       {
-        return tmp;
+        return output;
       }
     }
-    return new Spell();
+    return output;
   }
 // ######### Getter / Setter #########
-  public ArrayList getSpellBook() {
+  public ArrayList<Spell> getSpellBook() {
     return listOfSpells;
   }
-  public void setSpellBook(ArrayList spellBook) {
+  public void setSpellBook(ArrayList<Spell> spellBook) {
     this.listOfSpells = spellBook;
   }
 }

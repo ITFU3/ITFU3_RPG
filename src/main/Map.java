@@ -112,7 +112,7 @@ public class Map
             playerIndicator = 'C'; // for combat
           case ' ':
             this.resetPlayerOnMap(this.LastY, this.LastX);
-            this.setPlayerOnMap(this.newY, this.newX, playerIndicator);
+            this.setMarkerOnMap(this.newY, this.newX, playerIndicator);
             this.setLastPos(this.newY, this.newX); // set Last GOOD pos !!!
             break;
           case '#':
@@ -162,7 +162,7 @@ public class Map
     this.LastX = x;
   }
 
-  private void setPlayerOnMap(int y, int x, char mark)
+  public void setMarkerOnMap(int y, int x, char mark)
   {
     this.labyrinthMap[y][x] = mark;
   }

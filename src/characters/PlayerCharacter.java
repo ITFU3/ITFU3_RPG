@@ -6,7 +6,6 @@ import armor.*;
 import spells.*;
 import backpack.*;
 import Base.*;
-import main.Die;
 
 public class PlayerCharacter 
 {
@@ -55,7 +54,7 @@ public class PlayerCharacter
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -
     inputStats[6] += this.getpClass().getStatsBonus()[6] 
                   + this.getpRace().getStatsBonus()[6];
-    inputStats[7] = this.getpClass().getStatsBonus()[7];
+    inputStats[7] += this.getpClass().getStatsBonus()[7];
     inputStats[7] += this.getModifier(this.getConstitution());
     if(this.getpClass().getLevel() > 1){
       for(int i = 2; i <= this.getpClass().getLevel(); i++){
@@ -64,7 +63,7 @@ public class PlayerCharacter
     }
     this.setBasicStats(inputStats);
     this.setExperience(0);
-    this.tempHP = this.getHealth();
+    this.setTempHP(this.getHealth());
   }
   public PlayerCharacter(String inputName, char inputGender, int[] inputStats, PlayerClass inputClass, Race inputRace)
   {
@@ -88,7 +87,7 @@ public class PlayerCharacter
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -
     inputStats[6] += this.getpClass().getStatsBonus()[6] 
                   + this.getpRace().getStatsBonus()[6];
-    inputStats[7] = this.getpClass().getStatsBonus()[7];
+    inputStats[7] += this.getpClass().getStatsBonus()[7];
     inputStats[7] += this.getModifier(this.getConstitution());
     if(this.getpClass().getLevel() > 1){
       for(int i = 2; i <= this.getpClass().getLevel(); i++){
@@ -97,7 +96,7 @@ public class PlayerCharacter
     }
     this.setBasicStats(inputStats);
     this.setExperience(0);
-    this.tempHP = this.getHealth();
+    this.setTempHP(this.getHealth());
   }
   
   public PlayerCharacter () {
@@ -112,7 +111,7 @@ public class PlayerCharacter
       
       int[] inputStats = {10, 10, 10, 10, 10, 10, 10, 0};
       this.setBasicStats(inputStats);
-      this.tempHP = this.getHealth();
+      this.setTempHP(this.getHealth());
   }
   
 // ################# EQUIPMENT #################
@@ -146,7 +145,7 @@ public class PlayerCharacter
   }
   
 // ################# CALCULATIONS #################
-  private int getModifier(int ability)
+  protected int getModifier(int ability)
   {
 	int output = -5;
 	switch(ability)
@@ -240,7 +239,7 @@ public class PlayerCharacter
   {
     return (main.Die.rollDie_recursively(20, 1) + this.getModifier(this.getWisdom()));
   }
-  private boolean isProfThere(String inputType)
+  protected boolean isProfThere(String inputType)
   {
     boolean output = false;
     for(String proficiency : this.getpClass().getProficiencies())
@@ -252,7 +251,7 @@ public class PlayerCharacter
     }
     return output;
   }
-  private int getProficiencyOrLevel(char fork)
+  protected int getProficiencyOrLevel(char fork)
   {
     int xp = this.getExperience();
     int output = 0;
@@ -390,6 +389,7 @@ public class PlayerCharacter
     int[] output = new int[2];
     output[0] = main.Die.rollDie(20, 1);
     output[1] = output[0];
+// TODO: redo this Switsch case!!
     switch(this.getpClass().getName())
     {
       case "wizzard":
@@ -409,66 +409,73 @@ public class PlayerCharacter
     }
     return output;
   }
-  
-  private int calcDamage()
+  protected int calcMeleeDamage()
   {
     int dmg = main.Die.rollDie(
                       this.getpWeapon().getDamageDie(),
                       this.getpWeapon().getDieCount()
                     );
+    // if weapon is versitile use DexMod
     dmg += this.getModifier(this.getStrength());
     return dmg;
   }
+  protected int calcRangeDamage()
+  {
+    int dmg = main.Die.rollDie(
+                      this.getpWeapon().getDamageDie(),
+                      this.getpWeapon().getDieCount()
+                    );
+    dmg += this.getModifier(this.getDexterity());
+    return dmg;
+  }
+
   public int doDamage()
   {
     int dmg = 0;
     switch(this.getpWeapon().getCat())
     {
       case "melee":
-      dmg = this.doMeleeDamage();
+      dmg = this.calcMeleeDamage();
       break;
       case "range":
-      dmg = this.doRangeDamage();
-      break;
-      case "spell":
-//		dmg
+      dmg = this.calcRangeDamage();
       break;
     }
     return dmg;
   }
-  public int doMeleeDamage()
+  public void tryToAttack(PlayerCharacter p2, int distance)
   {
-	int dmg = 0;
-	// am I close enough to attack?
-	if(true)
-	{
-	  dmg = this.calcDamage();
-	}
-	else
-	{
-	  // move closer.
-	}
-	return dmg;
+     switch(this.getpWeapon().getCat())
+    {
+      case "melee":
+        if(distance == 0)// or adjacent?
+        {
+          this.doAttack(p2, distance);
+        }else{
+          System.out.println("Too far away. Move closer.");
+        }
+        break;
+      case "range":
+        if(distance >= 1)
+        {
+          if(distance <= this.getpWeapon().getDistance())
+          {
+            this.doAttack(p2, distance);
+          }else{
+            System.out.println("Too far away. Move closer.");
+          }
+        }else{
+          System.out.println("Too close. Move away.");
+        }
+        break;
+    }
   }
-  public int doRangeDamage()
-  {
-	int dmg = 0;
-	// am I distant enough to attack?
-	if(true)
-	{
-	  dmg = this.calcDamage();
-	}
-	else
-	{
-	  // move away.
-	}
-	return dmg;
-  }
-  
-  public String doAttack(PlayerCharacter p2)
+  public String doAttack(PlayerCharacter p2, int distance)
   {
     String output = this.getName() + " ";
+  
     int[] cTh = this.tryHit();
+    
     if(cTh[0] == 20 || cTh[1] >= p2.getpArmor().getArmorValue())
     {
       int dmg = this.doDamage();
@@ -477,11 +484,11 @@ public class PlayerCharacter
         dmg *= 2;
         output += "*";
       }
-      int newHealth = p2.getHealth() - dmg;
+      p2.setTempHP( p2.getTempHP() - dmg );
       output += "hits " + p2.getName() + " with a " + cTh[1] 
               + " and does " + dmg + " damage."
-              + " And has " + newHealth + " HP left.";
-      if(newHealth <= 0){
+              + " And has " + p2.getTempHP() + " HP left.";
+      if(p2.getTempHP() <= 0){
         output += p2.getName() + " is no more.\n";
       }
     }
@@ -522,7 +529,7 @@ public class PlayerCharacter
 		  + "Classname: " + this.getpClass().getName() + "\n"
 		  + "Gender: " + this.getGender() + "\n"
       + "Level: " + this.getpClass().getLevel() + "\n"
-		  + "HP: " + this.getHealth() + "\n"
+		  + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n"
 		  + "Armor: " + this.getpArmor().getType() + " (" 
                   + this.getAC() + ")\n"
 		  + "Mov: " + this.getMovement() + "\n"

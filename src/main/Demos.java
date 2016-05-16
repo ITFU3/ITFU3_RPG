@@ -1,9 +1,93 @@
 package main;
-import characters.PlayerCharacter;
 import java.util.Scanner;
+import armor.*;
+import backpack.*;
+import Base.*;
+import characters.*;
+import classes.*;
+import races.*;
+import spells.*;
+import weapons.*;
 
 public class Demos 
 {
+  public static PlayerCharacter[] getDemoChars()
+  {
+    PlayerCharacter player1 = new PlayerCharacter(
+                                      "Zelo",
+                                      'm',
+                                      new Fighter(), 
+                                      new Human()
+                                    );
+    player1.addWeapon(new LongSword("Excalibur", 10, 1, 1));
+    player1.addArmor(new Plate());
+    
+    PlayerCharacter player2 = new PlayerCharacter(
+                                      "Gwen",
+                                      'f',
+                                      new Cleric(), 
+                                      new Dwarf()
+                                    );
+    player2.addWeapon(new Mace("Glower", 8, 1, 1));
+    player2.addArmor(new ChainMail());
+    player2.getpClass().getMyBook().addSpell(new HealingWord());
+    
+    PlayerCharacter player3 = new PlayerCharacter(
+                                      "Vahlran",
+                                      'm',
+                                      new Ranger(), 
+                                      new Elf()
+                                    );
+    player3.addWeapon(new ShortBow("Feather", 6, 2, 10));
+    player3.addArmor(new Leather());
+    
+    PlayerCharacter player4 = new PlayerCharacter(
+                                "Simon",
+                                'm',
+                                new Wizzard(), 
+                                new Human()
+                              );
+    player4.addWeapon(new Weapon());
+    player4.addArmor(new Cloth());
+    player4.getpClass().getMyBook().addSpell(new Fireball());
+    
+    PlayerCharacter[] output = {player1, player2, player3, player4};
+    return output;
+  }
+  
+  public static void bagTesting()
+  {
+    System.out.println("BAG testing");
+    Item item1 = new Item();
+    Item item2;
+    item2 = new Item(2.0, 2.0, 2.0);
+    System.out.println(item1.getWeigth());
+    Bag bag = new Bag();
+    bag.addItem(item1);
+    bag.addItem(item2);
+    if (bag.addItem(item1)) {
+        System.out.println("Oh it worked!!!");
+    } else {
+        System.out.println("It did not work, but I won't tell you why.");
+    }
+  }
+  
+  public static void monstertesting()
+  {
+    System.out.println(Base.randomBossName(9));
+    MonsterCharacter monster = new MonsterCharacter(new Rat(Race.Type.EVIL));
+    monster.DebugChar();
+    Rat[] rat = Rat.nest(10, Race.Type.EVIL);
+  }
+  
+  public static MonsterCharacter[] getDemoMonster()
+  {
+    MonsterCharacter monster = new MonsterCharacter();
+    MonsterCharacter rat = new MonsterCharacter(new Rat(Race.Type.EVIL));
+    MonsterCharacter[] output = {monster, rat};
+    return output;
+  }
+          
   public static String fight_1(PlayerCharacter p1, PlayerCharacter p2)
   {
 	System.out.println("## fight_1 ##");
@@ -172,20 +256,21 @@ public class Demos
     return output;
   }
   
-  public static void alphaVersion(PlayerCharacter p1, PlayerCharacter p2)
+//  public static void alphaVersion(PlayerCharacter p1, PlayerCharacter p2)
+  public static void alphaVersion(PlayerCharacter p1, MonsterCharacter p2)
   {
     String map =  "#########S#############################" +
-          "#            #   #                    #" +
-          "#            #   #                    #" +
-          "#            #   #                    #" +
-          "#  M         #   ###############      #" +
-          "#            #                        #" +
-          "#  ###########                        #" +
-          "#            #                        #" +
-          "#            #                        #" +
-          "#            #                        #" +
-          "#                                     #" +
-          "#######################################";
+                  "#            #   #                    #" +
+                  "#            #   #                    #" +
+                  "#            #   #                    #" +
+                  "#  M         #   ###############      #" +
+                  "#            #                        #" +
+                  "#  ###########                        #" +
+                  "#            #                        #" +
+                  "#            #                        #" +
+                  "#            #                        #" +
+                  "#                                     #" +
+                  "#######################################";
     Scanner command = new Scanner(System.in);
     Map dungeon = new Map(map, 39, 12);
     // just testing wise ....
@@ -206,22 +291,28 @@ public class Demos
           case "":
           case "help":
             System.out.println(
-                    "These are your command options: \n"
-                  + "\t help \n"
-                  + "\t walk left [steps] \n"
-                  + "\t walk right [steps] \n"
-                  + "\t walk down [steps] \n"
-                  + "\t walk up [steps] \n"
-                  + "\t attack [target] \n"
-                  + "\t demofight \n"
-                  + "\t end turn \n"
-                  + "\t end game \n"
+                "These are your command options: \n"
+              + "\t help \n"
+              + "\t info \n"
+              + "\t inspect [target] \n"
+              + "\t walk left [steps] \n"
+              + "\t walk right [steps] \n"
+              + "\t walk down [steps] \n"
+              + "\t walk up [steps] \n"
+              + "\t attack [target] \n"
+              + "\t demofight \n"
+              + "\t end turn \n"
+              + "\t end game \n"
             );
+            break;
+          case "info":
+            p1.DebugChar();
             break;
           case "inspect":
             if(input.length>=2 && input[1].equalsIgnoreCase("monster"))
             {
-              System.out.println(p2.getName());
+//              System.out.println(p2.getName());
+              p2.DebugChar();
             }
             break;
 //          case "":
@@ -244,11 +335,20 @@ public class Demos
             {
 // if melee BUT if range calc distance
 // OR do in Character (doMeleeDamage / doRangeDamage)
-              if(dungeon.getPlayerX() == dungeon.getmX()
-                && dungeon.getPlayerY() == dungeon.getmY())
+              int x = Math.abs(dungeon.getPlayerX() - dungeon.getmX());
+              int y = Math.abs(dungeon.getPlayerY() - dungeon.getmY());
+              int distance = Math.round( (float)Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
+              System.out.println(p1.doAttack(p2, distance));
+              if(p2.getTempHP() <= 0)
               {
-                System.out.println(p1.doAttack(p2));
-              }else{System.out.println("XY");}
+                if(dungeon.getPlayerX() == dungeon.getmX()
+                && dungeon.getPlayerY() == dungeon.getmY())
+                {
+                  dungeon.setMarkerOnMap(dungeon.getmY(), dungeon.getmX(), 'P');
+                }else{
+                  dungeon.setMarkerOnMap(dungeon.getmY(), dungeon.getmX(), ' ');
+                }
+              }
             }else{System.out.println("Who??");}
             break;
           case "end":

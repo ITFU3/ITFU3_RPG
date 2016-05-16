@@ -28,7 +28,7 @@ public class Race
   
   public Race()
   {
-    this.setName("PlayerRace");
+    this.setName("unkown");
     this.BonusStats = new int[8];
     for(int i = 0; i < this.BonusStats.length; i++)
     {

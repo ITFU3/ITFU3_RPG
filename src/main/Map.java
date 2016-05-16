@@ -38,7 +38,6 @@ public class Map
     // config setings default
     this.debuging = false;
   }
-  
   private void buildLabyrinth()
   {
     this.labyrinthMap = new char[this.height][this.width];
@@ -62,7 +61,6 @@ public class Map
     }
     this.showLabyrinth();
   }
-  
   public void showLabyrinth()
   {
     for(int y=0; y < this.height; y++)
@@ -80,7 +78,6 @@ public class Map
       System.out.print("\n");
     }
   }
-  
   public int walkOnMap(String input, int tempPlayerMovement, int steps)
   {
     if(steps <= tempPlayerMovement)
@@ -155,13 +152,11 @@ public class Map
     this.newY = y;
     this.newX = x-1;
   }
-
   private void setLastPos(int y, int x)
   {
     this.LastY = y;
     this.LastX = x;
   }
-
   public void setMarkerOnMap(int y, int x, char mark)
   {
     this.labyrinthMap[y][x] = mark;
@@ -191,6 +186,12 @@ public class Map
     return this.LastY;
   }
     
+  public int getDistance()
+  {
+    int x = Math.abs(this.getPlayerX() - this.getmX());
+    int y = Math.abs(this.getPlayerY() - this.getmY());
+    return Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
+  }
 //##### DEBUGING #####
   public void setDebuging(boolean input)
   {

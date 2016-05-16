@@ -327,9 +327,7 @@ public class Demos
             if(toDoAction){
               if(input.length>=2){
                 if(input[1].equalsIgnoreCase(p2.getName())){
-                  int x = Math.abs(dungeon.getPlayerX() - dungeon.getmX());
-                  int y = Math.abs(dungeon.getPlayerY() - dungeon.getmY());
-                  int distance = Math.round( (float)Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
+                  int distance = dungeon.getDistance();
                   System.out.println(p1.tryToAttack(p2, distance));
                   if(p2.getTempHP() <= 0){
                     if(dungeon.getPlayerX() == dungeon.getmX()
@@ -361,9 +359,7 @@ public class Demos
               if(p1.getpClass().getName().equalsIgnoreCase("wizzard") 
                 || p1.getpClass().getName().equalsIgnoreCase("cleric")){
                 if(input.length>=2){
-                  int x = Math.abs(dungeon.getPlayerX() - dungeon.getmX());
-                  int y = Math.abs(dungeon.getPlayerY() - dungeon.getmY());
-                  int distance = Math.round( (float)Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
+                  int distance = dungeon.getDistance();
                   System.out.println( p1.tryToSpellAttack(p2, distance, input[2]) );
                   toDoAction = false;
                 }else{System.out.println(p1.getpClass().getMyBook().showSpellBook());}

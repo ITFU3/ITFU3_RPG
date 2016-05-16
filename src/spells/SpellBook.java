@@ -31,6 +31,18 @@ public class SpellBook
     this.getSpellBook().addAll(input.getSpellBook());
   }
   
+  public Spell getSpellByName(String spellname)
+  {
+    for(int i = 0; i < this.listOfSpells.size(); i++)
+    {
+      Spell tmp = (Spell) this.listOfSpells.get(i);
+      if(tmp.getName().equalsIgnoreCase(spellname))
+      {
+        return tmp;
+      }
+    }
+    return new Spell();
+  }
 // ######### Getter / Setter #########
   public ArrayList getSpellBook() {
     return listOfSpells;

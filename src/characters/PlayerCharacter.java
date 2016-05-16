@@ -443,16 +443,17 @@ public class PlayerCharacter
     }
     return dmg;
   }
-  public void tryToAttack(PlayerCharacter p2, int distance)
+  public String tryToAttack(PlayerCharacter p2, int distance)
   {
+    String output = "";
      switch(this.getpWeapon().getCat())
     {
       case "melee":
         if(distance == 0)// or adjacent?
         {
-          this.doAttack(p2, distance);
+          output += this.doAttack(p2);
         }else{
-          System.out.println("Too far away. Move closer.");
+          output += "Target is too far away. Move closer.";
         }
         break;
       case "range":
@@ -460,20 +461,20 @@ public class PlayerCharacter
         {
           if(distance <= this.getpWeapon().getDistance())
           {
-            this.doAttack(p2, distance);
+            output += this.doAttack(p2);
           }else{
-            System.out.println("Too far away. Move closer.");
+            output += "Target is too far away. Move closer.";
           }
         }else{
-          System.out.println("Too close. Move away.");
+          output += "Target is too close. Move away.";
         }
         break;
     }
+     return output;
   }
-  public String doAttack(PlayerCharacter p2, int distance)
+  public String doAttack(PlayerCharacter p2)
   {
     String output = this.getName() + " ";
-  
     int[] cTh = this.tryHit();
     
     if(cTh[0] == 20 || cTh[1] >= p2.getpArmor().getArmorValue())
@@ -499,22 +500,60 @@ public class PlayerCharacter
     return output;
   }
   
-  public int castSpell(String spellname)
+  public int castSpell(Spell input)
   {
-    int output = 0;
-    int spellBookSize = this.getpClass().getMyBook().getSpellBook().size();
-    String tempName;
-    for(int i = 0; i < spellBookSize; i++)
-    {
-      tempName = this.getpClass().getMyBook().getSpellBook().get(i).getClass().getSimpleName();
-      if(tempName.equalsIgnoreCase(spellname))
-      {
-        Spell tempSpell = (Spell) this.getpClass().getMyBook().getSpellBook().get(i);
-        output = main.Die.rollDie(
-                  tempSpell.getDamageDie(),
-                  tempSpell.getDieCount()
-                );
+    int output = main.Die.rollDie(
+      input.getDamageDie(),
+      input.getDieCount()
+    );
+    return output;
+  }
+  public String doSpellAttack(PlayerCharacter p2, Spell iSpell)
+  {
+    String output = this.getName() + " ";
+// TODO: redo spell handling
+    if(iSpell.getName().equalsIgnoreCase("healingword")){
+      int heal = this.castSpell(iSpell);
+      output += "healed for " + heal + ". ";
+      this.setTempHP( this.getTempHP() + heal );
+      if(this.getTempHP() > this.getHealth()){
+        this.setTempHP(this.getHealth());
       }
+      output += "Health is now back to " + this.getTempHP() + "/" + this.getHealth() +".";
+      return output;
+    }
+    
+    int[] cTh = this.tryHit();
+    if(cTh[0] == 20 || cTh[1] >= p2.getpArmor().getArmorValue())
+    {
+      int dmg = this.castSpell(iSpell);
+      if(cTh[0] == 20)
+      {
+        dmg *= 2;
+        output += "*";
+      }
+      p2.setTempHP( p2.getTempHP() - dmg );
+      output += "hits " + p2.getName() + " with a " + cTh[1] 
+              + " and does " + dmg + " damage."
+              + " And has " + p2.getTempHP() + " HP left.";
+      if(p2.getTempHP() <= 0){
+        output += p2.getName() + " is no more.\n";
+      }
+    }
+    else
+    {
+      output += "misses with a " + cTh[1] + "\n";
+    }
+    return output;
+  }
+  public String tryToSpellAttack(PlayerCharacter p2, int distance, String spellname)
+  {
+    String output = "";
+    Spell tempSpell = this.getpClass().getMyBook().getSpellByName(spellname);
+    if(distance <= tempSpell.getSpellRange()){
+      output += this.doSpellAttack(p2,tempSpell);
+    }else{
+      output += "Target is too far away. Move closer.";
     }
     return output;
   }
@@ -673,32 +712,17 @@ public class PlayerCharacter
   public void setpArmor(Armor pArmor) {
 	this.pArmor = pArmor;
   }
+  public int getTempHP() {
+      return tempHP;
+  }
+  public void setTempHP(int tempHP) {
+      this.tempHP = tempHP;
+  }
 
-    /**
-     * @return the backpack
-     */
-    public Backpack getBackpack() {
-        return backpack;
-    }
-
-    /**
-     * @param backpack the backpack to set
-     */
-    public void setBackpack(Backpack backpack) {
-        this.backpack = backpack;
-    }
-
-    /**
-     * @return the tempHP
-     */
-    public int getTempHP() {
-        return tempHP;
-    }
-
-    /**
-     * @param tempHP the tempHP to set
-     */
-    public void setTempHP(int tempHP) {
-        this.tempHP = tempHP;
-    }
+  public Backpack getBackpack() {
+      return backpack;
+  }
+  public void setBackpack(Backpack backpack) {
+      this.backpack = backpack;
+  }
 }

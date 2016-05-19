@@ -9,5 +9,6 @@ public class Fireball extends Spell
     this.setSpellEffect("damage");
     this.setDamageDie(6);
     this.setDieCount(4);
+	this.setSpellRange(6);
   }
 }

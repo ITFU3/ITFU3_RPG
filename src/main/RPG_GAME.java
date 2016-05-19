@@ -20,7 +20,7 @@ public class RPG_GAME
     // can be used for ramdom monster selection
     MonsterCharacter[] monsters = Demos.getDemoMonster();
     
-    Demos.alphaVersion(players[1], monsters[1]);
+    Demos.alphaVersion(players[3], monsters[1]);
 
 //    Demos.bagTesting();
 //    Demos.monstertesting();

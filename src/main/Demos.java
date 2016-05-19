@@ -279,7 +279,7 @@ public class Demos
 // ##### PLAYERS TURN #####
       while(playerTurn){
         System.out.println("What do you want to do?");
-        String[] input = cmd.nextLine().split(" ");
+        String[] input = cmd.nextLine().toLowerCase().split(" ");
         switch(input[0])
         {
           case "":
@@ -287,7 +287,7 @@ public class Demos
             String output = 
               "These are your command options: \n"
               + "\t help \n"
-              + "\t charInfo \n"
+              + "\t charinfo \n"
               + "\t inspect [target] \n"
               + "\t walk [direction] [steps] \n"
               + "\t attack [target] \n";
@@ -301,7 +301,7 @@ public class Demos
             System.out.println(output);
             break;
             
-          case "charInfo":
+          case "charinfo":
             p1.DebugChar();
             break;
             

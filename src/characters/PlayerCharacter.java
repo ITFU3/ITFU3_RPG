@@ -567,7 +567,7 @@ public class PlayerCharacter
 		  + "Racename: " + this.getpRace().getName() + "\n"
 		  + "Classname: " + this.getpClass().getName() + "\n"
 		  + "Gender: " + this.getGender() + "\n"
-      + "Level: " + this.getpClass().getLevel() + "\n"
+		  + "Level: " + this.getpClass().getLevel() + "\n"
 		  + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n"
 		  + "Armor: " + this.getpArmor().getType() + " (" 
                   + this.getAC() + ")\n"
@@ -586,8 +586,11 @@ public class PlayerCharacter
 		  + "Die Count: " + this.getpWeapon().getDieCount() + "\n"
 		  + "Weapon Type: " + this.getpWeapon().getType() + "\n"
 		  + "Weapon Range: " + this.getpWeapon().getDistance() + "\n"
-		  + "= = = = = = = = = = = = = =\n"
-		  ;
+		  + "= = = = = = = = = = = = = =\n";
+	if(this.getpClass().getName().equalsIgnoreCase("wizzard") 
+	|| this.getpClass().getName().equalsIgnoreCase("cleric")){
+	  output += "'Spellbook':\n" + this.getpClass().getMyBook().showSpellBook() + "\n";
+	}
 	System.out.println(output);
   }
   public void DebugDMG(int Hit_X_Times)

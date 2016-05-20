@@ -295,8 +295,7 @@ public class Demos
             {
               output += "\t cast [spellname] \n";
             }
-              output += "\t demofight \n"
-                      + "\t end turn \n"
+              output += "\t end turn \n"
                       + "\t end game \n";
             System.out.println(output);
             break;
@@ -380,17 +379,18 @@ public class Demos
       while(monsterTurn){        
         // till the monster turn gets implemented.
         monsterTurn = false;
-        game = false;
-        
-        if(dungeon.getPlayerX() != dungeon.getmX() || dungeon.getPlayerY() != dungeon.getmY())
-        {
+		playerTurn = true;
+		System.out.println("Did nothing.");
+		// TODO: generalized function for movement
+//        if(dungeon.getPlayerX() != dungeon.getmX() || dungeon.getPlayerY() != dungeon.getmY())
+//        {
           // move to player
-        }
-        else
-        {
+//        }
+//        else
+//        {
           // same spott
           // attack player
-        }
+//        }
       }
     }
   }

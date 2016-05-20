@@ -25,7 +25,7 @@ import races.Rat;
 public class MonsterCharacter extends PlayerCharacter {
     
     public MonsterCharacter() {
-        this.setName(Base.Base.randomName(5));
+        this.setName(base.Base.randomName(5));
         this.setGender('m');
         this.setpClass(new PlayerClass());
         int[] stats = new int[8];

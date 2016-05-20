@@ -1,8 +1,9 @@
 package main;
+import base.Base;
+import base.Item;
 import java.util.Scanner;
 import armor.*;
 import backpack.*;
-import Base.*;
 import characters.*;
 import classes.*;
 import races.*;

@@ -1,11 +1,11 @@
 package characters;
+import base.Base;
 import classes.*;
 import races.*;
 import weapons.*;
 import armor.*;
 import spells.*;
 import backpack.*;
-import Base.*;
 
 public class PlayerCharacter 
 {

@@ -3,7 +3,6 @@ package main;
 import java.util.Scanner;
 import armor.*;
 import backpack.*;
-import Base.*;
 import characters.*;
 import classes.*;
 import races.*;

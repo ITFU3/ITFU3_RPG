@@ -443,15 +443,15 @@ public class PlayerCharacter
     }
     return dmg;
   }
-  public String tryToAttack(PlayerCharacter p2, int distance)
+  public String tryToAttack(PlayerCharacter target, int distance)
   {
     String output = "";
      switch(this.getpWeapon().getCat())
     {
       case "melee":
-        if(distance == 0)// or adjacent?
+        if(distance == 1)// or adjacent?
         {
-          output += this.doAttack(p2);
+          output += this.doAttack(target);
         }else{
           output += "Target is too far away. Move closer.";
         }
@@ -461,7 +461,7 @@ public class PlayerCharacter
         {
           if(distance <= this.getpWeapon().getDistance())
           {
-            output += this.doAttack(p2);
+            output += this.doAttack(target);
           }else{
             output += "Target is too far away. Move closer.";
           }
@@ -472,12 +472,12 @@ public class PlayerCharacter
     }
      return output;
   }
-  public String doAttack(PlayerCharacter p2)
+  public String doAttack(PlayerCharacter target)
   {
     String output = this.getName() + " ";
     int[] cTh = this.tryHit();
     
-    if(cTh[0] == 20 || cTh[1] >= p2.getpArmor().getArmorValue())
+    if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
     {
       int dmg = this.doDamage();
       if(cTh[0] == 20)
@@ -485,12 +485,12 @@ public class PlayerCharacter
         dmg *= 2;
         output += "*";
       }
-      p2.setTempHP( p2.getTempHP() - dmg );
-      output += "hits " + p2.getName() + " with a " + cTh[1] 
+      target.setTempHP( target.getTempHP() - dmg );
+      output += "hits " + target.getName() + " with a " + cTh[1] 
               + " and does " + dmg + " damage."
-              + " And has " + p2.getTempHP() + " HP left.";
-      if(p2.getTempHP() <= 0){
-        output += p2.getName() + " is no more.\n";
+              + " And has " + target.getTempHP() + " HP left.";
+      if(target.getTempHP() <= 0){
+        output += target.getName() + " is no more.\n";
       }
     }
     else

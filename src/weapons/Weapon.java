@@ -23,18 +23,6 @@ public class Weapon
     this.setWeaponGroup("none");
   }
   
-  public Weapon(Object[] input)
-  {
-    this.setName((String)input[0]);
-    this.setDamageDie((int) input[1]);
-    this.setDurability((int) input[2]);
-    this.setDieCount((int)input[3]);
-    this.setType((String) input[4]);
-    this.setCat((String) input[5]);
-    this.setDistance((int) input[6]);
-    this.setWeaponGroup((String) input[7]);
-  }
-
   // ######### Getter / Setter #########
   public String getName() {
     return name;

@@ -20,17 +20,6 @@ public class Spell
     this.setDieCount(0);
     this.setSpellRange(0);
   }
-
-  public Spell(Object[] input)
-  {
-    this.setName((String)input[0]);
-    this.setLevel((int) input[1]);
-    this.setCastingTime((int) input[2]);
-    this.setSpellEffect((String)input[3]);
-    this.setDamageDie((int) input[4]);
-    this.setDieCount((int) input[5]);
-    this.setSpellRange((int) input[6]);
-  }
   
   // ######### Getter / Setter #########
   public String getName() {

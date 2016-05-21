@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author steffen
  */
 public class BaseSpace {
+   
     int height;
     int length;
     int width;
@@ -20,14 +21,15 @@ public class BaseSpace {
     Coordinate endPoint;
     boolean isEmpty;
     ArrayList<Item> items;
-    ArrayList<Character> characters;
+    ArrayList<PlayerCharacter> playerCharacters;
+    ArrayList<MonsterCharacter> monsterCharacter;
     
     public BaseSpace() {
          this.height = 100;
          this.length = 20;
          this.width = 20;
          this.items = new ArrayList();
-         this.characters = new ArrayList();
+         this.playerCharacters = new ArrayList();
          this.isEmpty = isRoomEmpty();
          this.startPoint = new Coordinate();
          this.endPoint = new Coordinate(length, width);
@@ -40,7 +42,7 @@ public class BaseSpace {
         this.width = width;
         this.startPoint = startPoint;
         this.isEmpty = isEmpty;
-        this.characters = characters;
+        this.playerCharacters = characters;
         this.items = items;
     }
     
@@ -49,7 +51,7 @@ public class BaseSpace {
          this.length = 20;
          this.width = 20;
          this.items = new ArrayList();
-         this.characters = new ArrayList();
+         this.playerCharacters = new ArrayList();
          this.isEmpty = isRoomEmpty();
      }
      
@@ -60,13 +62,13 @@ public class BaseSpace {
          this.startPoint = startPoint;
          this.endPoint = endPoint;
          this.items = items;
-         this.characters = characters;
+         this.playerCharacters = characters;
      }
      
      
      
      public boolean isRoomEmpty() {
-         return (items.isEmpty() && characters.isEmpty());
+         return (items.isEmpty() && playerCharacters.isEmpty());
      }
      
      public void addItem(Item item) {
@@ -74,7 +76,7 @@ public class BaseSpace {
      }
      
      public void addCharacter(Character character) {
-         this.characters.add(character);
+         this.playerCharacters.add(character);
      }
      
      

@@ -44,6 +44,7 @@ public class BaseSpace {
          this.endPoint = new Coordinate(length, width);   
      }
     
+<<<<<<< HEAD
     public BaseSpace(
             ArrayList<String> roomStrings,
             int heigth, 
@@ -57,6 +58,9 @@ public class BaseSpace {
             ArrayList<MonsterCharacter> monsterCharacters
     ) {
         this.roomStrings = roomStrings;
+=======
+    public BaseSpace(int heigth, int length, int width, Coordinate startPoint, Coordinate endPoint, boolean isEmpty, ArrayList<Item> items, ArrayList<PlayerCharacter> characters) {
+>>>>>>> 5af07f14cfe5fd97103c929369f381652a698bcf
         this.height = heigth;
         this.length = length;
         this.width = width;
@@ -83,11 +87,15 @@ public class BaseSpace {
          this.isEmpty = isRoomEmpty();
      }
      
+<<<<<<< HEAD
      public BaseSpace(
              Coordinate startPoint, 
              Coordinate endPoint, 
              ArrayList<Item> items, 
              ArrayList<PlayerCharacter> playerCharacters) {
+=======
+     public BaseSpace(Coordinate startPoint, Coordinate endPoint, ArrayList<Item> items, ArrayList<PlayerCharacter> characters) {
+>>>>>>> 5af07f14cfe5fd97103c929369f381652a698bcf
          this.height = 100;
          this.length = 20;
          this.width = 20;
@@ -125,8 +133,13 @@ public class BaseSpace {
          this.items.add(item);
      }
      
+<<<<<<< HEAD
      public void addCharacter(PlayerCharacter playerCharacter) {
          this.playerCharacters.add(playerCharacter);
+=======
+     public void addCharacter(PlayerCharacter character) {
+         this.playerCharacters.add(character);
+>>>>>>> 5af07f14cfe5fd97103c929369f381652a698bcf
      }
      
      public void createEmptyRoomString() {

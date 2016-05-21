@@ -36,7 +36,7 @@ public class BaseSpace {
          
      }
     
-    public BaseSpace(int heigth, int length, int width, Coordinate startPoint, Coordinate endPoint, boolean isEmpty, ArrayList<Item> items, ArrayList<Character> characters) {
+    public BaseSpace(int heigth, int length, int width, Coordinate startPoint, Coordinate endPoint, boolean isEmpty, ArrayList<Item> items, ArrayList<PlayerCharacter> characters) {
         this.height = heigth;
         this.length = length;
         this.width = width;
@@ -55,7 +55,7 @@ public class BaseSpace {
          this.isEmpty = isRoomEmpty();
      }
      
-     public BaseSpace(Coordinate startPoint, Coordinate endPoint, ArrayList<Item> items, ArrayList<Character> characters) {
+     public BaseSpace(Coordinate startPoint, Coordinate endPoint, ArrayList<Item> items, ArrayList<PlayerCharacter> characters) {
          this.height = 100;
          this.length = 20;
          this.width = 20;
@@ -75,7 +75,7 @@ public class BaseSpace {
          this.items.add(item);
      }
      
-     public void addCharacter(Character character) {
+     public void addCharacter(PlayerCharacter character) {
          this.playerCharacters.add(character);
      }
      

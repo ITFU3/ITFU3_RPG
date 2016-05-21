@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package room;
-import Base.Item;
+import base.Item;
 import characters.*;
 import java.util.ArrayList;
 

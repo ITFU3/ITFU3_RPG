@@ -3,7 +3,6 @@ package main;
 import java.util.Scanner;
 import armor.*;
 import backpack.*;
-import Base.*;
 import characters.*;
 import classes.*;
 import races.*;
@@ -17,12 +16,27 @@ public class RPG_GAME
     // for testing some chars in an array
     // in this way it is not so much overhead
     PlayerCharacter[] players = Demos.getDemoChars();
+	
     // can be used for ramdom monster selection
     MonsterCharacter[] monsters = Demos.getDemoMonster();
     
-    Demos.alphaVersion(players[1], monsters[1]);
+    Scanner input = new Scanner(System.in);
+    for(int i=0; i< players.length;i++)
+    {
+      System.out.println("Player " + (i+1) + ":");
+      System.out.println(
+          "Player name: " + players[i].getName() + "\n" +
+          "Player class: " + players[i].getpClass().getName() + "\n" +
+          "Player race: " + players[i].getpRace().getName() + "\n"
+          );
+    }
 
-//    Demos.bagTesting();
-//    Demos.monstertesting();
+    System.out.println("Please select Player:");
+    int choice = (input.nextInt()-1);
+
+    System.out.println("\n");
+    players[choice].DebugChar();
+	
+    Demos.alphaVersion(players[choice], monsters[1]);
   }
 }

@@ -1,8 +1,9 @@
 package main;
+import base.Base;
+import base.Item;
 import java.util.Scanner;
 import armor.*;
 import backpack.*;
-import Base.*;
 import characters.*;
 import classes.*;
 import races.*;
@@ -253,7 +254,7 @@ public class Demos
 //  public static void alphaVersion(PlayerCharacter p1, PlayerCharacter p2)
   public static void alphaVersion(PlayerCharacter p1, MonsterCharacter p2)
   {
-    String map =  "#########S#############################" +
+    String map =  "#########P#############################" +
                   "#            #   #                    #" +
                   "#            #   #                    #" +
                   "#            #   #                    #" +
@@ -269,25 +270,39 @@ public class Demos
     Map dungeon = new Map(map, 39, 12);
     // just testing wise ....
     boolean playerTurn = true;
-    boolean monsterTurn = false;
+    boolean monsterTurn = true;
     boolean game = true;
     
-    boolean toDoAction = true;
+    boolean playerHasAction = true;
+    int tempPlayerMovement = 0;
+    boolean monsterHasAction = true;
+    int tempMonsterMovement = 0;
     
-    int tempPlayerMovement = p1.getMovement();
-    while(game){
+// ##### GAME CYCLE #####
+    while(game)
+    {
+      playerHasAction = true;
+      tempPlayerMovement = p1.getMovement();
+      
+      monsterHasAction = true;
+      tempMonsterMovement = p2.getMovement();
+      
 // ##### PLAYERS TURN #####
-      while(playerTurn){
+      System.out.println("--- It is Your Turn! ---");
+      while(playerTurn)
+      {
         System.out.println("What do you want to do?");
-        String[] input = cmd.nextLine().split(" ");
+        String[] input = cmd.nextLine().toLowerCase().split(" ");
         switch(input[0])
         {
+          // ===============================================
           case "":
           case "help":
+            // TODO: should be automated
             String output = 
               "These are your command options: \n"
               + "\t help \n"
-              + "\t charInfo \n"
+              + "\t charinfo \n"
               + "\t inspect [target] \n"
               + "\t walk [direction] [steps] \n"
               + "\t attack [target] \n";
@@ -295,101 +310,158 @@ public class Demos
             {
               output += "\t cast [spellname] \n";
             }
-              output += "\t demofight \n"
-                      + "\t end turn \n"
-                      + "\t end game \n";
+              output += "\t end turn \n"
+                      + "\t end game \n"
+                      + "\t demofight \n";
             System.out.println(output);
             break;
-            
-          case "charInfo":
+          // ===============================================
+          case "charinfo":
             p1.DebugChar();
             break;
-            
+          // ===============================================
           case "inspect":
-            if(input.length>=2 && input[1].equalsIgnoreCase("monster")){
+            if(input.length>=2 && input[1].equalsIgnoreCase("monster"))
+            {
 //              p2.DebugChar();
-              System.out.println(p2.getName());
+              System.out.println(p2.getName() + " is " + dungeon.getDistance() + " steps away.");
             }
             break;
-            
+          // ===============================================
           case "walk":
-            if(input.length>=3){
-              if(tempPlayerMovement>0){
-                tempPlayerMovement = dungeon.walkOnMap(input[1], tempPlayerMovement, Integer.parseInt(input[2]));
-              }else{System.out.println("You hav no Movement left to use.");}
-            }else{System.out.println("More parameters needed.");}
+            if(input.length>=3)
+            {
+              if(tempPlayerMovement>0)
+              {
+                tempPlayerMovement = dungeon.walkOnMap(input[1], tempPlayerMovement, Integer.parseInt(input[2]),true);
+              }
+              else
+              {
+                System.out.println("You hav no Movement left to use.");
+              }
+            }
+            else
+            {
+              System.out.println("More parameters needed.");
+            }
             break;
-          case "demofight": // only if M and p is on the same spott!!
+          // ===============================================
+          case "demofight":
             System.out.println(Demos.fight_1(p1, p2));
             break;
-            
+          // ===============================================
           case "attack":
-            if(toDoAction){
-              if(input.length>=2){
-                if(input[1].equalsIgnoreCase(p2.getName())){
+            if(playerHasAction)
+            {
+              if(input.length>=2)
+              {
+                if(input[1].equalsIgnoreCase(p2.getName()))
+                {
                   int distance = dungeon.getDistance();
                   System.out.println(p1.tryToAttack(p2, distance));
-                  if(p2.getTempHP() <= 0){
-                    if(dungeon.getPlayerX() == dungeon.getmX()
-                    && dungeon.getPlayerY() == dungeon.getmY()){
-                      dungeon.setMarkerOnMap(dungeon.getmY(), dungeon.getmX(), 'P');
-                    }else{
-                      dungeon.setMarkerOnMap(dungeon.getmY(), dungeon.getmX(), ' ');
-                    }
+                  if(p2.getTempHP() <= 0)
+                  {
+                    dungeon.setMarkerOnMap(dungeon.getmY(), dungeon.getmX(), 'c');
                   }
-                  toDoAction = false;
-                }else{System.out.println("Who??");}
-              }else{System.out.println("More parameters needed.");}
-            }else{System.out.println("You have used your action.");}
+                  playerHasAction = false;
+                }
+                else
+                {
+                  System.out.println("Who??");
+                }
+              }
+              else
+              {
+                System.out.println("More parameters needed.");
+              }
+            }
+            else
+            {
+              System.out.println("You have used your action.");
+            }
             break;
-            
+          // ===============================================
           case "end":
-            if(input.length>=2 && input[1].equalsIgnoreCase("turn")){
+            if(input.length>=2 && input[1].equalsIgnoreCase("turn"))
+            {
               playerTurn = false;
               monsterTurn = true;
-            }else if(input.length>=2 && input[1].equalsIgnoreCase("game")){
+            }
+            else if(input.length>=2 && input[1].equalsIgnoreCase("game"))
+            {
               playerTurn = false;
               monsterTurn = false;
               game = false;
             }
             break;
-            
+          // ===============================================
           case "cast":
-            if(toDoAction){
+            if(playerHasAction)
+            {
               if(p1.getpClass().getName().equalsIgnoreCase("wizzard") 
-                || p1.getpClass().getName().equalsIgnoreCase("cleric")){
-                if(input.length>=2){
+                || p1.getpClass().getName().equalsIgnoreCase("cleric"))
+              {
+                if(input.length>=2)
+                {
                   int distance = dungeon.getDistance();
                   System.out.println( p1.tryToSpellAttack(p2, distance, input[2]) );
-                  toDoAction = false;
-                }else{System.out.println(p1.getpClass().getMyBook().showSpellBook());}
-              }else{System.out.println("You are not a caster.");}
-            }else{System.out.println("You have used your action.");}
+                  playerHasAction = false;
+                }
+                else
+                {
+                  System.out.println(p1.getpClass().getMyBook().showSpellBook());
+                }
+              }
+              else
+              {
+                System.out.println("You are not a caster.");
+              }
+            }
+            else
+            {
+              System.out.println("You have used your action.");
+            }
             break;
-          
+          // ===============================================
           case "use":
             // for abilities that are not bind by the "action"
             break;
-            
+          // ===============================================
           default:
             System.out.println("No such command. Try 'help' for help.");
         }
       }
+      
 // ##### MONSTERS TURN #####
 // could be excluded in a function
-      while(monsterTurn){        
-        // till the monster turn gets implemented.
-        monsterTurn = false;
-        game = false;
-        
-        if(dungeon.getPlayerX() != dungeon.getmX() || dungeon.getPlayerY() != dungeon.getmY())
+      System.out.println("--- It is the Monsters Turn! ---");
+      while( monsterTurn && ( p2.getTempHP() > 0 ) )
+      {        
+		// TODO: generalized function for movement
+        int distance = dungeon.getDistance();
+        if(distance == 1 && monsterHasAction)
         {
-          // move to player
+          System.out.println("quiek");
+          System.out.println(p2.tryToAttack(p1, distance));
+          if(p1.getTempHP() <= 0)
+          {
+            dungeon.setMarkerOnMap(dungeon.getLastY(), dungeon.getLastX(), 'c');
+          }
+          monsterHasAction = false;
         }
         else
         {
-          // same spott
-          // attack player
+          if(tempMonsterMovement>0)
+          {
+            System.out.println("... tick tick  tick ... " + tempMonsterMovement);
+            tempMonsterMovement = dungeon.walkOnMap("left", tempMonsterMovement, 1, false);
+            playerTurn = true;
+            monsterTurn = false;
+          }
+          else
+          {
+            monsterHasAction = false;
+          }
         }
       }
     }

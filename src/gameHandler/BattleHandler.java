@@ -3,19 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameHandler;
+package gameHandler;
 
-import main.Demos;
-import armor.*;
-import backpack.*;
-import Base.*;
 import characters.*;
-import classes.*;
-import races.*;
-import spells.*;
-import weapons.*;
-import java.util.ArrayList;
 import room.*;
+import java.util.ArrayList;
 
 /**
  *

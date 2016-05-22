@@ -1,4 +1,4 @@
-package GameHandler;
+package gameHandler;
 import armor.*;
 import characters.*;
 import classes.*;

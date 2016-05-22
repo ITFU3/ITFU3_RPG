@@ -1,24 +1,11 @@
-package GameHandler;
-
+package gameHandler;
 import main.*;
-import armor.*;
-import backpack.*;
-import Base.*;
 import characters.*;
-import classes.*;
-import races.*;
-import room.*;
-import spells.*;
-import weapons.*;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class TurnHandler
 {  
   public boolean doPlayersTurn(
-      Scanner cmd, PlayerCharacter player, MonsterCharacter monster,
+      PlayerCharacter player, MonsterCharacter monster,
       int tempMovement, Map dungeon, boolean playerHasAction,
       boolean game
   )
@@ -28,7 +15,7 @@ public class TurnHandler
     {
       System.out.println("--- It is Your Turn! ---");
       System.out.println("What do you want to do?");
-      String[] command = cmd.nextLine().toLowerCase().split(" ");
+      String[] command = utilities.InputHandler.readStringValue().toLowerCase().split(" ");
       
       switch (command[0])
       {

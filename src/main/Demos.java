@@ -1,17 +1,10 @@
 package main;
-import GameHandler.*;
+import gameHandler.*;
 import base.Base;
 import base.Item;
-import armor.*;
 import backpack.*;
 import characters.*;
-import classes.*;
 import races.*;
-import spells.*;
-import weapons.*;
-
-import java.util.Scanner;
-
 
 public class Demos 
 {
@@ -226,7 +219,6 @@ public class Demos
                   "#            #                        #" +
                   "#                                     #" +
                   "#######################################";
-    Scanner cmd = new Scanner(System.in);
     Map dungeon = new Map(map, 39, 12);
     TurnHandler tH = new TurnHandler();
     
@@ -236,7 +228,7 @@ public class Demos
     while(game)
     {
       // ##### PLAYERS TURN #####
-      game = tH.doPlayersTurn(cmd, p1, p2, p1.getMovement(), dungeon, true, game);
+      game = tH.doPlayersTurn(p1, p2, p1.getMovement(), dungeon, true, game);
       
       // ##### MONSTERS TURN #####
       tH.doMonsterTurn(p1, p2, p2.getMovement(), dungeon, false, game);

@@ -40,15 +40,7 @@ public class Armor
     this.setCat("light");
     
   }
-  
-  public Armor(Object[] input)
-  {
-    this.setName((String) input[0]);
-    this.setType((String) input[1]);
-    this.setArmorValue((int) input[2]);
-    
-  }
-    
+     
 // ######### Getter / Setter #########
   public String getName() {
     return name;

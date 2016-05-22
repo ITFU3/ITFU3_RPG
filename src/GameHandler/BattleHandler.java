@@ -5,15 +5,7 @@
  */
 package GameHandler;
 
-import main.Demos;
-import armor.*;
-import backpack.*;
-import Base.*;
 import characters.*;
-import classes.*;
-import races.*;
-import spells.*;
-import weapons.*;
 import java.util.ArrayList;
 import room.*;
 

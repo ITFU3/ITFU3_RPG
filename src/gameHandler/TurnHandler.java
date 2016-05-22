@@ -5,9 +5,12 @@ import characters.*;
 public class TurnHandler
 {  
   public boolean doPlayersTurn(
-      PlayerCharacter player, MonsterCharacter monster,
-      int tempMovement, Map dungeon, boolean playerHasAction,
-      boolean game
+                              PlayerCharacter player,
+                              MonsterCharacter monster,
+                              int tempMovement,
+                              Map dungeon,
+                              boolean playerHasAction,
+                              boolean game
   )
   {
     boolean playerTurn = true;
@@ -49,12 +52,8 @@ public class TurnHandler
           break;
 
         case "end":
-          if (command.length >= 2 && command[1].equalsIgnoreCase("turn")) {
-              playerTurn = false;
-          } else if (command.length >= 2 && command[1].equalsIgnoreCase("game")) {
-              playerTurn = false;
-              game = false;
-          }
+          playerTurn = this.endByCondition(command, "turn");
+          game = this.endByCondition(command, "game");
           break;
 
         default:
@@ -65,9 +64,12 @@ public class TurnHandler
   }
   
   public void doMonsterTurn(
-      PlayerCharacter player, MonsterCharacter monster,
-      int tempMovement, Map dungeon, boolean monsterHasAction,
-      boolean game
+                            PlayerCharacter player,
+                            MonsterCharacter monster,
+                            int tempMovement,
+                            Map dungeon,
+                            boolean monsterHasAction,
+                            boolean game
   )
   {
     boolean monsterTurn = true;
@@ -84,10 +86,11 @@ public class TurnHandler
         {
           System.out.println("... tick tick  tick ... " + tempMovement);
           
-          String[] command = {"walk", "left", "1"};
-          tempMovement = this.doMovement(command, tempMovement, dungeon, false);
+          tempMovement = this.doMovement(new String[]{"walk", "left", "1"}, tempMovement, dungeon, false);
           
           monsterTurn = false;
+//          For later use in AI ...
+//          monsterTurn = this.endByCondition(new String[]{"end", "turn"}, "turn");
         }
         else
         {
@@ -97,7 +100,7 @@ public class TurnHandler
     }
   }
   
-  // Actions for use in a turn
+// ##### Actions for use in a turn / or both #####
   private void showPlayerHelp(PlayerCharacter player)
   {
 // TODO: should be automated
@@ -117,10 +120,12 @@ public class TurnHandler
               + "\t demofight \n";
     System.out.println(output);
   }
+  
   private void showPlayerInfo(PlayerCharacter player)
   {
     player.DebugChar();
   }
+  
   private void doPlayerInspection(String[] command, MonsterCharacter monster, Map dungeon)
   {
     if (command.length >= 2 && command[1].equalsIgnoreCase("monster")) {
@@ -128,6 +133,17 @@ public class TurnHandler
       System.out.println(monster.getName() + " is " + dungeon.getDistance() + " steps away.");
     }
   }
+  
+  // change boolean by condition (end turn / end game)
+  private boolean endByCondition(String[] command, String condition)
+  {
+    boolean output = true;
+    if (command.length >= 2 && command[1].equalsIgnoreCase(condition)){
+      output = false;
+    }
+    return output; 
+  }
+  
   // can be used for player and monster!
   private int doMovement(String[] command, int tempMovement, Map dungeon, boolean playerSwitch)
   {
@@ -145,6 +161,7 @@ public class TurnHandler
     }
     return tempMovement;
   }
+  
   // can be used for player and monster!
   private boolean doAttack(boolean hasAction, String[] command, Map dungeon, PlayerCharacter player, MonsterCharacter monster, boolean playerSwitch)
   {
@@ -181,6 +198,7 @@ public class TurnHandler
     }
     return hasAction;
   }
+  
   // can be used for player and monster!
   private boolean doCasting(boolean hasAction, String[] command, Map dungeon, PlayerCharacter player, MonsterCharacter monster, boolean playerSwitch)
   {

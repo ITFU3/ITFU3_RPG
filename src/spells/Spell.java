@@ -8,6 +8,7 @@ public class Spell
   private String spellEffect;
   private int damageDie;
   private int dieCount;
+  private int spellRange;
 
   public Spell()
   {
@@ -17,16 +18,7 @@ public class Spell
     this.setSpellEffect("-");
     this.setDamageDie(0);
     this.setDieCount(0);
-  }
-
-  public Spell(Object[] input)
-  {
-    this.setName((String)input[0]);
-    this.setLevel((int) input[1]);
-    this.setCastingTime((int) input[2]);
-    this.setSpellEffect((String)input[3]);
-    this.setDamageDie((int) input[4]);
-    this.setDieCount((int) input[5]);
+    this.setSpellRange(0);
   }
   
   // ######### Getter / Setter #########
@@ -65,5 +57,12 @@ public class Spell
   }
   public void setDieCount(int dieCount) {
     this.dieCount = dieCount;
+  }
+
+  public int getSpellRange() {
+    return spellRange;
+  }
+  public void setSpellRange(int spellRange) {
+    this.spellRange = spellRange;
   }
 }

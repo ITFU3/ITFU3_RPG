@@ -20,22 +20,16 @@ public class PlayerClass
 
   public PlayerClass()
   {
-    this.setName("PlayerClass");
-    BonusStats = new int[8];
-    for(int i = 0; i < BonusStats.length; i++)
+    this.setName("None");
+    this.BonusStats = new int[8];
+    for(int i = 0; i < this.BonusStats.length; i++)
     {
-      BonusStats[i] = 0;
+      this.BonusStats[i] = 0;
     }
     this.setMyBook(new SpellBook());
     this.setLevel(1);
-  }
-
-  public PlayerClass(Object[] input)
-  {
-    this.setName((String) input[0]);
-    this.setStatsBonus((int[]) input[1]);
-    this.setLevel((int) input[2]);
-    this.setMyBook(new SpellBook());
+    this.setHitDie(0);
+    this.setProficiencies(new String[0]);
   }
 
   // ######### Getter / Setter #########

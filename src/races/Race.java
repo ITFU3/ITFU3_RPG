@@ -1,6 +1,16 @@
 package races;
 public class Race
 {
+    public enum Type {
+      NORMAL("normal"),
+      EVIL("evil"),
+      OFDOOM("of doom");
+      public String value;
+      private Type(String value) {
+          this.value = value;
+      }
+  }
+    
   private String name;
   private int[] BonusStats;
   // [0] strength
@@ -14,20 +24,14 @@ public class Race
   
   public Race()
   {
-    this.setName("PlayerRace");
+    this.setName("unkown");
     this.BonusStats = new int[8];
     for(int i = 0; i < this.BonusStats.length; i++)
     {
       this.BonusStats[i] = 0;
     }
   }
-  
-  public Race(Object[] input)
-  {
-    this.setName((String) input[0]);
-    this.setStatsBonus((int[]) input[1]);	
-  }
-  
+    
   // ######### Getter / Setter #########
   public int[] getStatsBonus(){
     return BonusStats;

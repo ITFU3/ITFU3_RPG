@@ -9,5 +9,6 @@ public class HealingWord extends Spell
     this.setSpellEffect("heal");
     this.setDamageDie(4);
     this.setDieCount(2);
+	this.setSpellRange(4);
   }
 }  

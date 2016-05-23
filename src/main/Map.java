@@ -222,7 +222,7 @@ public class Map
   }
   
   /**
-   * Calculate the euclidean distance 
+   * Calculate the pythagorean distance 
    * between player and monster
    * 
    * @return the euclidean distance

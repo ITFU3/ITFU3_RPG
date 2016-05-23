@@ -6,14 +6,17 @@ import races.*;
 import spells.*;
 import weapons.*;
 
-import java.util.Scanner;
-
 /**
  *
  * @author Matthias
  */
 public class CharacterSelecter
 {
+  /**
+   * Select a character from a preset.
+   * 
+   * @return The choosen character
+   */
   public static PlayerCharacter selectCharacter()
   {
     // for testing some chars in an array
@@ -34,15 +37,19 @@ public class CharacterSelecter
     System.out.println("Please select Player:");
     
     // The Selecting
-    Scanner input = new Scanner(System.in);
-    int choice = (input.nextInt()-1);
+    int input = utilities.InputHandler.readIntegerValue();
+    int choice = (input-1);
     System.out.println("\n");
     
     // Final output
     return players[choice];
   }
-  
-  public static PlayerCharacter[] getDemoChars()
+  /**
+   * Building a preset of characters for fast use in testing.
+   * 
+   * @return An array of prebuild charaters
+   */
+  private static PlayerCharacter[] getDemoChars()
   {
     PlayerCharacter player1 = new PlayerCharacter(
                                       "Zelo",

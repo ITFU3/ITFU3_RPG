@@ -86,13 +86,13 @@ public class MonsterCharacter extends PlayerCharacter {
     }
     
     @Override
-    public void DebugChar()
+    public String DebugChar()
     {
       // get not used because auto cast from Montser to player ...
       String output;
       output = "Einfaches Monster: " + this.getName() + "\n"
             + "Racename: " + this.getpRace().getName() + "\n"
             + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n";
-      System.out.println(output);
+      return output;
     }
 }

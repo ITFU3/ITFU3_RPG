@@ -559,7 +559,7 @@ public class PlayerCharacter
   }
   
 // ################# DEBUG OUTPUT #################
-  public void DebugChar()
+  public String DebugChar()
   {
 	String output = "";
 	
@@ -591,7 +591,7 @@ public class PlayerCharacter
 	|| this.getpClass().getName().equalsIgnoreCase("cleric")){
 	  output += "'Spellbook':\n" + this.getpClass().getMyBook().showSpellBook() + "\n";
 	}
-	System.out.println(output);
+  return output;
   }
   public void DebugDMG(int Hit_X_Times)
   {

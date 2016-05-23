@@ -6,8 +6,17 @@ import backpack.*;
 import characters.*;
 import races.*;
 
+/**
+ * 
+ * @author Matthias Dröge
+ */
 public class Demos 
 {
+  /**
+   * Building a preset of monster for fast use in testing.
+   * 
+   * @return An array of prebuild monsters
+   */
   public static MonsterCharacter[] getDemoMonster()
   {
     MonsterCharacter monster = new MonsterCharacter();
@@ -15,6 +24,10 @@ public class Demos
     MonsterCharacter[] output = {monster, rat};
     return output;
   }
+  
+  /**
+   * A test function for the new Bag-Class
+   */
   public static void bagTesting()
   {
     System.out.println("BAG testing");
@@ -31,6 +44,10 @@ public class Demos
         System.out.println("It did not work, but I won't tell you why.");
     }
   }
+  
+  /**
+   * A test function for the monster creation
+   */
   public static void monstertesting()
   {
     System.out.println(Base.randomBossName(9));
@@ -38,6 +55,16 @@ public class Demos
     monster.DebugChar();
     Rat[] rat = Rat.nest(10, Race.Type.EVIL);
   }
+  
+  /**
+   * A automatic fight test.
+   * Player Character vs. Player Character
+   * Melee only
+   * 
+   * @param p1 The first character to hit
+   * @param p2 The second character to hit
+   * @return A printout of the fight.
+   */
   public static String fight_1(PlayerCharacter p1, PlayerCharacter p2)
   {
     System.out.println("## fight_1 ##");
@@ -105,6 +132,16 @@ public class Demos
     }
     return output;
   }
+  
+  /**
+   * A automatic fight test.
+   * Player Character vs. Player Character
+   * Melee and spells are used.
+   * 
+   * @param p1 The first character to hit
+   * @param p2 The second character to hit
+   * @return A printout of the fight.
+   */
   public static String fight_2(PlayerCharacter p1, PlayerCharacter p2)
   {
     System.out.println("## fight_2 ##");
@@ -204,7 +241,12 @@ public class Demos
     return output;
   }
   
-//  public static void alphaVersion(PlayerCharacter p1, PlayerCharacter p2)
+  /**
+   * The alpha version of the text based rpg of ours.
+   * 
+   * @param p1 The player character
+   * @param p2 The monster to fight
+   */
   public static void alphaVersion(PlayerCharacter p1, MonsterCharacter p2)
   {
     String map =  "#########P#############################" +

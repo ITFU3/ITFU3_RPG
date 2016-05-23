@@ -2,13 +2,32 @@ package gameHandler;
 import main.*;
 import characters.*;
 
+/**
+ * The Handler for all things related to turns
+ * of player or monster
+ * 
+ * @author Matthias Dröge
+ */
 public class TurnHandler
-{  
+{
+  /**
+   * The actual "turn" the player makes.
+   * That means the input dispatcher
+   * for the players command words.
+   * 
+   * @param player The choosen charater
+   * @param monster The choosen monster
+   * @param tempMovement The tempural movement points
+   * @param dungeonMap The map in which the action takes place
+   * @param playerHasAction A blocking state inside the players turn
+   * @param game A blocking state for the overall game
+   * @return game (changed if so chosen)
+   */
   public boolean doPlayersTurn(
                               PlayerCharacter player,
                               MonsterCharacter monster,
                               int tempMovement,
-                              Map dungeon,
+                              Map dungeonMap,
                               boolean playerHasAction,
                               boolean game
   )
@@ -32,19 +51,19 @@ public class TurnHandler
           break;
 
         case "inspect":
-          this.doPlayerInspection(command, monster, dungeon);
+          this.doPlayerInspection(command, monster, dungeonMap);
           break;
 
         case "walk":
-          tempMovement = this.doMovement(command, tempMovement, dungeon, true);
+          tempMovement = this.doMovement(command, tempMovement, dungeonMap, true);
           break;
 
         case "attack":
-          playerHasAction = this.doAttack(playerHasAction, command, dungeon, player, monster, true);
+          playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true);
           break;
 
         case "cast":
-          playerHasAction = this.doCasting(playerHasAction, command, dungeon, player, monster, true);
+          playerHasAction = this.doCasting(playerHasAction, command, dungeonMap, player, monster, true);
           break;
 
         case "use":
@@ -63,11 +82,22 @@ public class TurnHandler
     return game;
   }
   
+  /**
+   * The actual "turn" the monster makes.
+   * This is the point where the AI gets triggered.
+   * 
+   * @param player The choosen charater
+   * @param monster The choosen monster
+   * @param tempMovement The tempural movement points
+   * @param dungeonMap The map in which the action takes place
+   * @param monsterHasAction A blocking state inside the monster turn
+   * @param game A blocking state for the overall game
+   */
   public void doMonsterTurn(
                             PlayerCharacter player,
                             MonsterCharacter monster,
                             int tempMovement,
-                            Map dungeon,
+                            Map dungeonMap,
                             boolean monsterHasAction,
                             boolean game
   )
@@ -76,9 +106,9 @@ public class TurnHandler
     while( monsterTurn && ( monster.getTempHP() > 0 ) )
     {
       System.out.println("--- It is the Monsters Turn! ---");
-      if(dungeon.getDistance() == monster.getpWeapon().getDistance())
+      if(dungeonMap.getDistance() == monster.getpWeapon().getDistance())
       {
-        monsterHasAction = this.doAttack(game, new String[0], dungeon, player, monster, false);
+        monsterHasAction = this.doAttack(game, new String[0], dungeonMap, player, monster, false);
       }
       else
       {
@@ -86,7 +116,7 @@ public class TurnHandler
         {
           System.out.println("... tick tick  tick ... " + tempMovement);
           
-          tempMovement = this.doMovement(new String[]{"walk", "left", "1"}, tempMovement, dungeon, false);
+          tempMovement = this.doMovement(new String[]{"walk", "left", "1"}, tempMovement, dungeonMap, false);
           
           monsterTurn = false;
 //          For later use in AI ...
@@ -100,10 +130,14 @@ public class TurnHandler
     }
   }
   
-// ##### Actions for use in a turn / or both #####
+  /**
+   * Lists all actions that can be taken from the player .
+   * This needs to be taken care of manually.
+   * 
+   * @param player The choosen charater
+   */
   private void showPlayerHelp(PlayerCharacter player)
   {
-// TODO: should be automated
     String output = 
       "These are your command options: \n"
       + "\t help \n"
@@ -121,20 +155,39 @@ public class TurnHandler
     System.out.println(output);
   }
   
+  /**
+   * Gives all the information of the player character.
+   * Like: stats, armor, weapon, etc.
+   * 
+   * @param player The choosen charater
+   */
   private void showPlayerInfo(PlayerCharacter player)
   {
-    player.DebugChar();
+    System.out.println(player.DebugChar());
   }
   
-  private void doPlayerInspection(String[] command, MonsterCharacter monster, Map dungeon)
+  /**
+   * 
+   * @param command The entered command line
+   * @param monster The choosen monster
+   * @param dungeonMap The map in which the action takes place
+   */
+  private void doPlayerInspection(String[] command, MonsterCharacter monster, Map dungeonMap)
   {
     if (command.length >= 2 && command[1].equalsIgnoreCase("monster")) {
       //p2.DebugChar();
-      System.out.println(monster.getName() + " is " + dungeon.getDistance() + " steps away.");
+      System.out.println(monster.getName() + " is " + dungeonMap.getDistance() + " steps away.");
     }
   }
   
-  // change boolean by condition (end turn / end game)
+  /**
+   * Set a boolean to false by a condition.
+   * (end turn or end game)
+   * 
+   * @param command The entered command line
+   * @param condition The condition by which to check on
+   * @return The state of (end turn OR end game)
+   */
   private boolean endByCondition(String[] command, String condition)
   {
     boolean output = true;
@@ -144,26 +197,44 @@ public class TurnHandler
     return output; 
   }
   
-  // can be used for player and monster!
-  private int doMovement(String[] command, int tempMovement, Map dungeon, boolean playerSwitch)
+  /**
+   * Can be used for player and monster to "make a move"
+   * 
+   * @param command The entered command line
+   * @param tempMovement The tempural movement points
+   * @param dungeonMap The map in which the action takes place
+   * @param playerSwitch The condition for player or monster
+   * @return The left tempural movement points
+   */
+  private int doMovement(String[] command, int tempMovement, Map dungeonMap, boolean playerSwitch)
   {
     if(playerSwitch)
     {
       if (command.length >= 3) {
         if (tempMovement > 0) {
-          tempMovement = dungeon.walkOnMap(command[1], tempMovement, Integer.parseInt(command[2]),playerSwitch);
+          tempMovement = dungeonMap.walkOnMap(command[1], tempMovement, Integer.parseInt(command[2]),playerSwitch);
         }else{System.out.println("You have no Movement left to use.");}
       }else{System.out.println("More parameters needed.");}
     }
     else
     {
-      tempMovement = dungeon.walkOnMap(command[1], tempMovement, Integer.parseInt(command[2]),playerSwitch);
+      tempMovement = dungeonMap.walkOnMap(command[1], tempMovement, Integer.parseInt(command[2]),playerSwitch);
     }
     return tempMovement;
   }
   
-  // can be used for player and monster!
-  private boolean doAttack(boolean hasAction, String[] command, Map dungeon, PlayerCharacter player, MonsterCharacter monster, boolean playerSwitch)
+  /**
+   * Can be used for player and monster to "make an attack"
+   * 
+   * @param hasAction The condition if attack is possible
+   * @param command The entered command line
+   * @param dungeonMap The map in which the action takes place
+   * @param player The choosen charater
+   * @param monster The choosen monster
+   * @param playerSwitch The condition for player or monster
+   * @return The condition if attack is still possible or not
+   */
+  private boolean doAttack(boolean hasAction, String[] command, Map dungeonMap, PlayerCharacter player, MonsterCharacter monster, boolean playerSwitch)
   {
     if(playerSwitch)
     {
@@ -173,10 +244,10 @@ public class TurnHandler
         {
           if(command[1].equalsIgnoreCase(monster.getName()))
           {
-            System.out.println(player.tryToAttack(monster, dungeon.getDistance()));
+            System.out.println(player.tryToAttack(monster, dungeonMap.getDistance()));
             if(monster.getTempHP() <= 0)
             {
-              dungeon.setMarkerOnMap(dungeon.getmY(), dungeon.getmX(), 'c');
+              dungeonMap.setMarkerOnMap(dungeonMap.getmY(), dungeonMap.getmX(), 'c');
             }
             hasAction = false;
           }else{System.out.println("Who??");}
@@ -188,10 +259,10 @@ public class TurnHandler
       if(hasAction)
       {
         System.out.println("quiek");
-        System.out.println(monster.tryToAttack(player, dungeon.getDistance()));
+        System.out.println(monster.tryToAttack(player, dungeonMap.getDistance()));
         if(player.getTempHP() <= 0)
         {
-          dungeon.setMarkerOnMap(dungeon.getLastY(), dungeon.getLastX(), 'c');
+          dungeonMap.setMarkerOnMap(dungeonMap.getLastY(), dungeonMap.getLastX(), 'c');
         }
         hasAction = false;
       }
@@ -199,8 +270,18 @@ public class TurnHandler
     return hasAction;
   }
   
-  // can be used for player and monster!
-  private boolean doCasting(boolean hasAction, String[] command, Map dungeon, PlayerCharacter player, MonsterCharacter monster, boolean playerSwitch)
+  /**
+   * Can be used for player and monster to "cast a spell"
+   * 
+   * @param hasAction The condition if casting is possible
+   * @param command The entered command line
+   * @param dungeonMap The map in which the action takes place
+   * @param player The choosen charater
+   * @param monster The choosen monster
+   * @param playerSwitch The condition for player or monster
+   * @return The condition if casting is still possible or not
+   */
+  private boolean doCasting(boolean hasAction, String[] command, Map dungeonMap, PlayerCharacter player, MonsterCharacter monster, boolean playerSwitch)
   {
     if(playerSwitch)
     {
@@ -211,10 +292,10 @@ public class TurnHandler
         {
             if (command.length >= 2)
             {
-                System.out.println(player.tryToSpellAttack(monster, dungeon.getDistance(), command[2]));
+                System.out.println(player.tryToSpellAttack(monster, dungeonMap.getDistance(), command[2]));
                 if(monster.getTempHP() <= 0)
                 {
-                  dungeon.setMarkerOnMap(dungeon.getmY(), dungeon.getmX(), 'c');
+                  dungeonMap.setMarkerOnMap(dungeonMap.getmY(), dungeonMap.getmX(), 'c');
                 }
                 hasAction = false;
                 
@@ -226,10 +307,10 @@ public class TurnHandler
     {
       if (hasAction)
       {
-        System.out.println(monster.tryToSpellAttack(player, dungeon.getDistance(), command[2]));
+        System.out.println(monster.tryToSpellAttack(player, dungeonMap.getDistance(), command[2]));
         if(player.getTempHP() <= 0)
         {
-          dungeon.setMarkerOnMap(dungeon.getLastY(), dungeon.getLastX(), 'c');
+          dungeonMap.setMarkerOnMap(dungeonMap.getLastY(), dungeonMap.getLastX(), 'c');
         }
         hasAction = false;
       }

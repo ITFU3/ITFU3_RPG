@@ -1,4 +1,9 @@
 package main;
+
+/**
+ * 
+ * @author Matthias Dröge
+ */
 public class Map
 {
   private final String map; // String of the original Map
@@ -26,7 +31,14 @@ public class Map
   private int mLastY;
   private int mNewX;
   private int mNewY;
-    
+
+  /**
+   * The Constructor
+   * 
+   * @param map A String with the "map"
+   * @param width The width of the "map"
+   * @param height The height of the "map"
+   */
   public Map(String map, int width, int height)
   {
     this.map = map;
@@ -47,6 +59,9 @@ public class Map
     this.mLastX = this.mX;
   }
   
+  /**
+   * Parsing the map string into char array
+   */
   private void buildLabyrinth()
   {
     this.labyrinthMap = new char[this.height][this.width];
@@ -70,6 +85,10 @@ public class Map
     }
     this.showLabyrinth();
   }
+  
+  /**
+   * Printout of the map to console
+   */
   public void showLabyrinth()
   {
     for(int y=0; y < this.height; y++)
@@ -77,17 +96,21 @@ public class Map
       for(int x=0; x < this.width; x++)
       {
         char field = this.labyrinthMap[y][x];
-        if(field == 'S')
-        {
-          this.sX = x;
-          this.sY = y;
-        }
         System.out.print(field);
       }
       System.out.print("\n");
     }
   }
   
+  /**
+   * 
+   * 
+   * @param input Command word for direction
+   * @param tempMovement The max movement to walk
+   * @param steps Amount of steps to walk
+   * @param playerSwitch The condition for player or monster
+   * @return The movement left to walk
+   */
   public int walkOnMap(String input, int tempMovement, int steps, boolean playerSwitch)
   {
     int l_X;
@@ -198,6 +221,12 @@ public class Map
     return tempMovement;
   }
   
+  /**
+   * Calculate the euclidean distance 
+   * between player and monster
+   * 
+   * @return the euclidean distance
+   */
   public int getDistance()
   {
     int x = Math.abs(this.getLastX() - this.getmX());
@@ -206,7 +235,14 @@ public class Map
   }
   
   //##### MOVEMENT #####
-  private void moveUp(int y, int x, boolean playerSwitch)		// D: 0
+  /**
+   * move up
+   * 
+   * @param y
+   * @param x
+   * @param playerSwitch 
+   */
+  private void moveUp(int y, int x, boolean playerSwitch)
   {
 	//UP == Y--
     if(playerSwitch)
@@ -218,7 +254,15 @@ public class Map
       this.setmNewX(x);
     }
   }
-  private void moveRight(int y, int x, boolean playerSwitch)	// D: 1
+  
+  /**
+   * move right
+   * 
+   * @param y
+   * @param x
+   * @param playerSwitch 
+   */
+  private void moveRight(int y, int x, boolean playerSwitch)
   {
 	//Right == x++
     if(playerSwitch)
@@ -230,7 +274,15 @@ public class Map
       this.setmNewX(x+1);
     }
   }
-  private void moveDown(int y, int x, boolean playerSwitch)	// D: 2
+  
+  /**
+   * move down
+   * 
+   * @param y
+   * @param x
+   * @param playerSwitch 
+   */
+  private void moveDown(int y, int x, boolean playerSwitch)
   {
 	// DOWN == Y++
     if(playerSwitch)
@@ -242,7 +294,15 @@ public class Map
       this.setmNewX(x);
     }
   }
-  private void moveLeft(int y, int x, boolean playerSwitch)	// D: 3
+  
+  /**
+   * move left
+   * 
+   * @param y
+   * @param x
+   * @param playerSwitch 
+   */
+  private void moveLeft(int y, int x, boolean playerSwitch)
   {
 	// LEFT == x--
     if(playerSwitch)
@@ -254,6 +314,14 @@ public class Map
       this.setmNewX(x-1);
     }
   }
+  
+  /**
+   * set last position
+   * 
+   * @param y
+   * @param x
+   * @param playerSwitch 
+   */
   private void setLastPos(int y, int x, boolean playerSwitch)
   {
     if(playerSwitch)
@@ -265,21 +333,45 @@ public class Map
       this.setmLastX(x);
     }
   }
+  
+  /**
+   * reset new position
+   * 
+   * @param y
+   * @param x
+   * @param playerSwitch 
+   */
   private void resetNewPos(int y, int x, boolean playerSwitch)
   {
     if(playerSwitch)
     {
-      
+      this.setNewY(y);
+      this.setNewX(x);
     }else{
-      
+      this.setmNewY(y);
+      this.setmNewX(x);
     }
   }
   
   // ##### MARKERS ON THE MAP #####
+  /**
+   * set a marker on the map
+   * 
+   * @param y
+   * @param x
+   * @param mark 
+   */
   public void setMarkerOnMap(int y, int x, char mark)
   {
     this.labyrinthMap[y][x] = mark;
   }
+  
+  /**
+   * reset a marker on the map to blank space
+   * 
+   * @param y
+   * @param x 
+   */
   private void resetMarkerOnMap(int y, int x)
   {
     this.labyrinthMap[y][x] = ' ';

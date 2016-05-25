@@ -86,7 +86,7 @@ public class MonsterCharacter extends PlayerCharacter {
     }
     
     @Override
-    public String DebugChar()
+    public String showCharInfo()
     {
       // get not used because auto cast from Montser to player ...
       String output;

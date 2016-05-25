@@ -7,6 +7,9 @@ import armor.*;
 import spells.*;
 import backpack.*;
 
+/**
+ * @author Matthias Dröge
+ */
 public class PlayerCharacter 
 {
   private String name;
@@ -31,7 +34,20 @@ public class PlayerCharacter
   
  
 // ################# CONSTRUCTOR #################
-  public PlayerCharacter(String inputName, char inputGender, PlayerClass inputClass, Race inputRace)
+  /**
+   * Constructor for PlayerCharacter using
+   * the name of the character, the gender,
+   * the class and the race
+   * @param inputName - String
+   * @param inputGender - Char
+   * @param inputClass - PlayerClass
+   * @param inputRace - Race
+   */
+  public PlayerCharacter(
+          String inputName, 
+          char inputGender, 
+          PlayerClass inputClass, 
+          Race inputRace)
   {
     this.setName(inputName);
     this.setGender(inputGender);
@@ -65,7 +81,23 @@ public class PlayerCharacter
     this.setExperience(0);
     this.setTempHP(this.getHealth());
   }
-  public PlayerCharacter(String inputName, char inputGender, int[] inputStats, PlayerClass inputClass, Race inputRace)
+  /**
+   * Constructor for PlayerCharacter using
+   * the name of the character, the gender,
+   * the starting stats of the character, 
+   * the class and the race
+   * @param inputName - String
+   * @param inputGender - Char
+   * @param inputStats - Int Array
+   * @param inputClass - PlayerClass
+   * @param inputRace - Race
+   */
+  public PlayerCharacter(
+          String inputName, 
+          char inputGender, 
+          int[] inputStats, 
+          PlayerClass inputClass, 
+          Race inputRace)
   {
     this.setName(inputName);
     this.setGender(inputGender);
@@ -98,7 +130,10 @@ public class PlayerCharacter
     this.setExperience(0);
     this.setTempHP(this.getHealth());
   }
-  
+  /**
+   * Constructor for PlayerCharacter with no parameter.
+   * Gives only basic values.
+   */
   public PlayerCharacter () {
       this.setName (Base.randomName(5));
       this.setGender(Base.randomGender());
@@ -113,16 +148,26 @@ public class PlayerCharacter
       this.setBasicStats(inputStats);
       this.setTempHP(this.getHealth());
   }
-  
 // ################# EQUIPMENT #################
+  /**
+   * Puts a weanpon in the characters hand.
+   * @param input - Weapon
+   */
   public void addWeapon(Weapon input)
   {
     this.setpWeapon(input);
   }
+  /**
+   * Puts the weanpon out of the characters hand.
+   */
   public void removeWeapon()
   {
     this.setpWeapon(new Weapon());
   }
+  /**
+   * Puts a armor on the characters.
+   * @param input - Armor
+   */
   public void addArmor(Armor input)
   {
     if(input.getType().equalsIgnoreCase("None"))
@@ -134,6 +179,9 @@ public class PlayerCharacter
     }
     setpArmor(input);
   }
+    /**
+   * Puts the armor off the characters.
+   */
   public void removeArmor()
   {
     Armor input = new Armor();
@@ -143,8 +191,12 @@ public class PlayerCharacter
       );
     this.setpArmor(input);
   }
-  
 // ################# CALCULATIONS #################
+  /**
+   * Returns the modifier value for the given ability stat value.
+   * @param ability - int (the stats value)
+   * @return int (modifier)
+   */
   protected int getModifier(int ability)
   {
 	int output = -5;
@@ -215,6 +267,10 @@ public class PlayerCharacter
 	}
 	return output;
   }
+  /**
+   * Returns the calculated max Armor value of the Character.
+   * @return - int
+   */
   public int getAC()
   {
     if(this.getpArmor().getCat().equalsIgnoreCase("heavy"))
@@ -227,21 +283,46 @@ public class PlayerCharacter
             + this.getModifier(this.getDexterity()));
     }
   }
-  public int getInitiativeBonus()
+  /**
+   * Returns the initiative value of the Character.
+   * (incl. die roll)
+   * @return - int
+   */
+  public int getInitiative()
   {
-    return this.getModifier(this.getDexterity());
+    return (main.Die.rollDie(20, 1) + this.getModifier(this.getDexterity()));
   }
+  /**
+   * Returns the passiv perception value of the Character.
+   * @return - int
+   */
   public int getPassivPerception()
   {
     return (10 + this.getWisdom());
   }
+  /**
+   * Returns the (activ) perception value of the Character.
+   * (incl. die roll)
+   * @return - int
+   */
   public int getActivPerception()
   {
-    return (main.Die.rollDie_recursively(20, 1) + this.getModifier(this.getWisdom()));
+    return (main.Die.rollDie(20, 1) + this.getModifier(this.getWisdom()));
   }
+  /**
+   * Return if for a given type of weapon oder armor etc,
+   * the character has a proficiency given by his class.
+   * @param inputType - String (type of weapon oder armor)
+   * @return - boolean
+   */
   protected boolean isProfThere(String inputType)
   {
     boolean output = false;
+    /**
+     * This is a new thing in java called "foreach"
+     * Foreach element from array "this.getpClass().getProficiencies()"
+     * as "String proficiency"
+     */ 
     for(String proficiency : this.getpClass().getProficiencies())
     {
       if(proficiency.equalsIgnoreCase(inputType))
@@ -251,6 +332,13 @@ public class PlayerCharacter
     }
     return output;
   }
+  /**
+   * Returns the proficiency bonus
+   * OR the character level
+   * by experience points
+   * @param fork - char [l]evel | [p]roficiency
+   * @return - int (Level | Proficiency Bonus)
+   */
   protected int getProficiencyOrLevel(char fork)
   {
     int xp = this.getExperience();
@@ -383,13 +471,19 @@ public class PlayerCharacter
   }
   
 // ################# COMBAT #################
+  /**
+   * D20 roll with all Modifier to hit a target.
+   * @return - int array
+   * [0] => the stread d20 roll (for crit confirmation)
+   * [1] => max value with all
+   */
   public int[] tryHit()
   {
-    // Stread D20 roll.
     int[] output = new int[2];
+    // Stread D20 roll.
     output[0] = main.Die.rollDie(20, 1);
     output[1] = output[0];
-// TODO: redo this Switsch case!!
+// TODO: redo this switch case based on rules!!
     switch(this.getpClass().getName())
     {
       case "wizzard":
@@ -409,40 +503,53 @@ public class PlayerCharacter
     }
     return output;
   }
-  protected int calcMeleeDamage()
+  /**
+   * calculate the weapon damage
+   * with melee or range modifier base on param.
+   * @param fork - char - [m]elee or [r]ange
+   * @return - int (damage)
+   */
+  protected int calcDamage(char fork)
   {
-    int dmg = main.Die.rollDie(
+    int dmg = 0;
+    dmg = main.Die.rollDie(
                       this.getpWeapon().getDamageDie(),
                       this.getpWeapon().getDieCount()
                     );
-    // if weapon is versitile use DexMod
-    dmg += this.getModifier(this.getStrength());
+    if(fork == 'm'){
+      // if weapon is versitile use DexMod
+      dmg += this.getModifier(this.getStrength());
+    }else if(fork == 'r'){
+      dmg += this.getModifier(this.getDexterity());
+    }
     return dmg;
   }
-  protected int calcRangeDamage()
-  {
-    int dmg = main.Die.rollDie(
-                      this.getpWeapon().getDamageDie(),
-                      this.getpWeapon().getDieCount()
-                    );
-    dmg += this.getModifier(this.getDexterity());
-    return dmg;
-  }
-
+  /**
+   * Return damage based on weapon cathegory
+   * @return - int (damage)
+   */
   public int doDamage()
   {
     int dmg = 0;
     switch(this.getpWeapon().getCat())
     {
       case "melee":
-      dmg = this.calcMeleeDamage();
+      dmg = this.calcDamage('m');
       break;
       case "range":
-      dmg = this.calcRangeDamage();
+      dmg = this.calcDamage('r');
       break;
     }
     return dmg;
   }
+  
+  // ################# probably for the battle handler #################
+  /**
+   * Checks the range to target and start attack
+   * @param target - PlayerCharacter
+   * @param distance - int
+   * @return - String - protokoll of combat
+   */
   public String tryToAttack(PlayerCharacter target, int distance)
   {
     String output = "";
@@ -472,6 +579,11 @@ public class PlayerCharacter
     }
      return output;
   }
+  /**
+   * Calculate "chance to hit" and start making damage.
+   * @param target - PlayerCharacter
+   * @return - String - protokoll of combat
+   */
   public String doAttack(PlayerCharacter target)
   {
     String output = this.getName() + " ";
@@ -499,16 +611,28 @@ public class PlayerCharacter
     }
     return output;
   }
-  
+  /**
+   * calculate the weapon damage
+   * with melee or range modifier base on param.
+   * @param input
+   * @return 
+   */
   public int castSpell(Spell input)
   {
-    int output = main.Die.rollDie(
+    int spellDmg = main.Die.rollDie(
       input.getDamageDie(),
       input.getDieCount()
     );
-    return output;
+    spellDmg += this.getModifier(this.getIntelegent());
+    return spellDmg;
   }
-  public String doSpellAttack(PlayerCharacter p2, Spell iSpell)
+  /**
+   * Calculate "chance to hit" with spells and start making spelldamage.
+   * @param target - PlayerCharacter
+   * @param iSpell - Spell - that gets cast
+   * @return - String - protokoll of combat
+   */
+  public String doSpellAttack(PlayerCharacter target, Spell iSpell)
   {
     String output = this.getName() + " ";
 // TODO: redo spell handling
@@ -524,7 +648,7 @@ public class PlayerCharacter
     }
     
     int[] cTh = this.tryHit();
-    if(cTh[0] == 20 || cTh[1] >= p2.getpArmor().getArmorValue())
+    if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
     {
       int dmg = this.castSpell(iSpell);
       if(cTh[0] == 20)
@@ -532,12 +656,12 @@ public class PlayerCharacter
         dmg *= 2;
         output += "*";
       }
-      p2.setTempHP( p2.getTempHP() - dmg );
-      output += "hits " + p2.getName() + " with a " + cTh[1] 
+      target.setTempHP( target.getTempHP() - dmg );
+      output += "hits " + target.getName() + " with a " + cTh[1] 
               + " and does " + dmg + " damage."
-              + " And has " + p2.getTempHP() + " HP left.";
-      if(p2.getTempHP() <= 0){
-        output += p2.getName() + " is no more.\n";
+              + " And has " + target.getTempHP() + " HP left.";
+      if(target.getTempHP() <= 0){
+        output += target.getName() + " is no more.\n";
       }
     }
     else
@@ -546,79 +670,61 @@ public class PlayerCharacter
     }
     return output;
   }
-  public String tryToSpellAttack(PlayerCharacter p2, int distance, String spellname)
+  /**
+   * Checks the range to target and start attack with spell
+   * @param target - PlayerCharacter
+   * @param distance - int
+   * @param spellname - String - name of the spell that gets cast
+   * @return - String - protokoll of combat
+   */
+  public String tryToSpellAttack(PlayerCharacter target, int distance, String spellname)
   {
     String output = "";
     Spell tempSpell = this.getpClass().getMyBook().getSpellByName(spellname);
     if(distance <= tempSpell.getSpellRange()){
-      output += this.doSpellAttack(p2,tempSpell);
+      output += this.doSpellAttack(target,tempSpell);
     }else{
       output += "Target is too far away. Move closer.";
     }
     return output;
   }
   
-// ################# DEBUG OUTPUT #################
-  public String DebugChar()
+// ################# OUTPUT #################
+  /**
+   * Printout of all important information of the character.
+   * @return - String
+   */
+  public String showCharInfo()
   {
-	String output = "";
-	
-	output = "Playername: " + this.getName() + "\n"
-		  + "Racename: " + this.getpRace().getName() + "\n"
-		  + "Classname: " + this.getpClass().getName() + "\n"
-		  + "Gender: " + this.getGender() + "\n"
-		  + "Level: " + this.getpClass().getLevel() + "\n"
-		  + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n"
-		  + "Armor: " + this.getpArmor().getType() + " (" 
-                  + this.getAC() + ")\n"
-		  + "Mov: " + this.getMovement() + "\n"
-		  + "\n"
-		  + "Str: " + this.getStrength() + " | " + this.getModifier(this.getStrength()) + "\n"
-		  + "Dex: " + this.getDexterity() + " | " + this.getModifier(this.getDexterity())+ "\n"
-		  + "Con: " + this.getConstitution() + " | " + this.getModifier(this.getConstitution())+ "\n"
-		  + "Wis: " + this.getWisdom() + " | " + this.getModifier(this.getWisdom())+ "\n"
-		  + "Int: " + this.getIntelegent() + " | " + this.getModifier(this.getIntelegent())+ "\n"
-		  + "Cha: " + this.getCharisma() + " | " + this.getModifier(this.getCharisma())+ "\n"
-		  + "\n"
-		  + "Weapon: " + this.getpWeapon().getType() + "\n"
-		  + "Weaponname: " + this.getpWeapon().getName() + "\n"
-		  + "DMG Die: " + this.getpWeapon().getDamageDie() + "\n"
-		  + "Die Count: " + this.getpWeapon().getDieCount() + "\n"
-		  + "Weapon Type: " + this.getpWeapon().getType() + "\n"
-		  + "Weapon Range: " + this.getpWeapon().getDistance() + "\n"
-		  + "= = = = = = = = = = = = = =\n";
-	if(this.getpClass().getName().equalsIgnoreCase("wizzard") 
-	|| this.getpClass().getName().equalsIgnoreCase("cleric")){
-	  output += "'Spellbook':\n" + this.getpClass().getMyBook().showSpellBook() + "\n";
-	}
-  return output;
-  }
-  public void DebugDMG(int Hit_X_Times)
-  {
-    String output = "";
-    int[] cTh = new int[2];
-    int dmg = 0;
-    for(int i = 1; i <= Hit_X_Times; i++)
-    {
-      cTh = this.tryHit();
-      output += "Attack " + i + ": " + this.getName() + " ";;
-      if(cTh[0] == 20 || cTh[1] >= this.getAC())
-      {
-        dmg = this.doDamage();
-        if(cTh[0] == 20)
-        {
-          dmg *= 2;
-          output += "*";
-        }
-      output += "hits with a " + cTh[1] 
-              + " for " + dmg + " damage.\n"; 
-      }
-      else
-      {
-        output += "misses with a " + cTh[1] + "\n";
-      }
+    String output = "Playername: " + this.getName() + "\n"
+        + "Racename: " + this.getpRace().getName() + "\n"
+        + "Classname: " + this.getpClass().getName() + "\n"
+        + "Gender: " + this.getGender() + "\n"
+        + "Level: " + this.getpClass().getLevel() + "\n"
+        + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n"
+        + "Armor: " + this.getpArmor().getType() + " (" 
+                    + this.getAC() + ")\n"
+        + "Mov: " + this.getMovement() + "\n"
+        + "\n"
+        + "Str: " + this.getStrength() + " | " + this.getModifier(this.getStrength()) + "\n"
+        + "Dex: " + this.getDexterity() + " | " + this.getModifier(this.getDexterity())+ "\n"
+        + "Con: " + this.getConstitution() + " | " + this.getModifier(this.getConstitution())+ "\n"
+        + "Wis: " + this.getWisdom() + " | " + this.getModifier(this.getWisdom())+ "\n"
+        + "Int: " + this.getIntelegent() + " | " + this.getModifier(this.getIntelegent())+ "\n"
+        + "Cha: " + this.getCharisma() + " | " + this.getModifier(this.getCharisma())+ "\n"
+        + "\n"
+        + "Weapon: " + this.getpWeapon().getType() + "\n"
+        + "Weaponname: " + this.getpWeapon().getName() + "\n"
+        + "DMG Die: " + this.getpWeapon().getDamageDie() + "\n"
+        + "Die Count: " + this.getpWeapon().getDieCount() + "\n"
+        + "Weapon Type: " + this.getpWeapon().getType() + "\n"
+        + "Weapon Range: " + this.getpWeapon().getDistance() + "\n"
+        + "= = = = = = = = = = = = = =\n";
+    if(this.getpClass().getName().equalsIgnoreCase("wizzard") 
+    || this.getpClass().getName().equalsIgnoreCase("cleric")){
+      output += "'Spellbook':\n" + this.getpClass().getMyBook().showSpellBook() + "\n";
     }
-    System.out.println(output + "= = = = = = = = = = = = = =\n");
+    return output;
   }
   
 // ################# GETTER | SETTER #################
@@ -721,7 +827,6 @@ public class PlayerCharacter
   public void setTempHP(int tempHP) {
       this.tempHP = tempHP;
   }
-
   public Backpack getBackpack() {
       return backpack;
   }

@@ -163,7 +163,7 @@ public class TurnHandler
    */
   private void showPlayerInfo(PlayerCharacter player)
   {
-    System.out.println(player.DebugChar());
+    System.out.println(player.showCharInfo());
   }
   
   /**

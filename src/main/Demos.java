@@ -52,7 +52,7 @@ public class Demos
   {
     System.out.println(Base.randomBossName(9));
     MonsterCharacter monster = new MonsterCharacter(new Rat(Race.Type.EVIL));
-    monster.DebugChar();
+    monster.showCharInfo();
     Rat[] rat = Rat.nest(10, Race.Type.EVIL);
   }
   

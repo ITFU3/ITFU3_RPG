@@ -15,7 +15,7 @@ public class RPG_GAME
     // Selecting Player
     PlayerCharacter selectedCharacter = CharacterSelecter.selectCharacter();
     
-	  selectedCharacter.DebugChar();
+	  selectedCharacter.showCharInfo();
     
     // Starting the Game
     Demos.alphaVersion(selectedCharacter, monsters[1]);

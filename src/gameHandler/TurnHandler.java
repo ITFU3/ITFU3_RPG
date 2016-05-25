@@ -38,7 +38,10 @@ public class TurnHandler
       System.out.println("--- It is Your Turn! ---");
       System.out.println("What do you want to do?");
       String[] command = utilities.InputHandler.readStringValue().toLowerCase().split(" ");
-      
+      for (int i=0;i<command.length;i++)
+      {
+        System.out.println("[" + i + "] " + command[i]);
+      }
       switch (command[0])
       {
         case "":
@@ -46,7 +49,7 @@ public class TurnHandler
           this.showPlayerHelp(player);
           break;
 
-        case "charInfo":
+        case "charinfo":
           this.showPlayerInfo(player);
           break;
 
@@ -59,11 +62,15 @@ public class TurnHandler
           break;
 
         case "attack":
-          playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true);
+          playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true, 'n');
           break;
 
         case "cast":
-          playerHasAction = this.doCasting(playerHasAction, command, dungeonMap, player, monster, true);
+          if (player.getpClass().getName().equalsIgnoreCase("wizzard")
+                || player.getpClass().getName().equalsIgnoreCase("cleric"))
+          {
+            playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true, 's');
+          }
           break;
 
         case "use":
@@ -71,8 +78,17 @@ public class TurnHandler
           break;
 
         case "end":
-          playerTurn = this.endByCondition(command, "turn");
-          game = this.endByCondition(command, "game");
+          playerTurn = true;
+          game = true;
+          if(command.length >= 2){
+            if(command[1].equalsIgnoreCase("turn")){
+              playerTurn = false;
+              game = true;
+            }else if(command[1].equalsIgnoreCase("game")){
+              playerTurn = false;
+              game = false;
+            }
+          }
           break;
 
         default:
@@ -103,12 +119,12 @@ public class TurnHandler
   )
   {
     boolean monsterTurn = true;
-    while( monsterTurn && ( monster.getTempHP() > 0 ) )
+    while( game && monsterTurn && ( monster.getTempHP() > 0 ) )
     {
       System.out.println("--- It is the Monsters Turn! ---");
       if(dungeonMap.getDistance() == monster.getpWeapon().getDistance())
       {
-        monsterHasAction = this.doAttack(game, new String[0], dungeonMap, player, monster, false);
+        monsterHasAction = this.doAttack(game, new String[0], dungeonMap, player, monster, false,'n');
       }
       else
       {
@@ -181,23 +197,6 @@ public class TurnHandler
   }
   
   /**
-   * Set a boolean to false by a condition.
-   * (end turn or end game)
-   * 
-   * @param command The entered command line
-   * @param condition The condition by which to check on
-   * @return The state of (end turn OR end game)
-   */
-  private boolean endByCondition(String[] command, String condition)
-  {
-    boolean output = true;
-    if (command.length >= 2 && command[1].equalsIgnoreCase(condition)){
-      output = false;
-    }
-    return output; 
-  }
-  
-  /**
    * Can be used for player and monster to "make a move"
    * 
    * @param command The entered command line
@@ -232,9 +231,18 @@ public class TurnHandler
    * @param player The choosen charater
    * @param monster The choosen monster
    * @param playerSwitch The condition for player or monster
+   * @param UseSpell The condition for normal or spell attack
    * @return The condition if attack is still possible or not
    */
-  private boolean doAttack(boolean hasAction, String[] command, Map dungeonMap, PlayerCharacter player, MonsterCharacter monster, boolean playerSwitch)
+  private boolean doAttack(
+                          boolean hasAction, 
+                          String[] command, 
+                          Map dungeonMap, 
+                          PlayerCharacter player, 
+                          MonsterCharacter monster, 
+                          boolean playerSwitch,
+                          char UseSpell
+  )
   {
     if(playerSwitch)
     {
@@ -244,7 +252,14 @@ public class TurnHandler
         {
           if(command[1].equalsIgnoreCase(monster.getName()))
           {
-            System.out.println(player.tryToAttack(monster, dungeonMap.getDistance()));
+            if(UseSpell == 's')
+            {
+              System.out.println(player.tryToSpellAttack(monster, dungeonMap.getDistance(), command[2]));
+            }
+            else if(UseSpell == 'n')
+            {
+              System.out.println(player.tryToAttack(monster, dungeonMap.getDistance()));
+            }
             if(monster.getTempHP() <= 0)
             {
               dungeonMap.setMarkerOnMap(dungeonMap.getmY(), dungeonMap.getmX(), 'c');
@@ -253,66 +268,25 @@ public class TurnHandler
           }else{System.out.println("Who??");}
         }else{System.out.println("More parameters needed.");}
       }else{System.out.println("You have used your action.");}
-    }
-    else
-    {
+    }else{
       if(hasAction)
       {
         System.out.println("quiek");
-        System.out.println(monster.tryToAttack(player, dungeonMap.getDistance()));
+        if(UseSpell == 's')
+        {
+          System.out.println(player.tryToSpellAttack(player, dungeonMap.getDistance(), command[2]));
+          hasAction = false;
+        }
+        else if(UseSpell == 'n')
+        {
+          System.out.println(monster.tryToAttack(player, dungeonMap.getDistance()));
+          hasAction = false;
+        }
         if(player.getTempHP() <= 0)
         {
           dungeonMap.setMarkerOnMap(dungeonMap.getLastY(), dungeonMap.getLastX(), 'c');
         }
-        hasAction = false;
-      }
-    }
-    return hasAction;
-  }
-  
-  /**
-   * Can be used for player and monster to "cast a spell"
-   * 
-   * @param hasAction The condition if casting is possible
-   * @param command The entered command line
-   * @param dungeonMap The map in which the action takes place
-   * @param player The choosen charater
-   * @param monster The choosen monster
-   * @param playerSwitch The condition for player or monster
-   * @return The condition if casting is still possible or not
-   */
-  private boolean doCasting(boolean hasAction, String[] command, Map dungeonMap, PlayerCharacter player, MonsterCharacter monster, boolean playerSwitch)
-  {
-    if(playerSwitch)
-    {
-      if (hasAction)
-      {
-        if (player.getpClass().getName().equalsIgnoreCase("wizzard")
-                || player.getpClass().getName().equalsIgnoreCase("cleric"))
-        {
-            if (command.length >= 2)
-            {
-                System.out.println(player.tryToSpellAttack(monster, dungeonMap.getDistance(), command[2]));
-                if(monster.getTempHP() <= 0)
-                {
-                  dungeonMap.setMarkerOnMap(dungeonMap.getmY(), dungeonMap.getmX(), 'c');
-                }
-                hasAction = false;
-                
-            }else{System.out.println(player.getpClass().getMyBook().showSpellBook());}
-        }else{System.out.println("You are not a caster.");}
-      }else{System.out.println("You have used your action.");}
-    }
-    else
-    {
-      if (hasAction)
-      {
-        System.out.println(monster.tryToSpellAttack(player, dungeonMap.getDistance(), command[2]));
-        if(player.getTempHP() <= 0)
-        {
-          dungeonMap.setMarkerOnMap(dungeonMap.getLastY(), dungeonMap.getLastX(), 'c');
-        }
-        hasAction = false;
+//        hasAction = false;
       }
     }
     return hasAction;

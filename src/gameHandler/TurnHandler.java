@@ -26,24 +26,24 @@ public class TurnHandler
   public boolean doPlayersTurn(
                               PlayerCharacter player,
                               MonsterCharacter monster,
-                              int tempMovement,
                               Map dungeonMap,
-                              boolean playerHasAction,
                               boolean game
   )
   {
     boolean playerTurn = true;
-    while(playerTurn)
-    {
+    boolean playerHasAction = true;
+    int tempMovement = player.getMovement();
+    
+    while(playerTurn) {
       System.out.println("--- It is Your Turn! ---");
       System.out.println("What do you want to do?");
       String[] command = utilities.InputHandler.readStringValue().toLowerCase().split(" ");
-      for (int i=0;i<command.length;i++)
-      {
+      
+      for (int i=0;i<command.length;i++) {
         System.out.println("[" + i + "] " + command[i]);
       }
-      switch (command[0])
-      {
+      
+      switch (command[0]) {
         case "":
         case "help":
           this.showPlayerHelp(player);
@@ -66,9 +66,9 @@ public class TurnHandler
           break;
 
         case "cast":
-          if (player.getpClass().getName().equalsIgnoreCase("wizzard")
-                || player.getpClass().getName().equalsIgnoreCase("cleric"))
-          {
+          if(player.getpClass().getName().equalsIgnoreCase("wizzard")
+          || player.getpClass().getName().equalsIgnoreCase("cleric")
+          ) {
             playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true, 's');
           }
           break;
@@ -80,11 +80,11 @@ public class TurnHandler
         case "end":
           playerTurn = true;
           game = true;
-          if(command.length >= 2){
-            if(command[1].equalsIgnoreCase("turn")){
+          if(command.length >= 2) {
+            if(command[1].equalsIgnoreCase("turn")) {
               playerTurn = false;
               game = true;
-            }else if(command[1].equalsIgnoreCase("game")){
+            } else if(command[1].equalsIgnoreCase("game")) {
               playerTurn = false;
               game = false;
             }
@@ -112,34 +112,30 @@ public class TurnHandler
   public void doMonsterTurn(
                             PlayerCharacter player,
                             MonsterCharacter monster,
-                            int tempMovement,
                             Map dungeonMap,
-                            boolean monsterHasAction,
                             boolean game
   )
   {
     boolean monsterTurn = true;
-    while( game && monsterTurn && ( monster.getTempHP() > 0 ) )
-    {
+    boolean monsterHasAction = true;
+    int tempMovement = monster.getMovement();
+    
+    while( game && monsterTurn && ( monster.getTempHP() > 0 ) ) {
       System.out.println("--- It is the Monsters Turn! ---");
-      if(dungeonMap.getDistance() == monster.getpWeapon().getDistance())
-      {
-        monsterHasAction = this.doAttack(game, new String[0], dungeonMap, player, monster, false,'n');
-      }
-      else
-      {
-        if(tempMovement > 0)
-        {
-          System.out.println("... tick tick  tick ... " + tempMovement);
-          
-          tempMovement = this.doMovement(new String[]{"walk", "left", "1"}, tempMovement, dungeonMap, false);
-          
+      if(dungeonMap.getDistance() == monster.getpWeapon().getDistance()) {
+        if(monsterHasAction) {
+          monsterHasAction = this.doAttack( game, new String[0], dungeonMap, player, monster, false,'n' );
+        } else {
           monsterTurn = false;
-//          For later use in AI ...
-//          monsterTurn = this.endByCondition(new String[]{"end", "turn"}, "turn");
+          // quit OR move away depends on AI...
         }
-        else
-        {
+      } else {
+        if(tempMovement > 0) {
+          System.out.println( "... tick tick  tick ... " + tempMovement );
+          tempMovement = this.doMovement( new String[]{"walk", "left", "1"}, tempMovement, dungeonMap, false );
+          // For later use in AI ...          
+          monsterTurn = false;
+        } else {
           monsterHasAction = false;
         }
       }

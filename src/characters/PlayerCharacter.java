@@ -197,7 +197,7 @@ public class PlayerCharacter
    * @param ability - int (the stats value)
    * @return int (modifier)
    */
-  protected int getModifier(int ability)
+  public int getModifier(int ability)
   {
 	int output = -5;
 	switch(ability)

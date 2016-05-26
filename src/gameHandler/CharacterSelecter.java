@@ -49,7 +49,7 @@ public class CharacterSelecter
    * 
    * @return An array of prebuild charaters
    */
-  private static PlayerCharacter[] getDemoChars()
+  public static PlayerCharacter[] getDemoChars()
   {
     PlayerCharacter player1 = new PlayerCharacter(
                                       "Zelo",

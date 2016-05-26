@@ -264,16 +264,16 @@ public class Demos
     Map dungeon = new Map(map, 39, 12);
     TurnHandler tH = new TurnHandler();
     
-    boolean game = true;
+    boolean gameLoop = true;
        
     // ##### GAME CYCLE #####
-    while(game)
+    while(gameLoop)
     {
       // ##### PLAYERS TURN #####
-      game = tH.doPlayersTurn(p1, p2, p1.getMovement(), dungeon, true, game);
+      gameLoop = tH.doPlayersTurn(p1, p2, dungeon, gameLoop);
       
       // ##### MONSTERS TURN #####
-      tH.doMonsterTurn(p1, p2, p2.getMovement(), dungeon, false, game);
+      tH.doMonsterTurn(p1, p2, dungeon, gameLoop);
     }
   }
 }

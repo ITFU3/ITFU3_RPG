@@ -41,7 +41,7 @@ public class SpellBook
     Spell output = new Spell();
     for(int i = 0; i < this.listOfSpells.size(); i++)
     {
-      output = (Spell) this.listOfSpells.get(i);
+      output = this.listOfSpells.get(i);
       if(output.getName().equalsIgnoreCase(spellname))
       {
         return output;

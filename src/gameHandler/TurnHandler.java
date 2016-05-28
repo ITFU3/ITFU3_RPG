@@ -10,6 +10,18 @@ import characters.*;
  */
 public class TurnHandler
 {
+  BattleHandler battleHandler;
+  
+  /**
+   * Constructor for the TurnHandler that gets the
+   * BattleHandler to use in combat as param
+   * @param battleHandler - BattleHandler
+   */
+  public TurnHandler(BattleHandler battleHandler)
+  {
+    this.battleHandler = battleHandler;
+  }
+  
   /**
    * The actual "turn" the player makes.
    * That means the input dispatcher
@@ -62,14 +74,14 @@ public class TurnHandler
           break;
 
         case "attack":
-          playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true, 'n');
+          playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true, false);
           break;
 
         case "cast":
           if(player.getpClass().getName().equalsIgnoreCase("wizzard")
           || player.getpClass().getName().equalsIgnoreCase("cleric")
           ) {
-            playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true, 's');
+            playerHasAction = this.doAttack(playerHasAction, command, dungeonMap, player, monster, true, true);
           }
           break;
 
@@ -124,7 +136,7 @@ public class TurnHandler
       System.out.println("--- It is the Monsters Turn! ---");
       if(dungeonMap.getDistance() == monster.getpWeapon().getDistance()) {
         if(monsterHasAction) {
-          monsterHasAction = this.doAttack( game, new String[0], dungeonMap, player, monster, false,'n' );
+          monsterHasAction = this.doAttack( game, new String[0], dungeonMap, player, monster, false, false );
         } else {
           monsterTurn = false;
           // quit OR move away depends on AI...
@@ -237,7 +249,7 @@ public class TurnHandler
                           PlayerCharacter player, 
                           MonsterCharacter monster, 
                           boolean playerSwitch,
-                          char UseSpell
+                          boolean UseSpell
   )
   {
     if(playerSwitch)
@@ -248,13 +260,13 @@ public class TurnHandler
         {
           if(command[1].equalsIgnoreCase(monster.getName()))
           {
-            if(UseSpell == 's')
+            if(UseSpell)
             {
-              System.out.println(player.tryToSpellAttack(monster, dungeonMap.getDistance(), command[2]));
-            }
-            else if(UseSpell == 'n')
-            {
-              System.out.println(player.tryToAttack(monster, dungeonMap.getDistance()));
+//              System.out.println(player.tryToSpellAttack(monster, dungeonMap.getDistance(), command[2]));
+              System.out.println(battleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(), command[2]));
+            }else{
+//              System.out.println(player.tryToAttack(monster, dungeonMap.getDistance()));
+              System.out.println(battleHandler.tryToAttack(player, monster, dungeonMap.getDistance()));
             }
             if(monster.getTempHP() <= 0)
             {
@@ -268,14 +280,14 @@ public class TurnHandler
       if(hasAction)
       {
         System.out.println("quiek");
-        if(UseSpell == 's')
+        if(UseSpell)
         {
-          System.out.println(player.tryToSpellAttack(player, dungeonMap.getDistance(), command[2]));
+//          System.out.println(monster.tryToSpellAttack(player, dungeonMap.getDistance(), command[2]));
+          System.out.println(battleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(), command[2]));
           hasAction = false;
-        }
-        else if(UseSpell == 'n')
-        {
-          System.out.println(monster.tryToAttack(player, dungeonMap.getDistance()));
+        }else{
+//          System.out.println(monster.tryToAttack(player, dungeonMap.getDistance()));
+          System.out.println(battleHandler.tryToAttack(monster, player, dungeonMap.getDistance()));
           hasAction = false;
         }
         if(player.getTempHP() <= 0)

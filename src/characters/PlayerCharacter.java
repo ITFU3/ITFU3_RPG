@@ -179,7 +179,7 @@ public class PlayerCharacter
     }
     setpArmor(input);
   }
-    /**
+  /**
    * Puts the armor off the characters.
    */
   public void removeArmor()
@@ -315,7 +315,7 @@ public class PlayerCharacter
    * @param inputType - String (type of weapon oder armor)
    * @return - boolean
    */
-  protected boolean isProfThere(String inputType)
+  public boolean isProfThere(String inputType)
   {
     boolean output = false;
     /**
@@ -339,7 +339,7 @@ public class PlayerCharacter
    * @param fork - char [l]evel | [p]roficiency
    * @return - int (Level | Proficiency Bonus)
    */
-  protected int getProficiencyOrLevel(char fork)
+  public int getProficiencyOrLevel(char fork)
   {
     int xp = this.getExperience();
     int output = 0;
@@ -466,225 +466,6 @@ public class PlayerCharacter
       }else if(fork == 'p'){
         output = 6;
       }
-    }
-    return output;
-  }
-  
-// ################# COMBAT #################
-  /**
-   * D20 roll with all Modifier to hit a target.
-   * @return - int array
-   * [0] => the stread d20 roll (for crit confirmation)
-   * [1] => max value with all
-   */
-  public int[] tryHit()
-  {
-    int[] output = new int[2];
-    // Stread D20 roll.
-    output[0] = main.Die.rollDie(20, 1);
-    output[1] = output[0];
-// TODO: redo this switch case based on rules!!
-    switch(this.getpClass().getName())
-    {
-      case "wizzard":
-        output[1] += this.getModifier(this.getIntelegent());
-        break;
-      case "ranger":
-        output[1] += this.getModifier(this.getDexterity());
-        break;
-      default:
-        output[1] += this.getModifier(this.getStrength());
-    }
-    
-    if(this.isProfThere(this.getpWeapon().getWeaponGroup())
-    || this.isProfThere(this.getpWeapon().getType()))
-    {
-    output[1] += this.getProficiencyOrLevel('p');
-    }
-    return output;
-  }
-  /**
-   * calculate the weapon damage
-   * with melee or range modifier base on param.
-   * @param fork - char - [m]elee or [r]ange
-   * @return - int (damage)
-   */
-  protected int calcDamage(char fork)
-  {
-    int dmg = 0;
-    dmg = main.Die.rollDie(
-                      this.getpWeapon().getDamageDie(),
-                      this.getpWeapon().getDieCount()
-                    );
-    if(fork == 'm'){
-      // if weapon is versitile use DexMod
-      dmg += this.getModifier(this.getStrength());
-    }else if(fork == 'r'){
-      dmg += this.getModifier(this.getDexterity());
-    }
-    return dmg;
-  }
-  /**
-   * Return damage based on weapon cathegory
-   * @return - int (damage)
-   */
-  public int doDamage()
-  {
-    int dmg = 0;
-    switch(this.getpWeapon().getCat())
-    {
-      case "melee":
-      dmg = this.calcDamage('m');
-      break;
-      case "range":
-      dmg = this.calcDamage('r');
-      break;
-    }
-    return dmg;
-  }
-  
-  // ################# probably for the battle handler #################
-  /**
-   * Checks the range to target and start attack
-   * @param target - PlayerCharacter
-   * @param distance - int
-   * @return - String - protokoll of combat
-   */
-  public String tryToAttack(PlayerCharacter target, int distance)
-  {
-    String output = "";
-     switch(this.getpWeapon().getCat())
-    {
-      case "melee":
-        if(distance == 1)// or adjacent?
-        {
-          output += this.doAttack(target);
-        }else{
-          output += "Target is too far away. Move closer.";
-        }
-        break;
-      case "range":
-        if(distance >= 1)
-        {
-          if(distance <= this.getpWeapon().getDistance())
-          {
-            output += this.doAttack(target);
-          }else{
-            output += "Target is too far away. Move closer.";
-          }
-        }else{
-          output += "Target is too close. Move away.";
-        }
-        break;
-    }
-     return output;
-  }
-  /**
-   * Calculate "chance to hit" and start making damage.
-   * @param target - PlayerCharacter
-   * @return - String - protokoll of combat
-   */
-  public String doAttack(PlayerCharacter target)
-  {
-    String output = this.getName() + " ";
-    int[] cTh = this.tryHit();
-    
-    if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
-    {
-      int dmg = this.doDamage();
-      if(cTh[0] == 20)
-      {
-        dmg *= 2;
-        output += "*";
-      }
-      target.setTempHP( target.getTempHP() - dmg );
-      output += "hits " + target.getName() + " with a " + cTh[1] 
-              + " and does " + dmg + " damage."
-              + " And has " + target.getTempHP() + " HP left.";
-      if(target.getTempHP() <= 0){
-        output += target.getName() + " is no more.\n";
-      }
-    }
-    else
-    {
-      output += "misses with a " + cTh[1] + "\n";
-    }
-    return output;
-  }
-  /**
-   * calculate the weapon damage
-   * with melee or range modifier base on param.
-   * @param input
-   * @return 
-   */
-  public int castSpell(Spell input)
-  {
-    int spellDmg = main.Die.rollDie(
-      input.getDamageDie(),
-      input.getDieCount()
-    );
-    spellDmg += this.getModifier(this.getIntelegent());
-    return spellDmg;
-  }
-  /**
-   * Calculate "chance to hit" with spells and start making spelldamage.
-   * @param target - PlayerCharacter
-   * @param iSpell - Spell - that gets cast
-   * @return - String - protokoll of combat
-   */
-  public String doSpellAttack(PlayerCharacter target, Spell iSpell)
-  {
-    String output = this.getName() + " ";
-// TODO: redo spell handling
-    if(iSpell.getName().equalsIgnoreCase("healingword")){
-      int heal = this.castSpell(iSpell);
-      output += "healed for " + heal + ". ";
-      this.setTempHP( this.getTempHP() + heal );
-      if(this.getTempHP() > this.getHealth()){
-        this.setTempHP(this.getHealth());
-      }
-      output += "Health is now back to " + this.getTempHP() + "/" + this.getHealth() +".";
-      return output;
-    }
-    
-    int[] cTh = this.tryHit();
-    if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
-    {
-      int dmg = this.castSpell(iSpell);
-      if(cTh[0] == 20)
-      {
-        dmg *= 2;
-        output += "*";
-      }
-      target.setTempHP( target.getTempHP() - dmg );
-      output += "hits " + target.getName() + " with a " + cTh[1] 
-              + " and does " + dmg + " damage."
-              + " And has " + target.getTempHP() + " HP left.";
-      if(target.getTempHP() <= 0){
-        output += target.getName() + " is no more.\n";
-      }
-    }
-    else
-    {
-      output += "misses with a " + cTh[1] + "\n";
-    }
-    return output;
-  }
-  /**
-   * Checks the range to target and start attack with spell
-   * @param target - PlayerCharacter
-   * @param distance - int
-   * @param spellname - String - name of the spell that gets cast
-   * @return - String - protokoll of combat
-   */
-  public String tryToSpellAttack(PlayerCharacter target, int distance, String spellname)
-  {
-    String output = "";
-    Spell tempSpell = this.getpClass().getMyBook().getSpellByName(spellname);
-    if(distance <= tempSpell.getSpellRange()){
-      output += this.doSpellAttack(target,tempSpell);
-    }else{
-      output += "Target is too far away. Move closer.";
     }
     return output;
   }

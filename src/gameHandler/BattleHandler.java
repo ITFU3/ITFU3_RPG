@@ -302,7 +302,7 @@ public class BattleHandler
     {
       output += attacker.getName() + " ";
       // TODO: redo spell handling with Healing Spells !!!
-      if(iSpell.getName().equalsIgnoreCase("healingword"))
+      if(iSpell.getSpellEffect().equalsIgnoreCase("heal"))
       {
         int heal = this.castSpell(attacker, iSpell);
         output += "healed " + target.getName() + " for " + heal + " HP. ";
@@ -313,28 +313,31 @@ public class BattleHandler
         output += "Health is now back to " + target.getTempHP() + "/" + target.getHealth() +".";
         return output;
       }
-      // Damage Spells    
-      int[] cTh = this.tryHit(attacker, true);
-      if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
-      {
-        int dmg = this.castSpell(attacker, iSpell);
-        if(cTh[0] == 20)
-        {
-          dmg *= 2;
-          output += "*";
-        }
-        target.setTempHP( target.getTempHP() - dmg );
-        output += "hits " + target.getName() + " with a " + cTh[1] 
-                + " and does " + dmg + " damage."
-                + " And has " + target.getTempHP() + " HP left.";
-        if(target.getTempHP() <= 0){
-          output += target.getName() + " is no more.\n";
-        }
-      }
-      else
-      {
-        output += "misses with a " + cTh[1] + "\n";
-      }
+	  else if(iSpell.getSpellEffect().equalsIgnoreCase("damage"))
+	  {
+		// Damage Spells    
+		int[] cTh = this.tryHit(attacker, true);
+		if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
+		{
+		  int dmg = this.castSpell(attacker, iSpell);
+		  if(cTh[0] == 20)
+		  {
+			dmg *= 2;
+			output += "*";
+		  }
+		  target.setTempHP( target.getTempHP() - dmg );
+		  output += "hits " + target.getName() + " with a " + cTh[1] 
+				  + " and does " + dmg + " damage."
+				  + " " + target.getName() + " has " + target.getTempHP() + " HP left.";
+		  if(target.getTempHP() <= 0){
+			output += target.getName() + " is no more.\n";
+		  }
+		}
+		else
+		{
+		  output += "misses with a " + cTh[1] + "\n";
+		}
+	  }
     }else{
       output += "Target is too far away. Move closer.";
     }

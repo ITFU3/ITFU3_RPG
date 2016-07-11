@@ -232,6 +232,7 @@ public class TurnHandler
   
   /**
    * Can be used for player and monster to "make an attack"
+   * Perhaps redo this method.
    * 
    * @param hasAction The condition if attack is possible
    * @param command The entered command line
@@ -252,28 +253,27 @@ public class TurnHandler
                           boolean UseSpell
   )
   {
-    if(playerSwitch)
-    {
-      if(hasAction)
-      {
-        if(command.length>=2)
-        {
-          if(command[1].equalsIgnoreCase(monster.getName()))
-          {
-            if(UseSpell)
-            {
-//              System.out.println(player.tryToSpellAttack(monster, dungeonMap.getDistance(), command[2]));
-              System.out.println(battleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(), command[2]));
+    if(playerSwitch){
+      if(hasAction){
+        if(command.length>=2){
+          if(command[1].equalsIgnoreCase(monster.getName())
+			|| command[1].equalsIgnoreCase(player.getName()))
+		  {
+            if(UseSpell){
+			  // For healing, to self target.
+			  if(command[1].equalsIgnoreCase(player.getName())){
+				System.out.println(battleHandler.tryToSpellAttack(player, player, dungeonMap.getDistance(), command[2]));
+			  }else{
+				System.out.println(battleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(), command[2]));
+			  }
             }else{
-//              System.out.println(player.tryToAttack(monster, dungeonMap.getDistance()));
               System.out.println(battleHandler.tryToAttack(player, monster, dungeonMap.getDistance()));
             }
-            if(monster.getTempHP() <= 0)
-            {
+            if(monster.getTempHP() <= 0){
               dungeonMap.setMarkerOnMap(dungeonMap.getmY(), dungeonMap.getmX(), 'c');
             }
             hasAction = false;
-          }else{System.out.println("Who??");}
+		  }else{System.out.println("Who? Target not known.");}
         }else{System.out.println("More parameters needed.");}
       }else{System.out.println("You have used your action.");}
     }else{
@@ -282,11 +282,10 @@ public class TurnHandler
         System.out.println("quiek");
         if(UseSpell)
         {
-//          System.out.println(monster.tryToSpellAttack(player, dungeonMap.getDistance(), command[2]));
+		  // Also implement self heal for monster as a fix call is needed.(b/c no external input)
           System.out.println(battleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(), command[2]));
           hasAction = false;
         }else{
-//          System.out.println(monster.tryToAttack(player, dungeonMap.getDistance()));
           System.out.println(battleHandler.tryToAttack(monster, player, dungeonMap.getDistance()));
           hasAction = false;
         }
@@ -294,7 +293,7 @@ public class TurnHandler
         {
           dungeonMap.setMarkerOnMap(dungeonMap.getLastY(), dungeonMap.getLastX(), 'c');
         }
-//        hasAction = false;
+        hasAction = false;
       }
     }
     return hasAction;

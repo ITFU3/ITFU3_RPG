@@ -17,5 +17,9 @@ public class Door {
     boolean open = false;
     boolean locked = false;
     DoorType type = DoorType.LIGHT;
+    Coordinate coordinate;
+    public Door() {
+        this.coordinate = new Coordinate(0,1);
+    }
 }
 

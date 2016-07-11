@@ -5,6 +5,8 @@
  */
 package room;
 
+import main.Die;
+
 /**
  *
  * @author steffen
@@ -36,5 +38,11 @@ public class Coordinate {
         this.z = 1;
         this.time = 1;
     }
+    
+     public static Coordinate getRandomCoordinate(int length, int width) {
+         int x = Die.rollDie(length, 1);
+         int y = Die.rollDie(width, 1);
+         return new Coordinate(x,y);
+     }
 }
 

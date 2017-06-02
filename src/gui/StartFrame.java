@@ -113,7 +113,8 @@ public class StartFrame extends javax.swing.JFrame {
         this.setVisible(false);
         PlayerCharacter pc = (PlayerCharacter)jList1.getSelectedValue();
         if (pc != null) {
-           Game game = new Game(pc.getName(), 400, 400);
+           Game game = Game.getInstance();
+           
            game.start();
         }
         

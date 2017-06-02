@@ -5,12 +5,16 @@
  */
 package main;
 
+import characters.MonsterCharacter;
+import characters.PlayerCharacter;
 import gameHandler.KeyManager;
 import gui.ArenaDisplay;
 import gui.GameFrame;
+import gui.Player;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import state.GameState;
@@ -22,9 +26,13 @@ import state.State;
  */
 public class Game implements Runnable{
     
-    private Game instance;
+    public static Game instance;
+    
+    private PlayerCharacter player;
+    private ArrayList<MonsterCharacter> monsters  = new ArrayList<MonsterCharacter>();
+   
 
-    private GameFrame gameGui;
+    private GameFrame gameFrame;
     
     private Thread thread;
       
@@ -33,13 +41,13 @@ public class Game implements Runnable{
     private boolean running = false;
     
     public int width, height;
-    public String title;
+    public String title = "Death's domain";
     
-    public Game() {
+    private Game() {
         
     }
 
-    public Game getInstance() {
+    public static Game getInstance() {
         if (instance == null) {
             instance = new Game();
         }
@@ -49,9 +57,27 @@ public class Game implements Runnable{
     
 
     private void init() {
-        gameGui = new GameFrame();
-        
+        gameFrame = new GameFrame();
+        gameFrame.setTitle(title);
     }
+
+    public PlayerCharacter getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(PlayerCharacter player) {
+        this.player = player;
+    }
+
+    public ArrayList<MonsterCharacter> getMonsters() {
+        return monsters;
+    }
+
+    public void setMonsters(ArrayList<MonsterCharacter> monsters) {
+        this.monsters = monsters;
+    }
+    
+    
     
     @Override
     public void run() {
@@ -85,8 +111,8 @@ public class Game implements Runnable{
         }
     }
 
-    public GameFrame getGameGui() {
-        return gameGui;
+    public GameFrame getGameFrame() {
+        return gameFrame;
     }
 
    

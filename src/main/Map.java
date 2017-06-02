@@ -58,6 +58,43 @@ public class Map
     this.mLastY = this.mY;
     this.mLastX = this.mX;
   }
+
+    public Map() {
+        String map =  
+                "#########P#############################\n"+
+                "#                                     #\n"+
+                "#                                     #\n"+
+                "#                                     #\n"+
+                "#        M                           #\n"+
+                "#                                     #\n"+
+                "#                                     #\n"+
+                "#                                     #\n"+
+                "#                                     #\n"+
+                "#                                     #\n"+
+                "#                                     #\n"+
+                "#######################################\n";
+        this.map = map;
+    this.width = 39;
+    this.height = 12;
+    this.sX = 0;
+    this.sY = 0;
+    
+    this.mX = 0;
+    this.mY = 0;
+    
+
+    this.LastY = this.sY;
+    this.LastX = this.sX;
+    
+    this.mLastY = this.mY;
+    this.mLastX = this.mX;
+    }
+
+    public String getMap() {
+        return map;
+    }
+  
+  
   
   /**
    * Parsing the map string into char array

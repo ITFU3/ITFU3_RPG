@@ -1,4 +1,5 @@
 package armor;
+
 public class Armor
 {
   private String name;

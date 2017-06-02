@@ -614,4 +614,11 @@ public class PlayerCharacter
   public void setBackpack(Backpack backpack) {
       this.backpack = backpack;
   }
+
+    @Override
+    public String toString() {
+        return getName(); //To change body of generated methods, choose Tools | Templates.
+    }
+  
+  
 }

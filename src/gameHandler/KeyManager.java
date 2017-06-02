@@ -15,6 +15,8 @@ import java.util.ArrayList;
  */
 public class KeyManager implements KeyListener {
 
+   // key setup
+    
     private final int up = KeyEvent.VK_W;
     private final int down = KeyEvent.VK_S;
     private final int left = KeyEvent.VK_A;
@@ -27,51 +29,31 @@ public class KeyManager implements KeyListener {
     private final int pause = KeyEvent.VK_P;
     private final int esc = KeyEvent.VK_ESCAPE;
     
-    private boolean[] keys;
-    //public boolean up, down, left, right;
-    //public boolean esc;
-    //public boolean pause;
+    
+   
     public KeyManager() {
-        this.keys = new boolean[256];
+      
     }
     
-    public void update() {
-        /*
-        up = keys[KeyEvent.VK_W];
-        down = keys[KeyEvent.VK_S];
-        left = keys[KeyEvent.VK_A];
-        right = keys[KeyEvent.VK_D];
-        esc = keys[KeyEvent.VK_ESCAPE];
-        pause = keys[KeyEvent.VK_P];
-                */
-    }
+    
     
     
     
     
     @Override
     public void keyTyped(KeyEvent e) {
-        //keys[e.getKeyCode()] = true; 
-        
-       // keyAction(e);
+  
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //keys[e.getKeyCode()] = true; 
-        
-       // System.out.println("Pressed");
-        
-    
+   
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-     // keys[e.getKeyCode()] = false; 
-     //   System.out.println("Released");
         keyAction(e);
-       
-
+   
     }
     
     public void keyAction(KeyEvent e) {

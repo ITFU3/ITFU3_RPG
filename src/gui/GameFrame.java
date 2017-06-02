@@ -5,7 +5,7 @@
  */
 package gui;
 
-import gameHandler.KeyManager;
+import gameHandler.KeyHandler;
 import java.awt.Color;
 
 /**
@@ -19,7 +19,7 @@ public class GameFrame extends javax.swing.JFrame {
      */
     public GameFrame() {
         initComponents();
-        this.addKeyListener(new KeyManager());
+        this.addKeyListener(new KeyHandler());
         
         this.setLocationRelativeTo(null);
         jTextArea1.setEnabled(false);

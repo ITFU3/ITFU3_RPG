@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author steffen
  */
-public class KeyManager implements KeyListener {
+public class KeyHandler implements KeyListener {
 
    // key setup
     
@@ -31,7 +31,7 @@ public class KeyManager implements KeyListener {
     
     
    
-    public KeyManager() {
+    public KeyHandler() {
       
     }
     

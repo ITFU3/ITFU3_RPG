@@ -7,7 +7,7 @@ package main;
 
 import characters.MonsterCharacter;
 import characters.PlayerCharacter;
-import gameHandler.KeyManager;
+import gameHandler.KeyHandler;
 import gui.ArenaDisplay;
 import gui.GameFrame;
 import gui.Player;
@@ -37,7 +37,7 @@ public class Game implements Runnable{
     private Thread thread;
       
     // Input
-    private KeyManager keymanager;
+    private KeyHandler keymanager;
     private boolean running = false;
     
     public int width, height;
@@ -117,7 +117,7 @@ public class Game implements Runnable{
 
    
 
-    public KeyManager getKeymanager() {
+    public KeyHandler getKeymanager() {
         return keymanager;
     }
 

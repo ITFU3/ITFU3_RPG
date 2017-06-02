@@ -31,7 +31,18 @@ public class Map
   private int mLastY;
   private int mNewX;
   private int mNewY;
+  
+  private static Map instance;
+  
+  public static Map getInstance() {
+      if (instance == null) {
+          map = new Map();
+      }
+      return instance;
+  }
 
+  
+  
   /**
    * The Constructor
    * 
@@ -57,6 +68,7 @@ public class Map
     
     this.mLastY = this.mY;
     this.mLastX = this.mX;
+    instance = this;
   }
 
     public Map() {

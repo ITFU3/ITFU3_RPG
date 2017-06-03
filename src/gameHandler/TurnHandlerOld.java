@@ -9,7 +9,7 @@ import main.*;
  * 
  * @author Matthias Dröge
  */
-public class TurnHandler
+public class TurnHandlerOld
 {
   BattleHandler battleHandler;
   
@@ -18,7 +18,7 @@ public class TurnHandler
    * BattleHandler to use in combat as param
    * @param battleHandler - BattleHandler
    */
-  public TurnHandler(BattleHandler battleHandler)
+  public TurnHandlerOld(BattleHandler battleHandler)
   {
     this.battleHandler = battleHandler;
   }

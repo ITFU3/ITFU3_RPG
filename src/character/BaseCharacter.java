@@ -9,6 +9,9 @@ package character;
  *
  * @author steffen
  */
-public class BaseCharacter {
+public abstract class BaseCharacter {
+    
+    int id;
+    int allowedActions;
     
 }

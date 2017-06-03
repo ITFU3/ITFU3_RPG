@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 /**
  * 
  * @author Matthias Dröge
@@ -12,36 +14,42 @@ public class Map
     
   private char[][] labyrinthMap;  // the map as CharArray with [Y][X]
   
-  // TODO: arrange for Array...
-  private int sX; // the X of starting point
-  private int sY; // the Y of starting point
+    // TODO: arrange for Array...
+  private int playerX; // the X of starting point
+  private int playerY; // the Y of starting point
+    // TODO: arrange for Array...
+  private int playerLastX;  // the X Position I came from
+  private int playerLastY;  // the Y Position I came from
+    // TODO: arrange for Array...
+  private int playerNewX; // the X to go to
+  private int playerNewY; // the Y to go to
   
-  // TODO: arrange for Array...
-  private int mX; // till I get more monster
-  private int mY; // till I get more monster
-  
-  // TODO: arrange for Array...
-  private int LastX;  // the X Position I came from
-  private int LastY;  // the Y Position I came from
-  private int newX; // the X to go to
-  private int newY; // the Y to go to
-  
-  // TODO: arrange for Array...
-  private int mLastX; // for monster movment
-  private int mLastY;
-  private int mNewX;
-  private int mNewY;
+    // TODO: arrange for Array...
+  private ArrayList<int[]> monsterCoordinates;
+  private int monsterX; // till I get more monster
+  private int monsterY; // till I get more monster
+    // TODO: arrange for Array...
+  private ArrayList<int[]> monsterLastCoordinates;
+  private int monsterLastX; // for monster movment
+  private int monsterLastY;
+    // TODO: arrange for Array...
+  private ArrayList<int[]> monsterNewCoordinates;
+  private int monsterNewX;
+  private int monsterNewY;
   
   private static Map instance;
-  
+
+/**
+ * Instance of the Singelton Map
+ * 
+ * @return Map Class
+ */  
   public static Map getInstance() {
       if (instance == null) {
           Map.instance = new Map();
       }
       return instance;
   }
-
-  
   
   /**
    * The Constructor
@@ -55,61 +63,69 @@ public class Map
     this.map = map;
     this.width = width;
     this.height = height;
-    this.sX = 0;
-    this.sY = 0;
+    this.playerX = 0;
+    this.playerY = 0;
     
-    this.mX = 0;
-    this.mY = 0;
+    this.monsterCoordinates = new ArrayList();
+    this.monsterCoordinates.add(new int[]{0, 0} );
+//    this.mX = 0;
+//    this.mY = 0;
     
     this.buildLabyrinth();
 
-    this.LastY = this.sY;
-    this.LastX = this.sX;
+    this.playerLastX = this.playerX;
+    this.playerLastY = this.playerY;
     
-    this.mLastY = this.mY;
-    this.mLastX = this.mX;
-    instance = this;
+    this.monsterLastCoordinates = this.monsterCoordinates;
+//    this.monsterLastY = this.monsterY;
+//    this.monsterLastX = this.monsterX;
   }
 
+  /**
+   * The default Constructor
+   */
     public Map() {
+        // without \n !!!
         String init_map =  
-                "#########P#############################\n"+
-                "#                                     #\n"+
-                "#                                     #\n"+
-                "#                                     #\n"+
-                "#        M                            #\n"+
-                "#                                     #\n"+
-                "#                                     #\n"+
-                "#                                     #\n"+
-                "#                                     #\n"+
-                "#                                     #\n"+
-                "#                                     #\n"+
-                "#######################################\n";
+                "#########P#############################"+
+                "#                                     #"+
+                "#                                     #"+
+                "#                                     #"+
+                "#        M                            #"+
+                "#                                     #"+
+                "#                                     #"+
+                "#                                     #"+
+                "#                                     #"+
+                "#                                     #"+
+                "#                                     #"+
+                "#######################################";
     this.map = init_map;
     this.width = 39;
     this.height = 12;
-    this.sX = 0;
-    this.sY = 0;
     
-    this.mX = 0;
-    this.mY = 0;
+    this.monsterCoordinates = new ArrayList();
+    this.buildLabyrinth();
     
-
-    this.LastY = this.sY;
-    this.LastX = this.sX;
+    this.playerLastY = this.playerY;
+    this.playerLastX = this.playerX;
     
-    this.mLastY = this.mY;
-    this.mLastX = this.mX;
+    this.monsterLastCoordinates = this.monsterCoordinates;
+    this.monsterLastY = this.monsterY;
+    this.monsterLastX = this.monsterX;
     }
 
+    /**
+     * Getter for prepared map-String
+     * 
+     * @return String
+     */
     public String getMap() {
         return map;
     }
   
-  
-  
   /**
    * Parsing the map string into char array
+   * To get the Coordinates of player and monster
    */
   private void buildLabyrinth()
   {
@@ -122,13 +138,14 @@ public class Map
         this.labyrinthMap[y][x] = field;
         if(field == 'P')
         {
-          this.sX = x;
-          this.sY = y;
+          this.playerX = x;
+          this.playerY = y;
         }
         if(field == 'M')
         {
-          this.mX = x;
-          this.mY = y;
+          this.monsterCoordinates.add( new int[]{y,x} );
+          this.monsterX = x;
+          this.monsterY = y;
         }
       }
     }
@@ -140,20 +157,22 @@ public class Map
    */
   public void showLabyrinth()
   {
+    this.map = "";
     for(int y=0; y < this.height; y++)
     {
       for(int x=0; x < this.width; x++)
       {
         char field = this.labyrinthMap[y][x];
+        this.map += field;
         System.out.print(field);
       }
+      this.map += "\n";
       System.out.print("\n");
     }
+//    gui.GameFrame.updateGUI( this.getMap() );
   }
   
   /**
-   * 
-   * 
    * @param input Command word for direction
    * @param tempMovement The max movement to walk
    * @param steps Amount of steps to walk
@@ -173,15 +192,15 @@ public class Map
       {
 // not nice needs a redo
         if(playerSwitch){
-          l_X = this.getLastX();
-          l_Y = this.getLastY();
-          n_x = this.getNewX();
-          n_y = this.getNewY();
+          l_X = this.getPlayerLastX();
+          l_Y = this.getPlayerLastY();
+          n_x = this.getPlayerNewX();
+          n_y = this.getPlayerNewY();
         }else{
-          l_X = this.getmLastX();
-          l_Y = this.getmLastY();
-          n_x = this.getmNewX();
-          n_y = this.getmNewY();
+          l_X = this.getMonsterLastX();
+          l_Y = this.getMonsterLastY();
+          n_x = this.getMonsterNewX();
+          n_y = this.getMonsterNewY();
         }
         System.out.println("steps: " + steps + 
             " | tempMovement: " + tempMovement +
@@ -206,15 +225,15 @@ public class Map
         
 // not nice needs a redo
         if(playerSwitch){
-          l_X = this.getLastX();
-          l_Y = this.getLastY();
-          n_x = this.getNewX();
-          n_y = this.getNewY();
+          l_X = this.getPlayerLastX();
+          l_Y = this.getPlayerLastY();
+          n_x = this.getPlayerNewX();
+          n_y = this.getPlayerNewY();
         }else{
-          l_X = this.getmLastX();
-          l_Y = this.getmLastY();
-          n_x = this.getmNewX();
-          n_y = this.getmNewY();
+          l_X = this.getMonsterLastX();
+          l_Y = this.getMonsterLastY();
+          n_x = this.getMonsterNewX();
+          n_y = this.getMonsterNewY();
         }
         
         char mapIndicator = this.labyrinthMap[l_Y][l_X];
@@ -222,7 +241,7 @@ public class Map
         switch(this.labyrinthMap[n_y][n_x])	  // the field I'm in right now!
         {
           case 'M':
-            if(playerSwitch)
+            if( playerSwitch )
             {
               System.out.println("\nYou cannot fill the same space.\n");
               this.resetNewPos(l_Y, l_X, playerSwitch);
@@ -232,9 +251,8 @@ public class Map
               this.setLastPos(n_y, n_x, playerSwitch);
             }
             break;
-          
           case 'P':
-            if(!playerSwitch)
+            if( !playerSwitch )
             {
               System.out.println("\nYou cannot fill the same space.\n");
               this.resetNewPos(l_Y, l_X, playerSwitch);
@@ -244,7 +262,6 @@ public class Map
               this.setLastPos(n_y, n_x, playerSwitch);
             }
             break;
-            
           case ' ':
             this.resetMarkerOnMap(l_Y, l_X);
             this.setMarkerOnMap(n_y, n_x, mapIndicator);
@@ -258,8 +275,9 @@ public class Map
              }
             break;
           default:
+              //...
         }
-        showLabyrinth();
+        this.showLabyrinth();
         tempMovement--;
       }
     }
@@ -278,8 +296,8 @@ public class Map
    */
   public int getDistance()
   {
-    int x = Math.abs(this.getLastX() - this.getmX());
-    int y = Math.abs(this.getLastY() - this.getmY());
+    int x = Math.abs(this.getPlayerLastX() - this.getMonsterX());
+    int y = Math.abs(this.getPlayerLastY() - this.getMonsterY());
     return Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
   }
   
@@ -296,11 +314,11 @@ public class Map
 	//UP == Y--
     if(playerSwitch)
     {
-      this.setNewY(y-1);
-      this.setNewX(x);
+      this.setPlayerNewY(y-1);
+      this.setPlayerNewX(x);
     }else{
-      this.setmNewY(y-1);
-      this.setmNewX(x);
+      this.setMonsterNewY(y-1);
+      this.setMonsterNewX(x);
     }
   }
   
@@ -316,11 +334,11 @@ public class Map
 	//Right == x++
     if(playerSwitch)
     {
-      this.setNewY(y);
-      this.setNewX(x+1);
+      this.setPlayerNewY(y);
+      this.setPlayerNewX(x+1);
     }else{
-      this.setmNewY(y);
-      this.setmNewX(x+1);
+      this.setMonsterNewY(y);
+      this.setMonsterNewX(x+1);
     }
   }
   
@@ -336,11 +354,11 @@ public class Map
 	// DOWN == Y++
     if(playerSwitch)
     {
-      this.setNewY(y+1);
-      this.setNewX(x);
+      this.setPlayerNewY(y+1);
+      this.setPlayerNewX(x);
     }else{
-      this.setmNewY(y+1);
-      this.setmNewX(x);
+      this.setMonsterNewY(y+1);
+      this.setMonsterNewX(x);
     }
   }
   
@@ -356,11 +374,11 @@ public class Map
 	// LEFT == x--
     if(playerSwitch)
     {
-      this.setNewY(y);
-      this.setNewX(x-1);
+      this.setPlayerNewY(y);
+      this.setPlayerNewX(x-1);
     }else{
-      this.setmNewY(y);
-      this.setmNewX(x-1);
+      this.setMonsterNewY(y);
+      this.setMonsterNewX(x-1);
     }
   }
   
@@ -375,11 +393,11 @@ public class Map
   {
     if(playerSwitch)
     {
-      this.setLastY(y);
-      this.setLastX(x);
+      this.setPlayerLastY(y);
+      this.setPlayerLastX(x);
     }else{
-      this.setmLastY(y);
-      this.setmLastX(x);
+      this.setMonsterLastY(y);
+      this.setMonsterLastX(x);
     }
   }
   
@@ -394,11 +412,11 @@ public class Map
   {
     if(playerSwitch)
     {
-      this.setNewY(y);
-      this.setNewX(x);
+      this.setPlayerNewY(y);
+      this.setPlayerNewX(x);
     }else{
-      this.setmNewY(y);
-      this.setmNewX(x);
+      this.setMonsterNewY(y);
+      this.setMonsterNewX(x);
     }
   }
   
@@ -428,66 +446,66 @@ public class Map
     
   //##### POSITION PLAYER #####
   public int getSX(){
-    return this.sX;
+    return this.playerX;
   }
   public int getSY(){
-    return this.sY;
+    return this.playerY;
   }
-  public int getLastX(){
-    return this.LastX;
+  public int getPlayerLastX(){
+    return this.playerLastX;
   }
-  public int getLastY(){
-    return this.LastY;
+  public int getPlayerLastY(){
+    return this.playerLastY;
   }
-  public void setLastX(int LastX) {
-    this.LastX = LastX;
+  public void setPlayerLastX(int playerLastX) {
+    this.playerLastX = playerLastX;
   }
-  public void setLastY(int LastY) {
-    this.LastY = LastY;
+  public void setPlayerLastY(int playerLastY) {
+    this.playerLastY = playerLastY;
   }
-  public int getNewX() {
-    return newX;
+  public int getPlayerNewX() {
+    return playerNewX;
   }
-  public void setNewX(int newX) {
-    this.newX = newX;
+  public void setPlayerNewX(int playerNewX) {
+    this.playerNewX = playerNewX;
   }
-  public int getNewY() {
-    return newY;
+  public int getPlayerNewY() {
+    return playerNewY;
   }
-  public void setNewY(int newY) {
-    this.newY = newY;
+  public void setPlayerNewY(int playerNewY) {
+    this.playerNewY = playerNewY;
   }
   
   //##### POSITION MONSTER #####
-  public int getmX() {
-    return mX;
+  public int getMonsterX() {
+    return monsterX;
   }
-  public int getmY() {
-    return mY;
+  public int getMonsterY() {
+    return monsterY;
   }
-  public int getmLastX() {
-    return mLastX;
+  public int getMonsterLastX() {
+    return monsterLastX;
   }
-  public void setmLastX(int mLastX) {
-    this.mLastX = mLastX;
+  public void setMonsterLastX(int monsterLastX) {
+    this.monsterLastX = monsterLastX;
   }
-  public int getmLastY() {
-    return mLastY;
+  public int getMonsterLastY() {
+    return monsterLastY;
   }
-  public void setmLastY(int mLastY) {
-    this.mLastY = mLastY;
+  public void setMonsterLastY(int monsterLastY) {
+    this.monsterLastY = monsterLastY;
   }
-  public int getmNewX() {
-    return mNewX;
+  public int getMonsterNewX() {
+    return monsterNewX;
   }
-  public void setmNewX(int mNewX) {
-    this.mNewX = mNewX;
+  public void setMonsterNewX(int monsterNewX) {
+    this.monsterNewX = monsterNewX;
   }
-  public int getmNewY() {
-    return mNewY;
+  public int getMonsterNewY() {
+    return monsterNewY;
   }
-  public void setmNewY(int mNewY) {
-    this.mNewY = mNewY;
+  public void setMonsterNewY(int monsterNewY) {
+    this.monsterNewY = monsterNewY;
   }
 
  

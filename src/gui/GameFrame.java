@@ -14,7 +14,13 @@ import main.Map;
  * @author steffen
  */
 public class GameFrame extends javax.swing.JFrame {
-
+//    public static String field = "";
+//    public static void updateGUI(String input){
+//        field = input;
+//    }
+//    public void updateTextArea(){
+//        jTextArea1.setText(field);
+//    }
     /**
      * Creates new form GameFrame
      */
@@ -33,7 +39,6 @@ public class GameFrame extends javax.swing.JFrame {
         
         this.setVisible(true);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,7 +112,6 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;

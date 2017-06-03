@@ -7,7 +7,7 @@ package gameHandler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 /**
  *
@@ -28,11 +28,11 @@ public class KeyHandler implements KeyListener {
     
     private final int pause = KeyEvent.VK_P;
     private final int esc = KeyEvent.VK_ESCAPE;
-    
+   
     
    
     public KeyHandler() {
-      
+        System.out.println("KeyHandler: init");
     }
     
     
@@ -42,18 +42,18 @@ public class KeyHandler implements KeyListener {
     
     @Override
     public void keyTyped(KeyEvent e) {
-  
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-   
+        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        
         keyAction(e);
-   
     }
     
     public void keyAction(KeyEvent e) {
@@ -63,18 +63,24 @@ public class KeyHandler implements KeyListener {
             case up:
                 // to inputhandler
                 System.out.println("Up");
+                main.Map.getInstance().walkOnMap( "up" , 2 , 1 , true );
                 break;
             case down:
                 System.out.println("Down");
+                main.Map.getInstance().walkOnMap( "down" , 2 , 1 , true );
                 break;
             case left:
                 System.out.println("Left");
+                main.Map.getInstance().walkOnMap( "left" , 2 , 1 , true );
                 break;
             case right:
                 System.out.println("Right");
+                main.Map.getInstance().walkOnMap( "right" , 2 , 1 , true );
                 break;
             // Battle Commands
-                
+            case attack:
+                System.out.println("Attack");
+                break;
             // Info
                 
                 

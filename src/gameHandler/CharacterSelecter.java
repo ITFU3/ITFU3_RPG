@@ -68,7 +68,9 @@ public class CharacterSelecter
                                       "Zelo",
                                       'm',
                                       new Fighter(), 
-                                      new Human()
+                                      new Human(), 
+                                        0, // id 
+                                        6   // allowedActions
                                     );
     player1.addWeapon(new LongSword("Excalibur", 10, 1, 1));
     player1.addArmor(new Plate());
@@ -77,7 +79,9 @@ public class CharacterSelecter
                                       "Gwen",
                                       'f',
                                       new Cleric(), 
-                                      new Dwarf()
+                                      new Dwarf(),
+                                      0,
+                                      6
                                     );
     player2.addWeapon(new Mace("Glower", 8, 1, 1));
     player2.addArmor(new ChainMail());
@@ -87,7 +91,9 @@ public class CharacterSelecter
                                       "Vahlran",
                                       'm',
                                       new Ranger(), 
-                                      new Elf()
+                                      new Elf(),
+                                      0,
+                                      6
                                     );
     player3.addWeapon(new ShortBow("Feather", 6, 2, 10));
     player3.addArmor(new Leather());
@@ -96,7 +102,9 @@ public class CharacterSelecter
                                 "Simon",
                                 'm',
                                 new Wizzard(), 
-                                new Human()
+                                new Human(), 
+                                0, 
+                                 6
                               );
     player4.addWeapon(new Weapon());
     player4.addArmor(new Cloth());
@@ -111,7 +119,8 @@ public class CharacterSelecter
                                       "Zelo",
                                       'm',
                                       new Fighter(), 
-                                      new Human()
+                                      new Human(),
+              0, 6
                                     );
     player1.addWeapon(new LongSword("Excalibur", 10, 1, 1));
     player1.addArmor(new Plate());
@@ -120,7 +129,8 @@ public class CharacterSelecter
                                       "Gwen",
                                       'f',
                                       new Cleric(), 
-                                      new Dwarf()
+                                      new Dwarf(),
+                                      0, 6
                                     );
     player2.addWeapon(new Mace("Glower", 8, 1, 1));
     player2.addArmor(new ChainMail());
@@ -130,7 +140,8 @@ public class CharacterSelecter
                                       "Vahlran",
                                       'm',
                                       new Ranger(), 
-                                      new Elf()
+                                      new Elf(),
+            0, 6
                                     );
     player3.addWeapon(new ShortBow("Feather", 6, 2, 10));
     player3.addArmor(new Leather());
@@ -139,7 +150,8 @@ public class CharacterSelecter
                                 "Simon",
                                 'm',
                                 new Wizzard(), 
-                                new Human()
+                                new Human(),
+            0, 6
                               );
     player4.addWeapon(new Weapon());
     player4.addArmor(new Cloth());

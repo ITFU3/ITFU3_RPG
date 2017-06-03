@@ -8,7 +8,7 @@ import base.Base;
 /**
  * @author Matthias Dröge
  */
-public class PlayerCharacter 
+public class PlayerCharacter  
 {
   private String name;
   private char gender;

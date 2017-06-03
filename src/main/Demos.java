@@ -1,10 +1,10 @@
 package main;
+import character.races.Race;
+import character.races.Rat;
+import character.MonsterCharacter;
+import character.PlayerCharacter;
 import gameHandler.*;
 import base.Base;
-import base.Item;
-import backpack.*;
-import characters.*;
-import races.*;
 
 /**
  * 
@@ -24,27 +24,7 @@ public class Demos
     MonsterCharacter[] output = {monster, rat};
     return output;
   }
-  
-  /**
-   * A test function for the new Bag-Class
-   */
-  public static void bagTesting()
-  {
-    System.out.println("BAG testing");
-    Item item1 = new Item();
-    Item item2;
-    item2 = new Item(2.0, 2.0, 2.0);
-    System.out.println(item1.getWeigth());
-    Bag bag = new Bag();
-    bag.addItem(item1);
-    bag.addItem(item2);
-    if (bag.addItem(item1)) {
-        System.out.println("Oh it worked!!!");
-    } else {
-        System.out.println("It did not work, but I won't tell you why.");
-    }
-  }
-  
+    
   /**
    * A test function for the monster creation
    */

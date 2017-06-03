@@ -5,7 +5,7 @@
  */
 package gui.GuiHelper;
 
-import characters.PlayerCharacter;
+import character.PlayerCharacter;
 import gameHandler.CharacterSelecter;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;

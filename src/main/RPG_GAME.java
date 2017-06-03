@@ -1,7 +1,6 @@
 package main;
 
 import gameHandler.*;
-import characters.*;
 import gui.ArenaFrame;
 import gui.GameFrame;
 import gui.StartFrame;

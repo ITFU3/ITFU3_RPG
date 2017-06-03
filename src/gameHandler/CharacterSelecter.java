@@ -1,11 +1,23 @@
 package gameHandler;
-import armor.*;
-import characters.*;
-import classes.*;
+import character.item.spells.HealingWord;
+import character.item.spells.Fireball;
+import character.races.Dwarf;
+import character.races.Human;
+import character.races.Elf;
+import character.classes.Wizzard;
+import character.classes.Cleric;
+import character.classes.Ranger;
+import character.classes.Fighter;
+import character.PlayerCharacter;
+import character.item.weapons.Weapon;
+import character.item.weapons.ShortBow;
+import character.item.weapons.Mace;
+import character.item.weapons.LongSword;
+import character.item.armor.ChainMail;
+import character.item.armor.Plate;
+import character.item.armor.Cloth;
+import character.item.armor.Leather;
 import java.util.ArrayList;
-import races.*;
-import spells.*;
-import weapons.*;
 
 /**
  *
@@ -38,7 +50,7 @@ public class CharacterSelecter
     System.out.println("Please select Player:");
     
     // The Selecting
-    int input = utilities.InputHandler.readIntegerValue();
+    int input = gameHandler.InputHandler.readIntegerValue();
     int choice = (input-1);
     System.out.println("\n");
     

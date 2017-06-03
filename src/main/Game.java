@@ -5,8 +5,8 @@
  */
 package main;
 
-import characters.MonsterCharacter;
-import characters.PlayerCharacter;
+import character.MonsterCharacter;
+import character.PlayerCharacter;
 import gameHandler.KeyHandler;
 import gui.ArenaDisplay;
 import gui.GameFrame;

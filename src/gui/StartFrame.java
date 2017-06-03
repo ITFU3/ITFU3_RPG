@@ -5,7 +5,7 @@
  */
 package gui;
 
-import characters.PlayerCharacter;
+import character.PlayerCharacter;
 import gui.GuiHelper.ListModels;
 import java.awt.Dimension;
 import java.awt.Toolkit;

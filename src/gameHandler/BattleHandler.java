@@ -1,7 +1,7 @@
 package gameHandler;
-import characters.*;
-import room.*;
-import spells.*;
+import character.item.spells.Spell;
+import character.MonsterCharacter;
+import character.PlayerCharacter;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +16,6 @@ public class BattleHandler
     private ArrayList<MonsterCharacter> monsters = new ArrayList();
     private ArrayList<Integer> initiativeOrderMonsters = new ArrayList();
         
-    private ArrayList<BaseSpace> spaces = new ArrayList();
     
     /**
      * Constructor with Demo Chars and Monsters for testing.
@@ -369,11 +368,5 @@ public class BattleHandler
   }
   public void setInitiativeOrderMonsters(ArrayList<Integer> initiativeOrderMonsters) {
     this.initiativeOrderMonsters = initiativeOrderMonsters;
-  }
-  public ArrayList<BaseSpace> getSpaces() {
-    return spaces;
-  }
-  public void setSpaces(ArrayList<BaseSpace> spaces) {
-    this.spaces = spaces;
   }
 }

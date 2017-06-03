@@ -36,7 +36,7 @@ public class Map
   
   public static Map getInstance() {
       if (instance == null) {
-          map = new Map();
+          Map.instance = new Map();
       }
       return instance;
   }

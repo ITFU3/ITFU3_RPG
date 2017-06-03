@@ -8,7 +8,7 @@ import base.Base;
 /**
  * @author Matthias Dröge
  */
-public class PlayerCharacter 
+public class PlayerCharacter extends BaseCharacter 
 {
   private String name;
   private char gender;
@@ -44,8 +44,12 @@ public class PlayerCharacter
           String inputName, 
           char inputGender, 
           PlayerClass inputClass, 
-          Race inputRace)
-  {
+          Race inputRace,
+          int id,
+          int allowedActions
+  ){
+      super.allowedActions = allowedActions;
+      super.id = id;
     this.setName(inputName);
     this.setGender(inputGender);
     this.setpClass(inputClass);

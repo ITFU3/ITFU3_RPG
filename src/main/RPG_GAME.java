@@ -1,9 +1,8 @@
 package main;
 
 import gameHandler.*;
-import gui.ArenaFrame;
 import gui.GameFrame;
-import gui.StartFrame;
+import gui.SelectionFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 

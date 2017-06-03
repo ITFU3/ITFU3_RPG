@@ -58,7 +58,7 @@ public class Demos
                   "#######################################";
     Map dungeon = new Map(map, 39, 12);
     BattleHandler bH = new BattleHandler(p1, p2);
-    TurnHandler tH = new TurnHandler(bH);
+    TurnHandlerOld tH = new TurnHandlerOld(bH);
     boolean gameLoop = true;
        
     // ##### GAME CYCLE #####

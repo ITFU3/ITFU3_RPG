@@ -30,7 +30,7 @@ public class GameFrame extends javax.swing.JFrame {
         this.addKeyListener(new KeyHandler());
         this.setLocationRelativeTo(null);
         
-        jTextArea1.setText( Map.getInstance().getMap() );
+        jTextArea1.setText( Map.getInstance().getMap());
         
         jTextArea1.setEnabled(false);
         jTextArea1.setDisabledTextColor(Color.BLACK);

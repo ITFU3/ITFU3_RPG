@@ -7,17 +7,20 @@ package gui;
 
 import character.PlayerCharacter;
 import gui.GuiHelper.ListModels;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import main.Game;
 
 /**
  *
  * @author steffen
  */
-public class SelectionPanel extends javax.swing.JPanel {
+public class SelectionFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form BasePanel
+     * Creates new form BaseFrame
      */
-    public SelectionPanel() {
+    public SelectionFrame() {
         initComponents();
     }
 
@@ -32,22 +35,26 @@ public class SelectionPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jToggleButtonSelect = new javax.swing.JToggleButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaPlayerInfo = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jLabelPlayerInfo = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaPlayerInfo = new javax.swing.JTextArea();
 
-        setPreferredSize(new java.awt.Dimension(900, 600));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Select a Player");
 
-        jToggleButtonSelect.setText("select");
+        jToggleButtonSelect.setText("Start Game");
         jToggleButtonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonSelectActionPerformed(evt);
             }
         });
+
+        jTextAreaPlayerInfo.setColumns(20);
+        jTextAreaPlayerInfo.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaPlayerInfo);
 
         jList1.setModel(ListModels.getCharacterModel());
         jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -59,12 +66,8 @@ public class SelectionPanel extends javax.swing.JPanel {
 
         jLabelPlayerInfo.setText("Player Info");
 
-        jTextAreaPlayerInfo.setColumns(20);
-        jTextAreaPlayerInfo.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaPlayerInfo);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -82,7 +85,7 @@ public class SelectionPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelPlayerInfo)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,9 +101,24 @@ public class SelectionPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToggleButtonSelect))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jToggleButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonSelectActionPerformed
+        // TODO add your handling code here:
+        
+        this.setVisible(false);
+        PlayerCharacter pc = (PlayerCharacter)jList1.getSelectedValue();
+        if (pc != null) {
+           Game game = Game.getInstance();
+           
+           game.start();
+        }
+        
+    }//GEN-LAST:event_jToggleButtonSelectActionPerformed
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         // TODO add your handling code here:
@@ -108,11 +126,43 @@ public class SelectionPanel extends javax.swing.JPanel {
         jTextAreaPlayerInfo.setText(pc.showCharInfo());
     }//GEN-LAST:event_jList1ValueChanged
 
-    private void jToggleButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonSelectActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jToggleButtonSelectActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(SelectionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(SelectionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(SelectionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(SelectionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new SelectionFrame().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

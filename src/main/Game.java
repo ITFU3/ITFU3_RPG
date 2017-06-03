@@ -8,17 +8,13 @@ package main;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
 import gameHandler.KeyHandler;
-import gui.ArenaDisplay;
 import gui.GameFrame;
-import gui.Player;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import state.GameState;
-import state.State;
 
 /**
  *

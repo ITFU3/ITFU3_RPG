@@ -169,7 +169,6 @@ public class Map
       this.map += "\n";
       System.out.print("\n");
     }
-//    gui.GameFrame.updateGUI( this.getMap() );
   }
   
   /**

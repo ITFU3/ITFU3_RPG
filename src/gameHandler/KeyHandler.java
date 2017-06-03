@@ -16,7 +16,6 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
    // key setup
-    
     private final int up = KeyEvent.VK_W;
     private final int down = KeyEvent.VK_S;
     private final int left = KeyEvent.VK_A;
@@ -29,16 +28,8 @@ public class KeyHandler implements KeyListener {
     private final int pause = KeyEvent.VK_P;
     private final int esc = KeyEvent.VK_ESCAPE;
    
-    
-   
     public KeyHandler() {
-        System.out.println("KeyHandler: init");
     }
-    
-    
-    
-    
-    
     
     @Override
     public void keyTyped(KeyEvent e) {
@@ -91,10 +82,9 @@ public class KeyHandler implements KeyListener {
             case esc:
                 System.out.println("Esc");
                 break;
-
         }
-        
-        
+        main.Game.getInstance().getGameFrame().getJTextArea1().setText(
+            main.Map.getInstance().getMap()
+        );
     }
-    
 }

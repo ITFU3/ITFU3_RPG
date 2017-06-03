@@ -14,13 +14,6 @@ import main.Map;
  * @author steffen
  */
 public class GameFrame extends javax.swing.JFrame {
-//    public static String field = "";
-//    public static void updateGUI(String input){
-//        field = input;
-//    }
-//    public void updateTextArea(){
-//        jTextArea1.setText(field);
-//    }
     /**
      * Creates new form GameFrame
      */
@@ -116,4 +109,8 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTextArea getJTextArea1(){
+        return jTextArea1;
+    }
 }

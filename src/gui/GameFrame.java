@@ -7,6 +7,7 @@ package gui;
 
 import gameHandler.KeyHandler;
 import java.awt.Color;
+import main.Map;
 
 /**
  *
@@ -19,17 +20,18 @@ public class GameFrame extends javax.swing.JFrame {
      */
     public GameFrame() {
         initComponents();
-        this.addKeyListener(new KeyHandler());
         
+        this.addKeyListener(new KeyHandler());
         this.setLocationRelativeTo(null);
+        
+        jTextArea1.setText( Map.getInstance().getMap() );
+        
         jTextArea1.setEnabled(false);
         jTextArea1.setDisabledTextColor(Color.BLACK);
         jTextArea1.setFocusable(false);
-        jTextArea1.setFont(        new java.awt.Font("Courier New", 0, 13)
-);
+        jTextArea1.setFont( new java.awt.Font("Courier New", 0, 13) );
         
         this.setVisible(true);
-        
     }
 
     /**

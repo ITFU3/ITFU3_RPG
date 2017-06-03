@@ -6,7 +6,7 @@ package main;
  */
 public class Map
 {
-  private final String map; // String of the original Map
+  private String map; // String of the original Map
   private final int width;  // right and left
   private final int height; // up and down
     
@@ -72,12 +72,12 @@ public class Map
   }
 
     public Map() {
-        String map =  
+        String init_map =  
                 "#########P#############################\n"+
                 "#                                     #\n"+
                 "#                                     #\n"+
                 "#                                     #\n"+
-                "#        M                           #\n"+
+                "#        M                            #\n"+
                 "#                                     #\n"+
                 "#                                     #\n"+
                 "#                                     #\n"+
@@ -85,7 +85,7 @@ public class Map
                 "#                                     #\n"+
                 "#                                     #\n"+
                 "#######################################\n";
-        this.map = map;
+    this.map = init_map;
     this.width = 39;
     this.height = 12;
     this.sX = 0;

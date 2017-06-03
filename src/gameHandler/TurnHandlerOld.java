@@ -271,7 +271,7 @@ public class TurnHandlerOld
               System.out.println(battleHandler.tryToAttack(player, monster, dungeonMap.getDistance()));
             }
             if(monster.getTempHP() <= 0){
-              dungeonMap.setMarkerOnMap(dungeonMap.getmY(), dungeonMap.getmX(), 'c');
+              dungeonMap.setMarkerOnMap(dungeonMap.getMonsterY(), dungeonMap.getMonsterX(), 'c');
             }
             hasAction = false;
 		  }else{System.out.println("Who? Target not known.");}
@@ -292,7 +292,7 @@ public class TurnHandlerOld
         }
         if(player.getTempHP() <= 0)
         {
-          dungeonMap.setMarkerOnMap(dungeonMap.getLastY(), dungeonMap.getLastX(), 'c');
+          dungeonMap.setMarkerOnMap(dungeonMap.getPlayerLastY(), dungeonMap.getPlayerLastX(), 'c');
         }
         hasAction = false;
       }

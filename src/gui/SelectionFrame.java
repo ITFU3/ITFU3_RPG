@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import character.PlayerCharacter;
 import gui.GuiHelper.ListModels;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import main.Game;
 
 /**
  *
- * @author steffen
+ * @author Steffen Haas
  */
 public class SelectionFrame extends javax.swing.JFrame {
 
@@ -109,15 +102,13 @@ public class SelectionFrame extends javax.swing.JFrame {
 
     private void jToggleButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonSelectActionPerformed
         // TODO add your handling code here:
-        
-        this.setVisible(false);
         PlayerCharacter pc = (PlayerCharacter)jList1.getSelectedValue();
         if (pc != null) {
-           Game game = Game.getInstance();
-           
-           game.start();
+            // error handling if nothing is selected.
+            this.setVisible(false);
+            Game game = Game.getInstance();
+            game.start();
         }
-        
     }//GEN-LAST:event_jToggleButtonSelectActionPerformed
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged

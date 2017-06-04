@@ -45,10 +45,8 @@ public class PlayerCharacter extends BaseCharacter
           char inputGender, 
           PlayerClass inputClass, 
           Race inputRace,
-          int id,
-          int allowedActions
+          int id
   ){
-    this.setAllowedAttacks(allowedActions);
     this.setId(id);
     this.setName(inputName);
     this.setGender(inputGender);
@@ -56,6 +54,7 @@ public class PlayerCharacter extends BaseCharacter
     this.setpRace(inputRace);
     int[] inputStats = {10, 10, 10, 10, 10, 10, 10, 0};
     this.setBasicStats(inputStats);
+    
     inputStats[0] += this.getpClass().getStatsBonus()[0] 
                   + this.getpRace().getStatsBonus()[0];
     inputStats[1] += this.getpClass().getStatsBonus()[1] 
@@ -73,14 +72,20 @@ public class PlayerCharacter extends BaseCharacter
                   + this.getpRace().getStatsBonus()[6];
     inputStats[7] += this.getpClass().getStatsBonus()[7];
     inputStats[7] += this.getModifier(this.getConstitution());
+    
     if(this.getpClass().getLevel() > 1){
       for(int i = 2; i <= this.getpClass().getLevel(); i++){
         inputStats[7] += main.Die.rollDie(this.getpClass().getHitDie(),1);
       }
     }
+    
     this.setBasicStats(inputStats);
     this.setExperience(0);
     this.setTempHP(this.getHealth());
+    
+    this.setAllowedMoves(
+        this.getMovement()
+    );
   }
   /**
    * Constructor for PlayerCharacter using

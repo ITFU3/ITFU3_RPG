@@ -24,7 +24,9 @@ public class Game implements Runnable{
     public String title = "Death's domain";
     
     private Thread thread;
-      
+    
+    private boolean playing = true;
+    
     // Input
     private KeyHandler keymanager;
     private boolean running = false;

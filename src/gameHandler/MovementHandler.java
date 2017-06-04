@@ -18,7 +18,14 @@ public class MovementHandler {
     public static void up() {
         // TODO: Getting Params for walkOnMap!!
         // ( direction | movement pool | steps to do | player identifier )
-        Map.getInstance().walkOnMap( "up" , 2 , 1 , true );
+        Game.getInstance().getPlayer().setAllowedMoves(
+            Map.getInstance().walkOnMap(
+                "up",
+                Game.getInstance().getPlayer().getAllowedMoves(),
+                1,
+                true
+            )
+        );
         Game.updateGUI();
     }
     
@@ -27,7 +34,14 @@ public class MovementHandler {
     }
     
     public static void right() {
-        Map.getInstance().walkOnMap( "right" , 2 , 1 , true );
+        Game.getInstance().getPlayer().setAllowedMoves(
+            Map.getInstance().walkOnMap(
+                "right",
+                Game.getInstance().getPlayer().getAllowedMoves(),
+                1,
+                true
+            )
+        );
         Game.updateGUI();
     }
     
@@ -36,7 +50,14 @@ public class MovementHandler {
     }
     
     public static void down() {
-        Map.getInstance().walkOnMap( "down" , 2 , 1 , true );
+        Game.getInstance().getPlayer().setAllowedMoves(
+            Map.getInstance().walkOnMap(
+                "down",
+                Game.getInstance().getPlayer().getAllowedMoves(),
+                1,
+                true
+            )
+        );
         Game.updateGUI();
     }
     
@@ -45,7 +66,14 @@ public class MovementHandler {
     }
     
     public static void left() {
-        Map.getInstance().walkOnMap( "left" , 2 , 1 , true );
+       Game.getInstance().getPlayer().setAllowedMoves(
+            Map.getInstance().walkOnMap(
+                    "left",
+                Game.getInstance().getPlayer().getAllowedMoves(),
+                1,
+                true
+            )
+        );
         Game.updateGUI();
     }
     

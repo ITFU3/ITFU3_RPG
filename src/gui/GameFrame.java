@@ -116,7 +116,9 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_downButtonActionPerformed
 
     private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
-//        Game.getInstance().setIsPlayer_Token(false);
+        Game.getInstance().getPlayer().setAllowedMoves(
+            Game.getInstance().getPlayer().getMovement()
+        );
     }//GEN-LAST:event_btn_EndRoundActionPerformed
 
     /**

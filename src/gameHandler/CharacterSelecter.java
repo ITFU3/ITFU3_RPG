@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Matthias
+ * @author Matthias Dröges
  */
 public class CharacterSelecter
 {
@@ -65,47 +65,43 @@ public class CharacterSelecter
   public static PlayerCharacter[] getDemoChars()
   {
     PlayerCharacter player1 = new PlayerCharacter(
-                                      "Zelo",
-                                      'm',
-                                      new Fighter(), 
-                                      new Human(), 
-                                        0, // id 
-                                        6   // allowedActions
-                                    );
+        "Zelo",
+        'm',
+        new Fighter(), 
+        new Human(), 
+        0 // id 
+    );
     player1.addWeapon(new LongSword("Excalibur", 10, 1, 1));
     player1.addArmor(new Plate());
     
     PlayerCharacter player2 = new PlayerCharacter(
-                                      "Gwen",
-                                      'f',
-                                      new Cleric(), 
-                                      new Dwarf(),
-                                      0,
-                                      6
-                                    );
+        "Gwen",
+        'f',
+        new Cleric(), 
+        new Dwarf(),
+        0
+    );
     player2.addWeapon(new Mace("Glower", 8, 1, 1));
     player2.addArmor(new ChainMail());
     player2.getpClass().getMyBook().addSpell(new HealingWord());
     
     PlayerCharacter player3 = new PlayerCharacter(
-                                      "Vahlran",
-                                      'm',
-                                      new Ranger(), 
-                                      new Elf(),
-                                      0,
-                                      6
-                                    );
+        "Vahlran",
+        'm',
+        new Ranger(), 
+        new Elf(),
+        0
+    );
     player3.addWeapon(new ShortBow("Feather", 6, 2, 10));
     player3.addArmor(new Leather());
     
     PlayerCharacter player4 = new PlayerCharacter(
-                                "Simon",
-                                'm',
-                                new Wizzard(), 
-                                new Human(), 
-                                0, 
-                                 6
-                              );
+        "Simon",
+        'm',
+        new Wizzard(), 
+        new Human(), 
+        0
+    );
     player4.addWeapon(new Weapon());
     player4.addArmor(new Cloth());
     player4.getpClass().getMyBook().addSpell(new Fireball());
@@ -114,54 +110,14 @@ public class CharacterSelecter
     return output;
   }
   
-  public static ArrayList<PlayerCharacter> getDemoCharArrayList() {
-      PlayerCharacter player1 = new PlayerCharacter(
-                                      "Zelo",
-                                      'm',
-                                      new Fighter(), 
-                                      new Human(),
-              0, 6
-                                    );
-    player1.addWeapon(new LongSword("Excalibur", 10, 1, 1));
-    player1.addArmor(new Plate());
-    
-    PlayerCharacter player2 = new PlayerCharacter(
-                                      "Gwen",
-                                      'f',
-                                      new Cleric(), 
-                                      new Dwarf(),
-                                      0, 6
-                                    );
-    player2.addWeapon(new Mace("Glower", 8, 1, 1));
-    player2.addArmor(new ChainMail());
-    player2.getpClass().getMyBook().addSpell(new HealingWord());
-    
-    PlayerCharacter player3 = new PlayerCharacter(
-                                      "Vahlran",
-                                      'm',
-                                      new Ranger(), 
-                                      new Elf(),
-            0, 6
-                                    );
-    player3.addWeapon(new ShortBow("Feather", 6, 2, 10));
-    player3.addArmor(new Leather());
-    
-    PlayerCharacter player4 = new PlayerCharacter(
-                                "Simon",
-                                'm',
-                                new Wizzard(), 
-                                new Human(),
-            0, 6
-                              );
-    player4.addWeapon(new Weapon());
-    player4.addArmor(new Cloth());
-    player4.getpClass().getMyBook().addSpell(new Fireball());
-    
+  public static ArrayList<PlayerCharacter> getDemoCharArrayList()
+  {
+    PlayerCharacter[] player = getDemoChars();
     ArrayList<PlayerCharacter> chars = new ArrayList<>();
-    chars.add(player1);
-    chars.add(player2);
-    chars.add(player3);
-    chars.add(player4);
+    chars.add(player[0]);
+    chars.add(player[1]);
+    chars.add(player[2]);
+    chars.add(player[3]);
     return chars;
     
   }

@@ -50,7 +50,7 @@ public class CharacterSelecter
     System.out.println("Please select Player:");
     
     // The Selecting
-    int input = gameHandler.InputHandler.readIntegerValue();
+    int input = gameHandler.InputHandlerOld.readIntegerValue();
     int choice = (input-1);
     System.out.println("\n");
     

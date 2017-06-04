@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameHandler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-//import java.util.ArrayList;
 
 /**
  *
- * @author steffen
+ * @author Steffen Haas
+ * @author Matthias Dröge
  */
-public class KeyHandler implements KeyListener {
-
+public class KeyHandler implements KeyListener
+{
    // key setup
     private final int up = KeyEvent.VK_W;
     private final int down = KeyEvent.VK_S;
@@ -52,26 +47,27 @@ public class KeyHandler implements KeyListener {
         switch (keyCode) {
             // Movement
             case up:
-                // to inputhandler
                 System.out.println("Up");
-                main.Map.getInstance().walkOnMap( "up" , 2 , 1 , true );
+                MovementHandler.up();
                 break;
             case down:
                 System.out.println("Down");
-                main.Map.getInstance().walkOnMap( "down" , 2 , 1 , true );
+                MovementHandler.down();
                 break;
             case left:
                 System.out.println("Left");
-                main.Map.getInstance().walkOnMap( "left" , 2 , 1 , true );
+                MovementHandler.left();
                 break;
             case right:
                 System.out.println("Right");
-                main.Map.getInstance().walkOnMap( "right" , 2 , 1 , true );
+                MovementHandler.right();
                 break;
+                
             // Battle Commands
             case attack:
                 System.out.println("Attack");
                 break;
+                
             // Info
                 
                 
@@ -83,8 +79,5 @@ public class KeyHandler implements KeyListener {
                 System.out.println("Esc");
                 break;
         }
-        main.Game.getInstance().getGameFrame().getJTextArea1().setText(
-            main.Map.getInstance().getMap()
-        );
     }
 }

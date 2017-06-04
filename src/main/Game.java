@@ -15,6 +15,7 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  *
@@ -107,11 +108,15 @@ public class Game implements Runnable{
         }
     }
 
+    public static void updateGUI(){
+        getInstance().getGameFrame().getJTextArea1().setText(
+            Map.getInstance().getMap()
+        );
+    }
+    
     public GameFrame getGameFrame() {
         return gameFrame;
     }
-
-   
 
     public KeyHandler getKeymanager() {
         return keymanager;

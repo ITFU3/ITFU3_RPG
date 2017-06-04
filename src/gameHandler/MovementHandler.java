@@ -1,26 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameHandler;
 
-import main.Map;
+import main.*;
 
 /**
  *
  * @author Steffen Haas
+ * @author Matthias Dröge
  */
 public class MovementHandler {    
     /*
-        Asks TurnHandler whose turn it is
-        Tell Map, whom to move
-        Tells game to update?
-        Game redraws
+        TODO: Asks TurnHandler whose turn it is
+        DONE: Tell Map, whom to move
+        DONE: Tells game to update / redraws
     */
+    
     public static void up() {
-        
-        
+        // TODO: Getting Params for walkOnMap!!
+        // ( direction | movement pool | steps to do | player identifier )
+        Map.getInstance().walkOnMap( "up" , 2 , 1 , true );
+        Game.updateGUI();
     }
     
     public static void upRight() {
@@ -28,7 +26,8 @@ public class MovementHandler {
     }
     
     public static void right() {
-        
+        Map.getInstance().walkOnMap( "right" , 2 , 1 , true );
+        Game.updateGUI();
     }
     
     public static void downRight() {
@@ -36,7 +35,8 @@ public class MovementHandler {
     }
     
     public static void down() {
-        
+        Map.getInstance().walkOnMap( "down" , 2 , 1 , true );
+        Game.updateGUI();
     }
     
     public static void downLeft() {
@@ -44,7 +44,8 @@ public class MovementHandler {
     }
     
     public static void left() {
-        
+        Map.getInstance().walkOnMap( "left" , 2 , 1 , true );
+        Game.updateGUI();
     }
     
     public static void upLeft() {

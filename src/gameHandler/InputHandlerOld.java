@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author sven-oliverpatzel
  */
-public class InputHandler {
+public class InputHandlerOld {
 
     private static BufferedReader br;
 
@@ -35,7 +35,7 @@ public class InputHandler {
         try {
             toReturn = Integer.parseInt(br.readLine());
         } catch (IOException ex) {
-            Logger.getLogger(InputHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InputHandlerOld.class.getName()).log(Level.SEVERE, null, ex);
         }
         return toReturn;
     }

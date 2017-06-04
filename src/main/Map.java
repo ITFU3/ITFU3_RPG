@@ -164,10 +164,10 @@ public class Map
       {
         char field = this.labyrinthMap[y][x];
         this.map += field;
-        System.out.print(field);
+//        System.out.print(field);
       }
       this.map += "\n";
-      System.out.print("\n");
+//      System.out.print("\n");
     }
   }
   
@@ -271,6 +271,8 @@ public class Map
              if( !playerSwitch )
              {
                // AI behavior
+             }else{
+                 System.out.println("\nYou bumped into a wall.\n");
              }
             break;
           default:

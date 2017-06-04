@@ -50,7 +50,7 @@ public class TurnHandlerOld
     while(playerTurn) {
       System.out.println("--- It is Your Turn! ---");
       System.out.println("What do you want to do?");
-      String[] command = gameHandler.InputHandler.readStringValue().toLowerCase().split(" ");
+      String[] command = gameHandler.InputHandlerOld.readStringValue().toLowerCase().split(" ");
       
       for (int i=0;i<command.length;i++) {
         System.out.println("[" + i + "] " + command[i]);

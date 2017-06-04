@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import gameHandler.KeyHandler;
@@ -15,10 +10,10 @@ import main.Map;
 
 /**
  *
- * @author steffen
+ * @author Steffen Haas
+ * @author Matthias Dröge
  */
 public class GameFrame extends javax.swing.JFrame {
-    
     ArrayList<JComponent> components = new ArrayList<JComponent>();
     
     /**
@@ -37,8 +32,6 @@ public class GameFrame extends javax.swing.JFrame {
         arenaTextArea.setDisabledTextColor(Color.BLACK);
         arenaTextArea.setFocusable(false);
         arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
-        
-        
         
         this.downButton.setFocusable(false);
         this.downButton.setText("Down");
@@ -61,6 +54,7 @@ public class GameFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         arenaTextArea = new javax.swing.JTextArea();
         downButton = new javax.swing.JButton();
+        btn_EndRound = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,14 +70,23 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_EndRound.setText("End Round");
+        btn_EndRound.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_EndRoundActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(197, Short.MAX_VALUE)
+                .addContainerGap(106, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_EndRound)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(141, 141, 141))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -94,7 +97,9 @@ public class GameFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_EndRound))
                 .addGap(47, 47, 47)
                 .addComponent(downButton)
                 .addContainerGap(54, Short.MAX_VALUE))
@@ -107,6 +112,10 @@ public class GameFrame extends javax.swing.JFrame {
         MovementHandler.down();
         Game.updateGUI();
     }//GEN-LAST:event_downButtonActionPerformed
+
+    private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
+//        Game.getInstance().setIsPlayer_Token(false);
+    }//GEN-LAST:event_btn_EndRoundActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,17 +153,19 @@ public class GameFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea arenaTextArea;
+    private javax.swing.JButton btn_EndRound;
     private javax.swing.JButton downButton;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    public javax.swing.JTextArea getJTextArea1(){
+    public javax.swing.JTextArea getArenaTextArea(){
         return arenaTextArea;
     }
 
     private void initComponentList() {
         components.add(arenaTextArea);
         components.add(downButton);
+        components.add(btn_EndRound);
     }
     
     public void setButtonFocus(boolean focus ) {

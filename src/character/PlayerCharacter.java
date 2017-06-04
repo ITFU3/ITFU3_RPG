@@ -48,8 +48,8 @@ public class PlayerCharacter extends BaseCharacter
           int id,
           int allowedActions
   ){
-      super.allowedActions = allowedActions;
-      super.id = id;
+    this.setAllowedAttacks(allowedActions);
+    this.setId(id);
     this.setName(inputName);
     this.setGender(inputGender);
     this.setpClass(inputClass);

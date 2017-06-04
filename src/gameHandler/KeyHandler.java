@@ -1,19 +1,12 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameHandler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import main.Game;
-//import java.util.ArrayList;
 
 /**
  *
- * @author steffen
+ * @author Steffen Haas
  */
 public class KeyHandler implements KeyListener {
 
@@ -52,19 +45,19 @@ public class KeyHandler implements KeyListener {
     }
     
     public void keyAction(KeyEvent e) {
-       int keyCode = e.getKeyCode();
+        int keyCode = e.getKeyCode();
         switch (keyCode) {
             // Movement
             case up:
                 // to inputhandler
                 System.out.println("Up");
                 MovementHandler.up();
-               
+
                 break;
             case down:
                 System.out.println("Down");
                 MovementHandler.down();
-              
+
                 break;
             case left:
                 System.out.println("Left");
@@ -83,7 +76,7 @@ public class KeyHandler implements KeyListener {
                 System.out.println("FocusChange");
                 Game.getInstance().getGameFrame().setButtonFocus(true);
                 break;
-                
+
             // System Commands
             case pause:
                 System.out.println("Pause");
@@ -92,8 +85,5 @@ public class KeyHandler implements KeyListener {
                 System.out.println("Esc");
                 break;
         }
-        
-        
     }
-
 }

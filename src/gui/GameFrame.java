@@ -6,7 +6,11 @@
 package gui;
 
 import gameHandler.KeyHandler;
+import gameHandler.MovementHandler;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JComponent;
+import main.Game;
 import main.Map;
 
 /**
@@ -14,24 +18,37 @@ import main.Map;
  * @author steffen
  */
 public class GameFrame extends javax.swing.JFrame {
+    
+    ArrayList<JComponent> components = new ArrayList<JComponent>();
+    
     /**
      * Creates new form GameFrame
      */
     public GameFrame() {
         initComponents();
+        initComponentList();
         
         this.addKeyListener(new KeyHandler());
         this.setLocationRelativeTo(null);
         
-        jTextArea1.setText( Map.getInstance().getMap());
+        arenaTextArea.setText( Map.getInstance().getMap());
         
-        jTextArea1.setEnabled(false);
-        jTextArea1.setDisabledTextColor(Color.BLACK);
-        jTextArea1.setFocusable(false);
-        jTextArea1.setFont( new java.awt.Font("Courier New", 0, 13) );
+        arenaTextArea.setEnabled(false);
+        arenaTextArea.setDisabledTextColor(Color.BLACK);
+        arenaTextArea.setFocusable(false);
+        arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        
+        
+        
+        this.downButton.setFocusable(false);
+        this.downButton.setText("Down");
         
         this.setVisible(true);
     }
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,34 +59,54 @@ public class GameFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        arenaTextArea = new javax.swing.JTextArea();
+        downButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        arenaTextArea.setColumns(20);
+        arenaTextArea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        arenaTextArea.setRows(5);
+        jScrollPane1.setViewportView(arenaTextArea);
+
+        downButton.setText("jButton1");
+        downButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(197, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(141, 141, 141))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(downButton)
+                        .addGap(341, 341, 341))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(downButton)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
+        MovementHandler.down();
+        Game.updateGUI();
+    }//GEN-LAST:event_downButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -106,11 +143,23 @@ public class GameFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea arenaTextArea;
+    private javax.swing.JButton downButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
     public javax.swing.JTextArea getJTextArea1(){
-        return jTextArea1;
+        return arenaTextArea;
+    }
+
+    private void initComponentList() {
+        components.add(arenaTextArea);
+        components.add(downButton);
+    }
+    
+    public void setButtonFocus(boolean focus ) {
+        for (JComponent component : components) {
+            component.setFocusable(focus);
+        }
     }
 }

@@ -32,7 +32,8 @@ public class RPG_GAME
      startFrame.setVisible(true);
      /*Game game = new Game("RPG", 400, 400);
       game.start();*/
-      new GameFrame();
+     SelectionFrame sf = new SelectionFrame();
+     sf.setVisible(true);
       
       
       

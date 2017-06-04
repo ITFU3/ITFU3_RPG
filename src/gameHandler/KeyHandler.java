@@ -1,21 +1,30 @@
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gameHandler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import main.Game;
+//import java.util.ArrayList;
 
 /**
  *
- * @author Steffen Haas
- * @author Matthias Dröge
+ * @author steffen
  */
-public class KeyHandler implements KeyListener
-{
+public class KeyHandler implements KeyListener {
+
    // key setup
     private final int up = KeyEvent.VK_W;
     private final int down = KeyEvent.VK_S;
     private final int left = KeyEvent.VK_A;
     private final int right = KeyEvent.VK_D;
     private final int attack = KeyEvent.VK_SPACE;
+    
+    private final int changeFocus = KeyEvent.VK_M;
     
     private final int upperEnemy = KeyEvent.VK_NUMPAD8;
     private final int upperEnemy2 = KeyEvent.VK_UP;
@@ -47,12 +56,15 @@ public class KeyHandler implements KeyListener
         switch (keyCode) {
             // Movement
             case up:
+                // to inputhandler
                 System.out.println("Up");
                 MovementHandler.up();
+               
                 break;
             case down:
                 System.out.println("Down");
                 MovementHandler.down();
+              
                 break;
             case left:
                 System.out.println("Left");
@@ -62,14 +74,15 @@ public class KeyHandler implements KeyListener
                 System.out.println("Right");
                 MovementHandler.right();
                 break;
-                
             // Battle Commands
             case attack:
                 System.out.println("Attack");
                 break;
-                
             // Info
-                
+                case changeFocus:
+                System.out.println("FocusChange");
+                Game.getInstance().getGameFrame().setButtonFocus(true);
+                break;
                 
             // System Commands
             case pause:
@@ -79,5 +92,8 @@ public class KeyHandler implements KeyListener
                 System.out.println("Esc");
                 break;
         }
+        
+        
     }
+
 }

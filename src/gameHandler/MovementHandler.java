@@ -1,3 +1,4 @@
+
 package gameHandler;
 
 import main.*;
@@ -35,7 +36,7 @@ public class MovementHandler {
     }
     
     public static void down() {
-        Map.getInstance().walkOnMap( "down" , 2 , 1 , true );
+        Map.getInstance().walkOnMap( "fdown" , 2 , 1 , true );
         Game.updateGUI();
     }
     
@@ -53,3 +54,4 @@ public class MovementHandler {
     }
     
 }
+

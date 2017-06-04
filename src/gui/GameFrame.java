@@ -36,6 +36,8 @@ public class GameFrame extends javax.swing.JFrame {
         this.downButton.setFocusable(false);
         this.downButton.setText("Down");
         
+        this.btn_EndRound.setFocusable(false);
+        
         this.setVisible(true);
     }
     

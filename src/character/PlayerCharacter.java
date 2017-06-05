@@ -29,53 +29,44 @@ public class PlayerCharacter extends BaseCharacter
   protected final int movement = 6;
   protected final int health = 7;
   
- 
-// ################# CONSTRUCTOR #################
-  /**
-   * Constructor for PlayerCharacter using
-   * the name of the character, the gender,
-   * the class and the race
-   * @param inputName - String
-   * @param inputGender - Char
-   * @param inputClass - PlayerClass
-   * @param inputRace - Race
-   */
-  public PlayerCharacter(
-          String inputName, 
-          char inputGender, 
-          PlayerClass inputClass, 
-          Race inputRace,
-          int id
+  private void init(
+    String inputName, 
+    char inputGender, 
+    int[] inputStats, 
+    PlayerClass inputClass, 
+    Race inputRace,
+    int id
   ){
     this.setId(id);
     this.setName(inputName);
     this.setGender(inputGender);
     this.setpClass(inputClass);
     this.setpRace(inputRace);
-    int[] inputStats = {10, 10, 10, 10, 10, 10, 10, 0};
+    
     this.setBasicStats(inputStats);
     
-    inputStats[0] += this.getpClass().getStatsBonus()[0] 
-                  + this.getpRace().getStatsBonus()[0];
-    inputStats[1] += this.getpClass().getStatsBonus()[1] 
-                  + this.getpRace().getStatsBonus()[1];
-    inputStats[2] += this.getpClass().getStatsBonus()[2] 
-                  + this.getpRace().getStatsBonus()[2];
-    inputStats[3] += this.getpClass().getStatsBonus()[3] 
-                  + this.getpRace().getStatsBonus()[3];
-    inputStats[4] += this.getpClass().getStatsBonus()[4] 
-                  + this.getpRace().getStatsBonus()[4];
-    inputStats[5] += this.getpClass().getStatsBonus()[5] 
-                  + this.getpRace().getStatsBonus()[5];
+    inputStats[strength] += this.getpClass().getStatsBonus()[strength] 
+        + this.getpRace().getStatsBonus()[strength];
+    inputStats[dexterity] += this.getpClass().getStatsBonus()[dexterity] 
+        + this.getpRace().getStatsBonus()[dexterity];
+    inputStats[Constitution] += this.getpClass().getStatsBonus()[Constitution] 
+        + this.getpRace().getStatsBonus()[Constitution];
+    inputStats[wisdom] += this.getpClass().getStatsBonus()[wisdom] 
+        + this.getpRace().getStatsBonus()[wisdom];
+    inputStats[inteligence] += this.getpClass().getStatsBonus()[inteligence] 
+        + this.getpRace().getStatsBonus()[inteligence];
+    inputStats[charisma] += this.getpClass().getStatsBonus()[charisma] 
+        + this.getpRace().getStatsBonus()[charisma];
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    inputStats[6] += this.getpClass().getStatsBonus()[6] 
-                  + this.getpRace().getStatsBonus()[6];
-    inputStats[7] += this.getpClass().getStatsBonus()[7];
-    inputStats[7] += this.getModifier(this.getConstitution());
+    inputStats[movement] += this.getpClass().getStatsBonus()[movement] 
+        + this.getpRace().getStatsBonus()[movement];
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    inputStats[health] += this.getpClass().getStatsBonus()[health]
+        + this.getModifier(this.getConstitution());
     
     if(this.getpClass().getLevel() > 1){
       for(int i = 2; i <= this.getpClass().getLevel(); i++){
-        inputStats[7] += main.Die.rollDie(this.getpClass().getHitDie(),1);
+        inputStats[health] += main.Die.rollDie(this.getpClass().getHitDie(), 1);
       }
     }
     
@@ -87,6 +78,28 @@ public class PlayerCharacter extends BaseCharacter
         this.getMovement()
     );
   }
+ 
+// ################# CONSTRUCTOR #################
+  /**
+   * Constructor for PlayerCharacter using
+   * the name of the character, the gender,
+   * the class and the race
+   * @param inputName - String
+   * @param inputGender - Char
+   * @param inputClass - PlayerClass
+   * @param inputRace - Race
+   * @param id
+   */
+  public PlayerCharacter(
+          String inputName, 
+          char inputGender, 
+          PlayerClass inputClass, 
+          Race inputRace,
+          int id
+  ){
+    int[] inputStats = {10, 10, 10, 10, 10, 10, 5, 0};
+    init(inputName,inputGender,inputStats,inputClass,inputRace,id);
+  }
   /**
    * Constructor for PlayerCharacter using
    * the name of the character, the gender,
@@ -97,61 +110,36 @@ public class PlayerCharacter extends BaseCharacter
    * @param inputStats - Int Array
    * @param inputClass - PlayerClass
    * @param inputRace - Race
+   * @param id
    */
   public PlayerCharacter(
           String inputName, 
           char inputGender, 
           int[] inputStats, 
           PlayerClass inputClass, 
-          Race inputRace)
-  {
-    this.setName(inputName);
-    this.setGender(inputGender);
-    this.setpClass(inputClass);
-    this.setpRace(inputRace);
-    this.setBasicStats(inputStats);
-    inputStats[0] += this.getpClass().getStatsBonus()[0] 
-                  + this.getpRace().getStatsBonus()[0];
-    inputStats[1] += this.getpClass().getStatsBonus()[1] 
-                  + this.getpRace().getStatsBonus()[1];
-    inputStats[2] += this.getpClass().getStatsBonus()[2] 
-                  + this.getpRace().getStatsBonus()[2];
-    inputStats[3] += this.getpClass().getStatsBonus()[3] 
-                  + this.getpRace().getStatsBonus()[3];
-    inputStats[4] += this.getpClass().getStatsBonus()[4] 
-                  + this.getpRace().getStatsBonus()[4];
-    inputStats[5] += this.getpClass().getStatsBonus()[5] 
-                  + this.getpRace().getStatsBonus()[5];
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    inputStats[6] += this.getpClass().getStatsBonus()[6] 
-                  + this.getpRace().getStatsBonus()[6];
-    inputStats[7] += this.getpClass().getStatsBonus()[7];
-    inputStats[7] += this.getModifier(this.getConstitution());
-    if(this.getpClass().getLevel() > 1){
-      for(int i = 2; i <= this.getpClass().getLevel(); i++){
-        inputStats[7] += main.Die.rollDie(this.getpClass().getHitDie(),1);
-      }
-    }
-    this.setBasicStats(inputStats);
-    this.setExperience(0);
-    this.setTempHP(this.getHealth());
+          Race inputRace,
+          int id
+  ){
+    init(inputName,inputGender,inputStats,inputClass,inputRace,id);
   }
   /**
    * Constructor for PlayerCharacter with no parameter.
    * Gives only basic values.
    */
-  public PlayerCharacter () {
-      this.setName (Base.randomName(5));
-      this.setGender(Base.randomGender());
+  public PlayerCharacter ()
+  {
+      int[] inputStats = {10, 10, 10, 10, 10, 10, 5, 0};
+      init(
+        Base.randomName(5),
+        Base.randomGender(),
+        inputStats,
+        new PlayerClass(),
+        new Race(),
+        0
+      );
       this.setExperience(100);
-      this.setpClass(new PlayerClass());
-      this.setpRace(new Race());
       this.setpWeapon(new Weapon());
       this.setpArmor(new Armor());
-      
-      int[] inputStats = {10, 10, 10, 10, 10, 10, 10, 0};
-      this.setBasicStats(inputStats);
-      this.setTempHP(this.getHealth());
   }
 // ################# EQUIPMENT #################
   /**

@@ -10,76 +10,34 @@ import main.*;
  */
 public class MovementHandler {    
     /*
-        TODO: Asks TurnHandler whose turn it is
+        DONE: Asks TurnHandler whose turn it is
+                Or take them directliy from game.player
         DONE: Tell Map, whom to move
         DONE: Tells game to update / redraws
     */
-    
-    public static void up() {
-        // TODO: Getting Params for walkOnMap!!
-        // ( direction | movement pool | steps to do | player identifier )
-        Game.getInstance().getPlayer().setAllowedMoves(
-            Map.getInstance().walkOnMap(
-                "up",
-                Game.getInstance().getPlayer().getAllowedMoves(),
-                1,
-                true
-            )
+    private static void move(String direction){
+        int steps = 1;
+        int tempMovement = Game.getInstance().getPlayer().getAllowedMoves();
+        // ( direction | movement pool | steps to do | player identifier )        
+        tempMovement = Map.getInstance().walkOnMap(
+            direction, tempMovement, steps, true
         );
+        Game.getInstance().getPlayer().setAllowedMoves( tempMovement );
         Game.updateGUI();
     }
+    public static void up(){ move("up"); }
     
-    public static void upRight() {
-        
-    }
+    public static void upRight(){ }
     
-    public static void right() {
-        Game.getInstance().getPlayer().setAllowedMoves(
-            Map.getInstance().walkOnMap(
-                "right",
-                Game.getInstance().getPlayer().getAllowedMoves(),
-                1,
-                true
-            )
-        );
-        Game.updateGUI();
-    }
+    public static void right(){ move("right"); }
     
-    public static void downRight() {
-        
-    }
+    public static void downRight(){ }
     
-    public static void down() {
-        Game.getInstance().getPlayer().setAllowedMoves(
-            Map.getInstance().walkOnMap(
-                "down",
-                Game.getInstance().getPlayer().getAllowedMoves(),
-                1,
-                true
-            )
-        );
-        Game.updateGUI();
-    }
+    public static void down(){ move("down"); }
     
-    public static void downLeft() {
-        
-    }
+    public static void downLeft(){ }
     
-    public static void left() {
-       Game.getInstance().getPlayer().setAllowedMoves(
-            Map.getInstance().walkOnMap(
-                    "left",
-                Game.getInstance().getPlayer().getAllowedMoves(),
-                1,
-                true
-            )
-        );
-        Game.updateGUI();
-    }
+    public static void left(){ move("left"); }
     
-    public static void upLeft() {
-        
-    }
-    
+    public static void upLeft() { }
 }
-

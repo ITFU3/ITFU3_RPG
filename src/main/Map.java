@@ -532,5 +532,10 @@ public class Map
   public int [] getMonsterCoordsById(int index){
       return this.monsterCoordinates.get(index);
   }
- 
+    public ArrayList<int[]> getMonsterCoordinates() {
+        return monsterCoordinates;
+    }
+    public void setMonsterCoordinates(ArrayList<int[]> monsterCoordinates) {
+        this.monsterCoordinates = monsterCoordinates;
+    }
 }

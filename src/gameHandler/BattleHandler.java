@@ -44,9 +44,7 @@ public class BattleHandler
         if(target.getTempHP() <= 0){
           output += target.getName() + " is no more.\n";
           //reset Marker on Map if I would know the Coords of the one that died.
-          int monsterIndex = Game.getInstance().getMonsters().indexOf( (MonsterCharacter)target);
-          int[] monsterCoords = Map.getInstance().getMonsterCoordsById(monsterIndex);
-          Map.getInstance().resetMarkerOnMap(monsterCoords[0], monsterCoords[1]);
+          killStrike(target);
         }
       }else{
         output += "misses with a " + cTh[1] + "\n";
@@ -55,6 +53,25 @@ public class BattleHandler
       output += "Target is too far away. Move closer.";
     }
     return output;
+  }
+  
+  private static void killStrike(PlayerCharacter target){
+    int monsterIndex = Game.getInstance().getMonsters().indexOf(
+        (MonsterCharacter)target
+    );
+    int[] monsterCoords = Map.getInstance().getMonsterCoordsById(
+        monsterIndex
+    );
+    Map.getInstance().resetMarkerOnMap(
+        monsterCoords[0],
+        monsterCoords[1]
+    );
+    Game.getInstance().getMonsters().remove(
+        monsterIndex
+    );
+    Map.getInstance().getMonsterCoordinates().remove(
+        monsterIndex
+    );
   }
   
   /**

@@ -2,6 +2,7 @@ package gui;
 
 import gameHandler.KeyHandler;
 import gameHandler.MovementHandler;
+import gui.GuiHelper.HealthBarLabel;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JComponent;
@@ -15,7 +16,7 @@ import main.Map;
  */
 public class GameFrame extends javax.swing.JFrame {
     ArrayList<JComponent> components = new ArrayList<JComponent>();
-    
+    int testHp = Game.getInstance().getPlayer().getHealth();
     /**
      * Creates new form GameFrame
      */
@@ -33,12 +34,18 @@ public class GameFrame extends javax.swing.JFrame {
         arenaTextArea.setFocusable(false);
         arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
         
-        this.downButton.setFocusable(false);
+       // this.downButton.setFocusable(false);
         this.downButton.setText("Down");
         
-        this.btn_EndRound.setFocusable(false);
+        ((HealthBarLabel)playerHealthBarLabel).setHealthText(Game.getInstance().getPlayer().getHealth());
+        
+       // this.btn_EndRound.setFocusable(false);
+        
+        setButtonFocus(false);
         
         this.setVisible(true);
+        
+        
     }
     
     
@@ -57,6 +64,9 @@ public class GameFrame extends javax.swing.JFrame {
         arenaTextArea = new javax.swing.JTextArea();
         downButton = new javax.swing.JButton();
         btn_EndRound = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        playerHealthBarLabel = new HealthBarLabel(Game.getInstance().getPlayer().getHealth(), Game.getInstance().getPlayer().getTempHP());
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,7 +75,7 @@ public class GameFrame extends javax.swing.JFrame {
         arenaTextArea.setRows(5);
         jScrollPane1.setViewportView(arenaTextArea);
 
-        downButton.setText("jButton1");
+        downButton.setText("Down");
         downButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 downButtonActionPerformed(evt);
@@ -79,21 +89,38 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Player Health");
+
+        playerHealthBarLabel.setText("");
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
+                .addContainerGap(171, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(downButton)
+                        .addGap(338, 338, 338))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btn_EndRound)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(playerHealthBarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(141, 141, 141))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(downButton)
-                        .addGap(341, 341, 341))))
+                        .addComponent(jButton1)
+                        .addGap(75, 75, 75))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,8 +130,14 @@ public class GameFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_EndRound))
                 .addGap(47, 47, 47)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(playerHealthBarLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(15, 15, 15)
                 .addComponent(downButton)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -120,6 +153,13 @@ public class GameFrame extends javax.swing.JFrame {
             Game.getInstance().getPlayer().getMovement()
         );
     }//GEN-LAST:event_btn_EndRoundActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       // reduce Player Health Test
+        testHp = testHp-1;
+        System.out.println(testHp);
+        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,7 +199,10 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea arenaTextArea;
     private javax.swing.JButton btn_EndRound;
     private javax.swing.JButton downButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel playerHealthBarLabel;
     // End of variables declaration//GEN-END:variables
 
     public javax.swing.JTextArea getArenaTextArea(){
@@ -170,6 +213,7 @@ public class GameFrame extends javax.swing.JFrame {
         components.add(arenaTextArea);
         components.add(downButton);
         components.add(btn_EndRound);
+        components.add(jButton1);
     }
     
     public void setButtonFocus(boolean focus ) {

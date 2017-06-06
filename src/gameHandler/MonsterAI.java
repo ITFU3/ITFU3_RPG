@@ -7,29 +7,31 @@ package gameHandler;
 
 import Enum.MoveDirection;
 import java.util.ArrayList;
-import main.Map;
-
+import character.*;
 /**
  *
  * @author steffen
  */
 public class MonsterAI {
-    
+    MonsterCharacter ego;
     ArrayList<MoveDirection> moves = new ArrayList<MoveDirection>();
     int mX;
     int mY;
     
-    public MonsterAI (int x, int y) {
-        this.mX = x;
-        this.mY = y;
-        System.out.println("Monster X" + x);
-        System.out.println("Monster Y" + y);
+    public MonsterAI (MonsterCharacter monster) {
+        this.ego = monster;
+        int[]position = ego.getCoordinates();
+        this.mY = position[0];
+        this.mX = position[1];
+        System.out.println("Monster Y" + this.mY);
+        System.out.println("Monster X" + this.mX);
     }
     
     
     public void calcMovesToPlayer() {
-        int playerX = Map.getInstance().getPlayerX();
-        int playerY = Map.getInstance().getPlayerY();
+        int[] coords = main.Game.getInstance().getPlayer().getCoordinates();
+        int playerY = coords[0];
+        int playerX = coords[1];
          System.out.println("Player X" + playerX);
         System.out.println("Player Y" + playerY);
         

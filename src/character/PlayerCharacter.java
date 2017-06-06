@@ -77,6 +77,11 @@ public class PlayerCharacter extends BaseCharacter
     this.setAllowedMoves(
         this.getMovement()
     );
+    this.setAllowedAttacks(1);
+    
+    this.setCoordinates(0, 0);
+    this.setCoordinates_past(0, 0);
+    this.setCoordinates_future(0, 0);
   }
  
 // ################# CONSTRUCTOR #################

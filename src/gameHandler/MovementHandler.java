@@ -20,7 +20,7 @@ public class MovementHandler {
         int tempMovement = Game.getInstance().getPlayer().getAllowedMoves();
         // ( direction | movement pool | steps to do | player identifier )        
         tempMovement = Map.getInstance().walkOnMap(
-            direction, tempMovement, steps, true
+            direction, tempMovement, steps, Game.getInstance().getPlayer()
         );
         Game.getInstance().getPlayer().setAllowedMoves( tempMovement );
         Game.updateGUI();

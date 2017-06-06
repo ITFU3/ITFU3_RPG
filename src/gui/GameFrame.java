@@ -1,5 +1,6 @@
 package gui;
 
+import character.MonsterCharacter;
 import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
 import gameHandler.MovementHandler;
@@ -46,8 +47,10 @@ public class GameFrame extends javax.swing.JFrame {
         
         this.setVisible(true);
         
-        MonsterAI mAI = new MonsterAI(Map.getInstance().getMonsterX(), Map.getInstance().getMonsterY());
-        mAI.calcMovesToPlayer();
+//        MonsterAI mAI = new MonsterAI(
+//            (MonsterCharacter)Game.getInstance().getMonsters().get(0)
+//        );
+//        mAI.calcMovesToPlayer();
         
     }
     

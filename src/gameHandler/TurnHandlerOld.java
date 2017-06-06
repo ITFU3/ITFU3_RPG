@@ -67,11 +67,11 @@ public class TurnHandlerOld
           break;
 
         case "inspect":
-          this.doPlayerInspection(command, monster, dungeonMap);
+          this.doPlayerInspection(command, player, monster, dungeonMap);
           break;
 
         case "walk":
-          tempMovement = this.doMovement(command, tempMovement, dungeonMap, true);
+          tempMovement = this.doMovement(command, tempMovement, dungeonMap, player);
           break;
 
         case "attack":
@@ -135,7 +135,7 @@ public class TurnHandlerOld
     
     while( game && monsterTurn && ( monster.getTempHP() > 0 ) ) {
       System.out.println("--- It is the Monsters Turn! ---");
-      if(dungeonMap.getDistance() == monster.getpWeapon().getDistance()) {
+      if(dungeonMap.getDistance(player,monster) == monster.getpWeapon().getDistance()) {
         if(monsterHasAction) {
           monsterHasAction = this.doAttack( game, new String[0], dungeonMap, player, monster, false, false );
         } else {
@@ -145,7 +145,7 @@ public class TurnHandlerOld
       } else {
         if(tempMovement > 0) {
           System.out.println( "... tick tick  tick ... " + tempMovement );
-          tempMovement = this.doMovement( new String[]{"walk", "left", "1"}, tempMovement, dungeonMap, false );
+          tempMovement = this.doMovement( new String[]{"walk", "left", "1"}, tempMovement, dungeonMap, monster );
           // For later use in AI ...          
           monsterTurn = false;
         } else {
@@ -197,11 +197,11 @@ public class TurnHandlerOld
    * @param monster The choosen monster
    * @param dungeonMap The map in which the action takes place
    */
-  private void doPlayerInspection(String[] command, MonsterCharacter monster, Map dungeonMap)
+  private void doPlayerInspection(String[] command, PlayerCharacter player, MonsterCharacter monster, Map dungeonMap)
   {
     if (command.length >= 2 && command[1].equalsIgnoreCase("monster")) {
       //p2.DebugChar();
-      System.out.println(monster.getName() + " is " + dungeonMap.getDistance() + " steps away.");
+      System.out.println(monster.getName() + " is " + dungeonMap.getDistance(player,monster) + " steps away.");
     }
   }
   
@@ -211,22 +211,22 @@ public class TurnHandlerOld
    * @param command The entered command line
    * @param tempMovement The tempural movement points
    * @param dungeonMap The map in which the action takes place
-   * @param playerSwitch The condition for player or monster
+   * @param entity player or monster
    * @return The left tempural movement points
    */
-  private int doMovement(String[] command, int tempMovement, Map dungeonMap, boolean playerSwitch)
+  private int doMovement(String[] command, int tempMovement, Map dungeonMap, PlayerCharacter entity)
   {
-    if(playerSwitch)
+    if( !entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
     {
       if (command.length >= 3) {
         if (tempMovement > 0) {
-          tempMovement = dungeonMap.walkOnMap(command[1], tempMovement, Integer.parseInt(command[2]),playerSwitch);
+          tempMovement = dungeonMap.walkOnMap(command[1], tempMovement, Integer.parseInt(command[2]),entity);
         }else{System.out.println("You have no Movement left to use.");}
       }else{System.out.println("More parameters needed.");}
     }
     else
     {
-      tempMovement = dungeonMap.walkOnMap(command[1], tempMovement, Integer.parseInt(command[2]),playerSwitch);
+      tempMovement = dungeonMap.walkOnMap(command[1], tempMovement, Integer.parseInt(command[2]),entity);
     }
     return tempMovement;
   }
@@ -263,15 +263,16 @@ public class TurnHandlerOld
             if(UseSpell){
 			  // For healing, to self target.
 			  if(command[1].equalsIgnoreCase(player.getName())){
-				System.out.println(BattleHandler.tryToSpellAttack(player, player, dungeonMap.getDistance(), command[2]));
+				System.out.println(BattleHandler.tryToSpellAttack(player, player, dungeonMap.getDistance(player, player), command[2]));
 			  }else{
-				System.out.println(BattleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(), command[2]));
+				System.out.println(BattleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(player, monster), command[2]));
 			  }
             }else{
-              System.out.println(BattleHandler.tryToAttack(player, monster, dungeonMap.getDistance()));
+              System.out.println(BattleHandler.tryToAttack(player, monster));
             }
             if(monster.getTempHP() <= 0){
-              dungeonMap.setMarkerOnMap(dungeonMap.getMonsterY(), dungeonMap.getMonsterX(), 'c');
+                int[] coords = monster.getCoordinates();
+                dungeonMap.setMarkerOnMap(coords[0], coords[1], 'c');
             }
             hasAction = false;
 		  }else{System.out.println("Who? Target not known.");}
@@ -284,15 +285,16 @@ public class TurnHandlerOld
         if(UseSpell)
         {
 		  // Also implement self heal for monster as a fix call is needed.(b/c no external input)
-          System.out.println(BattleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(), command[2]));
+          System.out.println(BattleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(monster, player), command[2]));
           hasAction = false;
         }else{
-          System.out.println(BattleHandler.tryToAttack(monster, player, dungeonMap.getDistance()));
+          System.out.println(BattleHandler.tryToAttack(monster, player));
           hasAction = false;
         }
         if(player.getTempHP() <= 0)
         {
-          dungeonMap.setMarkerOnMap(dungeonMap.getPlayerLastY(), dungeonMap.getPlayerLastX(), 'c');
+            int[] coords = player.getCoordinates();
+            dungeonMap.setMarkerOnMap(coords[0], coords[1], 'c');
         }
         hasAction = false;
       }

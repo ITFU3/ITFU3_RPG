@@ -83,6 +83,13 @@ public class MonsterCharacter extends PlayerCharacter {
       this.setBasicStats(inputStats);
       this.setExperience(0);
       this.setTempHP(this.getHealth());
+      
+        this.setAllowedMoves(this.getMovement());
+        this.setAllowedAttacks(1);
+        this.setCoordinates(0, 0);
+        this.setCoordinates_past(0, 0);
+        this.setCoordinates_future(0, 0);
+    
     }
     
     @Override

@@ -1,8 +1,7 @@
 package main;
 
-import character.MonsterCharacter;
-import character.races.Rat;
-import java.util.ArrayList;
+import character.*;
+import character.races.*;
 
 /**
  * 
@@ -13,34 +12,9 @@ public class Map
   private String map; // String of the original Map
   private final int width;  // right and left
   private final int height; // up and down
-    
   private char[][] labyrinthMap;  // the map as CharArray with [Y][X]
   
-    // TODO: arrange for Array...
-  private ArrayList<int[]> playerCoordinates = new ArrayList();
-  private int playerX; // the X of starting point
-  private int playerY; // the Y of starting point
-    // TODO: arrange for Array...
-  private ArrayList<int[]> playerLastCoordinates = new ArrayList();
-  private int playerLastX;  // the X Position I came from
-  private int playerLastY;  // the Y Position I came from
-    // TODO: arrange for Array...
-  private ArrayList<int[]> playerNewCoordinates = new ArrayList();
-  private int playerNewX; // the X to go to
-  private int playerNewY; // the Y to go to
-  
-    // TODO: arrange for Array...
-  private ArrayList<int[]> monsterCoordinates = new ArrayList();
-  private int monsterX; // till I get more monster
-  private int monsterY; // till I get more monster
-    // TODO: arrange for Array...
-  private ArrayList<int[]> monsterLastCoordinates;
-  private int monsterLastX; // for monster movment
-  private int monsterLastY;
-    // TODO: arrange for Array...
-  private ArrayList<int[]> monsterNewCoordinates;
-  private int monsterNewX;
-  private int monsterNewY;
+  private PlayerCharacter entity;
   
   private static Map instance;
 
@@ -68,22 +42,7 @@ public class Map
     this.map = map;
     this.width = width;
     this.height = height;
-    this.playerX = 0;
-    this.playerY = 0;
-    
-    this.monsterCoordinates = new ArrayList();
-    this.monsterCoordinates.add(new int[]{0, 0} );
-//    this.mX = 0;
-//    this.mY = 0;
-    
     this.buildLabyrinth();
-
-    this.playerLastX = this.playerX;
-    this.playerLastY = this.playerY;
-    
-    this.monsterLastCoordinates = this.monsterCoordinates;
-//    this.monsterLastY = this.monsterY;
-//    this.monsterLastX = this.monsterX;
   }
 
   /**
@@ -93,9 +52,9 @@ public class Map
         // without \n !!!
         String init_map =  
                 "#######################################"+
-                "#                          P          #"+
                 "#                                     #"+
                 "#                                     #"+
+                "#        P                            #"+
                 "#        M                            #"+
                 "#                                     #"+
                 "#                                     #"+
@@ -107,17 +66,8 @@ public class Map
     this.map = init_map;
     this.width = 39;
     this.height = 12;
-//    this.monsterCoordinates = new ArrayList();
-    this.buildLabyrinth();
-    
-    this.playerLastY = this.playerY;
-    this.playerLastX = this.playerX;
-
-    this.monsterLastY = this.monsterY;
-    this.monsterLastX = this.monsterX;
-    this.monsterLastCoordinates = this.monsterCoordinates;
-    
     Game.getInstance().addMonster( new MonsterCharacter(new Rat()));
+    this.buildLabyrinth();
     }
 
     /**
@@ -138,6 +88,7 @@ public class Map
       
       //TODO update to player array sometime in the distant future
     this.labyrinthMap = new char[this.height][this.width];
+    int monsterCounter = 0;
     for(int y=0; y < this.height; y++)
     {
       for(int x=0; x < this.width; x++)
@@ -146,15 +97,16 @@ public class Map
         this.labyrinthMap[y][x] = field;
         if(field == 'P')
         {
-            
-          this.playerX = x;
-          this.playerY = y;
+            System.out.println("[=> Y("+y+") | X("+x+") <=]");
+          Game.getInstance().getPlayer().setCoordinates(y, x);
+          Game.getInstance().getPlayer().setCoordinates_past(y, x);
         }
         if(field == 'M')
         {
-          this.monsterCoordinates.add( new int[]{y,x} );
-          this.monsterX = x;
-          this.monsterY = y;
+            System.out.println("[=> Y("+y+") | X("+x+") <=]");
+          Game.getInstance().getMonsters().get(monsterCounter).setCoordinates(y, x);
+          Game.getInstance().getMonsters().get(monsterCounter).setCoordinates_past(y, x);
+          monsterCounter++;
         }
       }
     }
@@ -184,11 +136,12 @@ public class Map
    * @param input Command word for direction
    * @param tempMovement The max movement to walk
    * @param steps Amount of steps to walk
-   * @param playerSwitch The condition for player or monster
+   * @param entity The Character that is moving
    * @return The movement left to walk
    */
-  public int walkOnMap(String input, int tempMovement, int steps, boolean playerSwitch)
+  public int walkOnMap(String input, int tempMovement, int steps, PlayerCharacter entity)
   {
+    this.entity = entity;
     int l_X;
     int l_Y;
     int n_x;
@@ -199,17 +152,12 @@ public class Map
       for(int i=0; i<steps; i++)
       {
 // not nice needs a redo
-        if(playerSwitch){
-          l_X = this.getPlayerLastX();
-          l_Y = this.getPlayerLastY();
-          n_x = this.getPlayerNewX();
-          n_y = this.getPlayerNewY();
-        }else{
-          l_X = this.getMonsterLastX();
-          l_Y = this.getMonsterLastY();
-          n_x = this.getMonsterNewX();
-          n_y = this.getMonsterNewY();
-        }
+          l_Y = this.entity.getCoordinates_past()[0];
+          l_X = this.entity.getCoordinates_past()[1];
+          
+          n_y = this.entity.getCoordinates_future()[0];
+          n_x = this.entity.getCoordinates_future()[1];
+        
         System.out.println("steps: " + steps + 
             " | tempMovement: " + tempMovement +
             " | x: " + n_x + " | y:" + n_y + " | l_X: " + l_X +
@@ -218,66 +166,63 @@ public class Map
         switch(input)
         {
           case "left":
-          this.moveLeft(l_Y, l_X, playerSwitch);
+          this.moveLeft(l_Y, l_X);
           break;
           case "right":
-          this.moveRight(l_Y, l_X, playerSwitch);
+          this.moveRight(l_Y, l_X);
           break;
           case "down":
-          this.moveDown(l_Y, l_X, playerSwitch);
+          this.moveDown(l_Y, l_X);
           break;
           case "up":
-          this.moveUp(l_Y, l_X, playerSwitch);
+          this.moveUp(l_Y, l_X);
           break;
         }
         
 // not nice needs a redo
-        if(playerSwitch){
-          l_X = this.getPlayerLastX();
-          l_Y = this.getPlayerLastY();
-          n_x = this.getPlayerNewX();
-          n_y = this.getPlayerNewY();
-        }else{
-          l_X = this.getMonsterLastX();
-          l_Y = this.getMonsterLastY();
-          n_x = this.getMonsterNewX();
-          n_y = this.getMonsterNewY();
-        }
+        l_Y = entity.getCoordinates_past()[0];
+        l_X = entity.getCoordinates_past()[1];
+        
+        n_y = entity.getCoordinates_future()[0];
+        n_x = entity.getCoordinates_future()[1];
         
         char mapIndicator = this.labyrinthMap[l_Y][l_X];
         System.out.println("Indicator: " + mapIndicator);
         switch(this.labyrinthMap[n_y][n_x])	  // the field I'm in right now!
         {
           case 'M':
-            if( playerSwitch )
+              //not monster => PLAYER
+            if( !entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
             {
               System.out.println("\nYou cannot fill the same space.\n");
-              this.resetNewPos(l_Y, l_X, playerSwitch);
+              this.resetNewPos(l_Y, l_X);
             }else{
               this.resetMarkerOnMap(l_Y, l_X);
               this.setMarkerOnMap(n_y, n_x, mapIndicator);
-              this.setLastPos(n_y, n_x, playerSwitch);
+              this.setLastPos(n_y, n_x);
             }
             break;
           case 'P':
-            if( !playerSwitch )
+              //Monster => NOT PLAYER
+            if( entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
             {
               System.out.println("\nYou cannot fill the same space.\n");
-              this.resetNewPos(l_Y, l_X, playerSwitch);
+              this.resetNewPos(l_Y, l_X);
             }else{
               this.resetMarkerOnMap(l_Y, l_X);
               this.setMarkerOnMap(n_y, n_x, mapIndicator);
-              this.setLastPos(n_y, n_x, playerSwitch);
+              this.setLastPos(n_y, n_x);
             }
             break;
           case ' ':
             this.resetMarkerOnMap(l_Y, l_X);
             this.setMarkerOnMap(n_y, n_x, mapIndicator);
-            this.setLastPos(n_y, n_x, playerSwitch);
+            this.setLastPos(n_y, n_x);
             break;
             
           case '#':
-             if( !playerSwitch )
+              //Monster => NOT PLAYER
+             if( entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
              {
                // AI behavior
              }else{
@@ -302,13 +247,22 @@ public class Map
    * Calculate the pythagorean distance 
    * between player and monster
    * 
+     * @param a Charater from
+     * @param b Charater to
    * @return the euclidean distance
    */
-  public int getDistance()
+  public int getDistance(PlayerCharacter a, PlayerCharacter b)
   {
-    int x = Math.abs(this.getPlayerLastX() - this.getMonsterX());
-    int y = Math.abs(this.getPlayerLastY() - this.getMonsterY());
-    return Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
+    int y = Math.abs( a.getCoordinates_past()[0] - b.getCoordinates()[0] );
+    System.out.println(a.getCoordinates_past()[0] + " - " + b.getCoordinates()[0] + " = " + y);
+    
+    int x = Math.abs( a.getCoordinates_past()[1] - b.getCoordinates()[1] );
+    System.out.println(a.getCoordinates_past()[1] + " - " + b.getCoordinates()[1] + " = " + x);
+    
+    int dist = Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
+    System.out.println("Distance: " + dist);
+    
+    return dist;
   }
   
   //##### MOVEMENT #####
@@ -317,19 +271,12 @@ public class Map
    * 
    * @param y
    * @param x
-   * @param playerSwitch 
+   * @param character 
    */
-  private void moveUp(int y, int x, boolean playerSwitch)
+  private void moveUp(int y, int x)
   {
-	//UP == Y--
-    if(playerSwitch)
-    {
-      this.setPlayerNewY(y-1);
-      this.setPlayerNewX(x);
-    }else{
-      this.setMonsterNewY(y-1);
-      this.setMonsterNewX(x);
-    }
+    //UP == Y--
+    this.entity.setCoordinates_future(y-1, x);
   }
   
   /**
@@ -337,19 +284,12 @@ public class Map
    * 
    * @param y
    * @param x
-   * @param playerSwitch 
+   * @param character 
    */
-  private void moveRight(int y, int x, boolean playerSwitch)
+  private void moveRight(int y, int x)
   {
-	//Right == x++
-    if(playerSwitch)
-    {
-      this.setPlayerNewY(y);
-      this.setPlayerNewX(x+1);
-    }else{
-      this.setMonsterNewY(y);
-      this.setMonsterNewX(x+1);
-    }
+    //Right == x++
+    this.entity.setCoordinates_future(y, x+1);
   }
   
   /**
@@ -357,19 +297,12 @@ public class Map
    * 
    * @param y
    * @param x
-   * @param playerSwitch 
+   * @param character 
    */
-  private void moveDown(int y, int x, boolean playerSwitch)
+  private void moveDown(int y, int x)
   {
-	// DOWN == Y++
-    if(playerSwitch)
-    {
-      this.setPlayerNewY(y+1);
-      this.setPlayerNewX(x);
-    }else{
-      this.setMonsterNewY(y+1);
-      this.setMonsterNewX(x);
-    }
+    // DOWN == Y++
+    this.entity.setCoordinates_future(y+1, x);
   }
   
   /**
@@ -377,19 +310,12 @@ public class Map
    * 
    * @param y
    * @param x
-   * @param playerSwitch 
+   * @param character 
    */
-  private void moveLeft(int y, int x, boolean playerSwitch)
+  private void moveLeft(int y, int x)
   {
-	// LEFT == x--
-    if(playerSwitch)
-    {
-      this.setPlayerNewY(y);
-      this.setPlayerNewX(x-1);
-    }else{
-      this.setMonsterNewY(y);
-      this.setMonsterNewX(x-1);
-    }
+    // LEFT == x--
+    this.entity.setCoordinates_future(y, x-1);
   }
   
   /**
@@ -397,18 +323,12 @@ public class Map
    * 
    * @param y
    * @param x
-   * @param playerSwitch 
+   * @param character 
    */
-  private void setLastPos(int y, int x, boolean playerSwitch)
+  private void setLastPos(int y, int x)
   {
-    if(playerSwitch)
-    {
-      this.setPlayerLastY(y);
-      this.setPlayerLastX(x);
-    }else{
-      this.setMonsterLastY(y);
-      this.setMonsterLastX(x);
-    }
+    this.entity.setCoordinates_past(y, x);
+    this.entity.setCoordinates(y, x);
   }
   
   /**
@@ -416,18 +336,11 @@ public class Map
    * 
    * @param y
    * @param x
-   * @param playerSwitch 
+   * @param character 
    */
-  private void resetNewPos(int y, int x, boolean playerSwitch)
+  private void resetNewPos(int y, int x)
   {
-    if(playerSwitch)
-    {
-      this.setPlayerNewY(y);
-      this.setPlayerNewX(x);
-    }else{
-      this.setMonsterNewY(y);
-      this.setMonsterNewX(x);
-    }
+    this.entity.setCoordinates_future(y, x);
   }
   
   // ##### MARKERS ON THE MAP #####
@@ -454,88 +367,4 @@ public class Map
     this.labyrinthMap[y][x] = ' ';
     this.showLabyrinth();
   }
-    
-  //##### POSITION PLAYER #####
-  public int getPlayerX(){
-    return this.playerX;
-  }
-  public int getPlayerY(){
-    return this.playerY;
-  }
-  public int getPlayerLastX(){
-    return this.playerLastX;
-  }
-  public int getPlayerLastY(){
-    return this.playerLastY;
-  }
-  public void setPlayerLastX(int playerLastX) {
-    this.playerLastX = playerLastX;
-  }
-  public void setPlayerLastY(int playerLastY) {
-    this.playerLastY = playerLastY;
-  }
-  public int getPlayerNewX() {
-    return playerNewX;
-  }
-  public void setPlayerNewX(int playerNewX) {
-    this.playerNewX = playerNewX;
-  }
-  public int getPlayerNewY() {
-    return playerNewY;
-  }
-  public void setPlayerNewY(int playerNewY) {
-    this.playerNewY = playerNewY;
-  }
-  public int[] getPlayerCoords(){
-      int[] output = { getPlayerY() , getPlayerX() };
-      return output;
-  }
-  //##### POSITION MONSTER #####
-  public int getMonsterX() {
-    return monsterX;
-  }
-  public int getMonsterY() {
-    return monsterY;
-  }
-  public int getMonsterLastX() {
-    return monsterLastX;
-  }
-  public void setMonsterLastX(int monsterLastX) {
-    this.monsterLastX = monsterLastX;
-  }
-  public int getMonsterLastY() {
-    return monsterLastY;
-  }
-  public void setMonsterLastY(int monsterLastY) {
-    this.monsterLastY = monsterLastY;
-  }
-  public int getMonsterNewX() {
-    return monsterNewX;
-  }
-  public void setMonsterNewX(int monsterNewX) {
-    this.monsterNewX = monsterNewX;
-  }
-  public int getMonsterNewY() {
-    return monsterNewY;
-  }
-  public void setMonsterNewY(int monsterNewY) {
-    this.monsterNewY = monsterNewY;
-  }
-  public int getMonsterIdByCoords(int y, int x){
-      int output = -1;
-      int[] needle = {y,x};
-      if( this.monsterCoordinates.contains( (int[])needle) ){
-          output = this.monsterCoordinates.indexOf( (int[])needle );
-      }
-      return output;
-  }
-  public int [] getMonsterCoordsById(int index){
-      return this.monsterCoordinates.get(index);
-  }
-    public ArrayList<int[]> getMonsterCoordinates() {
-        return monsterCoordinates;
-    }
-    public void setMonsterCoordinates(ArrayList<int[]> monsterCoordinates) {
-        this.monsterCoordinates = monsterCoordinates;
-    }
 }

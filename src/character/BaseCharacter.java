@@ -12,6 +12,10 @@ public abstract class BaseCharacter {
     private int hp;
     private int dmg;
     private boolean isPlayer_Token;
+    int[] coordinates_now;
+    int[] coordinates_past;
+    int[] coordinates_future;
+    
 
     public int getId() {
         return id;
@@ -49,5 +53,34 @@ public abstract class BaseCharacter {
     public void setIsPlayer_Token(boolean isPlayer_Token) {
         this.isPlayer_Token = isPlayer_Token;
     }
-    
+    public int[] getCoordinates() {
+        return coordinates_now;
+    }
+    public void setCoordinates(int[] coordinates) {
+        this.coordinates_now = coordinates;
+    }
+    public void setCoordinates(int y, int x){
+        int[] input = {y,x};
+        this.setCoordinates(input);
+    }
+    public int[] getCoordinates_past() {
+        return coordinates_past;
+    }
+    public void setCoordinates_past(int[] coordinates) {
+        this.coordinates_past = coordinates;
+    }
+    public void setCoordinates_past(int y, int x){
+        int[] input = {y,x};
+        this.setCoordinates_past(input);
+    }
+    public int[] getCoordinates_future() {
+        return coordinates_future;
+    }
+    public void setCoordinates_future(int[] coordinates_future) {
+        this.coordinates_future = coordinates_future;
+    }
+    public void setCoordinates_future(int y, int x){
+        int[] input = {y,x};
+        this.setCoordinates_future(input);
+    }
 }

@@ -17,11 +17,12 @@ public class BattleHandler
    * attcker tries to attack the target
    * @param attacker - PlayerCharacter (MonsterCharacters get casted)
    * @param target - PlayerCharacter (MonsterCharacters get casted)
-   * @param distance - int - To Target
    * @return String - protokoll of what happend
    */
-  public static String tryToAttack(PlayerCharacter attacker, PlayerCharacter target, int distance/*, boolean useSpell*/)
+  public static String tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
   {
+    int distance = Map.getInstance().getDistance(attacker, target);
+    System.out.println("MAP:Distance: " + distance);
     String output = "";
     if(distance <= attacker.getpWeapon().getDistance())
     {
@@ -59,17 +60,12 @@ public class BattleHandler
     int monsterIndex = Game.getInstance().getMonsters().indexOf(
         (MonsterCharacter)target
     );
-    int[] monsterCoords = Map.getInstance().getMonsterCoordsById(
-        monsterIndex
-    );
+    int[] monsterCoords = target.getCoordinates();
     Map.getInstance().resetMarkerOnMap(
         monsterCoords[0],
         monsterCoords[1]
     );
     Game.getInstance().getMonsters().remove(
-        monsterIndex
-    );
-    Map.getInstance().getMonsterCoordinates().remove(
         monsterIndex
     );
   }

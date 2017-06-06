@@ -1,5 +1,7 @@
 package gameHandler;
 
+import character.MonsterCharacter;
+import character.PlayerCharacter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import main.Game;
@@ -70,6 +72,12 @@ public class KeyHandler implements KeyListener {
             // Battle Commands
             case attack:
                 System.out.println("Attack");
+                PlayerCharacter attacker = main.Game.getInstance().getPlayer();
+                MonsterCharacter target = main.Game.getInstance().getMonsters().get(0);
+                int distance = main.Map.getInstance().getDistance();
+                String tmpOutput = BattleHandler.tryToAttack(attacker, target, distance);
+                System.out.println(tmpOutput);
+                Game.updateGUI();
                 break;
             // Info
                 case changeFocus:

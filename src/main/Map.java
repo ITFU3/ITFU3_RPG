@@ -1,5 +1,7 @@
 package main;
 
+import character.MonsterCharacter;
+import character.races.Rat;
 import java.util.ArrayList;
 
 /**
@@ -15,20 +17,20 @@ public class Map
   private char[][] labyrinthMap;  // the map as CharArray with [Y][X]
   
     // TODO: arrange for Array...
-  private ArrayList<int[]> playerCoordinates;
+  private ArrayList<int[]> playerCoordinates = new ArrayList();
   private int playerX; // the X of starting point
   private int playerY; // the Y of starting point
     // TODO: arrange for Array...
-  private ArrayList<int[]> playerLastCoordinates;
+  private ArrayList<int[]> playerLastCoordinates = new ArrayList();
   private int playerLastX;  // the X Position I came from
   private int playerLastY;  // the Y Position I came from
     // TODO: arrange for Array...
-  private ArrayList<int[]> playerNewCoordinates;
+  private ArrayList<int[]> playerNewCoordinates = new ArrayList();
   private int playerNewX; // the X to go to
   private int playerNewY; // the Y to go to
   
     // TODO: arrange for Array...
-  private ArrayList<int[]> monsterCoordinates;
+  private ArrayList<int[]> monsterCoordinates = new ArrayList();
   private int monsterX; // till I get more monster
   private int monsterY; // till I get more monster
     // TODO: arrange for Array...
@@ -105,16 +107,17 @@ public class Map
     this.map = init_map;
     this.width = 39;
     this.height = 12;
-    
-    this.monsterCoordinates = new ArrayList();
+//    this.monsterCoordinates = new ArrayList();
     this.buildLabyrinth();
     
     this.playerLastY = this.playerY;
     this.playerLastX = this.playerX;
-    
-    this.monsterLastCoordinates = this.monsterCoordinates;
+
     this.monsterLastY = this.monsterY;
     this.monsterLastX = this.monsterX;
+    this.monsterLastCoordinates = this.monsterCoordinates;
+    
+    Game.getInstance().addMonster( new MonsterCharacter(new Rat()));
     }
 
     /**
@@ -438,17 +441,18 @@ public class Map
   public void setMarkerOnMap(int y, int x, char mark)
   {
     this.labyrinthMap[y][x] = mark;
+    this.showLabyrinth();
   }
-  
   /**
    * reset a marker on the map to blank space
    * 
    * @param y
    * @param x 
    */
-  private void resetMarkerOnMap(int y, int x)
+  public void resetMarkerOnMap(int y, int x)
   {
     this.labyrinthMap[y][x] = ' ';
+    this.showLabyrinth();
   }
     
   //##### POSITION PLAYER #####
@@ -482,7 +486,10 @@ public class Map
   public void setPlayerNewY(int playerNewY) {
     this.playerNewY = playerNewY;
   }
-  
+  public int[] getPlayerCoords(){
+      int[] output = { getPlayerY() , getPlayerX() };
+      return output;
+  }
   //##### POSITION MONSTER #####
   public int getMonsterX() {
     return monsterX;
@@ -514,6 +521,16 @@ public class Map
   public void setMonsterNewY(int monsterNewY) {
     this.monsterNewY = monsterNewY;
   }
-
+  public int getMonsterIdByCoords(int y, int x){
+      int output = -1;
+      int[] needle = {y,x};
+      if( this.monsterCoordinates.contains( (int[])needle) ){
+          output = this.monsterCoordinates.indexOf( (int[])needle );
+      }
+      return output;
+  }
+  public int [] getMonsterCoordsById(int index){
+      return this.monsterCoordinates.get(index);
+  }
  
 }

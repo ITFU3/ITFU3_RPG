@@ -97,7 +97,10 @@ public class Game implements Runnable{
     public void setMonsters(ArrayList<MonsterCharacter> monsters) {
         this.monsters = monsters;
     }
-        public GameFrame getGameFrame() {
+    public void addMonster(MonsterCharacter monster){
+        this.getMonsters().add(monster);
+    }
+    public GameFrame getGameFrame() {
         return gameFrame;
     }
     public KeyHandler getKeymanager() {

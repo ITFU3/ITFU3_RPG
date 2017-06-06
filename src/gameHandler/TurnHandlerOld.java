@@ -11,16 +11,16 @@ import main.*;
  */
 public class TurnHandlerOld
 {
-  BattleHandler battleHandler;
+//  BattleHandler battleHandler;
   
   /**
    * Constructor for the TurnHandler that gets the
    * BattleHandler to use in combat as param
    * @param battleHandler - BattleHandler
    */
-  public TurnHandlerOld(BattleHandler battleHandler)
+  public TurnHandlerOld(/*BattleHandler battleHandler*/)
   {
-    this.battleHandler = battleHandler;
+//    this.battleHandler = battleHandler;
   }
   
   /**
@@ -263,12 +263,12 @@ public class TurnHandlerOld
             if(UseSpell){
 			  // For healing, to self target.
 			  if(command[1].equalsIgnoreCase(player.getName())){
-				System.out.println(battleHandler.tryToSpellAttack(player, player, dungeonMap.getDistance(), command[2]));
+				System.out.println(BattleHandler.tryToSpellAttack(player, player, dungeonMap.getDistance(), command[2]));
 			  }else{
-				System.out.println(battleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(), command[2]));
+				System.out.println(BattleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(), command[2]));
 			  }
             }else{
-              System.out.println(battleHandler.tryToAttack(player, monster, dungeonMap.getDistance()));
+              System.out.println(BattleHandler.tryToAttack(player, monster, dungeonMap.getDistance()));
             }
             if(monster.getTempHP() <= 0){
               dungeonMap.setMarkerOnMap(dungeonMap.getMonsterY(), dungeonMap.getMonsterX(), 'c');
@@ -284,10 +284,10 @@ public class TurnHandlerOld
         if(UseSpell)
         {
 		  // Also implement self heal for monster as a fix call is needed.(b/c no external input)
-          System.out.println(battleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(), command[2]));
+          System.out.println(BattleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(), command[2]));
           hasAction = false;
         }else{
-          System.out.println(battleHandler.tryToAttack(monster, player, dungeonMap.getDistance()));
+          System.out.println(BattleHandler.tryToAttack(monster, player, dungeonMap.getDistance()));
           hasAction = false;
         }
         if(player.getTempHP() <= 0)

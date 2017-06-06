@@ -15,12 +15,15 @@ public class Map
   private char[][] labyrinthMap;  // the map as CharArray with [Y][X]
   
     // TODO: arrange for Array...
+  private ArrayList<int[]> playerCoordinates;
   private int playerX; // the X of starting point
   private int playerY; // the Y of starting point
     // TODO: arrange for Array...
+  private ArrayList<int[]> playerLastCoordinates;
   private int playerLastX;  // the X Position I came from
   private int playerLastY;  // the Y Position I came from
     // TODO: arrange for Array...
+  private ArrayList<int[]> playerNewCoordinates;
   private int playerNewX; // the X to go to
   private int playerNewY; // the Y to go to
   
@@ -88,7 +91,7 @@ public class Map
         // without \n !!!
         String init_map =  
                 "#######################################"+
-                "#        P                            #"+
+                "#                          P          #"+
                 "#                                     #"+
                 "#                                     #"+
                 "#        M                            #"+
@@ -129,6 +132,8 @@ public class Map
    */
   private void buildLabyrinth()
   {
+      
+      //TODO update to player array sometime in the distant future
     this.labyrinthMap = new char[this.height][this.width];
     for(int y=0; y < this.height; y++)
     {
@@ -138,6 +143,7 @@ public class Map
         this.labyrinthMap[y][x] = field;
         if(field == 'P')
         {
+            
           this.playerX = x;
           this.playerY = y;
         }
@@ -446,10 +452,10 @@ public class Map
   }
     
   //##### POSITION PLAYER #####
-  public int getSX(){
+  public int getPlayerX(){
     return this.playerX;
   }
-  public int getSY(){
+  public int getPlayerY(){
     return this.playerY;
   }
   public int getPlayerLastX(){

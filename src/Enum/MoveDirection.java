@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameHandler;
+package Enum;
 
 /**
  *
  * @author steffen
  */
-public class MonsterAi {
+public enum MoveDirection {
+    
+    UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT;
     
 }

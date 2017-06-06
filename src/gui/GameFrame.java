@@ -1,6 +1,7 @@
 package gui;
 
 import gameHandler.KeyHandler;
+import gameHandler.MonsterAI;
 import gameHandler.MovementHandler;
 import gui.GuiHelper.HealthBarLabel;
 import java.awt.Color;
@@ -45,6 +46,8 @@ public class GameFrame extends javax.swing.JFrame {
         
         this.setVisible(true);
         
+        MonsterAI mAI = new MonsterAI(Map.getInstance().getMonsterX(), Map.getInstance().getMonsterY());
+        mAI.calcMovesToPlayer();
         
     }
     

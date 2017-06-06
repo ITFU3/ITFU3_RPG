@@ -3,6 +3,7 @@ package main;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
 import gameHandler.KeyHandler;
+import gameHandler.MonsterAI;
 import gui.GameFrame;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -19,6 +20,8 @@ public class Game implements Runnable{
     private PlayerCharacter player;
     private ArrayList<MonsterCharacter> monsters  = new ArrayList<MonsterCharacter>();
     
+    
+    
     private GameFrame gameFrame;
     public int width, height;
     public String title = "Death's domain";
@@ -30,6 +33,8 @@ public class Game implements Runnable{
     // Input
     private KeyHandler keymanager;
     private boolean running = false;
+    
+    
     
     private Game() {
         

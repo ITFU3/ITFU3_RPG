@@ -39,6 +39,7 @@ public class SelectionFrame extends javax.swing.JFrame {
         jLabelPlayerInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(200, 200, 200));
 
         selectjLabel.setText("Select a Player");
 

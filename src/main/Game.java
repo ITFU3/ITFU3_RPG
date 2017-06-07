@@ -5,6 +5,7 @@ import character.PlayerCharacter;
 import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
 import gui.GameFrame;
+import gui.GuiHelper.HealthBarLabel;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,10 @@ public class Game implements Runnable{
     private GameFrame gameFrame;
     public int width, height;
     public String title = "Death's domain";
+    
+    public String attackInfo = "";
+    public String monsterInfo = "";
+    
     
     private Thread thread;
     
@@ -50,6 +55,7 @@ public class Game implements Runnable{
     private void init() {
         gameFrame = new GameFrame();
         gameFrame.setTitle(title);
+        
     }
 
     @Override
@@ -80,9 +86,26 @@ public class Game implements Runnable{
     }
 
     public static void updateGUI(){
-        getInstance().getGameFrame().getArenaTextArea().setText(
-            Map.getInstance().getMap()
-        );
+        
+        getInstance().getGameFrame().getArenaTextArea().setText(Map.getInstance().getMap());
+       
+        getInstance().getGameFrame().getAttackInfoTextArea().setText(getInstance().attackInfo);
+        getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
+        getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getInstance().getPlayer().getAllowedMoves()));
+        getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getInstance().getPlayer().getAllowedAttacks()));
+        System.out.println("GUI UPDATE");
+    }
+    
+    public static void updateMonsterInfo() {
+        ArrayList<MonsterCharacter> monsters = getInstance().getMonsters();
+        String newMonsterInfo = "Monsters in Arena: " +monsters.size() +"\n";
+        
+        for (MonsterCharacter monster : monsters) {
+            newMonsterInfo += monster.getName() + "\n"+
+                    monster.getTempHP() + "/"+monster.getHealth()+ "\n";
+        }
+        getInstance().setMonsterInfo(newMonsterInfo);
+
     }
     
     public void nextLevel(){
@@ -123,4 +146,25 @@ public class Game implements Runnable{
     public void setLevel(int level) {
         this.level = level;
     }
+
+    public String getAttackInfo() {
+        return attackInfo;
+    }
+
+    public String getMonsterInfo() {
+        Game.updateMonsterInfo();
+        return monsterInfo;
+    }
+
+    public void setAttackInfo(String attackInfo) {
+        this.attackInfo = attackInfo;
+    }
+
+    public void setMonsterInfo(String monsterInfo) {
+        this.monsterInfo = monsterInfo;
+    }
+    
+    
+    
+    
 }

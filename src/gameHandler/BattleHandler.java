@@ -19,6 +19,9 @@ public class BattleHandler
    * @param target - PlayerCharacter (MonsterCharacters get casted)
    * @return String - protokoll of what happend
    */
+    
+    
+    
   public static String tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
   {
     String output = "";
@@ -45,7 +48,7 @@ public class BattleHandler
             target.setTempHP( target.getTempHP() - dmg );
             output += "hits " + target.getName() + " with a " + cTh[1] 
                     + " and does " + dmg + " damage."
-                    + " And has " + target.getTempHP() + " HP left.";
+                    + " And has " + target.getTempHP() + " HP left.\n";
             if(target.getTempHP() <= 0){
               output += target.getName() + " is no more.\n";
               //reset Marker on Map if I would know the Coords of the one that died.
@@ -60,6 +63,10 @@ public class BattleHandler
     }else{
         output += "No Attacks left to do.";
     }
+    Game.updateMonsterInfo();
+    Game.getInstance().setAttackInfo(output);
+    
+    
     return output;
   }
   
@@ -205,6 +212,7 @@ public class BattleHandler
     }else{
       output += "Target is too far away. Move closer.";
     }
+    Game.getInstance().setAttackInfo(output);
     return output;
   }
 }

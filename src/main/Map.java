@@ -97,13 +97,11 @@ public class Map
         this.labyrinthMap[y][x] = field;
         if(field == 'P')
         {
-            System.out.println("[=> Y("+y+") | X("+x+") <=]");
           Game.getInstance().getPlayer().setCoordinates(y, x);
           Game.getInstance().getPlayer().setCoordinates_past(y, x);
         }
         if(field == 'M')
         {
-            System.out.println("[=> Y("+y+") | X("+x+") <=]");
           Game.getInstance().getMonsters().get(monsterCounter).setCoordinates(y, x);
           Game.getInstance().getMonsters().get(monsterCounter).setCoordinates_past(y, x);
           monsterCounter++;
@@ -201,11 +199,11 @@ public class Map
         }
         
 // not nice needs a redo
-        l_Y = entity.getCoordinates_past()[0];
-        l_X = entity.getCoordinates_past()[1];
+        l_Y = this.entity.getCoordinates_past()[0];
+        l_X = this.entity.getCoordinates_past()[1];
         
-        n_y = entity.getCoordinates_future()[0];
-        n_x = entity.getCoordinates_future()[1];
+        n_y = this.entity.getCoordinates_future()[0];
+        n_x = this.entity.getCoordinates_future()[1];
         
         char mapIndicator = this.labyrinthMap[l_Y][l_X];
         System.out.println("Indicator: " + mapIndicator);
@@ -213,7 +211,7 @@ public class Map
         {
           case 'M':
               //not monster => PLAYER
-            if( !entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
+            if( !this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
             {
               System.out.println("\nYou cannot fill the same space.\n");
               this.resetNewPos(l_Y, l_X);
@@ -225,7 +223,7 @@ public class Map
             break;
           case 'P':
               //Monster => NOT PLAYER
-            if( entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
+            if( this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
             {
               System.out.println("\nYou cannot fill the same space.\n");
               this.resetNewPos(l_Y, l_X);
@@ -243,7 +241,7 @@ public class Map
             
           case '#':
               //Monster => NOT PLAYER
-             if( entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
+             if( this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
              {
                // AI behavior
              }else{
@@ -275,15 +273,8 @@ public class Map
   public int getDistance(PlayerCharacter a, PlayerCharacter b)
   {
     int y = Math.abs( a.getCoordinates_past()[0] - b.getCoordinates()[0] );
-    System.out.println(a.getCoordinates_past()[0] + " - " + b.getCoordinates()[0] + " = " + y);
-    
     int x = Math.abs( a.getCoordinates_past()[1] - b.getCoordinates()[1] );
-    System.out.println(a.getCoordinates_past()[1] + " - " + b.getCoordinates()[1] + " = " + x);
-    
-    int dist = Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
-    System.out.println("Distance: " + dist);
-    
-    return dist;
+    return Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
   }
   
   //##### MOVEMENT #####

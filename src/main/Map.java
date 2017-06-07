@@ -42,7 +42,7 @@ public class Map
     this.map = map;
     this.width = width;
     this.height = height;
-    this.buildLabyrinth();
+    this.buildMapArray();
   }
 
   /**
@@ -67,7 +67,8 @@ public class Map
     this.width = 39;
     this.height = 12;
     Game.getInstance().addMonster( new MonsterCharacter(new Rat()));
-    this.buildLabyrinth();
+    Game.getInstance().setLevel(1);
+    this.buildMapArray();
     }
 
     /**
@@ -80,13 +81,12 @@ public class Map
     }
   
   /**
-   * Parsing the map string into char array
+   * Parsing the map string into char array.
+   * And setting the positions of Charater to them as they are found on the map.
    * To get the Coordinates of player and monster
    */
-  private void buildLabyrinth()
+  private void buildMapArray()
   {
-      
-      //TODO update to player array sometime in the distant future
     this.labyrinthMap = new char[this.height][this.width];
     int monsterCounter = 0;
     for(int y=0; y < this.height; y++)
@@ -110,13 +110,13 @@ public class Map
         }
       }
     }
-    this.showLabyrinth();
+    this.buildMapString();
   }
   
   /**
-   * Printout of the map to console
+   * Parsing the MapArray to the MapString
    */
-  public void showLabyrinth()
+  public void buildMapString()
   {
     this.map = "";
     for(int y=0; y < this.height; y++)
@@ -130,6 +130,27 @@ public class Map
       this.map += "\n";
 //      System.out.print("\n");
     }
+  }
+  
+  public void spawnRandomMonster(int mapLevel){
+      int y,x,pos;
+      // mapLevel == number of monster ???
+      for (int i = 0; i < mapLevel; i++){
+          y = Die.rollDie(height-1, 1);
+          x = Die.rollDie(width-1, 1);
+          pos = this.labyrinthMap[y][x];
+          if(
+            pos == '#' ||
+            pos == 'P' ||
+            pos == 'M'
+          ){
+              i--;
+          }else{
+              this.labyrinthMap[y][x] = 'M';
+              Game.getInstance().addMonster( new MonsterCharacter() );
+          }
+      }
+      this.buildMapString();
   }
   
   /**
@@ -232,7 +253,7 @@ public class Map
           default:
               //...
         }
-        this.showLabyrinth();
+        this.buildMapString();
         tempMovement--;
       }
     }
@@ -354,7 +375,7 @@ public class Map
   public void setMarkerOnMap(int y, int x, char mark)
   {
     this.labyrinthMap[y][x] = mark;
-    this.showLabyrinth();
+    this.buildMapString();
   }
   /**
    * reset a marker on the map to blank space
@@ -365,6 +386,6 @@ public class Map
   public void resetMarkerOnMap(int y, int x)
   {
     this.labyrinthMap[y][x] = ' ';
-    this.showLabyrinth();
+    this.buildMapString();
   }
 }

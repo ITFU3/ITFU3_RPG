@@ -155,9 +155,18 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_downButtonActionPerformed
 
     private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
+        if( Game.getInstance().getMonsters().size() <= 0 ){
+            Game.getInstance().nextLevel();
+            System.out.println("NEXT LEVEL: " + Game.getInstance().getLevel());
+        }else{
+            //DoMonsters Turn HERE!!!
+            
+        }
+        // Reset PLayerCharacter
         Game.getInstance().getPlayer().setAllowedMoves(
             Game.getInstance().getPlayer().getMovement()
         );
+        Game.getInstance().getPlayer().setAllowedAttacks(1);
     }//GEN-LAST:event_btn_EndRoundActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

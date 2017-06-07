@@ -21,37 +21,44 @@ public class BattleHandler
    */
   public static String tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
   {
-    int distance = Map.getInstance().getDistance(attacker, target);
-    System.out.println("MAP:Distance: " + distance);
     String output = "";
-    if(distance <= attacker.getpWeapon().getDistance())
+    int aa = attacker.getAllowedAttacks();
+    if( aa > 0)
     {
-      output += attacker.getName() + " ";
-      // TODO: the Type of attack
-      int[] cTh = tryHit(attacker, false/*useSpell*/);
-
-      if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
-      {
-        int dmg = doDamage(attacker);
-        if(cTh[0] == 20)
+        attacker.setAllowedAttacks(--aa);
+        int distance = Map.getInstance().getDistance(attacker, target);
+        System.out.println("MAP:Distance: " + distance);
+        if(distance <= attacker.getpWeapon().getDistance())
         {
-          dmg *= 2;
-          output += "*";
+          output += attacker.getName() + " ";
+          // TODO: the Type of attack
+          int[] cTh = tryHit(attacker, false/*useSpell*/);
+
+          if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
+          {
+            int dmg = doDamage(attacker);
+            if(cTh[0] == 20)
+            {
+              dmg *= 2;
+              output += "*";
+            }
+            target.setTempHP( target.getTempHP() - dmg );
+            output += "hits " + target.getName() + " with a " + cTh[1] 
+                    + " and does " + dmg + " damage."
+                    + " And has " + target.getTempHP() + " HP left.";
+            if(target.getTempHP() <= 0){
+              output += target.getName() + " is no more.\n";
+              //reset Marker on Map if I would know the Coords of the one that died.
+              killStrike(target);
+            }
+          }else{
+            output += "misses with a " + cTh[1] + "\n";
+          }
+        }else{
+          output += "Target is too far away. Move closer.";
         }
-        target.setTempHP( target.getTempHP() - dmg );
-        output += "hits " + target.getName() + " with a " + cTh[1] 
-                + " and does " + dmg + " damage."
-                + " And has " + target.getTempHP() + " HP left.";
-        if(target.getTempHP() <= 0){
-          output += target.getName() + " is no more.\n";
-          //reset Marker on Map if I would know the Coords of the one that died.
-          killStrike(target);
-        }
-      }else{
-        output += "misses with a " + cTh[1] + "\n";
-      }
     }else{
-      output += "Target is too far away. Move closer.";
+        output += "No Attacks left to do.";
     }
     return output;
   }
@@ -84,7 +91,7 @@ public class BattleHandler
     // Stread D20 roll.
     output[0] = main.Die.rollDie(20, 1);
     output[1] = output[0];
-// TODO: redo this switch case based on rules!!
+    
     if(useSpell)
     {
       // gets change to ...getpClass().getSpellAttackBonus()

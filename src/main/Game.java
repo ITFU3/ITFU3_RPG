@@ -20,7 +20,7 @@ public class Game implements Runnable{
     private PlayerCharacter player;
     private ArrayList<MonsterCharacter> monsters  = new ArrayList<MonsterCharacter>();
     
-    
+    private int level;
     
     private GameFrame gameFrame;
     public int width, height;
@@ -85,6 +85,11 @@ public class Game implements Runnable{
         );
     }
     
+    public void nextLevel(){
+        Map.getInstance().spawnRandomMonster(++this.level);
+        Game.updateGUI();
+    }
+    
     public PlayerCharacter getPlayer() {
         return player;
     }
@@ -111,5 +116,11 @@ public class Game implements Runnable{
     }
     public void setRunning(boolean running) {
         this.running = running;
+    }
+    public int getLevel() {
+        return level;
+    }
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

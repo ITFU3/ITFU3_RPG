@@ -1,12 +1,10 @@
 package gui;
 
-import character.MonsterCharacter;
-import character.PlayerCharacter;
-import gameHandler.BattleHandler;
-import gameHandler.KeyHandler;
-import gameHandler.MonsterAI;
-import gameHandler.MovementHandler;
+import main.*;
+import character.*;
+import gameHandler.*;
 import gui.GuiHelper.HealthBarLabel;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,8 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import main.Game;
-import main.Map;
 
 /**
  *
@@ -24,7 +20,7 @@ import main.Map;
  * @author Matthias Dröge
  */
 public class GameFrame extends javax.swing.JFrame {
-    ArrayList<JComponent> components = new ArrayList<JComponent>();
+    ArrayList<JComponent> components = new ArrayList();
     int testHp = Game.getInstance().getPlayer().getHealth();
     /**
      * Creates new form GameFrame
@@ -33,50 +29,41 @@ public class GameFrame extends javax.swing.JFrame {
         initComponents();
         initFrameSetup();
         
-        
-        
-        
         // Arean Setup
-        arenaTextArea.setText( Map.getInstance().getMap());
-        arenaTextArea.setEnabled(false);
-        arenaTextArea.setFocusable(false);
-        arenaTextArea.setDisabledTextColor(Color.BLACK);
-        arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        this.arenaTextArea.setText( Map.getInstance().getMap());
+        this.arenaTextArea.setEnabled(false);
+        this.arenaTextArea.setFocusable(false);
+        this.arenaTextArea.setDisabledTextColor(Color.BLACK);
+        this.arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
         
         // Attack Info Setup
-        attackInfoTextArea.setText(Game.getInstance().attackInfo);
-        attackInfoTextArea.setEnabled(false);
-        attackInfoTextArea.setFocusable(false);
-        attackInfoTextArea.setDisabledTextColor(Color.BLACK);
-        attackInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        this.attackInfoTextArea.setText(Game.getInstance().attackInfo);
+        this.attackInfoTextArea.setEnabled(false);
+        this.attackInfoTextArea.setFocusable(false);
+        this.attackInfoTextArea.setDisabledTextColor(Color.BLACK);
+        this.attackInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
         
         // Monster Info Setup
-        monsterInfoTextArea.setText(Game.getInstance().getMonsterInfo());
-        monsterInfoTextArea.setEnabled(false);
-        monsterInfoTextArea.setFocusable(false);
-        monsterInfoTextArea.setDisabledTextColor(Color.BLACK);
-        monsterInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        this.monsterInfoTextArea.setText(Game.getInstance().getMonsterInfo());
+        this.monsterInfoTextArea.setEnabled(false);
+        this.monsterInfoTextArea.setFocusable(false);
+        this.monsterInfoTextArea.setDisabledTextColor(Color.BLACK);
+        this.monsterInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
         
+        this.playerNamelLabel.setFont(new Font("Courier New", Font.BOLD, 15));
+        this.playerNamelLabel.setText(Game.getInstance().getPlayer().getName());
         
-        playerNamelLabel.setFont(new Font("Courier New", Font.BOLD, 15));
-        playerNamelLabel.setText(Game.getInstance().getPlayer().getName());
         // init Healthbar
-        ((HealthBarLabel)playerHealthBarLabel).setHealthText(Game.getInstance().getPlayer().getHealth());
+        ((HealthBarLabel)this.playerHealthBarLabel).setHealthText(
+            Game.getInstance().getPlayer().getHealth()
+        );
         
-        initComponentList();
+        this.initComponentList();
+        
         // needed for keyboard to work
-        setButtonFocus(false);
-        
-        
-        
-     
+        this.setButtonFocus(false);
     }
 
-    
-    
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -255,7 +242,8 @@ public class GameFrame extends javax.swing.JFrame {
         }
         // Reset PLayerCharacter
         Game.getInstance().getPlayer().setAllowedMoves(
-        Game.getInstance().getPlayer().getMovement()
+            //sollte eingerückt sein, ist ein Parameter
+            Game.getInstance().getPlayer().getMovement()
         );
         Game.getInstance().getPlayer().setAllowedAttacks(1);
     }//GEN-LAST:event_btn_EndRoundActionPerformed
@@ -269,25 +257,27 @@ public class GameFrame extends javax.swing.JFrame {
 
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
        MovementHandler.up();
-        Game.updateGUI();
+       Game.updateGUI();
     }//GEN-LAST:event_upButtonActionPerformed
 
     private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
-        // TODO add your handling code here:
+        MovementHandler.right();
+        Game.updateGUI();
     }//GEN-LAST:event_rightButtonActionPerformed
 
     private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
-        // TODO add your handling code here:
+        MovementHandler.left();
+        Game.updateGUI();
     }//GEN-LAST:event_leftButtonActionPerformed
 
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-                System.out.println("Attack");
-                PlayerCharacter attacker = main.Game.getInstance().getPlayer();
-                MonsterCharacter target = main.Game.getInstance().getMonsters().get(0);
-                String tmpOutput = BattleHandler.tryToAttack(attacker, target);
-                
-                System.out.println(tmpOutput);
-                Game.updateGUI();
+        System.out.println("Attack");
+        PlayerCharacter attacker = main.Game.getInstance().getPlayer();
+        MonsterCharacter target = main.Game.getInstance().getMonsters().get(0);
+        String tmpOutput = BattleHandler.tryToAttack(attacker, target);
+
+        System.out.println(tmpOutput);
+        Game.updateGUI();
     }//GEN-LAST:event_attackButtonActionPerformed
 
     private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeInputTypeButtonActionPerformed
@@ -357,10 +347,6 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel valueMovesLeftLabel;
     // End of variables declaration//GEN-END:variables
 
-   
-    
-    
-
     private void initComponentList() {
        // Movement
         components.add(upButton);
@@ -377,26 +363,18 @@ public class GameFrame extends javax.swing.JFrame {
         components.add(attackScrollPane);
         components.add(monsterScrollPane);
         components.add(arenaScrollPane);
-        
     }
     
     public void setButtonFocus(boolean focus ) {
-        
- 
-        for (JComponent component : components) {
-            component.setFocusable(focus);
-            if (component instanceof JButton) {
-                component.setEnabled(focus);
+        for(int i=0;i<this.components.size();i++){
+            this.components.get(i).setFocusable(focus);
+            if(this.components.get(i) instanceof JButton){
+                this.components.get(i).setEnabled(focus);
             }
-            
         }
-        
         String inputType = "Keyboard";
-        if (focus) {
-            inputType = "Mouse";
-        } 
-        
-        inputInfoLabel.setText(inputType);
+        if(focus){ inputType = "Mouse"; } 
+        this.inputInfoLabel.setText(inputType);
     }
 
     private void initFrameSetup() {
@@ -412,8 +390,6 @@ public class GameFrame extends javax.swing.JFrame {
         this.setVisible(true);
         
     }
-    
-    
 
     public JLabel getHealthLabel() {
         return healthLabel;
@@ -450,9 +426,4 @@ public class GameFrame extends javax.swing.JFrame {
     public JTextArea getArenaTextArea() {
         return arenaTextArea;
     }
-
-    
-     
-     
-    
 }

@@ -6,8 +6,11 @@ import gameHandler.MonsterAI;
 import gameHandler.MovementHandler;
 import gui.GuiHelper.HealthBarLabel;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import main.Game;
 import main.Map;
 
@@ -24,34 +27,25 @@ public class GameFrame extends javax.swing.JFrame {
      */
     public GameFrame() {
         initComponents();
+        initFrameSetup();
         initComponentList();
         
         this.addKeyListener(new KeyHandler());
         this.setLocationRelativeTo(null);
         
+        // Arean Setup
         arenaTextArea.setText( Map.getInstance().getMap());
-        
         arenaTextArea.setEnabled(false);
         arenaTextArea.setDisabledTextColor(Color.BLACK);
-        arenaTextArea.setFocusable(false);
         arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
         
-       // this.downButton.setFocusable(false);
-        this.downButton.setText("Down");
-        
+        playerNamelLabel.setFont(new Font("Courier New", Font.BOLD, 15));
+        // init Healthbar
         ((HealthBarLabel)playerHealthBarLabel).setHealthText(Game.getInstance().getPlayer().getHealth());
-        
-       // this.btn_EndRound.setFocusable(false);
-        
+       
+        // needed for keyboard to work
         setButtonFocus(false);
-        
-        this.setVisible(true);
-        
-//        MonsterAI mAI = new MonsterAI(
-//            (MonsterCharacter)Game.getInstance().getMonsters().get(0)
-//        );
-//        mAI.calcMovesToPlayer();
-        
+     
     }
     
     
@@ -66,19 +60,27 @@ public class GameFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         arenaTextArea = new javax.swing.JTextArea();
         downButton = new javax.swing.JButton();
         btn_EndRound = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        playerHealthBarLabel = new HealthBarLabel(Game.getInstance().getPlayer().getHealth(), Game.getInstance().getPlayer().getTempHP());
+        healthLabel = new javax.swing.JLabel();
+        playerHealthBarLabel = new HealthBarLabel(Game.getInstance().getPlayer().getHealth());
         jButton1 = new javax.swing.JButton();
+        upButton = new javax.swing.JButton();
+        rightButton = new javax.swing.JButton();
+        leftButton = new javax.swing.JButton();
+        playerNamelLabel = new javax.swing.JLabel();
+
+        jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         arenaTextArea.setColumns(20);
         arenaTextArea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         arenaTextArea.setRows(5);
+        arenaTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(arenaTextArea);
 
         downButton.setText("Down");
@@ -95,7 +97,7 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Player Health");
+        healthLabel.setText("Health");
 
         playerHealthBarLabel.setText("");
 
@@ -106,44 +108,98 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
 
+        upButton.setText("Up");
+        upButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upButtonActionPerformed(evt);
+            }
+        });
+
+        rightButton.setText("Right");
+        rightButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rightButtonActionPerformed(evt);
+            }
+        });
+
+        leftButton.setText("Left");
+        leftButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                leftButtonActionPerformed(evt);
+            }
+        });
+
+        playerNamelLabel.setText("- Player Name -");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(downButton)
-                        .addGap(338, 338, 338))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_EndRound)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(playerHealthBarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(141, 141, 141))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(75, 75, 75))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(healthLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(playerHealthBarLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                            .addComponent(playerNamelLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(200, 200, 200))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_EndRound)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(414, 414, 414)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(upButton)
+                                    .addComponent(downButton))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(leftButton)
+                                .addGap(90, 90, 90)))
+                        .addComponent(rightButton)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_EndRound))
-                .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(playerHealthBarLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(playerNamelLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(healthLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(playerHealthBarLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_EndRound)
+                        .addGap(14, 14, 14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(upButton)
+                                .addGap(53, 53, 53)
+                                .addComponent(downButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(rightButton)
+                                    .addComponent(leftButton))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)))
                 .addComponent(jButton1)
-                .addGap(15, 15, 15)
-                .addComponent(downButton)
-                .addGap(27, 27, 27))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,7 +212,7 @@ public class GameFrame extends javax.swing.JFrame {
 
     private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
         Game.getInstance().getPlayer().setAllowedMoves(
-            Game.getInstance().getPlayer().getMovement()
+        Game.getInstance().getPlayer().getMovement()
         );
     }//GEN-LAST:event_btn_EndRoundActionPerformed
 
@@ -166,6 +222,19 @@ public class GameFrame extends javax.swing.JFrame {
         System.out.println(testHp);
         ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
+       MovementHandler.up();
+        Game.updateGUI();
+    }//GEN-LAST:event_upButtonActionPerformed
+
+    private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rightButtonActionPerformed
+
+    private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_leftButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,19 +274,27 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea arenaTextArea;
     private javax.swing.JButton btn_EndRound;
     private javax.swing.JButton downButton;
+    private javax.swing.JLabel healthLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton leftButton;
     private javax.swing.JLabel playerHealthBarLabel;
+    private javax.swing.JLabel playerNamelLabel;
+    private javax.swing.JButton rightButton;
+    private javax.swing.JButton upButton;
     // End of variables declaration//GEN-END:variables
 
-    public javax.swing.JTextArea getArenaTextArea(){
-        return arenaTextArea;
-    }
+   
+    
+    
 
     private void initComponentList() {
         components.add(arenaTextArea);
+        components.add(upButton);
+        components.add(rightButton);
         components.add(downButton);
+        components.add(leftButton);
         components.add(btn_EndRound);
         components.add(jButton1);
     }
@@ -227,4 +304,37 @@ public class GameFrame extends javax.swing.JFrame {
             component.setFocusable(focus);
         }
     }
+
+    private void initFrameSetup() {
+        this.setResizable(false);
+        Dimension dimensions = new Dimension(900, 600);
+        
+        this.setPreferredSize(dimensions);
+        this.setMinimumSize(dimensions);
+        this.setMaximumSize(dimensions);
+        
+        this.addKeyListener(new KeyHandler());
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        
+    }
+    
+     public javax.swing.JTextArea getArenaTextArea(){
+        return arenaTextArea;
+    }
+
+    public JLabel getHealthLabel() {
+        return healthLabel;
+    }
+
+    public JLabel getPlayerHealthBarLabel() {
+        return playerHealthBarLabel;
+    }
+
+    public JLabel getPlayerNamelLabel() {
+        return playerNamelLabel;
+    }
+     
+     
+    
 }

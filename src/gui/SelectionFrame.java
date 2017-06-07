@@ -15,8 +15,12 @@ public class SelectionFrame extends javax.swing.JFrame {
      */
     public SelectionFrame() {
         initComponents();
-    }
+        
+        this.setLocationRelativeTo(null);
 
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,17 +30,17 @@ public class SelectionFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        selectjLabel = new javax.swing.JLabel();
         jToggleButtonSelect = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaPlayerInfo = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        characterList = new javax.swing.JList();
         jLabelPlayerInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Select a Player");
+        selectjLabel.setText("Select a Player");
 
         jToggleButtonSelect.setText("Start Game");
         jToggleButtonSelect.addActionListener(new java.awt.event.ActionListener() {
@@ -49,13 +53,13 @@ public class SelectionFrame extends javax.swing.JFrame {
         jTextAreaPlayerInfo.setRows(5);
         jScrollPane2.setViewportView(jTextAreaPlayerInfo);
 
-        jList1.setModel(ListModels.getCharacterModel());
-        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        characterList.setModel(ListModels.getCharacterModel());
+        characterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jList1ValueChanged(evt);
+                characterListValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(characterList);
 
         jLabelPlayerInfo.setText("Player Info");
 
@@ -64,37 +68,32 @@ public class SelectionFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jToggleButtonSelect))
-                        .addGap(189, 189, 189))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                    .addComponent(selectjLabel)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButtonSelect))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelPlayerInfo)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(selectjLabel)
                     .addComponent(jLabelPlayerInfo))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jToggleButtonSelect))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pack();
@@ -102,7 +101,7 @@ public class SelectionFrame extends javax.swing.JFrame {
 
     private void jToggleButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonSelectActionPerformed
         // TODO add your handling code here:
-        PlayerCharacter pc = (PlayerCharacter)jList1.getSelectedValue();
+        PlayerCharacter pc = (PlayerCharacter)characterList.getSelectedValue();
         if (pc != null) {
             // error handling if nothing is selected.
             this.setVisible(false);
@@ -111,11 +110,11 @@ public class SelectionFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jToggleButtonSelectActionPerformed
 
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+    private void characterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_characterListValueChanged
         // TODO add your handling code here:
-        PlayerCharacter pc = (PlayerCharacter)jList1.getSelectedValue();
+        PlayerCharacter pc = (PlayerCharacter)characterList.getSelectedValue();
         jTextAreaPlayerInfo.setText(pc.showCharInfo());
-    }//GEN-LAST:event_jList1ValueChanged
+    }//GEN-LAST:event_characterListValueChanged
 
     /**
      * @param args the command line arguments
@@ -156,12 +155,12 @@ public class SelectionFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList characterList;
     private javax.swing.JLabel jLabelPlayerInfo;
-    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaPlayerInfo;
     private javax.swing.JToggleButton jToggleButtonSelect;
+    private javax.swing.JLabel selectjLabel;
     // End of variables declaration//GEN-END:variables
 }

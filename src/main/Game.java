@@ -88,6 +88,7 @@ public class Game implements Runnable{
     public static void updateGUI(){
         
         getInstance().getGameFrame().getArenaTextArea().setText(Map.getInstance().getMap());
+        System.out.println(Map.getInstance().getMap());
        
         getInstance().getGameFrame().getAttackInfoTextArea().setText(getInstance().attackInfo);
         getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);

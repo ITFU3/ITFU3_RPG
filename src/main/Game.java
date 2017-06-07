@@ -110,16 +110,14 @@ public class Game implements Runnable{
     }
     
     public int getMonsterClosedToPlayer(){
-        int output = 0;
-        int[] p_pos = getInstance().getPlayer().getCoordinates();
+        int output = 0, dist = 99;
+        PlayerCharacter pc = getInstance().getPlayer();
         for(int i = 0; i < getInstance().getMonsters().size(); i++){
             MonsterCharacter monster = getInstance().getMonsters().get(i);
-            int[] m_pos = monster.getCoordinates();
-            int yDiff = Math.abs( (p_pos[0] - m_pos[0]) );
-            int xDiff = Math.abs( (p_pos[1] - m_pos[1]) );
-            if(yDiff <= 1 && xDiff <= 1){
+            int tmpdist = Map.getInstance().getDistance( pc, monster );
+            if(tmpdist < dist){
                 output = i;
-                break;
+                dist = tmpdist;
             }
         }
         return output;

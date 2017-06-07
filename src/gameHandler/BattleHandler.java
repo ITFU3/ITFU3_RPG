@@ -24,13 +24,20 @@ public class BattleHandler
     
   public static String tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
   {
+    int distance = Map.getInstance().getDistance(attacker, target);
+    System.out.println("MAP:Distance: " + distance);
+    
+    int[] a_pos = attacker.getCoordinates();
+    System.out.println(a_pos[0] + "|" + a_pos[1]);
+    
+    int[] t_pos = target.getCoordinates();
+    System.out.println(t_pos[0] + "|" + t_pos[1]);
+    
     String output = "";
     int aa = attacker.getAllowedAttacks();
     if( aa > 0)
     {
         attacker.setAllowedAttacks(--aa);
-        int distance = Map.getInstance().getDistance(attacker, target);
-        System.out.println("MAP:Distance: " + distance);
         if(distance <= attacker.getpWeapon().getDistance())
         {
           output += attacker.getName() + " ";

@@ -58,10 +58,10 @@ public class GameFrame extends javax.swing.JFrame {
             Game.getInstance().getPlayer().getHealth()
         );
         
-        this.initComponentList();
+//        this.initComponentList();
         
         // needed for keyboard to work
-        this.setButtonFocus(false);
+//        this.setButtonFocus(false);
     }
 
     /**
@@ -229,7 +229,7 @@ public class GameFrame extends javax.swing.JFrame {
 
     private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
         MovementHandler.down();
-        Game.updateGUI();
+//        Game.updateGUI();
     }//GEN-LAST:event_downButtonActionPerformed
 
     private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
@@ -257,27 +257,30 @@ public class GameFrame extends javax.swing.JFrame {
 
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
        MovementHandler.up();
-       Game.updateGUI();
+//       Game.updateGUI();
     }//GEN-LAST:event_upButtonActionPerformed
 
     private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
         MovementHandler.right();
-        Game.updateGUI();
+//        Game.updateGUI();
     }//GEN-LAST:event_rightButtonActionPerformed
 
     private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
         MovementHandler.left();
-        Game.updateGUI();
+//        Game.updateGUI();
     }//GEN-LAST:event_leftButtonActionPerformed
 
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-        System.out.println("Attack");
-        PlayerCharacter attacker = main.Game.getInstance().getPlayer();
-        MonsterCharacter target = main.Game.getInstance().getMonsters().get(0);
-        String tmpOutput = BattleHandler.tryToAttack(attacker, target);
-
-        System.out.println(tmpOutput);
-        Game.updateGUI();
+        if( main.Game.getInstance().getMonsters().size() > 0){
+            System.out.println("Attack");
+            PlayerCharacter attacker = main.Game.getInstance().getPlayer();
+            MonsterCharacter target = main.Game.getInstance().getMonsters().get(
+                Game.getInstance().getMonsterClosedToPlayer()
+            );
+            String tmpOutput = BattleHandler.tryToAttack(attacker, target);
+            System.out.println(tmpOutput);
+            Game.updateGUI();
+        }else{ System.out.println("No Monster there to fight."); }
     }//GEN-LAST:event_attackButtonActionPerformed
 
     private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeInputTypeButtonActionPerformed

@@ -131,7 +131,8 @@ public class Map
   }
   
   public void spawnRandomMonster(int mapLevel){
-      int y,x,pos;
+      int y,x;
+      char pos;
       // mapLevel == number of monster ???
       for (int i = 0; i < mapLevel; i++){
           y = Die.rollDie(height-1, 1);
@@ -142,10 +143,12 @@ public class Map
             pos == 'P' ||
             pos == 'M'
           ){
+              // WRONG: Redo
               i--;
           }else{
+              //Correct: place monster in world
               this.labyrinthMap[y][x] = 'M';
-              Game.getInstance().addMonster( new MonsterCharacter() );
+              Game.getInstance().addMonster( new MonsterCharacter(y,x) );
           }
       }
       this.buildMapString();
@@ -274,7 +277,9 @@ public class Map
   {
     int y = Math.abs( a.getCoordinates_past()[0] - b.getCoordinates()[0] );
     int x = Math.abs( a.getCoordinates_past()[1] - b.getCoordinates()[1] );
-    return Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
+    int dist = Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
+    System.out.println("Dist: " + dist);
+    return dist;
   }
   
   //##### MOVEMENT #####

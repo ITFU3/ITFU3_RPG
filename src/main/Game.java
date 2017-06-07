@@ -84,7 +84,7 @@ public class Game implements Runnable{
 
     public static void updateGUI(){
         getInstance().getGameFrame().getArenaTextArea().setText(Map.getInstance().getMap());
-        System.out.println(Map.getInstance().getMap());
+//        System.out.println(Map.getInstance().getMap());
        
         getInstance().getGameFrame().getAttackInfoTextArea().setText(getInstance().attackInfo);
         getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
@@ -107,6 +107,22 @@ public class Game implements Runnable{
     public void nextLevel(){
         Map.getInstance().spawnRandomMonster(++this.level);
         Game.updateGUI();
+    }
+    
+    public int getMonsterClosedToPlayer(){
+        int output = 0;
+        int[] p_pos = getInstance().getPlayer().getCoordinates();
+        for(int i = 0; i < getInstance().getMonsters().size(); i++){
+            MonsterCharacter monster = getInstance().getMonsters().get(i);
+            int[] m_pos = monster.getCoordinates();
+            int yDiff = Math.abs( (p_pos[0] - m_pos[0]) );
+            int xDiff = Math.abs( (p_pos[1] - m_pos[1]) );
+            if(yDiff <= 1 && xDiff <= 1){
+                output = i;
+                break;
+            }
+        }
+        return output;
     }
     
     public PlayerCharacter getPlayer() {

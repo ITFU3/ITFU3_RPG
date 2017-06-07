@@ -41,6 +41,24 @@ public class MonsterCharacter extends PlayerCharacter {
         this.setTempHP(this.getHealth());
     }
     
+    public MonsterCharacter(int y, int x) {
+        this();setCoordinates(y, x);
+        this.setName(base.Base.randomName(5));
+        this.setGender('m');
+        this.setpClass(new PlayerClass());
+        int[] stats = new int[8];
+        stats[this.strength] = 5;
+        stats[this.dexterity] = 5;
+        stats[this.Constitution] = 5;
+        stats[this.wisdom] = 5;
+        stats[this.inteligence] = 5;
+        stats[this.charisma] = 5;
+        stats[this.movement] = 5;
+        stats[this.health] = 5;
+        this.setBasicStats(stats);
+        this.setTempHP(this.getHealth());
+    }
+    
     public MonsterCharacter(Race race) {
       this.setName(race.getClass().getSimpleName());
       this.setGender('m');

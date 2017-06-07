@@ -47,7 +47,7 @@ public class BattleHandler
             }
             target.setTempHP( target.getTempHP() - dmg );
             output += "hits " + target.getName() + " with a " + cTh[1] 
-                    + " and does " + dmg + " damage."
+                    + " and does " + dmg + " damage.\n"
                     + " And has " + target.getTempHP() + " HP left.\n";
             if(target.getTempHP() <= 0){
               output += target.getName() + " is no more.\n";
@@ -58,10 +58,10 @@ public class BattleHandler
             output += "misses with a " + cTh[1] + "\n";
           }
         }else{
-          output += "Target is too far away. Move closer.";
+          output += "Target is too far away. Move closer.\n";
         }
     }else{
-        output += "No Attacks left to do.";
+        output += "No Attacks left to do.\n";
     }
     Game.updateMonsterInfo();
     Game.getInstance().setAttackInfo(output);
@@ -198,8 +198,8 @@ public class BattleHandler
 		  }
 		  target.setTempHP( target.getTempHP() - dmg );
 		  output += "hits " + target.getName() + " with a " + cTh[1] 
-				  + " and does " + dmg + " damage."
-				  + " " + target.getName() + " has " + target.getTempHP() + " HP left.";
+				  + " and does " + dmg + " damage.\n"
+				  + " " + target.getName() + " has " + target.getTempHP() + " HP left.\n";
 		  if(target.getTempHP() <= 0){
 			output += target.getName() + " is no more.\n";
 		  }
@@ -210,7 +210,7 @@ public class BattleHandler
 		}
 	  }
     }else{
-      output += "Target is too far away. Move closer.";
+      output += "Target is too far away. Move closer.\n";
     }
     Game.getInstance().setAttackInfo(output);
     return output;

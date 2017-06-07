@@ -26,6 +26,8 @@ public class KeyHandler implements KeyListener {
     
     private final int pause = KeyEvent.VK_P;
     private final int esc = KeyEvent.VK_ESCAPE;
+    
+    
    
     public KeyHandler() {
     }
@@ -77,6 +79,7 @@ public class KeyHandler implements KeyListener {
                 String tmpOutput = BattleHandler.tryToAttack(attacker, target);
                 System.out.println(tmpOutput);
                 Game.updateGUI();
+                
                 break;
             // Info
                 case changeFocus:
@@ -93,4 +96,6 @@ public class KeyHandler implements KeyListener {
                 break;
         }
     }
+    
+    
 }

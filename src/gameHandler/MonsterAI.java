@@ -8,6 +8,7 @@ package gameHandler;
 import Enum.MoveDirection;
 import java.util.ArrayList;
 import character.*;
+import main.Die;
 /**
  *
  * @author steffen
@@ -32,7 +33,7 @@ public class MonsterAI {
         int[] coords = main.Game.getInstance().getPlayer().getCoordinates();
         int playerY = coords[0];
         int playerX = coords[1];
-         System.out.println("Player X" + playerX);
+        System.out.println("Player X" + playerX);
         System.out.println("Player Y" + playerY);
         
         int differenceX = playerX - mX;
@@ -65,7 +66,24 @@ public class MonsterAI {
         System.out.println(moves.toString());
     }
     
-    
-    
+    public ArrayList<MoveDirection> move() {
+        int index = Die.rollDie(moves.size()+1, 1) -1; // because dice done have zero
+        switch(moves.get(index)) {
+            case UP:
+                
+                break;
+            case RIGHT:
+                break;
+            case DOWN:
+                break;
+            case LEFT:
+                break;
+      
+        }
+        
+        return moves;
+    }
     
 }
+
+

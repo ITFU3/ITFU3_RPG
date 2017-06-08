@@ -8,6 +8,7 @@ import gui.GuiHelper.HealthBarLabel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.KeyboardFocusManager;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -22,6 +23,7 @@ import javax.swing.JTextArea;
 public class GameFrame extends javax.swing.JFrame {
     ArrayList<JComponent> components = new ArrayList();
     int testHp = Game.getInstance().getPlayer().getHealth();
+    KeyHandler keyhandler = new KeyHandler();
     /**
      * Creates new form GameFrame
      */
@@ -58,10 +60,11 @@ public class GameFrame extends javax.swing.JFrame {
             Game.getInstance().getPlayer().getHealth()
         );
         
-//        this.initComponentList();
+        this.initButtonList();
         
         // needed for keyboard to work
-//        this.setButtonFocus(false);
+        this.setButtonFocus(false);
+        
     }
 
     /**
@@ -216,7 +219,7 @@ public class GameFrame extends javax.swing.JFrame {
                 changeInputTypeButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(changeInputTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, -1, -1));
+        getContentPane().add(changeInputTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, -1, -1));
 
         numberOfActionsLeftLabel1.setText("Attacks left:");
         getContentPane().add(numberOfActionsLeftLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 80, -1));
@@ -231,39 +234,6 @@ public class GameFrame extends javax.swing.JFrame {
         MovementHandler.down();
 //        Game.updateGUI();
     }//GEN-LAST:event_downButtonActionPerformed
-
-    private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
-        if( Game.getInstance().getMonsters().size() <= 0 ){
-            Game.getInstance().nextLevel();
-            System.out.println("NEXT LEVEL: " + Game.getInstance().getLevel());
-        }else{
-            //DoMonsters Turn HERE!!!
-            
-        }
-        // Reset PLayerCharacter
-        Game.getInstance().getPlayer().setAllowedMoves(
-            //sollte eingerückt sein, ist ein Parameter
-            Game.getInstance().getPlayer().getMovement()
-        );
-        Game.getInstance().getPlayer().setAllowedAttacks(1);
-    }//GEN-LAST:event_btn_EndRoundActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       // reduce Player Health Test
-        testHp = testHp-1;
-        System.out.println(testHp);
-        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
-       MovementHandler.up();
-//       Game.updateGUI();
-    }//GEN-LAST:event_upButtonActionPerformed
-
-    private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
-        MovementHandler.right();
-//        Game.updateGUI();
-    }//GEN-LAST:event_rightButtonActionPerformed
 
     private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
         MovementHandler.left();
@@ -286,6 +256,39 @@ public class GameFrame extends javax.swing.JFrame {
     private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeInputTypeButtonActionPerformed
         setButtonFocus(false);
     }//GEN-LAST:event_changeInputTypeButtonActionPerformed
+
+    private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
+        MovementHandler.up();
+        //       Game.updateGUI();
+    }//GEN-LAST:event_upButtonActionPerformed
+
+    private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
+        MovementHandler.right();
+        //        Game.updateGUI();
+    }//GEN-LAST:event_rightButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // reduce Player Health Test
+        testHp = testHp-1;
+        System.out.println(testHp);
+        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
+        if( Game.getInstance().getMonsters().size() <= 0 ){
+            Game.getInstance().nextLevel();
+            System.out.println("NEXT LEVEL: " + Game.getInstance().getLevel());
+        }else{
+            //DoMonsters Turn HERE!!!
+
+        }
+        // Reset PLayerCharacter
+        Game.getInstance().getPlayer().setAllowedMoves(
+            //sollte eingerückt sein, ist ein Parameter
+            Game.getInstance().getPlayer().getMovement()
+        );
+        Game.getInstance().getPlayer().setAllowedAttacks(1);
+    }//GEN-LAST:event_btn_EndRoundActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,7 +353,7 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel valueMovesLeftLabel;
     // End of variables declaration//GEN-END:variables
 
-    private void initComponentList() {
+    private void initButtonList() {
        // Movement
         components.add(upButton);
         components.add(rightButton);
@@ -387,8 +390,8 @@ public class GameFrame extends javax.swing.JFrame {
         this.setPreferredSize(dimensions);
         this.setMinimumSize(dimensions);
         this.setMaximumSize(dimensions);
-        
-        this.addKeyListener(new KeyHandler());
+        this.setFocusable(true);
+        this.addKeyListener(keyhandler);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         
@@ -429,4 +432,5 @@ public class GameFrame extends javax.swing.JFrame {
     public JTextArea getArenaTextArea() {
         return arenaTextArea;
     }
+
 }

@@ -112,8 +112,5 @@ public class KeyHandler implements KeyListener {
                 Game.getInstance().getPlayer().setAllowedAttacks(1);
                 break;
         }
-        
-    }
-    
-    
+    } 
 }

@@ -27,7 +27,7 @@ public class KeyHandler implements KeyListener {
     private final int pause = KeyEvent.VK_P;
     private final int esc = KeyEvent.VK_ESCAPE;
     
-    
+    private final int enter = KeyEvent.VK_ENTER;
    
     public KeyHandler() {
     }
@@ -75,7 +75,9 @@ public class KeyHandler implements KeyListener {
             case attack:
                 System.out.println("Attack");
                 PlayerCharacter attacker = main.Game.getInstance().getPlayer();
-                MonsterCharacter target = main.Game.getInstance().getMonsters().get(0);
+                MonsterCharacter target = main.Game.getInstance().getMonsters().get(
+                    Game.getInstance().getMonsterClosedToPlayer()
+                );
                 String tmpOutput = BattleHandler.tryToAttack(attacker, target);
                 System.out.println(tmpOutput);
                 Game.updateGUI();
@@ -94,7 +96,23 @@ public class KeyHandler implements KeyListener {
             case esc:
                 System.out.println("Esc");
                 break;
+            case enter:
+                if( Game.getInstance().getMonsters().size() <= 0 ){
+                    Game.getInstance().nextLevel();
+                    System.out.println("NEXT LEVEL: " + Game.getInstance().getLevel());
+                }else{
+                    //DoMonsters Turn HERE!!!
+                    
+                }
+                // Reset PLayerCharacter
+                Game.getInstance().getPlayer().setAllowedMoves(
+                        //sollte eingerückt sein, ist ein Parameter
+                        Game.getInstance().getPlayer().getMovement()
+                );
+                Game.getInstance().getPlayer().setAllowedAttacks(1);
+                break;
         }
+        
     }
     
     

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class TurnHandler{
     private static TurnHandler instance;
-    private ArrayList<BaseCharacter> pc_npc;
+    private ArrayList<PlayerCharacter> pc_npc;
     private int actionCounter;
 
     /**
@@ -36,7 +36,7 @@ public class TurnHandler{
      * @param c - BaseCharacter to add
      * @return int - Index of the added
      */
-    public int addCharacter(BaseCharacter c){
+    public int addCharacter(PlayerCharacter c){
         // adding all charater to the turn handler to work with
         this.pc_npc.add(c);
         return (this.pc_npc.size()-1);

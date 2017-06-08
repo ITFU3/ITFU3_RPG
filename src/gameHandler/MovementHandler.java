@@ -1,6 +1,7 @@
 
 package gameHandler;
 
+import character.PlayerCharacter;
 import main.*;
 
 /**
@@ -15,6 +16,10 @@ public class MovementHandler {
         DONE: Tell Map, whom to move
         DONE: Tells game to update / redraws
     */
+    
+    
+    
+    
     private static void move(String direction){
         int steps = 1;
         int tempMovement = Game.getInstance().getPlayer().getAllowedMoves();

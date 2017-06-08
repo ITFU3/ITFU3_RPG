@@ -19,6 +19,9 @@ public class MovementHandler {
     DONE: Tells game to update / redraws
      */
     
+    public static void move(MoveDirection direction) {
+        move(Game.getPlayer(), direction);
+    }
     public static void move(PlayerCharacter pc, MoveDirection direction){
         int steps = 1;
         String directionString = "";

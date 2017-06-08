@@ -8,6 +8,9 @@ package gameHandler;
 import Enum.MoveDirection;
 import java.util.ArrayList;
 import character.*;
+import com.sun.webkit.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.Die;
 import main.Game;
 import main.Map;
@@ -79,24 +82,39 @@ public class MonsterAI {
     // checks if Monster can attack
     public boolean isInAttackRange() {
        int distance = Map.getInstance().getDistance(Game.getInstance().getPlayer(), ego);
-       if (ego.getpWeapon().getDistance() <= distance) {
+        System.out.println("\n Monster is "+ distance+" away."); 
+        System.out.println("\n Monster can attack in a range of "+ ego.getpWeapon().getDistance()+".");
+       if (distance <= ego.getpWeapon().getDistance()) {
+           System.out.println("IS IN RANGE");
            return true;
        }
+       System.out.println("IS NOT RANGE");
         return false;
     }
     // test if in range else moves towards player
     public boolean think(boolean again) {
+        long t0,t1;
+        t0=System.currentTimeMillis();
         System.out.println("MONSTER:"+ego.getName()+" thinks");
+        do{
+             t1=System.currentTimeMillis();
+        }while (t1-t0<1000);
+        System.out.println("MONSTER:"+ego.getName()+" acts");
+        
         boolean next;
         if (again) {
-            if (isInAttackRange()) {
-                System.out.println("MONSTER:" + ego.getName()+"is in range");
+            if (isInAttackRange() == true) {
+                Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n" + ego.getName() + " is in Range.");
+                
                 if (ego.getAllowedAttacks() > 0) {
+                    
+                    Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n"+ ego.getName() + " Attacks");
                     String  guiAttackInfo = BattleHandler.tryToAttack(ego, Game.getPlayer());
                     Game.getInstance().setAttackInfo(guiAttackInfo);
                     ego.setAllowedAttacks(ego.getAllowedAttacks()-1);
                     next = true;
                 } else {
+                    Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n"+ ego.getName()+" can't attack anymore.");
                     next = false;
                     // monster is in range and does not want to run away 
                     // here ends round for monstere
@@ -105,19 +123,18 @@ public class MonsterAI {
                 if (ego.getAllowedMoves() > 0) {
                     System.out.println("MONSTER:" + ego.getName()+"moves");
                     move();
-                    ego.setAllowedAttacks(ego.getAllowedAttacks()-1);
+                    ego.setAllowedMoves(ego.getAllowedMoves()-1);
                     next = true;
                 } else {
                     next = false; // cant move and cant attack since not in range
                 }
             }
             Game.updateGUI();
-           
+           think(next);
         } else {
             return false; 
         }
-        return think(next);
-        
+        return false;
     }
     
 }

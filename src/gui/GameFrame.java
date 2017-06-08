@@ -56,6 +56,7 @@ public class GameFrame extends javax.swing.JFrame {
         this.playerNamelLabel.setFont(new Font("Courier New", Font.BOLD, 15));
         this.playerNamelLabel.setText(Game.getInstance().getPlayer().getName());
         
+        this.currentActiveCharLabel.setText(Game.getPlayer().getName()+ "'s turn");
         // init Healthbar
         ((HealthBarLabel)this.playerHealthBarLabel).setHealthText(
             Game.getInstance().getPlayer().getHealth()
@@ -66,6 +67,10 @@ public class GameFrame extends javax.swing.JFrame {
         // needed for keyboard to work
         this.setButtonFocus(false);
         
+    }
+
+    public JLabel getRoundLabel() {
+        return roundLabel;
     }
 
     /**
@@ -95,7 +100,7 @@ public class GameFrame extends javax.swing.JFrame {
         attackButton = new javax.swing.JButton();
         attackScrollPane = new javax.swing.JScrollPane();
         arenaTextArea = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
+        roundLabel = new javax.swing.JLabel();
         attackInfoTitleLabel = new javax.swing.JLabel();
         inputInfoLabel = new javax.swing.JLabel();
         numberOfMovesLeftLabel = new javax.swing.JLabel();
@@ -103,6 +108,8 @@ public class GameFrame extends javax.swing.JFrame {
         changeInputTypeButton = new javax.swing.JButton();
         numberOfActionsLeftLabel1 = new javax.swing.JLabel();
         valueAttacksLeftLabel = new javax.swing.JLabel();
+        currentActiveCharLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -134,10 +141,10 @@ public class GameFrame extends javax.swing.JFrame {
         getContentPane().add(btn_EndRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 510, -1, -1));
 
         healthLabel.setText("Health");
-        getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 200, -1));
+        getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 200, -1));
 
         playerHealthBarLabel.setText("");
-        getContentPane().add(playerHealthBarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 200, -1));
+        getContentPane().add(playerHealthBarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, -1));
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -199,8 +206,8 @@ public class GameFrame extends javax.swing.JFrame {
 
         getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 500, 260));
 
-        jLabel1.setText("Arena");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 500, -1));
+        roundLabel.setText("Arena");
+        getContentPane().add(roundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 50, -1));
 
         attackInfoTitleLabel.setText("Attack Information");
         getContentPane().add(attackInfoTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 250, -1));
@@ -209,10 +216,10 @@ public class GameFrame extends javax.swing.JFrame {
         getContentPane().add(inputInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 90, -1));
 
         numberOfMovesLeftLabel.setText("Movement left:");
-        getContentPane().add(numberOfMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 110, -1));
+        getContentPane().add(numberOfMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 110, -1));
 
         valueMovesLeftLabel.setText("6");
-        getContentPane().add(valueMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
+        getContentPane().add(valueMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
 
         changeInputTypeButton.setText("Keyboard");
         changeInputTypeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -223,10 +230,16 @@ public class GameFrame extends javax.swing.JFrame {
         getContentPane().add(changeInputTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, -1));
 
         numberOfActionsLeftLabel1.setText("Attacks left:");
-        getContentPane().add(numberOfActionsLeftLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 80, -1));
+        getContentPane().add(numberOfActionsLeftLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, -1));
 
         valueAttacksLeftLabel.setText("6");
-        getContentPane().add(valueAttacksLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+        getContentPane().add(valueAttacksLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, -1, -1));
+
+        currentActiveCharLabel.setText("Active gamer label");
+        getContentPane().add(currentActiveCharLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        jLabel3.setText("Round 1");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -322,12 +335,13 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane attackScrollPane;
     private javax.swing.JButton btn_EndRound;
     private javax.swing.JButton changeInputTypeButton;
+    private javax.swing.JLabel currentActiveCharLabel;
     private javax.swing.JButton downButton;
     private javax.swing.JLabel healthLabel;
     private javax.swing.JLabel inputInfoLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton leftButton;
     private javax.swing.JTextArea monsterInfoTextArea;
     private javax.swing.JLabel monsterInfoTitleLabel;
@@ -337,6 +351,7 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel playerHealthBarLabel;
     private javax.swing.JLabel playerNamelLabel;
     private javax.swing.JButton rightButton;
+    private javax.swing.JLabel roundLabel;
     private javax.swing.JButton upButton;
     private javax.swing.JLabel valueAttacksLeftLabel;
     private javax.swing.JLabel valueMovesLeftLabel;
@@ -421,5 +436,11 @@ public class GameFrame extends javax.swing.JFrame {
     public JTextArea getArenaTextArea() {
         return arenaTextArea;
     }
+
+    public JLabel getCurrentActiveCharLabel() {
+        return currentActiveCharLabel;
+    }
+    
+    
 
 }

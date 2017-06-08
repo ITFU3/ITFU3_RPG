@@ -51,26 +51,28 @@ public class KeyHandler implements KeyListener {
     
     public void keyAction(KeyEvent e) {
         int keyCode = e.getKeyCode();
+        //TODO check if its players turn somehow
+        
         switch (keyCode) {
             // Movement
             case up:
                 // to inputhandler
                 System.out.println("Up");
-                MovementHandler.move(Game.getPlayer(), MoveDirection.UP);
+                MovementHandler.move(MoveDirection.UP);
 
                 break;
             case down:
                 System.out.println("Down");
-                MovementHandler.move(Game.getPlayer(), MoveDirection.DOWN);
+                MovementHandler.move(MoveDirection.DOWN);
 
                 break;
             case left:
                 System.out.println("Left");
-                 MovementHandler.move(Game.getPlayer(), MoveDirection.LEFT);
+                 MovementHandler.move(MoveDirection.LEFT);
                 break;
             case right:
                 System.out.println("Right");
-                MovementHandler.move(Game.getPlayer(), MoveDirection.RIGHT);
+                MovementHandler.move(MoveDirection.RIGHT);
                 break;
             // Battle Commands
             case attack:
@@ -98,7 +100,10 @@ public class KeyHandler implements KeyListener {
                 System.out.println("Esc");
                 break;
             case enter:
+                // end Player rount
                 Game.endRound();
+                
+                
                 break;
         }
     } 

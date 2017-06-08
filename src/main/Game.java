@@ -23,6 +23,7 @@ public class Game implements Runnable{
     private ArrayList<MonsterCharacter> monsters  = new ArrayList();
     
     private int level;
+    private int roundCount = 1;
     
     private GameFrame gameFrame;
     public int width, height;
@@ -89,7 +90,8 @@ public class Game implements Runnable{
         getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
         getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getInstance().getPlayer().getAllowedMoves()));
         getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getInstance().getPlayer().getAllowedAttacks()));
-        // what else do we need here
+        getInstance().getGameFrame().getRoundLabel().setText("Round " + getInstance().roundCount);
+// what else do we need here
         
         System.out.println("GUI UPDATE");
     }
@@ -106,23 +108,31 @@ public class Game implements Runnable{
     }
     
     public static void endRound() {
-        if( getInstance().getMonsters().size() <= 0 ){
+        
+        if( getInstance().getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
             System.out.println("NEXT LEVEL: " + getInstance().getLevel());
         }else{
             for (MonsterCharacter monster : getInstance().getMonsters()) {
+                getInstance().getGameFrame().getCurrentActiveCharLabel().setText(monster.getName() +"'s turn");
                 MonsterAI monsterAi = new MonsterAI(monster);
                 monsterAi.calcMovesToPlayer();
                 monsterAi.think(true);
             }
 
         }
+        getInstance().roundCount ++;
+        
+        getInstance().setAttackInfo("It is your turn. Wake up.!");
+        getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
         // Reset PLayerCharacter
         getPlayer().setAllowedMoves(
             //sollte eingerückt sein, ist ein Parameter
         getPlayer().getMovement()
         );
         getPlayer().setAllowedAttacks(1);
+        updateGUI();
+        
     } 
     
     public void nextLevel(){

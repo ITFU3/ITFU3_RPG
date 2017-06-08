@@ -1,5 +1,6 @@
 package gameHandler;
 
+import Enum.MoveDirection;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
 import java.awt.event.KeyEvent;
@@ -55,21 +56,21 @@ public class KeyHandler implements KeyListener {
             case up:
                 // to inputhandler
                 System.out.println("Up");
-                MovementHandler.up();
+                MovementHandler.move(Game.getPlayer(), MoveDirection.UP);
 
                 break;
             case down:
                 System.out.println("Down");
-                MovementHandler.down();
+                MovementHandler.move(Game.getPlayer(), MoveDirection.DOWN);
 
                 break;
             case left:
                 System.out.println("Left");
-                MovementHandler.left();
+                 MovementHandler.move(Game.getPlayer(), MoveDirection.LEFT);
                 break;
             case right:
                 System.out.println("Right");
-                MovementHandler.right();
+                MovementHandler.move(Game.getPlayer(), MoveDirection.RIGHT);
                 break;
             // Battle Commands
             case attack:

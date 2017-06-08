@@ -131,8 +131,8 @@ public class Game implements Runnable{
         return output;
     }
     
-    public PlayerCharacter getPlayer() {
-        return player;
+    public static PlayerCharacter getPlayer() {
+        return getInstance().player;
     }
     public void setPlayer(PlayerCharacter player) {
         this.player = player;

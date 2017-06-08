@@ -1,5 +1,6 @@
 package gui;
 
+import Enum.MoveDirection;
 import main.*;
 import character.*;
 import gameHandler.*;
@@ -219,7 +220,7 @@ public class GameFrame extends javax.swing.JFrame {
                 changeInputTypeButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(changeInputTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, -1, -1));
+        getContentPane().add(changeInputTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, -1));
 
         numberOfActionsLeftLabel1.setText("Attacks left:");
         getContentPane().add(numberOfActionsLeftLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 80, -1));
@@ -231,12 +232,12 @@ public class GameFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
-        MovementHandler.down();
+       MovementHandler.move(Game.getPlayer(), MoveDirection.DOWN);
 //        Game.updateGUI();
     }//GEN-LAST:event_downButtonActionPerformed
 
     private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
-        MovementHandler.left();
+        MovementHandler.move(Game.getPlayer(), MoveDirection.LEFT);
 //        Game.updateGUI();
     }//GEN-LAST:event_leftButtonActionPerformed
 
@@ -258,12 +259,12 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_changeInputTypeButtonActionPerformed
 
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
-        MovementHandler.up();
+        MovementHandler.move(Game.getPlayer(), MoveDirection.UP);
         //       Game.updateGUI();
     }//GEN-LAST:event_upButtonActionPerformed
 
     private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
-        MovementHandler.right();
+        MovementHandler.move(Game.getPlayer(), MoveDirection.RIGHT);
         //        Game.updateGUI();
     }//GEN-LAST:event_rightButtonActionPerformed
 
@@ -279,7 +280,7 @@ public class GameFrame extends javax.swing.JFrame {
             Game.getInstance().nextLevel();
             System.out.println("NEXT LEVEL: " + Game.getInstance().getLevel());
         }else{
-            //DoMonsters Turn HERE!!!
+            // MONSTER TURN
 
         }
         // Reset PLayerCharacter

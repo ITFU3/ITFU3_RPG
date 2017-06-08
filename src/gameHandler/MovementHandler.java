@@ -1,6 +1,7 @@
 
 package gameHandler;
 
+import Enum.MoveDirection;
 import character.PlayerCharacter;
 import main.*;
 
@@ -10,39 +11,39 @@ import main.*;
  * @author Matthias Dröge
  */
 public class MovementHandler {    
+
     /*
-        DONE: Asks TurnHandler whose turn it is
-                Or take them directliy from game.player
-        DONE: Tell Map, whom to move
-        DONE: Tells game to update / redraws
-    */
+    DONE: Asks TurnHandler whose turn it is
+    Or take them directliy from game.player
+    DONE: Tell Map, whom to move
+    DONE: Tells game to update / redraws
+     */
     
-    
-    
-    
-    private static void move(String direction){
+    public static void move(PlayerCharacter pc, MoveDirection direction){
         int steps = 1;
-        int tempMovement = Game.getInstance().getPlayer().getAllowedMoves();
+        String directionString = "";
+        switch (direction) {
+            case UP:
+               directionString = "up";
+                break;
+            case RIGHT:
+                directionString = "right";
+                break;
+            case DOWN:
+                directionString = "down";
+                break;
+            case LEFT:
+                directionString = "left";
+                break;
+        }
+        int tempMovement = pc.getAllowedMoves();
         // ( direction | movement pool | steps to do | player identifier )        
         tempMovement = Map.getInstance().walkOnMap(
-            direction, tempMovement, steps, Game.getInstance().getPlayer()
+            directionString, tempMovement, steps, pc
         );
-        Game.getInstance().getPlayer().setAllowedMoves( tempMovement );
+        pc.setAllowedMoves( tempMovement );
+        
         Game.updateGUI();
     }
-    public static void up(){ move("up"); }
     
-    public static void upRight(){ }
-    
-    public static void right(){ move("right"); }
-    
-    public static void downRight(){ }
-    
-    public static void down(){ move("down"); }
-    
-    public static void downLeft(){ }
-    
-    public static void left(){ move("left"); }
-    
-    public static void upLeft() { }
 }

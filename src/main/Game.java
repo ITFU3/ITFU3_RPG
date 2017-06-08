@@ -3,6 +3,7 @@ package main;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
 import gameHandler.KeyHandler;
+import gameHandler.MonsterAI;
 //import gameHandler.MonsterAI;
 import gui.GameFrame;
 //import gui.GuiHelper.HealthBarLabel;
@@ -103,6 +104,26 @@ public class Game implements Runnable{
         }
         getInstance().setMonsterInfo(newMonsterInfo);
     }
+    
+    public static void endRound() {
+        if( getInstance().getMonsters().size() <= 0 ){
+            getInstance().nextLevel();
+            System.out.println("NEXT LEVEL: " + getInstance().getLevel());
+        }else{
+            for (MonsterCharacter monster : getInstance().getMonsters()) {
+                MonsterAI monsterAi = new MonsterAI(monster);
+                monsterAi.calcMovesToPlayer();
+                monsterAi.think(true);
+            }
+
+        }
+        // Reset PLayerCharacter
+        getPlayer().setAllowedMoves(
+            //sollte eingerückt sein, ist ein Parameter
+        getPlayer().getMovement()
+        );
+        getPlayer().setAllowedAttacks(1);
+    } 
     
     public void nextLevel(){
         Map.getInstance().spawnRandomMonster(++this.level);

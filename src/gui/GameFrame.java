@@ -276,19 +276,7 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
-        if( Game.getInstance().getMonsters().size() <= 0 ){
-            Game.getInstance().nextLevel();
-            System.out.println("NEXT LEVEL: " + Game.getInstance().getLevel());
-        }else{
-            // MONSTER TURN
-
-        }
-        // Reset PLayerCharacter
-        Game.getInstance().getPlayer().setAllowedMoves(
-            //sollte eingerückt sein, ist ein Parameter
-            Game.getInstance().getPlayer().getMovement()
-        );
-        Game.getInstance().getPlayer().setAllowedAttacks(1);
+        Game.endRound();
     }//GEN-LAST:event_btn_EndRoundActionPerformed
 
     /**

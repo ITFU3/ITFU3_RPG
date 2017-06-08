@@ -86,9 +86,11 @@ public class MonsterAI {
     }
     // test if in range else moves towards player
     public boolean think(boolean again) {
+        System.out.println("MONSTER:"+ego.getName()+" thinks");
         boolean next;
         if (again) {
             if (isInAttackRange()) {
+                System.out.println("MONSTER:" + ego.getName()+"is in range");
                 if (ego.getAllowedAttacks() > 0) {
                     String  guiAttackInfo = BattleHandler.tryToAttack(ego, Game.getPlayer());
                     Game.getInstance().setAttackInfo(guiAttackInfo);
@@ -101,6 +103,7 @@ public class MonsterAI {
                 }
             } else {
                 if (ego.getAllowedMoves() > 0) {
+                    System.out.println("MONSTER:" + ego.getName()+"moves");
                     move();
                     ego.setAllowedAttacks(ego.getAllowedAttacks()-1);
                     next = true;

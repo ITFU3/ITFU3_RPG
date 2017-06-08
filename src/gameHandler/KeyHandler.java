@@ -98,19 +98,7 @@ public class KeyHandler implements KeyListener {
                 System.out.println("Esc");
                 break;
             case enter:
-                if( Game.getInstance().getMonsters().size() <= 0 ){
-                    Game.getInstance().nextLevel();
-                    System.out.println("NEXT LEVEL: " + Game.getInstance().getLevel());
-                }else{
-                    //DoMonsters Turn HERE!!!
-                    
-                }
-                // Reset PLayerCharacter
-                Game.getInstance().getPlayer().setAllowedMoves(
-                        //sollte eingerückt sein, ist ein Parameter
-                        Game.getInstance().getPlayer().getMovement()
-                );
-                Game.getInstance().getPlayer().setAllowedAttacks(1);
+                Game.endRound();
                 break;
         }
     } 

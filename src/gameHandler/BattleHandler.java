@@ -78,7 +78,7 @@ public class BattleHandler
   }
   
   private static void killStrike(PlayerCharacter target){
-    int monsterIndex = Game.getInstance().getMonsters().indexOf(
+    int monsterIndex = Game.getMonsters().indexOf(
         (MonsterCharacter)target
     );
     int[] monsterCoords = target.getCoordinates();
@@ -86,7 +86,7 @@ public class BattleHandler
         monsterCoords[0],
         monsterCoords[1]
     );
-    Game.getInstance().getMonsters().remove(
+    Game.getMonsters().remove(
         monsterIndex
     );
   }

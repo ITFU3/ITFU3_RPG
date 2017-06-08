@@ -77,8 +77,8 @@ public class KeyHandler implements KeyListener {
             // Battle Commands
             case attack:
                 System.out.println("Attack");
-                PlayerCharacter attacker = main.Game.getInstance().getPlayer();
-                MonsterCharacter target = main.Game.getInstance().getMonsters().get(
+                PlayerCharacter attacker = main.Game.getPlayer();
+                MonsterCharacter target = main.Game.getMonsters().get(
                     Game.getInstance().getMonsterClosedToPlayer()
                 );
                 String tmpOutput = BattleHandler.tryToAttack(attacker, target);

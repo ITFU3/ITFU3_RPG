@@ -9,7 +9,6 @@ import gui.GuiHelper.HealthBarLabel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.KeyboardFocusManager;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -23,7 +22,7 @@ import javax.swing.JTextArea;
  */
 public class GameFrame extends javax.swing.JFrame {
     ArrayList<JComponent> components = new ArrayList();
-    int testHp = Game.getInstance().getPlayer().getHealth();
+    int testHp = Game.getPlayer().getHealth();
     KeyHandler keyhandler = new KeyHandler();
     /**
      * Creates new form GameFrame
@@ -54,12 +53,12 @@ public class GameFrame extends javax.swing.JFrame {
         this.monsterInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
         
         this.playerNamelLabel.setFont(new Font("Courier New", Font.BOLD, 15));
-        this.playerNamelLabel.setText(Game.getInstance().getPlayer().getName());
+        this.playerNamelLabel.setText(Game.getPlayer().getName());
         
         this.currentActiveCharLabel.setText(Game.getPlayer().getName()+ "'s turn");
         // init Healthbar
         ((HealthBarLabel)this.playerHealthBarLabel).setHealthText(
-            Game.getInstance().getPlayer().getHealth()
+            Game.getPlayer().getHealth()
         );
         
         this.initButtonList();
@@ -255,10 +254,10 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_leftButtonActionPerformed
 
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-        if( main.Game.getInstance().getMonsters().size() > 0){
+        if( main.Game.getMonsters().size() > 0){
             System.out.println("Attack");
-            PlayerCharacter attacker = main.Game.getInstance().getPlayer();
-            MonsterCharacter target = main.Game.getInstance().getMonsters().get(
+            PlayerCharacter attacker = main.Game.getPlayer();
+            MonsterCharacter target = main.Game.getMonsters().get(
                 Game.getInstance().getMonsterClosedToPlayer()
             );
             String tmpOutput = BattleHandler.tryToAttack(attacker, target);

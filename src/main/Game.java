@@ -88,8 +88,8 @@ public class Game implements Runnable{
         getInstance().getGameFrame().getArenaTextArea().setText(Map.getInstance().getMap());
         getInstance().getGameFrame().getAttackInfoTextArea().setText(getInstance().attackInfo);
         getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
-        getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getInstance().getPlayer().getAllowedMoves()));
-        getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getInstance().getPlayer().getAllowedAttacks()));
+        getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getPlayer().getAllowedMoves()));
+        getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getPlayer().getAllowedAttacks()));
         getInstance().getGameFrame().getRoundLabel().setText("Round " + getInstance().roundCount);
 // what else do we need here
         
@@ -97,7 +97,7 @@ public class Game implements Runnable{
     }
     
     public static void updateMonsterInfo() {
-        ArrayList<MonsterCharacter> monsters = getInstance().getMonsters();
+        ArrayList<MonsterCharacter> monsters = getMonsters();
         String newMonsterInfo = "Monsters in Arena: " +monsters.size() +"\n";
         
         for(MonsterCharacter monster : monsters){
@@ -109,11 +109,11 @@ public class Game implements Runnable{
     
     public static void endRound() {
         
-        if( getInstance().getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
+        if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
             System.out.println("NEXT LEVEL: " + getInstance().getLevel());
         }else{
-            for (MonsterCharacter monster : getInstance().getMonsters()) {
+            for (MonsterCharacter monster : getMonsters()) {
                 getInstance().getGameFrame().getCurrentActiveCharLabel().setText(monster.getName() +"'s turn");
                 MonsterAI monsterAi = new MonsterAI(monster);
                 monsterAi.calcMovesToPlayer();
@@ -142,9 +142,9 @@ public class Game implements Runnable{
     
     public int getMonsterClosedToPlayer(){
         int output = 0, dist = 99, hp = 99;
-        PlayerCharacter pc = getInstance().getPlayer();
-        for(int i = 0; i < getInstance().getMonsters().size(); i++){
-            MonsterCharacter monster = getInstance().getMonsters().get(i);
+        PlayerCharacter pc = getPlayer();
+        for(int i = 0; i < getMonsters().size(); i++){
+            MonsterCharacter monster = getMonsters().get(i);
             int tmpdist = Map.getInstance().getDistance( pc, monster );
             if(tmpdist < dist){
                 hp = monster.getTempHP();
@@ -168,14 +168,14 @@ public class Game implements Runnable{
     public void setPlayer(PlayerCharacter player) {
         this.player = player;
     }
-    public ArrayList<MonsterCharacter> getMonsters() {
-        return monsters;
+    public static ArrayList<MonsterCharacter> getMonsters() {
+        return getInstance().monsters;
     }
     public void setMonsters(ArrayList<MonsterCharacter> monsters) {
         this.monsters = monsters;
     }
     public void addMonster(MonsterCharacter monster){
-        this.getMonsters().add(monster);
+        getMonsters().add(monster);
     }
     public GameFrame getGameFrame() {
         return gameFrame;

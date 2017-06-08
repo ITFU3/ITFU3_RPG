@@ -97,13 +97,13 @@ public class Map
         this.labyrinthMap[y][x] = field;
         if(field == 'P')
         {
-          Game.getInstance().getPlayer().setCoordinates(y, x);
-          Game.getInstance().getPlayer().setCoordinates_past(y, x);
+          Game.getPlayer().setCoordinates(y, x);
+          Game.getPlayer().setCoordinates_past(y, x);
         }
         if(field == 'M')
         {
-          Game.getInstance().getMonsters().get(monsterCounter).setCoordinates(y, x);
-          Game.getInstance().getMonsters().get(monsterCounter).setCoordinates_past(y, x);
+          Game.getMonsters().get(monsterCounter).setCoordinates(y, x);
+          Game.getMonsters().get(monsterCounter).setCoordinates_past(y, x);
           monsterCounter++;
         }
       }

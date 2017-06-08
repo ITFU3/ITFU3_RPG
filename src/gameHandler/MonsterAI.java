@@ -8,9 +8,6 @@ package gameHandler;
 import Enum.MoveDirection;
 import java.util.ArrayList;
 import character.*;
-import com.sun.webkit.Timer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import main.Die;
 import main.Game;
 import main.Map;
@@ -20,7 +17,7 @@ import main.Map;
  */
 public class MonsterAI {
     MonsterCharacter ego;
-    ArrayList<MoveDirection> moves = new ArrayList<MoveDirection>();
+    ArrayList<MoveDirection> moves = new ArrayList();
     int mX;
     int mY;
     
@@ -35,7 +32,7 @@ public class MonsterAI {
     
     
     public void calcMovesToPlayer() {
-        int[] coords = main.Game.getInstance().getPlayer().getCoordinates();
+        int[] coords = main.Game.getPlayer().getCoordinates();
         int playerY = coords[0];
         int playerX = coords[1];
         System.out.println("Player X" + playerX);
@@ -43,7 +40,14 @@ public class MonsterAI {
         
         int differenceX = playerX - mX;
         int differenceY = playerY - mY;
-        
+        /*
+        0,0    0,6
+        #######
+        #     #
+        #     #
+        #######
+        3,0    3,6
+        */
         MoveDirection directionX = MoveDirection.LEFT;
         if (differenceX < 0) {
             differenceX = differenceX * (-1);
@@ -76,12 +80,11 @@ public class MonsterAI {
     public void move() {
         int index = Die.rollDie(moves.size()+1, 1) -1; // because dice done have no zero
         MovementHandler.move(ego, moves.get(index));
-        
         moves.remove(index);
     }
     // checks if Monster can attack
     public boolean isInAttackRange() {
-       int distance = Map.getInstance().getDistance(Game.getInstance().getPlayer(), ego);
+       int distance = Map.getInstance().getDistance(Game.getPlayer(), ego);
         System.out.println("\n Monster is "+ distance+" away."); 
         System.out.println("\n Monster can attack in a range of "+ ego.getpWeapon().getDistance()+".");
        if (distance <= ego.getpWeapon().getDistance()) {

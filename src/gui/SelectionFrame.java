@@ -2,6 +2,7 @@ package gui;
 
 import character.PlayerCharacter;
 import gui.GuiHelper.ListModels;
+import gui.popups.HighScoreFrame;
 import java.awt.Dimension;
 import main.Game;
 
@@ -52,6 +53,7 @@ public class SelectionFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         characterList = new javax.swing.JList();
         jLabelPlayerInfo = new javax.swing.JLabel();
+        btn_showHighScore = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(200, 200, 200));
@@ -79,6 +81,13 @@ public class SelectionFrame extends javax.swing.JFrame {
 
         jLabelPlayerInfo.setText("Player Info");
 
+        btn_showHighScore.setText("High Score");
+        btn_showHighScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_showHighScoreActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,13 +95,16 @@ public class SelectionFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(selectjLabel)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButtonSelect))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPlayerInfo)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_showHighScore)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(selectjLabel)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jToggleButtonSelect))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelPlayerInfo)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,7 +121,9 @@ public class SelectionFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jToggleButtonSelect))
                     .addComponent(jScrollPane2))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btn_showHighScore)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,6 +151,10 @@ public class SelectionFrame extends javax.swing.JFrame {
         PlayerCharacter pc = (PlayerCharacter)characterList.getSelectedValue();
         jTextAreaPlayerInfo.setText(pc.showCharInfo());
     }//GEN-LAST:event_characterListValueChanged
+
+    private void btn_showHighScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showHighScoreActionPerformed
+        new HighScoreFrame().setVisible(true);
+    }//GEN-LAST:event_btn_showHighScoreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,6 +195,7 @@ public class SelectionFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_showHighScore;
     private javax.swing.JList characterList;
     private javax.swing.JLabel jLabelPlayerInfo;
     private javax.swing.JScrollPane jScrollPane1;

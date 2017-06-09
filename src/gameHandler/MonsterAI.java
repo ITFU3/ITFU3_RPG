@@ -74,7 +74,10 @@ public class MonsterAI {
     moves Monster randomly anlong move path
     */
     public void move() {
-        int index = Die.rollDie(moves.size(), 1) -1; // because dice done have no zero
+        int index = 0;
+        if (moves.size() > 0) {
+            index = Die.rollDie(moves.size(), 1) -1; // because dice done have no zero
+        }
         MovementHandler.move(ego, moves.get(index));
         moves.remove(index);
     }

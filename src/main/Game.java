@@ -38,6 +38,7 @@ public class Game /*implements Runnable*/{
     // Input
     private KeyHandler keymanager;
     private boolean running = false;
+    private boolean playerTurn = true;
     
     private Game() {
         
@@ -81,13 +82,7 @@ public class Game /*implements Runnable*/{
         getInstance().getGameFrame().getArenaTextArea().update(
             getInstance().getGameFrame().getArenaTextArea().getGraphics()
         );
-        
-//        System.out.println(Map.getInstance().getMap());
-        
-        getInstance().getGameFrame().getAttackInfoTextArea().setText(getInstance().attackInfo);
-        getInstance().getGameFrame().getAttackInfoTextArea().update(
-            getInstance().getGameFrame().getAttackInfoTextArea().getGraphics()
-        );
+      
         int tmpLength = getAttackInfoTextArea().getText().length();
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
@@ -119,6 +114,7 @@ public class Game /*implements Runnable*/{
     }
     
     public static void endRound() {
+        setPlayerTurn(false);
         
         if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
@@ -135,6 +131,7 @@ public class Game /*implements Runnable*/{
             monsterAi.think();
             updateGUI();
         }
+        setPlayerTurn(true);
         
         getInstance().roundCount ++;
       
@@ -152,6 +149,8 @@ public class Game /*implements Runnable*/{
         updateGUI();
         
     } 
+    
+   
     
     public void nextLevel(){
         Map.getInstance().spawnRandomMonster(++this.level);
@@ -263,4 +262,16 @@ public class Game /*implements Runnable*/{
     public static JTextArea getAttackInfoTextArea() {
         return getInstance().getGameFrame().getAttackInfoTextArea();
     }
+
+    public static boolean isPlayerTurn() {
+        
+        System.out.println("Is player turn: " +getInstance().playerTurn);
+        return getInstance().playerTurn;
+    }
+
+    public static void setPlayerTurn(boolean playerTurn) {
+        getInstance().playerTurn = playerTurn;
+    }
+    
+    
 }

@@ -3,6 +3,7 @@ package gameHandler;
 import Enum.MoveDirection;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
+import java.awt.Dialog;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import main.Game;
@@ -51,27 +52,69 @@ public class KeyHandler implements KeyListener {
     public void keyAction(KeyEvent e) {
         int keyCode = e.getKeyCode();
         //TODO check if its players turn somehow
+
+        boolean playerTurn = Game.isPlayerTurn();
+
         switch (keyCode) {
             // Movement
             case up:
                 // to inputhandler
-                System.out.println("Up");
-                MovementHandler.move(MoveDirection.UP);
+                
+                
+                if(playerTurn== true) {
+                    System.out.println("Up");
+                   MovementHandler.move(MoveDirection.UP); 
+                } else {
+                    System.out.println("NOT YOUR TURN");
+                }
+                
+
                 break;
             case down:
                 System.out.println("Down");
-                MovementHandler.move(MoveDirection.DOWN);
+                if(playerTurn == true) {
+                    MovementHandler.move(MoveDirection.DOWN);
+                }else {
+                    System.out.println("NOT YOUR TURN");
+                }
+               
+
                 break;
             case left:
                 System.out.println("Left");
-                 MovementHandler.move(MoveDirection.LEFT);
+                if(playerTurn == true) {
+                    MovementHandler.move(MoveDirection.LEFT);
+                }else {
+                    System.out.println("NOT YOUR TURN");
+                }
+                 
                 break;
             case right:
                 System.out.println("Right");
-                MovementHandler.move(MoveDirection.RIGHT);
+                if(playerTurn == true) {
+                    MovementHandler.move(MoveDirection.RIGHT);
+                }else {
+                    System.out.println("NOT YOUR TURN");
+                }
                 break;
             // Battle Commands
             case attack:
+                if(playerTurn == true) {
+                    PlayerCharacter attacker = main.Game.getPlayer();
+                    MonsterCharacter target = main.Game.getMonsters().get(
+                        Game.getInstance().getMonsterClosedToPlayer()
+                    );
+                    BattleHandler.tryToAttack(attacker, target);
+                    Game.updateGUI();
+                }else {
+                    System.out.println("NOT YOUR TURN");
+                    Dialog dialog = new Dialog(Game.getInstance().getGameFrame());
+                    dialog.setVisible(true);
+                }
+                
+                
+                
+
                 if( Game.getMonsters().size() > 0){
                     System.out.println("Attack");
                     PlayerCharacter attacker = Game.getPlayer();
@@ -101,9 +144,16 @@ public class KeyHandler implements KeyListener {
                 break;
             case enter:
                 // end Player rount
-                Game.updateAttackInfo("You ended your round.");
-                Game.endRound();
+                if(playerTurn == true) {
+                    Game.updateAttackInfo("You ended your round.");
+                    Game.endRound();
+                } else {
+                    System.out.println("NOT YOUR TURN");
+                }
+                
                 break;
         }
-    } 
+    }
+    
+     
 }

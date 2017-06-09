@@ -48,10 +48,10 @@ public class MonsterAI {
         #######
         3,0    3,6
         */
-        MoveDirection directionX = MoveDirection.LEFT;
+        MoveDirection directionX = MoveDirection.RIGHT;
         if (differenceX < 0) {
             differenceX = differenceX * (-1);
-            directionX = MoveDirection.RIGHT;
+            directionX = MoveDirection.LEFT;
         }
         if(differenceX != 0) {
             for (int i = 0; i < differenceX; i++) {
@@ -78,8 +78,9 @@ public class MonsterAI {
     moves Monster randomly anlong move path
     */
     public void move() {
-        int index = Die.rollDie(moves.size()+1, 1) -1; // because dice done have no zero
+        int index = Die.rollDie(moves.size(), 1) -1; // because dice done have no zero
         MovementHandler.move(ego, moves.get(index));
+        Game.updateGUI();
         moves.remove(index);
     }
     // checks if Monster can attack
@@ -95,17 +96,18 @@ public class MonsterAI {
         return false;
     }
     // test if in range else moves towards player
-    public boolean think(boolean again) {
-        long t0,t1;
-        t0=System.currentTimeMillis();
-        System.out.println("MONSTER:"+ego.getName()+" thinks");
-        do{
-             t1=System.currentTimeMillis();
-        }while (t1-t0<1000);
-        System.out.println("MONSTER:"+ego.getName()+" acts");
-        
+    public void think() {
         boolean next;
-        if (again) {
+        do{
+            long t0,t1;
+            t0=System.currentTimeMillis();
+            System.out.println("MONSTER:"+ego.getName()+" thinks");
+            do{
+                 t1=System.currentTimeMillis();
+            }while (t1-t0<1000);
+            
+            System.out.println("MONSTER:"+ego.getName()+" acts");
+        
             if (isInAttackRange() == true) {
                 Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n" + ego.getName() + " is in Range.");
                 
@@ -126,20 +128,11 @@ public class MonsterAI {
                 if (ego.getAllowedMoves() > 0) {
                     System.out.println("MONSTER:" + ego.getName()+"moves");
                     move();
-                    ego.setAllowedMoves(ego.getAllowedMoves()-1);
                     next = true;
                 } else {
                     next = false; // cant move and cant attack since not in range
                 }
             }
-            Game.updateGUI();
-           think(next);
-        } else {
-            return false; 
-        }
-        return false;
+        } while(next);
     }
-    
 }
-
-

@@ -117,7 +117,8 @@ public class Game implements Runnable{
                 getInstance().getGameFrame().getCurrentActiveCharLabel().setText(monster.getName() +"'s turn");
                 MonsterAI monsterAi = new MonsterAI(monster);
                 monsterAi.calcMovesToPlayer();
-                monsterAi.think(true);
+                monsterAi.think();
+                updateGUI();
             }
 
         }

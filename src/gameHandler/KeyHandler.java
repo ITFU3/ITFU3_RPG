@@ -45,26 +45,22 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
         keyAction(e);
     }
     
     public void keyAction(KeyEvent e) {
         int keyCode = e.getKeyCode();
         //TODO check if its players turn somehow
-        
         switch (keyCode) {
             // Movement
             case up:
                 // to inputhandler
                 System.out.println("Up");
                 MovementHandler.move(MoveDirection.UP);
-
                 break;
             case down:
                 System.out.println("Down");
                 MovementHandler.move(MoveDirection.DOWN);
-
                 break;
             case left:
                 System.out.println("Left");
@@ -76,21 +72,26 @@ public class KeyHandler implements KeyListener {
                 break;
             // Battle Commands
             case attack:
-                
-                PlayerCharacter attacker = main.Game.getPlayer();
-                MonsterCharacter target = main.Game.getMonsters().get(
-                    Game.getInstance().getMonsterClosedToPlayer()
-                );
-                BattleHandler.tryToAttack(attacker, target);
+                if( Game.getMonsters().size() > 0){
+                    System.out.println("Attack");
+                    PlayerCharacter attacker = Game.getPlayer();
+                    MonsterCharacter target = Game.getMonsters().get(
+                        Game.getInstance().getMonsterClosedToPlayer()
+                    );
+                    BattleHandler.tryToAttack(attacker, target);
+
+                }else{ System.out.println("No Monster there to fight."); 
+                    Game.updateAttackInfo("What do you want to attack?"
+                            + "\n There are no Monsters around. "
+                            + "\n Just end your round and see what comes next");
+                }
                 Game.updateGUI();
-                
                 break;
             // Info
-                case changeFocus:
+            case changeFocus:
                 System.out.println("FocusChange");
                 Game.getInstance().getGameFrame().setButtonFocus(true);
                 break;
-
             // System Commands
             case pause:
                 System.out.println("Pause");

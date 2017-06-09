@@ -30,7 +30,6 @@ public class MonsterAI {
         System.out.println("Monster X" + this.mX);
     }
     
-    
     public void calcMovesToPlayer() {
         int[] coords = main.Game.getPlayer().getCoordinates();
         int playerY = coords[0];
@@ -58,14 +57,11 @@ public class MonsterAI {
                 moves.add(directionX);
             }
         }
-        
-        
         MoveDirection directionY = MoveDirection.DOWN;
         if (differenceY < 0) {
             differenceY = differenceY * (-1);
             directionY = MoveDirection.UP;
         }
-        
         if(differenceY != 0) {
             for (int i = 0; i < differenceY; i++) {
                 moves.add(directionY);
@@ -100,12 +96,9 @@ public class MonsterAI {
         do{
            // Game.updateAttackInfo(ego.getName()+" thinks...");
             Game.waitFor(2);
-            
-
             if (isInAttackRange() == true) {
                 //Game.updateAttackInfo(ego.getName() + " is in Range.");
                 if (ego.getAllowedAttacks() > 0) {
-                     
                     BattleHandler.tryToAttack(ego, Game.getPlayer());
                     ego.setAllowedAttacks(ego.getAllowedAttacks()-1);
                     next = true;

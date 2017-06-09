@@ -81,7 +81,9 @@ public class Game /*implements Runnable*/{
         getInstance().getGameFrame().getArenaTextArea().update(
             getInstance().getGameFrame().getArenaTextArea().getGraphics()
         );
-        System.out.println(Map.getInstance().getMap());
+        
+//        System.out.println(Map.getInstance().getMap());
+        
         getInstance().getGameFrame().getAttackInfoTextArea().setText(getInstance().attackInfo);
         getInstance().getGameFrame().getAttackInfoTextArea().update(
             getInstance().getGameFrame().getAttackInfoTextArea().getGraphics()
@@ -257,7 +259,6 @@ public class Game /*implements Runnable*/{
     public void setMonsterInfo(String monsterInfo) {
         this.monsterInfo = monsterInfo;
     }
-    
     public static JTextArea getAttackInfoTextArea() {
         return getInstance().getGameFrame().getAttackInfoTextArea();
     }

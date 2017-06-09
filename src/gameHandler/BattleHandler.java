@@ -23,15 +23,15 @@ public class BattleHandler
     
     
   public static void tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
-  { Game.updateAttackInfo(attacker.getName() + " wants to attack.\n");
+  { 
+    Game.updateAttackInfo(attacker.getName() + " wants to attack.\n");
     Game.waitFor(1);
     int distance = Map.getInstance().getDistance(attacker, target);
-    System.out.println("MAP:Distance: " + distance);
-    
     int[] a_pos = attacker.getCoordinates();
-    System.out.println(a_pos[0] + "|" + a_pos[1]);
-    
     int[] t_pos = target.getCoordinates();
+
+    System.out.println("MAP:Distance: " + distance);
+    System.out.println(a_pos[0] + "|" + a_pos[1]);
     System.out.println(t_pos[0] + "|" + t_pos[1]);
     
     String output = "";
@@ -42,9 +42,7 @@ public class BattleHandler
         if(distance <= attacker.getpWeapon().getDistance())
         {
           output += attacker.getName() + " ";
-          // TODO: the Type of attack
-          int[] cTh = tryHit(attacker, false/*useSpell*/);
-
+          int[] cTh = tryHit(attacker, false);
           if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
           {
             int dmg = doDamage(attacker);
@@ -59,7 +57,6 @@ public class BattleHandler
                     + " And has " + target.getTempHP() + " HP left.\n";
             if(target.getTempHP() <= 0){
               output += target.getName() + " is no more.\n";
-              //reset Marker on Map if I would know the Coords of the one that died.
               killStrike(target);
             }
           }else{
@@ -73,7 +70,6 @@ public class BattleHandler
     }
     Game.updateMonsterInfo();
     Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + output);
-    
   }
   
   private static void killStrike(PlayerCharacter target){
@@ -122,7 +118,6 @@ public class BattleHandler
         output[1] += attacker.getProficiencyOrLevel('p');
       }
     }
-    
     return output;
   }
   
@@ -131,17 +126,16 @@ public class BattleHandler
    * @param attacker - PlayerCharacter
    * @return int - the damage value with modifier
    */
-  private static int doDamage( PlayerCharacter attacker )
-  {
-    int dmg = main.Die.rollDie( attacker.getpWeapon().getDamageDie(),
-                            attacker.getpWeapon().getDieCount()
-                          );
-    if(attacker.getpWeapon().getCat().equalsIgnoreCase("range"))
-    {
-      dmg += attacker.getModifier(attacker.getDexterity());
+  private static int doDamage( PlayerCharacter attacker ){
+    int dmg = main.Die.rollDie(
+        attacker.getpWeapon().getDamageDie(),
+        attacker.getpWeapon().getDieCount()
+    );
+    if(attacker.getpWeapon().getCat().equalsIgnoreCase("range")){
+        dmg += attacker.getModifier(attacker.getDexterity());
     }else{
-      // if weapon is versitile use DexMod
-      dmg += attacker.getModifier(attacker.getStrength());
+        // if weapon is versitile use DexMod
+        dmg += attacker.getModifier(attacker.getStrength());
     }
     return dmg;
   }
@@ -152,11 +146,10 @@ public class BattleHandler
    * @param input - Spell - the spell used in the attack
    * @return int - the damage value with modifier
    */
-  private static int castSpell(PlayerCharacter attacker, Spell input)
-  {
+  private static int castSpell(PlayerCharacter attacker, Spell input){
     int spellDmg = main.Die.rollDie(
-      input.getDamageDie(),
-      input.getDieCount()
+        input.getDamageDie(),
+        input.getDieCount()
     );
     spellDmg += attacker.getModifier(attacker.getIntelegent());
     return spellDmg;
@@ -171,50 +164,46 @@ public class BattleHandler
    * @param spellname - String - the name of the spell in use
    * @return String - protokoll of what happend
    */
-  public static String tryToSpellAttack(PlayerCharacter attacker, PlayerCharacter target, int distance, String spellname)
-  {
+  public static String tryToSpellAttack(
+    PlayerCharacter attacker,
+    PlayerCharacter target,
+    int distance,
+    String spellname
+  ){
     String output = "";
     Spell iSpell = attacker.getpClass().getMyBook().getSpellByName(spellname);
-    if(distance <= iSpell.getSpellRange())
-    {
-      output += attacker.getName() + " ";
-      // TODO: redo spell handling with Healing Spells !!!
-      if(iSpell.getSpellEffect().equalsIgnoreCase("heal"))
-      {
-        int heal = castSpell(attacker, iSpell);
-        output += "healed " + target.getName() + " for " + heal + " HP. ";
-        target.setTempHP( target.getTempHP() + heal );
-        if(target.getTempHP() > target.getHealth()){
-          target.setTempHP(target.getHealth());
+    if(distance <= iSpell.getSpellRange()){
+        output += attacker.getName() + " ";
+        // TODO: redo spell handling with Healing Spells !!!
+        if(iSpell.getSpellEffect().equalsIgnoreCase("heal")){
+            int heal = castSpell(attacker, iSpell);
+            output += "healed " + target.getName() + " for " + heal + " HP. ";
+            target.setTempHP( target.getTempHP() + heal );
+            if(target.getTempHP() > target.getHealth()){
+                target.setTempHP(target.getHealth());
+            }
+            output += "Health is now back to " + target.getTempHP() + "/" + target.getHealth() +".";
+            return output;
+        }else if(iSpell.getSpellEffect().equalsIgnoreCase("damage")){
+            // Damage Spells    
+            int[] cTh = tryHit(attacker, true);
+            if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue()){
+                int dmg = castSpell(attacker, iSpell);
+                if(cTh[0] == 20){
+                    dmg *= 2;
+                    output += "*";
+                }
+                target.setTempHP( target.getTempHP() - dmg );
+                output += "hits " + target.getName() + " with a " + cTh[1] 
+                    + " and does " + dmg + " damage.\n"
+                    + " " + target.getName() + " has " + target.getTempHP() + " HP left.\n";
+                if(target.getTempHP() <= 0){
+                    output += target.getName() + " is no more.\n";
+                }
+            }else{
+                output += "misses with a " + cTh[1] + "\n";
+            }
         }
-        output += "Health is now back to " + target.getTempHP() + "/" + target.getHealth() +".";
-        return output;
-      }
-	  else if(iSpell.getSpellEffect().equalsIgnoreCase("damage"))
-	  {
-		// Damage Spells    
-		int[] cTh = tryHit(attacker, true);
-		if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
-		{
-		  int dmg = castSpell(attacker, iSpell);
-		  if(cTh[0] == 20)
-		  {
-			dmg *= 2;
-			output += "*";
-		  }
-		  target.setTempHP( target.getTempHP() - dmg );
-		  output += "hits " + target.getName() + " with a " + cTh[1] 
-				  + " and does " + dmg + " damage.\n"
-				  + " " + target.getName() + " has " + target.getTempHP() + " HP left.\n";
-		  if(target.getTempHP() <= 0){
-			output += target.getName() + " is no more.\n";
-		  }
-		}
-		else
-		{
-		  output += "misses with a " + cTh[1] + "\n";
-		}
-	  }
     }else{
       output += "Target is too far away. Move closer.\n";
     }

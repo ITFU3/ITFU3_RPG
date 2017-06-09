@@ -11,14 +11,6 @@ import main.*;
  * @author Matthias Dröge
  */
 public class MovementHandler {    
-
-    /*
-    DONE: Asks TurnHandler whose turn it is
-    Or take them directliy from game.player
-    DONE: Tell Map, whom to move
-    DONE: Tells game to update / redraws
-     */
-    
     public static void move(MoveDirection direction) {
         move(Game.getPlayer(), direction);
     }

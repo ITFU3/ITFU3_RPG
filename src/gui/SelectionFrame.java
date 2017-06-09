@@ -12,28 +12,27 @@ import main.Game;
 public class SelectionFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form BaseFrame
+     * Creates new form SelectionFrame
      */
     public SelectionFrame() {
         initComponents();
-        
         initFrameSetup();
          jTextAreaPlayerInfo.setEditable(false);
          jTextAreaPlayerInfo.setText("Please select a Character");
-  
     }
     
+    /**
+     * Sets important properties of the Frame
+     */
     private void initFrameSetup() {
         this.setResizable(false);
         Dimension dimensions = new Dimension(900, 600);
-        
         this.setPreferredSize(dimensions);
         this.setMinimumSize(dimensions);
         this.setMaximumSize(dimensions);
         this.setFocusable(true);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        
     }
     
     
@@ -116,8 +115,11 @@ public class SelectionFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Takes the Selected Character and starts the Game with this Character.
+    * @param evt 
+    */
     private void jToggleButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonSelectActionPerformed
-        // TODO add your handling code here:
         PlayerCharacter pc = (PlayerCharacter)characterList.getSelectedValue();
         if (pc != null) {
             // error handling if nothing is selected.
@@ -127,8 +129,11 @@ public class SelectionFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jToggleButtonSelectActionPerformed
 
+    /**
+    * Update PlayerInfo Area on Char Selection
+    * @param evt 
+    */
     private void characterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_characterListValueChanged
-        // TODO add your handling code here:
         PlayerCharacter pc = (PlayerCharacter)characterList.getSelectedValue();
         jTextAreaPlayerInfo.setText(pc.showCharInfo());
     }//GEN-LAST:event_characterListValueChanged

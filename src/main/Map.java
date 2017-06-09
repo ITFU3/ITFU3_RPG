@@ -261,6 +261,7 @@ public class Map
     else
     {
       System.out.println("That is " + (steps-tempMovement) + " too far.");
+      //Matthias
     }
     return tempMovement;
   }

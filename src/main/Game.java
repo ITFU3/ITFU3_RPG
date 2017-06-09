@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Steffen Haas
  */
-public class Game implements Runnable{
+public class Game /*implements Runnable*/{
     
     public static Game instance;
     
@@ -57,20 +57,21 @@ public class Game implements Runnable{
         gameFrame.setTitle(title);
     }
 
-    @Override
-    public void run() {
-        init();
-        // Game Logic
-        
-        stop();
-    }
+//    @Override
+//    public void run() {
+//        init();
+//        // Game Logic
+//        
+//        stop();
+//    }
     
-    public synchronized void start() {
-        if(!running){
-            running = true;
-            thread = new Thread(this);
-            thread.start();
-        } 
+    public /*synchronized*/ void start() {
+//        if(!running){
+//            running = true;
+//            thread = new Thread(this);
+//            thread.start();
+//        } 
+        init();
     }
     
     public synchronized void stop() {
@@ -86,11 +87,22 @@ public class Game implements Runnable{
 
     public static void updateGUI(){
         getInstance().getGameFrame().getArenaTextArea().setText(Map.getInstance().getMap());
+        getInstance().getGameFrame().getArenaTextArea().update(
+            getInstance().getGameFrame().getArenaTextArea().getGraphics()
+        );
+        System.out.println(Map.getInstance().getMap());
         getInstance().getGameFrame().getAttackInfoTextArea().setText(getInstance().attackInfo);
+        getInstance().getGameFrame().getAttackInfoTextArea().update(
+            getInstance().getGameFrame().getAttackInfoTextArea().getGraphics()
+        );
         getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
+        getInstance().getGameFrame().getMonsterInfoTextArea().update(
+            getInstance().getGameFrame().getMonsterInfoTextArea().getGraphics()
+        );
         getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getPlayer().getAllowedMoves()));
         getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getPlayer().getAllowedAttacks()));
         getInstance().getGameFrame().getRoundLabel().setText("Round " + getInstance().roundCount);
+        getInstance().gameFrame.repaint();
 // what else do we need here
         
         System.out.println("GUI UPDATE");
@@ -112,16 +124,18 @@ public class Game implements Runnable{
         if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
             System.out.println("NEXT LEVEL: " + getInstance().getLevel());
-        }else{
-            for (MonsterCharacter monster : getMonsters()) {
-                getInstance().getGameFrame().getCurrentActiveCharLabel().setText(monster.getName() +"'s turn");
-                MonsterAI monsterAi = new MonsterAI(monster);
-                monsterAi.calcMovesToPlayer();
-                monsterAi.think();
-                updateGUI();
-            }
-
         }
+        
+        for (MonsterCharacter monster : getMonsters()) {
+            getInstance().getGameFrame().getCurrentActiveCharLabel().setText(
+                monster.getName() +"'s turn"
+            );
+            MonsterAI monsterAi = new MonsterAI(monster);
+            monsterAi.calcMovesToPlayer();
+            monsterAi.think();
+            updateGUI();
+        }
+        
         getInstance().roundCount ++;
         
         getInstance().setAttackInfo("It is your turn. Wake up.!");

@@ -80,7 +80,6 @@ public class MonsterAI {
     public void move() {
         int index = Die.rollDie(moves.size(), 1) -1; // because dice done have no zero
         MovementHandler.move(ego, moves.get(index));
-        Game.updateGUI();
         moves.remove(index);
     }
     // checks if Monster can attack
@@ -101,7 +100,7 @@ public class MonsterAI {
         do{
             long t0,t1;
             t0=System.currentTimeMillis();
-            System.out.println("MONSTER:"+ego.getName()+" thinks");
+            Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n" +ego.getName()+" thinks");
             do{
                  t1=System.currentTimeMillis();
             }while (t1-t0<1000);

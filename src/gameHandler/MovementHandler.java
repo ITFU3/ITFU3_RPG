@@ -45,7 +45,6 @@ public class MovementHandler {
             directionString, tempMovement, steps, pc
         );
         pc.setAllowedMoves( tempMovement );
-        
         Game.updateGUI();
     }
     

@@ -100,7 +100,7 @@ public class Map
           Game.getPlayer().setCoordinates(y, x);
           Game.getPlayer().setCoordinates_past(y, x);
         }
-        if(field == 'M')
+        else if( field != '#' && field != ' ' )
         {
           Game.getMonsters().get(monsterCounter).setCoordinates(y, x);
           Game.getMonsters().get(monsterCounter).setCoordinates_past(y, x);
@@ -138,17 +138,13 @@ public class Map
           y = Die.rollDie(height-1, 1);
           x = Die.rollDie(width-1, 1);
           pos = this.labyrinthMap[y][x];
-          if(
-            pos == '#' ||
-            pos == 'P' ||
-            pos == 'M'
-          ){
+          if( pos != ' '){
               // WRONG: Redo
               i--;
           }else{
               //Correct: place monster in world
-              this.labyrinthMap[y][x] = 'M';
               Game.getInstance().addMonster( new MonsterCharacter(y,x) );
+              this.labyrinthMap[y][x] = Game.getMonsters().get( Game.getMonsters().size()-1 ).getMapToken();
           }
       }
       this.buildMapString();
@@ -207,52 +203,39 @@ public class Map
         
         n_y = this.entity.getCoordinates_future()[0];
         n_x = this.entity.getCoordinates_future()[1];
+        char OLDmapIndicator = this.labyrinthMap[l_Y][l_X];
         
-        char mapIndicator = this.labyrinthMap[l_Y][l_X];
+        char mapIndicator = this.entity.getMapToken();
+        
         System.out.println("Indicator: " + mapIndicator);
-        switch(this.labyrinthMap[n_y][n_x])	  // the field I'm in right now!
-        {
-          case 'M':
-              //not monster => PLAYER
-            if( !this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
-            {
-              System.out.println("\nYou cannot fill the same space.\n");
-              this.resetNewPos(l_Y, l_X);
-            }else{
-              this.resetMarkerOnMap(l_Y, l_X);
-              this.setMarkerOnMap(n_y, n_x, mapIndicator);
-              this.setLastPos(n_y, n_x);
+        
+        char field = this.labyrinthMap[n_y][n_x];
+        if(field != ' '){
+        // Not empty Field
+            this.resetNewPos(l_Y, l_X);
+            if(field == '#'){
+            // is it a Wall ??
+                if( !this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") ){
+                    System.out.println("\nYou bumped into a wall.\n");
+                    // no move wasted for player.
+                    tempMovement++;
+                }else{
+                    System.err.println("\nAI should not walk in walls!!\n");
+                }
+            }else if(field != 'P'){
+            // or anything else than a  player ??
+                if( this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") ) {
+                // AI bumps in other AI
+                } else {
+                // Player bumps in Enemy
+                    System.out.println("\nYou cannot fill the same Space as your enemy.\n");
+                }
             }
-            break;
-          case 'P':
-              //Monster => NOT PLAYER
-            if( this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
-            {
-              System.out.println("\nYou cannot fill the same space.\n");
-              this.resetNewPos(l_Y, l_X);
-            }else{
-              this.resetMarkerOnMap(l_Y, l_X);
-              this.setMarkerOnMap(n_y, n_x, mapIndicator);
-              this.setLastPos(n_y, n_x);
-            }
-            break;
-          case ' ':
+        }else{
+        //walk freely
             this.resetMarkerOnMap(l_Y, l_X);
             this.setMarkerOnMap(n_y, n_x, mapIndicator);
             this.setLastPos(n_y, n_x);
-            break;
-            
-          case '#':
-              //Monster => NOT PLAYER
-             if( this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") )
-             {
-               // AI behavior
-             }else{
-                 System.out.println("\nYou bumped into a wall.\n");
-             }
-            break;
-          default:
-              //...
         }
         this.buildMapString();
         tempMovement--;
@@ -261,7 +244,6 @@ public class Map
     else
     {
       System.out.println("That is " + (steps-tempMovement) + " too far.");
-      //Matthias
     }
     return tempMovement;
   }

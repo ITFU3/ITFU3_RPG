@@ -25,6 +25,7 @@ public class GameFrame extends javax.swing.JFrame {
     ArrayList<JComponent> components = new ArrayList();
     int testHp = Game.getPlayer().getHealth();
     KeyHandler keyhandler = new KeyHandler();
+    
     /**
      * Creates new form GameFrame
      */
@@ -48,7 +49,6 @@ public class GameFrame extends javax.swing.JFrame {
         DefaultCaret caret = (DefaultCaret)attackInfoTextArea.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         
-        
         // Monster Info Setup
         this.monsterInfoTextArea.setText(Game.getInstance().getMonsterInfo());
         this.monsterInfoTextArea.setEnabled(false);
@@ -69,10 +69,7 @@ public class GameFrame extends javax.swing.JFrame {
         
         // needed for keyboard to work
         this.setButtonFocus(false);
-        
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -245,46 +242,70 @@ public class GameFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Movementcontrol of the Character via mouse
+     * @param evt 
+     */
     private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
-       MovementHandler.move(Game.getPlayer(), MoveDirection.DOWN);
-//        Game.updateGUI();
+       MovementHandler.move(MoveDirection.DOWN);
     }//GEN-LAST:event_downButtonActionPerformed
 
+    /**
+     * Movementcontrol of the Character via mouse
+     * @param evt 
+     */
     private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
-        MovementHandler.move(Game.getPlayer(), MoveDirection.LEFT);
-//        Game.updateGUI();
+        MovementHandler.move(MoveDirection.LEFT);
     }//GEN-LAST:event_leftButtonActionPerformed
 
+    /**
+     * Attack command via mouse
+     * @param evt 
+     */
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-        if( main.Game.getMonsters().size() > 0){
+        if(Game.getMonsters().size() > 0){
             System.out.println("Attack");
-            PlayerCharacter attacker = main.Game.getPlayer();
-            MonsterCharacter target = main.Game.getMonsters().get(
+            PlayerCharacter attacker = Game.getPlayer();
+            MonsterCharacter target = Game.getMonsters().get(
                 Game.getInstance().getMonsterClosedToPlayer()
             );
             BattleHandler.tryToAttack(attacker, target);
-            
-        }else{ System.out.println("No Monster there to fight."); 
+        }else{
+            System.out.println("No Monster there to fight."); 
             Game.updateAttackInfo("What do you want to attack?"
                     + "\n There are no Monsters around. "
                     + "\n Just end your round and see what comes next");
         }
     }//GEN-LAST:event_attackButtonActionPerformed
 
+    /**
+     * Change the Input Type back to Keyboard.
+     * @param evt 
+     */
     private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeInputTypeButtonActionPerformed
         setButtonFocus(false);
     }//GEN-LAST:event_changeInputTypeButtonActionPerformed
 
+    /**
+     * Movementcontrol of the Character via mouse
+     * @param evt 
+     */
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
-        MovementHandler.move(Game.getPlayer(), MoveDirection.UP);
-        //       Game.updateGUI();
+        MovementHandler.move(MoveDirection.UP);
     }//GEN-LAST:event_upButtonActionPerformed
 
+    /**
+     * Movementcontrol of the Character via mouse
+     * @param evt 
+     */
     private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
-        MovementHandler.move(Game.getPlayer(), MoveDirection.RIGHT);
-        //        Game.updateGUI();
+        MovementHandler.move(MoveDirection.RIGHT);
     }//GEN-LAST:event_rightButtonActionPerformed
 
+    /**
+     * Testing purpose
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // reduce Player Health Test
         testHp = testHp-1;
@@ -292,6 +313,11 @@ public class GameFrame extends javax.swing.JFrame {
         ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Ending the Turn of the Player.
+     * Starts the Turn of the Monster.
+     * @param evt 
+     */
     private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
         Game.endRound();
     }//GEN-LAST:event_btn_EndRoundActionPerformed
@@ -361,6 +387,9 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel valueMovesLeftLabel;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * collecting the GUI Elements for easy access.
+     */
     private void initButtonList() {
        // Movement
         components.add(upButton);
@@ -379,6 +408,10 @@ public class GameFrame extends javax.swing.JFrame {
         components.add(arenaScrollPane);
     }
     
+    /**
+     * 
+     * @param focus 
+     */
     public void setButtonFocus(boolean focus ) {
         for(int i=0;i<this.components.size();i++){
             this.components.get(i).setFocusable(focus);
@@ -391,10 +424,12 @@ public class GameFrame extends javax.swing.JFrame {
         this.inputInfoLabel.setText(inputType);
     }
 
+    /**
+     * 
+     */
     private void initFrameSetup() {
         this.setResizable(false);
         Dimension dimensions = new Dimension(900, 600);
-        
         this.setPreferredSize(dimensions);
         this.setMinimumSize(dimensions);
         this.setMaximumSize(dimensions);
@@ -402,60 +437,44 @@ public class GameFrame extends javax.swing.JFrame {
         this.addKeyListener(keyhandler);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        
     }
-
+    
+    /* Getter and Setter after this line */
     public JLabel getHealthLabel() {
         return healthLabel;
     }
-
     public JLabel getPlayerHealthBarLabel() {
         return playerHealthBarLabel;
     }
-
     public JTextArea getMonsterTextArea() {
         return monsterInfoTextArea;
     }
-
     public JLabel getPlayerNamelLabel() {
         return playerNamelLabel;
     }
-    
     public JTextArea getAttackInfoTextArea() {
         return attackInfoTextArea;
     }
-
     public JTextArea getMonsterInfoTextArea() {
         return monsterInfoTextArea;
     }
-
     public JLabel getValueAttacksLeftLabel() {
         return valueAttacksLeftLabel;
     }
-
     public JLabel getValueMovesLeftLabel() {
         return valueMovesLeftLabel;
     }
-
     public JTextArea getArenaTextArea() {
  
         return arenaTextArea;
     }
-
     public JLabel getCurrentActiveCharLabel() {
         return currentActiveCharLabel;
     }
-
     public JLabel getLevelLabel() {
         return levelLabel;
     }
-    
     public JLabel getRoundLabel() {
         return roundLabel;
     }
-    
-    
-    
-    
-
 }

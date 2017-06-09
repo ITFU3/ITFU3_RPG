@@ -11,10 +11,10 @@ public abstract class BaseCharacter {
     private int allowedMoves;
     private int hp;
     private int dmg;
-    private boolean isPlayer_Token;
     int[] coordinates_now;
     int[] coordinates_past;
     int[] coordinates_future;
+    char mapToken;
     
 
     public int getId() {
@@ -47,12 +47,6 @@ public abstract class BaseCharacter {
     public void setDmg(int dmg) {
         this.dmg = dmg;
     }
-    public boolean isIsPlayer_Token() {
-        return isPlayer_Token;
-    }
-    public void setIsPlayer_Token(boolean isPlayer_Token) {
-        this.isPlayer_Token = isPlayer_Token;
-    }
     public int[] getCoordinates() {
         return coordinates_now;
     }
@@ -82,5 +76,11 @@ public abstract class BaseCharacter {
     public void setCoordinates_future(int y, int x){
         int[] input = {y,x};
         this.setCoordinates_future(input);
+    }
+    public char getMapToken() {
+        return mapToken;
+    }
+    public void setMapToken(char mapToken) {
+        this.mapToken = mapToken;
     }
 }

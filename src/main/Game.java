@@ -157,27 +157,36 @@ public class Game /*implements Runnable*/{
     }
     
     public static void updateAttackInfo(String addString) {
-        String newOldString= getAttackInfoTextArea().getText() + "\n"+ addString;
-        getAttackInfoTextArea().setText(newOldString);
+        updateAttackInfo(addString, false);
+    }
+    
+    public static void updateAttackInfo(String addString, boolean add) {
+        
+        String newOldString=  addString;
+        if (add) {
+          newOldString =  getInstance().getAttackInfo() + "\n"+ addString;
+        }
+        getAttackInfoTextArea().setText(addString);
         getAttackInfoTextArea().update(getAttackInfoTextArea().getGraphics());
-        getAttackInfoTextArea().setCaretPosition(getAttackInfoTextArea().getText().length() - 1);
+        //getAttackInfoTextArea().setCaretPosition(getAttackInfoTextArea().getText().length() - 1);
         getInstance().setAttackInfo(newOldString);
     }
     
     public static void waitFor(long halfSeconds) {
         
         try {
-            Thread.sleep(halfSeconds*500);
-            // dirty but works
             /*
             long t0,t1;
             t0=System.currentTimeMillis();
             do{
             t1=System.currentTimeMillis();
-            }while (t1-t0<secs *1000);     */  
+            }while (t1-t0<halfSeconds *500);
+            */
+            Thread.sleep(halfSeconds* 500);
         } catch (InterruptedException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
     public int getMonsterClosedToPlayer(){

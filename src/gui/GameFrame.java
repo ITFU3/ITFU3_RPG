@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 /**
  *
@@ -44,6 +45,9 @@ public class GameFrame extends javax.swing.JFrame {
         this.attackInfoTextArea.setFocusable(false);
         this.attackInfoTextArea.setDisabledTextColor(Color.BLACK);
         this.attackInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        DefaultCaret caret = (DefaultCaret)attackInfoTextArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        
         
         // Monster Info Setup
         this.monsterInfoTextArea.setText(Game.getInstance().getMonsterInfo());
@@ -98,7 +102,6 @@ public class GameFrame extends javax.swing.JFrame {
         attackScrollPane = new javax.swing.JScrollPane();
         arenaTextArea = new javax.swing.JTextArea();
         arenaTitleLabel = new javax.swing.JLabel();
-        attackInfoTitleLabel = new javax.swing.JLabel();
         inputInfoLabel = new javax.swing.JLabel();
         numberOfMovesLeftLabel = new javax.swing.JLabel();
         valueMovesLeftLabel = new javax.swing.JLabel();
@@ -120,7 +123,7 @@ public class GameFrame extends javax.swing.JFrame {
         attackInfoTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         arenaScrollPane.setViewportView(attackInfoTextArea);
 
-        getContentPane().add(arenaScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 500, 80));
+        getContentPane().add(arenaScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 500, 170));
 
         downButton.setText("Down");
         downButton.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +186,7 @@ public class GameFrame extends javax.swing.JFrame {
         monsterInfoTextArea.setRows(5);
         monsterScrollPane.setViewportView(monsterInfoTextArea);
 
-        getContentPane().add(monsterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, 170, 260));
+        getContentPane().add(monsterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, 170, 220));
 
         monsterInfoTitleLabel.setText("Monster");
         getContentPane().add(monsterInfoTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 170, 20));
@@ -202,13 +205,10 @@ public class GameFrame extends javax.swing.JFrame {
         arenaTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         attackScrollPane.setViewportView(arenaTextArea);
 
-        getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 500, 260));
+        getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 500, 220));
 
         arenaTitleLabel.setText("Arena");
         getContentPane().add(arenaTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 90, -1));
-
-        attackInfoTitleLabel.setText("Attack Information");
-        getContentPane().add(attackInfoTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 250, -1));
 
         inputInfoLabel.setText("KeyboardInput");
         getContentPane().add(inputInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 90, -1));
@@ -336,7 +336,6 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel arenaTitleLabel;
     private javax.swing.JButton attackButton;
     private javax.swing.JTextArea attackInfoTextArea;
-    private javax.swing.JLabel attackInfoTitleLabel;
     private javax.swing.JScrollPane attackScrollPane;
     private javax.swing.JButton btn_EndRound;
     private javax.swing.JButton changeInputTypeButton;

@@ -98,17 +98,14 @@ public class MonsterAI {
     public void think() {
         boolean next;
         do{
-            Game.updateAttackInfo(ego.getName()+" thinks...");
-            Game.waitFor(1);
+           // Game.updateAttackInfo(ego.getName()+" thinks...");
+            Game.waitFor(2);
             
-            Game.updateAttackInfo(ego.getName()+" acts!");
-        
+
             if (isInAttackRange() == true) {
                 //Game.updateAttackInfo(ego.getName() + " is in Range.");
                 if (ego.getAllowedAttacks() > 0) {
-                    
-                  //  Game.updateAttackInfo(ego.getName() + " attacks!");
-                    
+                     
                     BattleHandler.tryToAttack(ego, Game.getPlayer());
                     ego.setAllowedAttacks(ego.getAllowedAttacks()-1);
                     next = true;
@@ -121,7 +118,7 @@ public class MonsterAI {
             } else {
                 if (ego.getAllowedMoves() > 0) {
                     System.out.println("MONSTER:" + ego.getName()+"moves");
-                    Game.updateAttackInfo(ego.getName() + " chooses to move.");
+                    Game.updateAttackInfo(ego.getName() + " chooses to move.", true);
                     move();
                     next = true;
                 } else {
@@ -129,6 +126,7 @@ public class MonsterAI {
                 }
             }
             Game.waitFor(1);
+            Game.updateGUI();
         } while(next);
     }
 }

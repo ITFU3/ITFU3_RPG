@@ -23,7 +23,7 @@ public class BattleHandler
     
     
   public static void tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
-  { Game.updateAttackInfo("Attacking.");
+  { Game.updateAttackInfo(attacker.getName() + " wants to attack.\n");
     Game.waitFor(1);
     int distance = Map.getInstance().getDistance(attacker, target);
     System.out.println("MAP:Distance: " + distance);
@@ -72,7 +72,7 @@ public class BattleHandler
         output += "No Attacks left to do.\n";
     }
     Game.updateMonsterInfo();
-    Game.updateAttackInfo(output);
+    Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + output);
     
   }
   

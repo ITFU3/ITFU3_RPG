@@ -2,6 +2,7 @@ package gui;
 
 import character.PlayerCharacter;
 import gui.GuiHelper.ListModels;
+import java.awt.Dimension;
 import main.Game;
 
 /**
@@ -16,8 +17,23 @@ public class SelectionFrame extends javax.swing.JFrame {
     public SelectionFrame() {
         initComponents();
         
+        initFrameSetup();
+         jTextAreaPlayerInfo.setEditable(false);
+         jTextAreaPlayerInfo.setText("Please select a Character");
+  
+    }
+    
+    private void initFrameSetup() {
+        this.setResizable(false);
+        Dimension dimensions = new Dimension(900, 600);
+        
+        this.setPreferredSize(dimensions);
+        this.setMinimumSize(dimensions);
+        this.setMaximumSize(dimensions);
+        this.setFocusable(true);
         this.setLocationRelativeTo(null);
-
+        this.setVisible(true);
+        
     }
     
     

@@ -71,7 +71,7 @@ public class BattleHandler
         output += "No Attacks left to do.\n";
     }
     Game.updateMonsterInfo();
-    Game.getInstance().setAttackInfo(output);
+    Game.updateAttackInfo(output);
     
     
     return output;

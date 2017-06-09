@@ -13,6 +13,5 @@ public class RPG_GAME
 
       
      SelectionFrame sf = new SelectionFrame();
-     sf.setVisible(true);
   }
 }

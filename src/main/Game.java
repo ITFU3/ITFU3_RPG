@@ -93,7 +93,7 @@ public class Game /*implements Runnable*/{
         getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getPlayer().getAllowedMoves()));
         getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getPlayer().getAllowedAttacks()));
         getInstance().getGameFrame().getRoundLabel().setText("Round " + getInstance().roundCount);
-        getInstance().getGameFrame().getLevelLabel().setText("Round " + getInstance().level);
+        getInstance().getGameFrame().getLevelLabel().setText("Level " + getInstance().getLevel());
         
 // what else do we need here
         
@@ -105,7 +105,7 @@ public class Game /*implements Runnable*/{
         String newMonsterInfo = "Monsters in Arena: " +monsters.size() +"\n";
         
         for(MonsterCharacter monster : monsters){
-            newMonsterInfo += monster.getName() + "\n" +
+            newMonsterInfo += ((MonsterCharacter)monster).getName() + " " +
                 monster.getTempHP() + "/" + monster.getHealth() + "\n";
         }
         getInstance().setMonsterInfo(newMonsterInfo);
@@ -115,6 +115,7 @@ public class Game /*implements Runnable*/{
         
         if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
+            
             System.out.println("NEXT LEVEL: " + getInstance().getLevel());
         }
         
@@ -131,11 +132,12 @@ public class Game /*implements Runnable*/{
         getInstance().roundCount ++;
         
         updateAttackInfo("It is your turn. Wake up.!");
+        System.out.println("It is your turn. Wake up.!");
         getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
         // Reset PLayerCharacter
         getPlayer().setAllowedMoves(
             //sollte eingerückt sein, ist ein Parameter
-        getPlayer().getMovement()
+            getPlayer().getMovement()
         );
         getPlayer().setAllowedAttacks(1);
         updateGUI();
@@ -144,22 +146,32 @@ public class Game /*implements Runnable*/{
     
     public void nextLevel(){
         Map.getInstance().spawnRandomMonster(++this.level);
+        updateMonsterInfo();
         Game.updateGUI();
     }
     
     public static void updateAttackInfo(String addString) {
-        getAttackInfoTextArea().append(addString);
+        String newOldString= getAttackInfoTextArea().getText() + "\n"+ addString;
+        getAttackInfoTextArea().setText(newOldString);
         getAttackInfoTextArea().update(getAttackInfoTextArea().getGraphics());
-             
+        getAttackInfoTextArea().setCaretPosition(getAttackInfoTextArea().getText().length() - 1);
+        getInstance().setAttackInfo(newOldString);
     }
     
     public static void waitFor(long secs) {
-        // dirty but works
-        long t0,t1;
+        
+        try {
+            Thread.sleep(secs*500);
+            // dirty but works
+            /*
+            long t0,t1;
             t0=System.currentTimeMillis();
             do{
-                 t1=System.currentTimeMillis();
-            }while (t1-t0<secs *1000);       
+            t1=System.currentTimeMillis();
+            }while (t1-t0<secs *1000);     */  
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public int getMonsterClosedToPlayer(){

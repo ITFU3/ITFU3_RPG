@@ -68,9 +68,7 @@ public class GameFrame extends javax.swing.JFrame {
         
     }
 
-    public JLabel getRoundLabel() {
-        return roundLabel;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,7 +97,7 @@ public class GameFrame extends javax.swing.JFrame {
         attackButton = new javax.swing.JButton();
         attackScrollPane = new javax.swing.JScrollPane();
         arenaTextArea = new javax.swing.JTextArea();
-        roundLabel = new javax.swing.JLabel();
+        arenaTitleLabel = new javax.swing.JLabel();
         attackInfoTitleLabel = new javax.swing.JLabel();
         inputInfoLabel = new javax.swing.JLabel();
         numberOfMovesLeftLabel = new javax.swing.JLabel();
@@ -108,7 +106,8 @@ public class GameFrame extends javax.swing.JFrame {
         numberOfActionsLeftLabel1 = new javax.swing.JLabel();
         valueAttacksLeftLabel = new javax.swing.JLabel();
         currentActiveCharLabel = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        roundLabel = new javax.swing.JLabel();
+        levelLabel = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -205,8 +204,8 @@ public class GameFrame extends javax.swing.JFrame {
 
         getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 500, 260));
 
-        roundLabel.setText("Arena");
-        getContentPane().add(roundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 50, -1));
+        arenaTitleLabel.setText("Arena");
+        getContentPane().add(arenaTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 90, -1));
 
         attackInfoTitleLabel.setText("Attack Information");
         getContentPane().add(attackInfoTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 250, -1));
@@ -237,8 +236,11 @@ public class GameFrame extends javax.swing.JFrame {
         currentActiveCharLabel.setText("Active gamer label");
         getContentPane().add(currentActiveCharLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        jLabel3.setText("Round 1");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+        roundLabel.setText("Round 1");
+        getContentPane().add(roundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
+
+        levelLabel.setText("Level 1");
+        getContentPane().add(levelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -328,6 +330,7 @@ public class GameFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane arenaScrollPane;
     private javax.swing.JTextArea arenaTextArea;
+    private javax.swing.JLabel arenaTitleLabel;
     private javax.swing.JButton attackButton;
     private javax.swing.JTextArea attackInfoTextArea;
     private javax.swing.JLabel attackInfoTitleLabel;
@@ -340,8 +343,8 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel inputInfoLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton leftButton;
+    private javax.swing.JLabel levelLabel;
     private javax.swing.JTextArea monsterInfoTextArea;
     private javax.swing.JLabel monsterInfoTitleLabel;
     private javax.swing.JScrollPane monsterScrollPane;
@@ -433,12 +436,23 @@ public class GameFrame extends javax.swing.JFrame {
     }
 
     public JTextArea getArenaTextArea() {
+ 
         return arenaTextArea;
     }
 
     public JLabel getCurrentActiveCharLabel() {
         return currentActiveCharLabel;
     }
+
+    public JLabel getLevelLabel() {
+        return levelLabel;
+    }
+    
+    public JLabel getRoundLabel() {
+        return roundLabel;
+    }
+    
+    
     
     
 

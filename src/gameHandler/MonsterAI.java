@@ -98,27 +98,23 @@ public class MonsterAI {
     public void think() {
         boolean next;
         do{
-            long t0,t1;
-            t0=System.currentTimeMillis();
-            Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n" +ego.getName()+" thinks");
-            do{
-                 t1=System.currentTimeMillis();
-            }while (t1-t0<1000);
+            Game.updateAttackInfo(ego.getName()+" thinks...");
+            Game.waitFor(1);
             
-            System.out.println("MONSTER:"+ego.getName()+" acts");
+            Game.updateAttackInfo(ego.getName()+" acts!");
         
             if (isInAttackRange() == true) {
-                Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n" + ego.getName() + " is in Range.");
-                
+                Game.updateAttackInfo(ego.getName() + " is in Range.");
                 if (ego.getAllowedAttacks() > 0) {
                     
-                    Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n"+ ego.getName() + " Attacks");
+                    Game.updateAttackInfo(ego.getName() + " attacks!");
+                    
                     String  guiAttackInfo = BattleHandler.tryToAttack(ego, Game.getPlayer());
-                    Game.getInstance().setAttackInfo(guiAttackInfo);
+                    Game.updateAttackInfo(guiAttackInfo);
                     ego.setAllowedAttacks(ego.getAllowedAttacks()-1);
                     next = true;
                 } else {
-                    Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + "\n"+ ego.getName()+" can't attack anymore.");
+                    Game.updateAttackInfo(ego.getName()+" can't attack anymore.");
                     next = false;
                     // monster is in range and does not want to run away 
                     // here ends round for monstere
@@ -132,6 +128,7 @@ public class MonsterAI {
                     next = false; // cant move and cant attack since not in range
                 }
             }
+            Game.waitFor(1);
         } while(next);
     }
 }

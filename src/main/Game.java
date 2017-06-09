@@ -10,6 +10,7 @@ import gui.GameFrame;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -31,9 +32,6 @@ public class Game /*implements Runnable*/{
     
     public String attackInfo = "";
     public String monsterInfo = "";
-    
-    
-    private Thread thread;
     
     private boolean playing = true;
     
@@ -74,15 +72,8 @@ public class Game /*implements Runnable*/{
         init();
     }
     
-    public synchronized void stop() {
-        if (running){
-            running = false;
-            try{
-                thread.join();
-            }catch(InterruptedException ex){
-                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    public void stop() {
+        
     }
 
     public static void updateGUI(){
@@ -102,7 +93,8 @@ public class Game /*implements Runnable*/{
         getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getPlayer().getAllowedMoves()));
         getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getPlayer().getAllowedAttacks()));
         getInstance().getGameFrame().getRoundLabel().setText("Round " + getInstance().roundCount);
-        getInstance().gameFrame.repaint();
+        getInstance().getGameFrame().getLevelLabel().setText("Round " + getInstance().level);
+        
 // what else do we need here
         
         System.out.println("GUI UPDATE");
@@ -138,7 +130,7 @@ public class Game /*implements Runnable*/{
         
         getInstance().roundCount ++;
         
-        getInstance().setAttackInfo("It is your turn. Wake up.!");
+        updateAttackInfo("It is your turn. Wake up.!");
         getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
         // Reset PLayerCharacter
         getPlayer().setAllowedMoves(
@@ -153,6 +145,21 @@ public class Game /*implements Runnable*/{
     public void nextLevel(){
         Map.getInstance().spawnRandomMonster(++this.level);
         Game.updateGUI();
+    }
+    
+    public static void updateAttackInfo(String addString) {
+        getAttackInfoTextArea().append(addString);
+        getAttackInfoTextArea().update(getAttackInfoTextArea().getGraphics());
+             
+    }
+    
+    public static void waitFor(long secs) {
+        // dirty but works
+        long t0,t1;
+            t0=System.currentTimeMillis();
+            do{
+                 t1=System.currentTimeMillis();
+            }while (t1-t0<secs *1000);       
     }
     
     public int getMonsterClosedToPlayer(){
@@ -222,5 +229,9 @@ public class Game /*implements Runnable*/{
     }
     public void setMonsterInfo(String monsterInfo) {
         this.monsterInfo = monsterInfo;
+    }
+    
+    public static JTextArea getAttackInfoTextArea() {
+        return getInstance().getGameFrame().getAttackInfoTextArea();
     }
 }

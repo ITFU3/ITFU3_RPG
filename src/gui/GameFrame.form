@@ -240,13 +240,13 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="roundLabel">
+    <Component class="javax.swing.JLabel" name="arenaTitleLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Arena"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="210" y="20" width="50" height="-1"/>
+          <AbsoluteConstraints x="210" y="20" width="90" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -333,13 +333,23 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="roundLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Round 1"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="310" y="20" width="-1" height="-1"/>
+          <AbsoluteConstraints x="280" y="20" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="levelLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Level 1"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="370" y="20" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

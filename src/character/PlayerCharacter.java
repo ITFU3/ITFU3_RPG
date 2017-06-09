@@ -37,6 +37,7 @@ public class PlayerCharacter extends BaseCharacter
     Race inputRace,
     int id
   ){
+    this.setMapToken('P');
     this.setId(id);
     this.setName(inputName);
     this.setGender(inputGender);

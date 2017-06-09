@@ -26,6 +26,7 @@ public class MonsterCharacter extends PlayerCharacter {
     
     public MonsterCharacter() {
         this.setName(base.Base.randomName(5));
+        this.setMapToken('M');
         this.setGender('m');
         this.setpClass(new PlayerClass());
         int[] stats = new int[8];
@@ -42,7 +43,7 @@ public class MonsterCharacter extends PlayerCharacter {
     }
     
     public MonsterCharacter(int y, int x) {
-        this();
+        this( new Rat() );
         this.setCoordinates(y, x);
         this.setCoordinates_future(y, x);
         this.setCoordinates_past(y, x);
@@ -50,6 +51,7 @@ public class MonsterCharacter extends PlayerCharacter {
     
     public MonsterCharacter(Race race) {
       this.setName(race.getClass().getSimpleName());
+      this.setMapToken(  getName().toUpperCase().charAt(0) );
       this.setGender('m');
       this.setpClass(new PlayerClass());
       this.setpRace(race);

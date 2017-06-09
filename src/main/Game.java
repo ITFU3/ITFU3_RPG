@@ -88,7 +88,8 @@ public class Game /*implements Runnable*/{
         getInstance().getGameFrame().getAttackInfoTextArea().update(
             getInstance().getGameFrame().getAttackInfoTextArea().getGraphics()
         );
-        getAttackInfoTextArea().setCaretPosition(getAttackInfoTextArea().getText().length() - 1);
+        int tmpLength = getAttackInfoTextArea().getText().length();
+        getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
         getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
         getInstance().getGameFrame().getMonsterInfoTextArea().update(

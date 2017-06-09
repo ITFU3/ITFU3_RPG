@@ -27,12 +27,6 @@ public class BattleHandler
     Game.updateAttackInfo(attacker.getName() + " wants to attack.\n");
     Game.waitFor(1);
     int distance = Map.getInstance().getDistance(attacker, target);
-    int[] a_pos = attacker.getCoordinates();
-    int[] t_pos = target.getCoordinates();
-
-    System.out.println("MAP:Distance: " + distance);
-    System.out.println(a_pos[0] + "|" + a_pos[1]);
-    System.out.println(t_pos[0] + "|" + t_pos[1]);
     
     String output = "";
     int aa = attacker.getAllowedAttacks();
@@ -69,6 +63,7 @@ public class BattleHandler
         output += "No Attacks left to do.\n";
     }
     Game.updateMonsterInfo();
+    System.out.println(output);
     Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + output);
   }
   

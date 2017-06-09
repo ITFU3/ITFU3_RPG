@@ -262,10 +262,13 @@ public class GameFrame extends javax.swing.JFrame {
             MonsterCharacter target = main.Game.getMonsters().get(
                 Game.getInstance().getMonsterClosedToPlayer()
             );
-            String tmpOutput = BattleHandler.tryToAttack(attacker, target);
-            System.out.println(tmpOutput);
-            Game.updateGUI();
-        }else{ System.out.println("No Monster there to fight."); }
+            BattleHandler.tryToAttack(attacker, target);
+            
+        }else{ System.out.println("No Monster there to fight."); 
+            Game.updateAttackInfo("What do you want to attack?"
+                    + "\n There are no Monsters around. "
+                    + "\n Just end your round and see what comes next");
+        }
     }//GEN-LAST:event_attackButtonActionPerformed
 
     private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeInputTypeButtonActionPerformed

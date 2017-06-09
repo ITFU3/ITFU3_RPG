@@ -104,17 +104,16 @@ public class MonsterAI {
             Game.updateAttackInfo(ego.getName()+" acts!");
         
             if (isInAttackRange() == true) {
-                Game.updateAttackInfo(ego.getName() + " is in Range.");
+                //Game.updateAttackInfo(ego.getName() + " is in Range.");
                 if (ego.getAllowedAttacks() > 0) {
                     
-                    Game.updateAttackInfo(ego.getName() + " attacks!");
+                  //  Game.updateAttackInfo(ego.getName() + " attacks!");
                     
-                    String  guiAttackInfo = BattleHandler.tryToAttack(ego, Game.getPlayer());
-                    Game.updateAttackInfo(guiAttackInfo);
+                    BattleHandler.tryToAttack(ego, Game.getPlayer());
                     ego.setAllowedAttacks(ego.getAllowedAttacks()-1);
                     next = true;
                 } else {
-                    Game.updateAttackInfo(ego.getName()+" can't attack anymore.");
+                  //  Game.updateAttackInfo(ego.getName()+" can't attack anymore.");
                     next = false;
                     // monster is in range and does not want to run away 
                     // here ends round for monstere
@@ -122,6 +121,7 @@ public class MonsterAI {
             } else {
                 if (ego.getAllowedMoves() > 0) {
                     System.out.println("MONSTER:" + ego.getName()+"moves");
+                    Game.updateAttackInfo(ego.getName() + " chooses to move.");
                     move();
                     next = true;
                 } else {

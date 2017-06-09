@@ -22,8 +22,9 @@ public class BattleHandler
     
     
     
-  public static String tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
-  {
+  public static void tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
+  { Game.updateAttackInfo("Attacking.");
+    Game.waitFor(1);
     int distance = Map.getInstance().getDistance(attacker, target);
     System.out.println("MAP:Distance: " + distance);
     
@@ -73,8 +74,6 @@ public class BattleHandler
     Game.updateMonsterInfo();
     Game.updateAttackInfo(output);
     
-    
-    return output;
   }
   
   private static void killStrike(PlayerCharacter target){

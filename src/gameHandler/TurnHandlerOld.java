@@ -268,7 +268,7 @@ public class TurnHandlerOld
 				System.out.println(BattleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(player, monster), command[2]));
 			  }
             }else{
-              System.out.println(BattleHandler.tryToAttack(player, monster));
+              BattleHandler.tryToAttack(player, monster);
             }
             if(monster.getTempHP() <= 0){
                 int[] coords = monster.getCoordinates();
@@ -288,7 +288,7 @@ public class TurnHandlerOld
           System.out.println(BattleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(monster, player), command[2]));
           hasAction = false;
         }else{
-          System.out.println(BattleHandler.tryToAttack(monster, player));
+          BattleHandler.tryToAttack(monster, player);
           hasAction = false;
         }
         if(player.getTempHP() <= 0)

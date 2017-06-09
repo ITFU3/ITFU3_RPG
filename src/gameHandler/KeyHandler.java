@@ -76,13 +76,12 @@ public class KeyHandler implements KeyListener {
                 break;
             // Battle Commands
             case attack:
-                System.out.println("Attack");
+                
                 PlayerCharacter attacker = main.Game.getPlayer();
                 MonsterCharacter target = main.Game.getMonsters().get(
                     Game.getInstance().getMonsterClosedToPlayer()
                 );
-                String tmpOutput = BattleHandler.tryToAttack(attacker, target);
-                System.out.println(tmpOutput);
+                BattleHandler.tryToAttack(attacker, target);
                 Game.updateGUI();
                 
                 break;
@@ -101,9 +100,8 @@ public class KeyHandler implements KeyListener {
                 break;
             case enter:
                 // end Player rount
+                Game.updateAttackInfo("You ended your round.");
                 Game.endRound();
-                
-                
                 break;
         }
     } 

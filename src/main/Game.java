@@ -86,14 +86,18 @@ public class Game /*implements Runnable*/{
         getInstance().getGameFrame().getAttackInfoTextArea().update(
             getInstance().getGameFrame().getAttackInfoTextArea().getGraphics()
         );
+        getAttackInfoTextArea().setCaretPosition(getAttackInfoTextArea().getText().length() - 1);
+        
         getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
         getInstance().getGameFrame().getMonsterInfoTextArea().update(
             getInstance().getGameFrame().getMonsterInfoTextArea().getGraphics()
         );
+        
         getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getPlayer().getAllowedMoves()));
         getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getPlayer().getAllowedAttacks()));
         getInstance().getGameFrame().getRoundLabel().setText("Round " + getInstance().roundCount);
         getInstance().getGameFrame().getLevelLabel().setText("Level " + getInstance().getLevel());
+        getInstance().getGameFrame().repaint();
         
 // what else do we need here
         
@@ -130,8 +134,10 @@ public class Game /*implements Runnable*/{
         }
         
         getInstance().roundCount ++;
-        
-        updateAttackInfo("It is your turn. Wake up.!");
+      
+        updateAttackInfo(   "##############################\n"+
+                            "# It is your turn. Wake up.! #\n"+
+                            "##############################");
         System.out.println("It is your turn. Wake up.!");
         getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
         // Reset PLayerCharacter
@@ -158,10 +164,10 @@ public class Game /*implements Runnable*/{
         getInstance().setAttackInfo(newOldString);
     }
     
-    public static void waitFor(long secs) {
+    public static void waitFor(long halfSeconds) {
         
         try {
-            Thread.sleep(secs*500);
+            Thread.sleep(halfSeconds*500);
             // dirty but works
             /*
             long t0,t1;

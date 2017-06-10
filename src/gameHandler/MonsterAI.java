@@ -76,10 +76,15 @@ public class MonsterAI {
     public void move() {
         int index = 0;
         if (moves.size() > 0) {
+            
             index = Die.rollDie(moves.size(), 1) -1; // because dice done have no zero
         }
         MovementHandler.move(ego, moves.get(index));
         moves.remove(index);
+    }
+    
+    public boolean checkPath() {
+        return true;
     }
     // checks if Monster can attack
     public boolean isInAttackRange() {

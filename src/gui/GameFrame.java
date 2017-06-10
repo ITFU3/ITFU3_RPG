@@ -1,16 +1,12 @@
 package gui;
 
-import Enum.MoveDirection;
 import main.*;
-import character.*;
 import gameHandler.*;
 import gui.GuiHelper.HealthBarLabel;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -250,7 +246,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
-       MovementHandler.move(MoveDirection.DOWN);
+       inputHandler.moveDown();
     }//GEN-LAST:event_downButtonActionPerformed
 
     /**
@@ -258,7 +254,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
-        MovementHandler.move(MoveDirection.LEFT);
+        inputHandler.moveLeft();
     }//GEN-LAST:event_leftButtonActionPerformed
 
     /**
@@ -266,19 +262,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-        if(Game.getMonsters().size() > 0){
-            System.out.println("Attack");
-            PlayerCharacter attacker = Game.getPlayer();
-            MonsterCharacter target = Game.getMonsters().get(
-                Game.getInstance().getMonsterClosedToPlayer()
-            );
-            BattleHandler.tryToAttack(attacker, target);
-        }else{
-            System.out.println("No Monster there to fight."); 
-            Game.updateAttackInfo("What do you want to attack?"
-                    + "\n There are no Monsters around. "
-                    + "\n Just end your round and see what comes next");
-        }
+        inputHandler.attack();
     }//GEN-LAST:event_attackButtonActionPerformed
 
     /**
@@ -286,7 +270,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeInputTypeButtonActionPerformed
-        setButtonFocus(false);
+        inputHandler.setControlFocus(true);
     }//GEN-LAST:event_changeInputTypeButtonActionPerformed
 
     /**
@@ -294,7 +278,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
-        MovementHandler.move(MoveDirection.UP);
+        inputHandler.moveUp();
     }//GEN-LAST:event_upButtonActionPerformed
 
     /**
@@ -302,7 +286,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
-        MovementHandler.move(MoveDirection.RIGHT);
+        inputHandler.moveUp();
     }//GEN-LAST:event_rightButtonActionPerformed
 
     /**
@@ -314,7 +298,7 @@ public class GameFrame extends javax.swing.JFrame {
 //        testHp = testHp-1;
 //        System.out.println(testHp);
 //        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
-        new gui.popups.SpellbookFrame().setVisible(true);
+        inputHandler.openSpellbook();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -323,7 +307,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
-        Game.endRound();
+        inputHandler.endRound();
     }//GEN-LAST:event_btn_EndRoundActionPerformed
 
     /**

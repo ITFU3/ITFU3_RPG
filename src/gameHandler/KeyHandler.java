@@ -22,6 +22,8 @@ public class KeyHandler implements KeyListener {
     private final int attack = KeyEvent.VK_SPACE;
     
     private final int changeFocus = KeyEvent.VK_M;
+    private final int spellbook = KeyEvent.VK_C;
+    
     
     private final int upperEnemy = KeyEvent.VK_NUMPAD8;
     private final int upperEnemy2 = KeyEvent.VK_UP;
@@ -111,10 +113,6 @@ public class KeyHandler implements KeyListener {
                     Dialog dialog = new Dialog(Game.getInstance().getGameFrame());
                     dialog.setVisible(true);
                 }
-                
-                
-                
-
                 if( Game.getMonsters().size() > 0){
                     System.out.println("Attack");
                     PlayerCharacter attacker = Game.getPlayer();
@@ -129,6 +127,9 @@ public class KeyHandler implements KeyListener {
                             + "\n Just end your round and see what comes next");
                 }
                 Game.updateGUI();
+                break;
+            case spellbook:
+                new gui.popups.SpellbookFrame().setVisible(true);
                 break;
             // Info
             case changeFocus:

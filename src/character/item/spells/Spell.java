@@ -21,6 +21,11 @@ public class Spell
     this.setSpellRange(0);
   }
   
+  @Override
+  public String toString(){
+      return this.getName();
+  }
+  
   // ######### Getter / Setter #########
   public String getName() {
     return name;

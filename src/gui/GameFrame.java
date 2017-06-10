@@ -307,10 +307,11 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // reduce Player Health Test
-        testHp = testHp-1;
-        System.out.println(testHp);
-        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
+//        // reduce Player Health Test
+//        testHp = testHp-1;
+//        System.out.println(testHp);
+//        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
+        new gui.popups.SpellbookFrame().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

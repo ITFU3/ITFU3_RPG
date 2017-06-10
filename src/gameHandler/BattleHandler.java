@@ -2,7 +2,6 @@ package gameHandler;
 import character.item.spells.Spell;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
-import java.util.ArrayList;
 import main.Game;
 import main.Map;
 
@@ -68,7 +67,7 @@ public class BattleHandler
     }
     Game.updateMonsterInfo();
     System.out.println(output);
-    Game.getInstance().setAttackInfo(Game.getInstance().attackInfo + output);
+    Game.updateAttackInfo(output,true);
   }
   
   private static void killStrike(PlayerCharacter target){
@@ -159,54 +158,71 @@ public class BattleHandler
    * attcker tries to attack the target with spell
    * @param attacker - PlayerCharacter
    * @param target - PlayerCharacter
-   * @param distance - int
    * @param spellname - String - the name of the spell in use
-   * @return String - protokoll of what happend
    */
-  public static String tryToSpellAttack(
+  public static void tryToSpellAttack(
     PlayerCharacter attacker,
     PlayerCharacter target,
-    int distance,
     String spellname
   ){
-    String output = "";
-    Spell iSpell = attacker.getpClass().getMyBook().getSpellByName(spellname);
-    if(distance <= iSpell.getSpellRange()){
-        output += attacker.getName() + " ";
-        // TODO: redo spell handling with Healing Spells !!!
-        if(iSpell.getSpellEffect().equalsIgnoreCase("heal")){
-            int heal = castSpell(attacker, iSpell);
-            output += "healed " + target.getName() + " for " + heal + " HP. ";
-            target.setTempHP( target.getTempHP() + heal );
-            if(target.getTempHP() > target.getHealth()){
-                target.setTempHP(target.getHealth());
-            }
-            output += "Health is now back to " + target.getTempHP() + "/" + target.getHealth() +".";
-            return output;
-        }else if(iSpell.getSpellEffect().equalsIgnoreCase("damage")){
-            // Damage Spells    
-            int[] cTh = tryHit(attacker, true);
-            if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue()){
-                int dmg = castSpell(attacker, iSpell);
-                if(cTh[0] == 20){
-                    dmg *= 2;
-                    output += "*";
+        Game.updateAttackInfo(attacker.getName() + " wants to cast a spell.\n");
+        Game.waitFor(1);
+        int distance = Map.getInstance().getDistance(attacker, target);
+
+        String output = "";
+        int aa = attacker.getAllowedAttacks();
+        if( aa > 0)
+        {
+            attacker.setAllowedAttacks(--aa);
+            Spell iSpell = attacker.getpClass().getMyBook().getSpellByName(spellname);
+            if(distance <= iSpell.getSpellRange())
+            {
+                output += attacker.getName() + " ";
+            // TODO: redo spell handling with Healing Spells !!!
+                if(iSpell.getSpellEffect().equalsIgnoreCase("heal"))
+                {
+                    int heal = castSpell(attacker, iSpell);
+                    output += "healed " + target.getName() + " for " + heal + " HP. ";
+                    target.setTempHP( target.getTempHP() + heal );
+                    if(target.getTempHP() > target.getHealth())
+                    {
+                        target.setTempHP(target.getHealth());
+                    }
+                    output += "Health is now back to " + target.getTempHP() + "/" + target.getHealth() +".";
                 }
-                target.setTempHP( target.getTempHP() - dmg );
-                output += "hits " + target.getName() + " with a " + cTh[1] 
-                    + " and does " + dmg + " damage.\n"
-                    + " " + target.getName() + " has " + target.getTempHP() + " HP left.\n";
-                if(target.getTempHP() <= 0){
-                    output += target.getName() + " is no more.\n";
+                else if(iSpell.getSpellEffect().equalsIgnoreCase("damage"))
+                {
+                    // Damage Spells    
+                    int[] cTh = tryHit(attacker, true);
+                    if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
+                    {
+                        int dmg = castSpell(attacker, iSpell);
+                        if(cTh[0] == 20)
+                        {
+                            dmg *= 2;
+                            output += "*";
+                        }
+                        target.setTempHP( target.getTempHP() - dmg );
+                        output += "hits " + target.getName() + " with a " + cTh[1] 
+                            + " and does " + dmg + " damage.\n"
+                            + " " + target.getName() + " has " + target.getTempHP() + " HP left.\n";
+                        if(target.getTempHP() <= 0)
+                        {
+                            output += target.getName() + " is no more.\n";
+                            int newXP = target.getExperience();
+                            System.err.println("XP droped: " + newXP);
+                            attacker.addExperience( newXP );
+                            System.err.println("Player xp: " + attacker.getExperience());
+                            System.err.println("Player lvl: " + attacker.getProficiencyOrLevel('l'));
+                            killStrike(target);
+                        }
+                    }else{ output += "misses with a " + cTh[1] + "\n"; }
                 }
-            }else{
-                output += "misses with a " + cTh[1] + "\n";
-            }
-        }
-    }else{
-      output += "Target is too far away. Move closer.\n";
+            }else{ output += "Target is too far away. Move closer.\n"; }
+            Game.updateAttackInfo(output,true);
+        }else{ output += "No Attacks left to do.\n"; }
+        Game.updateMonsterInfo();
+        System.out.println(output);
+        Game.updateAttackInfo(output,true);
     }
-    Game.getInstance().setAttackInfo(output);
-    return output;
-  }
 }

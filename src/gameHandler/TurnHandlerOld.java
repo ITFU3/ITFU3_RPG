@@ -263,9 +263,11 @@ public class TurnHandlerOld
             if(UseSpell){
 			  // For healing, to self target.
 			  if(command[1].equalsIgnoreCase(player.getName())){
-				System.out.println(BattleHandler.tryToSpellAttack(player, player, dungeonMap.getDistance(player, player), command[2]));
+//				System.out.println(BattleHandler.tryToSpellAttack(player, player, dungeonMap.getDistance(player, player), command[2]));
+                                System.out.println("HEAL");
 			  }else{
-				System.out.println(BattleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(player, monster), command[2]));
+//				System.out.println(BattleHandler.tryToSpellAttack(player, monster, dungeonMap.getDistance(player, monster), command[2]));
+                                System.out.println("DAMAGE");
 			  }
             }else{
               BattleHandler.tryToAttack(player, monster);
@@ -284,8 +286,8 @@ public class TurnHandlerOld
         System.out.println("quiek");
         if(UseSpell)
         {
-		  // Also implement self heal for monster as a fix call is needed.(b/c no external input)
-          System.out.println(BattleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(monster, player), command[2]));
+        // Also implement self heal for monster as a fix call is needed.(b/c no external input)
+//          System.out.println(BattleHandler.tryToSpellAttack(monster, player,dungeonMap.getDistance(monster, player), command[2]));
           hasAction = false;
         }else{
           BattleHandler.tryToAttack(monster, player);

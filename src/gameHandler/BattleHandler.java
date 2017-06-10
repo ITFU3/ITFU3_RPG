@@ -31,9 +31,9 @@ public class BattleHandler
       System.err.println("gameHandler.BattleHandler.tryToAttack: ==> Allowed Attacks: "+ attacker.getAllowedAttacks());
     if( aa > 0)
     {
-        attacker.setAllowedAttacks(--aa);
         if(distance <= attacker.getpWeapon().getDistance())
         {
+          attacker.setAllowedAttacks(--aa);
           output += attacker.getName() + " ";
           int[] cTh = tryHit(attacker, false);
           if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
@@ -172,10 +172,10 @@ public class BattleHandler
         int aa = attacker.getAllowedAttacks();
         if( aa > 0)
         {
-            attacker.setAllowedAttacks(--aa);
             Spell iSpell = attacker.getpClass().getMyBook().getSpellByName(spellname);
             if(distance <= iSpell.getSpellRange())
             {
+                attacker.setAllowedAttacks(--aa);
                 output += attacker.getName() + " ";
             // TODO: redo spell handling with Healing Spells !!!
                 if(iSpell.getSpellEffect().equalsIgnoreCase("heal"))

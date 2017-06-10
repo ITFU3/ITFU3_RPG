@@ -109,7 +109,6 @@ public class MonsterAI {
                 {
                     System.out.println("gameHandler.MonsterAI.think: => attack");
                     BattleHandler.tryToAttack(ego, Game.getPlayer());
-                    ego.setAllowedAttacks(ego.getAllowedAttacks()-1);
                     next = true;
                 }
                 else

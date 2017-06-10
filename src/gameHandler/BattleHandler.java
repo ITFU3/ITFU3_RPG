@@ -28,6 +28,7 @@ public class BattleHandler
     
     String output = "";
     int aa = attacker.getAllowedAttacks();
+      System.out.println("Allowed Attacks: "+ attacker.getAllowedAttacks());
     if( aa > 0)
     {
         attacker.setAllowedAttacks(--aa);

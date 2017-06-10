@@ -83,6 +83,8 @@ public class Game /*implements Runnable*/{
             getInstance().getGameFrame().getArenaTextArea().getGraphics()
         );
       
+        updateAttackInfo(getInstance().getAttackInfo());
+               
         int tmpLength = getAttackInfoTextArea().getText().length();
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
@@ -170,7 +172,8 @@ public class Game /*implements Runnable*/{
         }
         getAttackInfoTextArea().setText(addString);
         getAttackInfoTextArea().update(getAttackInfoTextArea().getGraphics());
-        //getAttackInfoTextArea().setCaretPosition(getAttackInfoTextArea().getText().length() - 1);
+        int tmpLength = getAttackInfoTextArea().getText().length();
+        getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         getInstance().setAttackInfo(newOldString);
     }
     

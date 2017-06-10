@@ -98,7 +98,7 @@ public class MonsterAI {
         boolean next;
         do{
            // Game.updateAttackInfo(ego.getName()+" thinks...");
-            Game.waitFor(2);
+            Game.waitFor(1);
             if (isInAttackRange() == true) {
                 //Game.updateAttackInfo(ego.getName() + " is in Range.");
                 if (ego.getAllowedAttacks() > 0) {

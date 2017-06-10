@@ -58,7 +58,11 @@ public class GameFrame extends javax.swing.JFrame {
         this.playerNamelLabel.setFont(new Font("Courier New", Font.BOLD, 15));
         this.playerNamelLabel.setText(Game.getPlayer().getName());
         
-        this.currentActiveCharLabel.setText(Game.getPlayer().getName()+ "'s turn");
+        this.currentActiveCharLabel.setText( Game.getPlayer().getName()+ "'s turn");
+        
+        this.valueMovesLeftLabel.setText( Game.getPlayer().getAllowedMoves() + "" );
+        this.valueAttacksLeftLabel.setText( Game.getPlayer().getAllowedAttacks() + "" );
+        
         // init Healthbar
         ((HealthBarLabel)this.playerHealthBarLabel).setHealthText(
             Game.getPlayer().getHealth()

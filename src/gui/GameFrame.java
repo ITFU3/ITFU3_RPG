@@ -9,6 +9,8 @@ import gui.GuiHelper.HealthBarLabel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -46,6 +48,7 @@ public class GameFrame extends javax.swing.JFrame {
         this.attackInfoTextArea.setFocusable(false);
         this.attackInfoTextArea.setDisabledTextColor(Color.BLACK);
         this.attackInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        
         DefaultCaret caret = (DefaultCaret)attackInfoTextArea.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         

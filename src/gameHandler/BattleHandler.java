@@ -68,7 +68,7 @@ public class BattleHandler
     }
     Game.updateMonsterInfo();
     System.out.println(output);
-    Game.updateAttackInfo(output,true);
+    Game.getInstance().addToAttackInfoString(output, true);
   }
   
   private static void killStrike(PlayerCharacter target){

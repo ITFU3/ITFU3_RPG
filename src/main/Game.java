@@ -152,8 +152,7 @@ public class Game /*implements Runnable*/{
         
     } 
     
-   
-    
+
     public void nextLevel(){
         Map.getInstance().spawnRandomMonster(++this.level);
         updateMonsterInfo();
@@ -174,6 +173,21 @@ public class Game /*implements Runnable*/{
         getAttackInfoTextArea().update(getAttackInfoTextArea().getGraphics());
         int tmpLength = getAttackInfoTextArea().getText().length();
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
+        getInstance().setAttackInfo(newOldString);
+    }
+    /**
+     * created by Steffen Haas
+     * 
+     * @param addString
+     * @param add 
+     */
+    public static void addToAttackInfoString(String addString, boolean add) {
+        
+        String newOldString=  addString;
+        if (add) {
+          newOldString =  getInstance().getAttackInfo() + "\n"+ addString;
+        }
+        
         getInstance().setAttackInfo(newOldString);
     }
     

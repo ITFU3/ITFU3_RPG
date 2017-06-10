@@ -29,7 +29,7 @@ public class HealthBarLabel extends JLabel {
 public void setHealthText(int newCurrentHealth) {
     this.currentHealth = newCurrentHealth;
     int healthPoints = currentHealth;
-    System.out.println("HealthPoints " +healthPoints);
+    System.out.println("gui.GuiHelper.HealthBarLable.setHealthText: ==> HealthPoints " +healthPoints);
     String healthPointString = "";
     String healthIndicator = "|";
     for (int i = 0; i < healthPoints; i++) {

@@ -75,10 +75,10 @@ public class KeyHandler implements KeyListener {
             break;
             // System Commands
         case pause:
-            System.out.println("Pause");
+            System.err.println("Pause");
             break;
         case esc:
-            System.out.println("Esc");
+            System.err.println("Esc");
             break;
         case enter:
             inputHandler.endRound();

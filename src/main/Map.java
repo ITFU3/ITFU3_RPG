@@ -176,10 +176,14 @@ public class Map
           n_y = this.entity.getCoordinates_future()[0];
           n_x = this.entity.getCoordinates_future()[1];
         
-        System.out.println("steps: " + steps + 
+        System.err.println(
+            "main.Map.walkOnMap\n"+
+            "===>\n" +
+            "steps: " + steps + 
             " | tempMovement: " + tempMovement +
             " | x: " + n_x + " | y:" + n_y + " | l_X: " + l_X +
-            " | l_Y: " + l_Y
+            " | l_Y: " + l_Y + "\n"+
+            "<==="
         );
         switch(input)
         {
@@ -203,11 +207,11 @@ public class Map
         
         n_y = this.entity.getCoordinates_future()[0];
         n_x = this.entity.getCoordinates_future()[1];
-        char OLDmapIndicator = this.labyrinthMap[l_Y][l_X];
+//        char OLDmapIndicator = this.labyrinthMap[l_Y][l_X];
         
         char mapIndicator = this.entity.getMapToken();
         
-        System.out.println("Indicator: " + mapIndicator);
+        System.out.println("main.Map.walkOnMap ==> Indicator: " + mapIndicator);
         
         char field = this.labyrinthMap[n_y][n_x];
         if(field != ' '){
@@ -216,11 +220,11 @@ public class Map
             if(field == '#'){
             // is it a Wall ??
                 if( !this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") ){
-                    System.out.println("\nYou bumped into a wall.\n");
+                    System.out.println("main.Map.walkOnMap ==> You bumped into a wall.");
                     // no move wasted for player.
                     tempMovement++;
                 }else{
-                    System.err.println("\nAI should not walk in walls!!\n");
+                    System.err.println("main.Map.walkOnMap ==> AI should not walk in walls!!");
                 }
             }else if(field != 'P'){
             // or anything else than a  player ??
@@ -228,7 +232,7 @@ public class Map
                 // AI bumps in other AI
                 } else {
                 // Player bumps in Enemy
-                    System.out.println("\nYou cannot fill the same Space as your enemy.\n");
+                    System.out.println("main.Map.walkOnMap ==> You cannot fill the same Space as your enemy.");
                 }
             }
         }else{
@@ -243,7 +247,7 @@ public class Map
     }
     else
     {
-      System.out.println("That is " + (steps-tempMovement) + " too far.");
+      System.out.println("main.Map.walkOnMap ==> That is " + (steps-tempMovement) + " too far.");
     }
     return tempMovement;
   }
@@ -261,7 +265,7 @@ public class Map
     int y = Math.abs( a.getCoordinates_past()[0] - b.getCoordinates()[0] );
     int x = Math.abs( a.getCoordinates_past()[1] - b.getCoordinates()[1] );
     int dist = Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
-    System.out.println("Dist: " + dist);
+    System.out.println("main.Map.getDistance ==> " + dist);
     return dist;
   }
   

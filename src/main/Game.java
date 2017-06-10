@@ -93,26 +93,34 @@ public class Game /*implements Runnable*/{
             getInstance().getGameFrame().getMonsterInfoTextArea().getGraphics()
         );
         
-        getInstance().getGameFrame().getValueMovesLeftLabel().setText(String.valueOf(getPlayer().getAllowedMoves()));
-        getInstance().getGameFrame().getValueAttacksLeftLabel().setText(String.valueOf(getPlayer().getAllowedAttacks()));
-        getInstance().getGameFrame().getRoundLabel().setText("Round " + getInstance().roundCount);
-        getInstance().getGameFrame().getLevelLabel().setText("Level " + getInstance().getLevel());
+        getInstance().getGameFrame().getValueMovesLeftLabel().setText(
+            String.valueOf(getPlayer().getAllowedMoves())
+        );
+        getInstance().getGameFrame().getValueAttacksLeftLabel().setText(
+            String.valueOf(getPlayer().getAllowedAttacks())
+        );
+        getInstance().getGameFrame().getRoundLabel().setText(
+            "Round " + getInstance().roundCount
+        );
+        getInstance().getGameFrame().getLevelLabel().setText(
+            "Level " + getInstance().getLevel()
+        );
         getInstance().getGameFrame().repaint();
         
-// what else do we need here
-        
-        System.out.println("GUI UPDATE");
+        System.out.println("main.Game.updateGUI => UPDATED");
     }
     
     public static void updateMonsterInfo() {
         ArrayList<MonsterCharacter> monsters = getMonsters();
-        String newMonsterInfo = "Monsters in Arena: " +monsters.size() +"\n";
+        String newMonsterInfo = "Monsters in Arena: " + monsters.size() + "\n";
         
         for(MonsterCharacter monster : monsters){
             newMonsterInfo += ((MonsterCharacter)monster).getName() + " " +
                 monster.getTempHP() + "/" + monster.getHealth() + "\n";
         }
-        getInstance().setMonsterInfo(newMonsterInfo);
+        getInstance().setMonsterInfo( newMonsterInfo );
+        
+        System.out.println("main.Game.updateMonsterInfo => UPDATED");
     }
     
     public static void endRound() {
@@ -121,7 +129,7 @@ public class Game /*implements Runnable*/{
         if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
             
-            System.out.println("NEXT LEVEL: " + getInstance().getLevel());
+            System.out.println("main.Game.endRound ==> NEXT LEVEL: " + getInstance().getLevel());
         }
         
         for (MonsterCharacter monster : getMonsters()) {
@@ -131,6 +139,7 @@ public class Game /*implements Runnable*/{
             MonsterAI monsterAi = new MonsterAI(monster);
             monsterAi.calcMovesToPlayer();
             monsterAi.think();
+            monsterAi.restTurnStats();
             updateGUI();
         }
         setPlayerTurn(true);
@@ -140,7 +149,7 @@ public class Game /*implements Runnable*/{
         updateAttackInfo(   "##############################\n"+
                             "# It is your turn. Wake up.! #\n"+
                             "##############################");
-        System.out.println("It is your turn. Wake up.!");
+        System.out.println("main.Game.endRound ==> It is your turn. Wake up.!");
         getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
         // Reset PLayerCharacter
         getPlayer().setAllowedMoves(
@@ -149,9 +158,7 @@ public class Game /*implements Runnable*/{
         );
         getPlayer().setAllowedAttacks(1);
         updateGUI();
-        
     } 
-    
 
     public void nextLevel(){
         Map.getInstance().spawnRandomMonster(++this.level);
@@ -170,10 +177,15 @@ public class Game /*implements Runnable*/{
           newOldString =  getInstance().getAttackInfo() + "\n"+ addString;
         }
         getAttackInfoTextArea().setText(addString);
-        getAttackInfoTextArea().update(getAttackInfoTextArea().getGraphics());
+        getAttackInfoTextArea().update(
+            getAttackInfoTextArea().getGraphics()
+        );
+        
         int tmpLength = getAttackInfoTextArea().getText().length();
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
-        getInstance().setAttackInfo(newOldString);
+        
+        getInstance().setAttackInfo(newOldString); //???
+        System.out.println("main.Game.updateAttackInfo => UPDATED");
     }
     /**
      * created by Steffen Haas
@@ -181,14 +193,15 @@ public class Game /*implements Runnable*/{
      * @param addString
      * @param add 
      */
-    public static void addToAttackInfoString(String addString, boolean add) {
-        
+    public static void addToAttackInfoString(String addString, boolean add)
+    {
         String newOldString=  addString;
         if (add) {
           newOldString =  getInstance().getAttackInfo() + "\n"+ addString;
         }
         
         getInstance().setAttackInfo(newOldString);
+        System.out.println("main.Game.addToAttackInfoString => UPDATED");
     }
     
     public static void waitFor(long halfSeconds) {
@@ -281,8 +294,7 @@ public class Game /*implements Runnable*/{
     }
 
     public static boolean isPlayerTurn() {
-        
-        System.out.println("Is player turn: " +getInstance().playerTurn);
+        System.out.println("main.Game.isPlayerTurn ==> Is player turn: " +getInstance().playerTurn);
         return getInstance().playerTurn;
     }
 

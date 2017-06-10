@@ -40,6 +40,8 @@ public class MonsterCharacter extends PlayerCharacter {
         stats[this.health] = 5;
         this.setBasicStats(stats);
         this.setTempHP(this.getHealth());
+        this.setAllowedAttacks(1);
+        this.setAllowedMoves(this.getMovement());
     }
     
     public MonsterCharacter(int y, int x) {

@@ -28,7 +28,7 @@ public class BattleHandler
     
     String output = "";
     int aa = attacker.getAllowedAttacks();
-      System.out.println("Allowed Attacks: "+ attacker.getAllowedAttacks());
+      System.err.println("gameHandler.BattleHandler.tryToAttack: ==> Allowed Attacks: "+ attacker.getAllowedAttacks());
     if( aa > 0)
     {
         attacker.setAllowedAttacks(--aa);
@@ -51,10 +51,7 @@ public class BattleHandler
             if(target.getTempHP() <= 0){
               output += target.getName() + " is no more.\n";
               int newXP = target.getExperience();
-                System.err.println("XP droped: " + newXP);
               attacker.addExperience( newXP );
-                System.err.println("Player xp: " + attacker.getExperience());
-                System.err.println("Player lvl: " + attacker.getProficiencyOrLevel('l'));
               killStrike(target);
             }
           }else{
@@ -66,9 +63,10 @@ public class BattleHandler
     }else{
         output += "No Attacks left to do.\n";
     }
+    System.err.println("gameHandler.BattleHandler.tryToAttack\n===>\n" + output + "\n<===");
+    Game.addToAttackInfoString(output, true);
     Game.updateMonsterInfo();
-    System.out.println(output);
-    Game.getInstance().addToAttackInfoString(output, true);
+    Game.updateGUI();
   }
   
   private static void killStrike(PlayerCharacter target){
@@ -222,8 +220,9 @@ public class BattleHandler
             }else{ output += "Target is too far away. Move closer.\n"; }
             Game.updateAttackInfo(output,true);
         }else{ output += "No Attacks left to do.\n"; }
+        System.out.println("gameHandler.BattleHandler.tryToSpellAttack ===> \n" + output + "<===");
+        Game.addToAttackInfoString(output, true);
         Game.updateMonsterInfo();
-        System.out.println(output);
-        Game.updateAttackInfo(output,true);
+        Game.updateGUI();
     }
 }

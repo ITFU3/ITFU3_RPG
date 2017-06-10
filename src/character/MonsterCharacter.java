@@ -111,4 +111,14 @@ public class MonsterCharacter extends PlayerCharacter {
             + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n";
       return output;
     }
+    
+    @Override
+    public void setMapToken(char mapToken) {
+        //safty reason. Because P is for Player!!
+        if(mapToken == 'P'){
+            this.mapToken = 'M';
+        }else{
+            this.mapToken = mapToken;
+        }
+    }
 }

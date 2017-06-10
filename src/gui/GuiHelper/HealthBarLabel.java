@@ -28,11 +28,10 @@ public class HealthBarLabel extends JLabel {
     
 public void setHealthText(int newCurrentHealth) {
     this.currentHealth = newCurrentHealth;
-    int healthPoints = currentHealth;
-    System.out.println("gui.GuiHelper.HealthBarLable.setHealthText: ==> HealthPoints " +healthPoints);
+    System.err.println("gui.GuiHelper.HealthBarLable.setHealthText: ==> HealthPoints " + this.currentHealth);
     String healthPointString = "";
     String healthIndicator = "|";
-    for (int i = 0; i < healthPoints; i++) {
+    for (int i = 0; i < this.currentHealth; i++) {
         healthPointString += healthIndicator;
     }
     
@@ -44,7 +43,7 @@ public void setHealthText(int newCurrentHealth) {
         }
     }
     
-    healthPointString += "\t" + currentHealth+"/"+maxHealth;
+    healthPointString += "\t" + this.currentHealth +"/"+ maxHealth;
     
     
     this.setText(healthPointString);

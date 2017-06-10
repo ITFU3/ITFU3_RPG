@@ -105,8 +105,11 @@ public class Game /*implements Runnable*/{
         getInstance().getGameFrame().getLevelLabel().setText(
             "Level " + getInstance().getLevel()
         );
-        getInstance().getGameFrame().repaint();
         
+        // Update HP-Bar for the Player
+        getInstance().updateHealthBar( getPlayer().getTempHP() );
+        
+        getInstance().getGameFrame().repaint();
         System.out.println("main.Game.updateGUI => UPDATED");
     }
     
@@ -202,6 +205,14 @@ public class Game /*implements Runnable*/{
         
         getInstance().setAttackInfo(newOldString);
         System.out.println("main.Game.addToAttackInfoString => UPDATED");
+    }
+    
+    
+    public static void updateHealthBar(int newHP)
+    {
+        ((gui.GuiHelper.HealthBarLabel) Game.getInstance()
+            .getGameFrame().getPlayerHealthBarLabel()
+        ).setHealthText( newHP );
     }
     
     public static void waitFor(long halfSeconds) {

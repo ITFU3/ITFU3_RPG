@@ -143,7 +143,6 @@ public class PlayerCharacter extends BaseCharacter
         new Race(),
         0
       );
-      this.setExperience(100);
       this.setpWeapon(new Weapon());
       this.setpArmor(new Armor());
   }
@@ -342,130 +341,127 @@ public class PlayerCharacter extends BaseCharacter
   {
     int xp = this.getExperience();
     int output = 0;
-    if(xp >= 0){
-      if(fork == 'l'){
-        output = 1;
-      }else if(fork == 'p'){
-        output = 2;
-      }
-    }else if(xp >= 300){
-      if(fork == 'l')
-      {
-        output = 2;
-      }
-      else if(fork == 'p')
-      {
-        output = 2;
-      }
-    }else if(xp >= 900){
-      if(fork == 'l'){
-        output = 3;
-      }else if(fork == 'p'){
-        output = 2;
-      }
-    }else if(xp >= 2700){
-     if(fork == 'l'){
-        output = 4;
-      }else if(fork == 'p'){
-        output = 2;
-      }
-    }else if(xp >= 6500){
-      if(fork == 'l'){
-        output = 5;
-      }else if(fork == 'p'){
-        output = 3;
-      }
-    }else if(xp >= 14000){
-      if(fork == 'l'){
-        output = 6;
-      }else if(fork == 'p'){
-        output = 3;
-      }
-    }else if(xp >= 23000){
-      if(fork == 'l'){
-        output = 7;
-      }else if(fork == 'p'){
-        output = 3;
-      }
-    }else if(xp >= 34000){
-      if(fork == 'l'){
-        output = 8;
-      }else if(fork == 'p'){
-        output = 3;
-      }
-    }else if(xp >= 48000){
-      if(fork == 'l'){
-        output = 9;
-      }else if(fork == 'p'){
-        output = 4;
-      }
-    }else if(xp >= 64000){
-      if(fork == 'l'){
-        output = 10;
-      }else if(fork == 'p'){
-        output = 4;
-      }
-    }else if(xp >= 85000){
-      if(fork == 'l'){
-        output = 11;
-      }else if(fork == 'p'){
-        output = 4;
-      }
-    }else if(xp >= 100000){
-      if(fork == 'l'){
-        output = 12;
-      }else if(fork == 'p'){
-        output = 4;
-      }
-    }else if(xp >= 120000){
-      if(fork == 'l'){
-        output = 13;
-      }else if(fork == 'p'){
-        output = 5;
-      }
-    }else if(xp >= 140000){
-      if(fork == 'l'){
-        output = 14;
-      }else if(fork == 'p'){
-        output = 5;
-      }
-    }else if(xp >= 165000){
-      if(fork == 'l'){
-        output = 15;
-      }else if(fork == 'p'){
-        output = 5;
-      }
-    }else if(xp >= 195000){
-      if(fork == 'l'){
-        output = 16;
-      }else if(fork == 'p'){
-        output = 5;
-      }
-    }else if(xp >= 225000){
-      if(fork == 'l'){
-        output = 17;
-      }else if(fork == 'p'){
-        output = 6;
-      }
-    }else if(xp >= 265000){
-      if(fork == 'l'){
-        output = 18;
-      }else if(fork == 'p'){
-        output = 6;
-      }
+    if(xp >= 355000){
+        if(fork == 'l'){
+            output = 20; 
+        }else if(fork == 'p'){
+            output = 6;
+        }
     }else if(xp >= 305000){
-      if(fork == 'l'){
-        output = 19;
-      }else if(fork == 'p'){
-        output = 6;
-      }
-    }else if(xp >= 355000){
-      if(fork == 'l'){
-        output = 20;
-      }else if(fork == 'p'){
-        output = 6;
-      }
-    }
+        if(fork == 'l'){
+            output = 19; 
+        }else if(fork == 'p'){
+            output = 6;
+        }
+    }else if(xp >= 265000){
+        if(fork == 'l'){
+            output = 18;
+        }else if(fork == 'p'){
+          output = 6;
+        }
+    }else if(xp >= 225000){
+        if(fork == 'l'){
+          output = 17;
+        }else if(fork == 'p'){
+          output = 6;
+        }
+    }else if(xp >= 195000){
+        if(fork == 'l'){
+          output = 16;
+        }else if(fork == 'p'){
+          output = 5;
+        }
+    }else if(xp >= 165000){
+        if(fork == 'l'){
+          output = 15;
+        }else if(fork == 'p'){
+          output = 5;
+        }
+    }else if(xp >= 140000){
+        if(fork == 'l'){
+          output = 14;
+        }else if(fork == 'p'){
+          output = 5;
+        }
+    }else if(xp >= 120000){
+        if(fork == 'l'){
+          output = 13;
+        }else if(fork == 'p'){
+          output = 5;
+        }
+    }else if(xp >= 100000){
+        if(fork == 'l'){
+          output = 12;
+        }else if(fork == 'p'){
+          output = 4;
+        }
+    }else if(xp >= 85000){
+        if(fork == 'l'){
+          output = 11;
+        }else if(fork == 'p'){
+          output = 4;
+        }
+    }else if(xp >= 64000){
+        if(fork == 'l'){
+          output = 10;
+        }else if(fork == 'p'){
+          output = 4;
+        }
+    }else if(xp >= 48000){
+        if(fork == 'l'){
+          output = 9;
+        }else if(fork == 'p'){
+          output = 4;
+        }
+    }else if(xp >= 34000){
+        if(fork == 'l'){
+          output = 8;
+        }else if(fork == 'p'){
+          output = 3;
+        }
+    }else if(xp >= 23000){
+        if(fork == 'l'){
+          output = 7;
+        }else if(fork == 'p'){
+          output = 3;
+        }
+    }else if(xp >= 14000){
+        if(fork == 'l'){
+          output = 6;
+        }else if(fork == 'p'){
+          output = 3;
+        }
+    }else if(xp >= 6500){
+        if(fork == 'l'){
+          output = 5;
+        }else if(fork == 'p'){
+          output = 3;
+        }
+    }else if(xp >= 2700){
+        if(fork == 'l'){
+           output = 4;
+         }else if(fork == 'p'){
+           output = 2;
+         }
+    }else if(xp >= 900){
+        if(fork == 'l'){
+          output = 3;
+        }else if(fork == 'p'){
+          output = 2;
+        }
+    }else if(xp >= 300){
+        if(fork == 'l'){
+          output = 2;
+        }else if(fork == 'p'){
+          output = 2;
+        }
+    }else if(xp >= 0){
+        if(fork == 'l'){
+          output = 1;
+        }else if(fork == 'p'){
+          output = 2;
+        }
+    } 
     return output;
   }
   
@@ -576,6 +572,17 @@ public class PlayerCharacter extends BaseCharacter
   }
   public void setExperience(int experience) {
 	this.experience = experience;
+        this.setLevel( this.getProficiencyOrLevel('l') );
+  }
+  public void addExperience(int experience) {
+	this.experience += experience;
+        this.setLevel( this.getProficiencyOrLevel('l') );
+  }
+  public int getLevel(){
+      return this.getpClass().getLevel();
+  }
+  public void setLevel(int newLvL){
+      this.getpClass().setLevel(newLvL);
   }
   public PlayerClass getpClass() {
 	return pClass;

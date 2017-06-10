@@ -1,10 +1,8 @@
 package main;
-import character.races.Race;
-import character.races.Rat;
-import character.MonsterCharacter;
-import character.PlayerCharacter;
+import character.races.*;
+import character.*;
 import gameHandler.*;
-import base.Base;
+import base.*;
 
 /**
  * 
@@ -20,7 +18,7 @@ public class Demos
   public static MonsterCharacter[] getDemoMonster()
   {
     MonsterCharacter monster = new MonsterCharacter();
-    MonsterCharacter rat = new MonsterCharacter(new Rat(Race.Type.EVIL));
+    MonsterCharacter rat = new MonsterCharacter(new Rat(monsterRace.Type.EVIL));
     MonsterCharacter[] output = {monster, rat};
     return output;
   }
@@ -31,9 +29,9 @@ public class Demos
   public static void monstertesting()
   {
     System.out.println(Base.randomBossName(9));
-    MonsterCharacter monster = new MonsterCharacter(new Rat(Race.Type.EVIL));
+    MonsterCharacter monster = new MonsterCharacter(new Rat(monsterRace.Type.EVIL));
     monster.showCharInfo();
-    Rat[] rat = Rat.nest(10, Race.Type.EVIL);
+    Rat[] rat = Rat.nest(10, monsterRace.Type.EVIL);
   }
     
   /**

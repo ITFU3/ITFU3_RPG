@@ -1,16 +1,6 @@
 package character.races;
 public class Race
 {
-    public enum Type {
-      NORMAL("normal"),
-      EVIL("evil"),
-      OFDOOM("of doom");
-      public String value;
-      private Type(String value) {
-          this.value = value;
-      }
-  }
-    
   private String name;
   private int[] BonusStats;
   // [0] strength

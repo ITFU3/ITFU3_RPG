@@ -9,15 +9,10 @@ package character.races;
  *
  * @author steffen
  */
-public class Rat extends Race {
-
-    private Type type;
+public class Rat extends monsterRace {
 
     public Rat() {
-        this.setType(Type.NORMAL);
-        this.setNameWithType(this.getClass().getSimpleName());
-        int[] BonusStats = super.getStatsBonus();
-        grow();
+        this(Type.NORMAL);
     }
 
     public Rat(Type type) {
@@ -52,21 +47,6 @@ public class Rat extends Race {
         return ratsNest;
     }
 
-    /**
-     * @return the type
-     */
-    public Type getType() {
-        return type;
-    }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(Type type) {
-        this.type = type;
-    }
-    
-    
     public void setNameWithType(String name) {
        if (this.getType() == Type.EVIL) {
            this.setName(Type.EVIL.value + " " + name);

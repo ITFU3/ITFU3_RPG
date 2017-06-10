@@ -20,10 +20,10 @@ import character.races.Rat;
 
 /**
  *
- * @author steffen
+ * @author Steffen Haas
+ * @author Matthias Dröge
  */
 public class MonsterCharacter extends PlayerCharacter {
-    
     public MonsterCharacter() {
         this.setName(base.Base.randomName(5));
         this.setMapToken('M');
@@ -50,55 +50,72 @@ public class MonsterCharacter extends PlayerCharacter {
     }
     
     public MonsterCharacter(Race race) {
-      this.setName(race.getClass().getSimpleName());
-      this.setMapToken(  getName().toUpperCase().charAt(0) );
-      this.setGender('m');
-      this.setpClass(new PlayerClass());
-      this.setpRace(race);
+        this();
+        this.setExperience(50);
+        this.setpRace(race);
+        this.setName(
+            this.getName() + " the " + this.getpRace().getClass().getSimpleName());
+//        this.setMapToken(  this.getName().toUpperCase().charAt(0) );
+        this.setMapToken(  this.getpRace().getClass().getSimpleName().toUpperCase().charAt(0) );
 
-      int[] inputStats = new int[8];
-      inputStats[this.strength] = 5;
-      inputStats[this.dexterity] = 5;
-      inputStats[this.Constitution] = 5;
-      inputStats[this.wisdom] = 5;
-      inputStats[this.inteligence] = 5;
-      inputStats[this.charisma] = 5;
-      inputStats[this.movement] = 5;
-      inputStats[this.health] = 5;
-      
-      this.setBasicStats(inputStats);
-      inputStats[0] += this.getpClass().getStatsBonus()[0] 
-                    + this.getpRace().getStatsBonus()[0];
-      inputStats[1] += this.getpClass().getStatsBonus()[1] 
-                    + this.getpRace().getStatsBonus()[1];
-      inputStats[2] += this.getpClass().getStatsBonus()[2] 
-                    + this.getpRace().getStatsBonus()[2];
-      inputStats[3] += this.getpClass().getStatsBonus()[3] 
-                    + this.getpRace().getStatsBonus()[3];
-      inputStats[4] += this.getpClass().getStatsBonus()[4] 
-                    + this.getpRace().getStatsBonus()[4];
-      inputStats[5] += this.getpClass().getStatsBonus()[5] 
-                    + this.getpRace().getStatsBonus()[5];
-      inputStats[6] += this.getpClass().getStatsBonus()[6] 
-                    + this.getpRace().getStatsBonus()[6];
-      inputStats[7] += this.getpClass().getStatsBonus()[7];
-//      inputStats[7] += this.getModifier(this.getConstitution());
-      
-      if(this.getpClass().getLevel() > 1){
-        for(int i = 2; i <= this.getpClass().getLevel(); i++){
-          inputStats[7] += main.Die.rollDie(this.getpClass().getHitDie(),1);
+        this.setStrength(
+              this.getStrength()+
+              this.getpClass().getStatsBonus()[this.strength] +
+              this.getpRace().getStatsBonus()[this.strength]
+        );
+        this.setDexterity(
+              this.getDexterity() +
+              this.getpClass().getStatsBonus()[this.dexterity] +
+              this.getpRace().getStatsBonus()[this.dexterity]
+        );
+        this.setConstitution(
+              this.getConstitution() +
+              this.getpClass().getStatsBonus()[this.Constitution] +
+              this.getpRace().getStatsBonus()[this.Constitution]            
+        );
+        this.setWisdom(
+              this.getWisdom() +
+              this.getpClass().getStatsBonus()[this.wisdom] +
+              this.getpRace().getStatsBonus()[this.wisdom]            
+        );
+        this.setInteligent(
+              this.getIntelegent() +
+              this.getpClass().getStatsBonus()[this.inteligence] +
+              this.getpRace().getStatsBonus()[this.inteligence]
+        );
+        this.setCharisma(
+              this.getCharisma() +
+              this.getpClass().getStatsBonus()[this.charisma] +
+              this.getpRace().getStatsBonus()[this.charisma]
+        );
+        this.setMovement(
+              this.getMovement() +
+              this.getpClass().getStatsBonus()[this.movement] +
+              this.getpRace().getStatsBonus()[this.movement]
+        );
+        this.setHealth(
+              this.getHealth() +
+              this.getpClass().getStatsBonus()[this.health]
+              //this.getModifier(this.getConstitution()) ???
+        );
+
+        // lvl bonus for HP
+        if(this.getpClass().getLevel() > 1){
+          for(int i = 2; i <= this.getpClass().getLevel(); i++){
+            this.setHealth(
+              this.getHealth() +
+              main.Die.rollDie(this.getpClass().getHitDie(),1)
+            );
+          }
         }
-      }
-      this.setBasicStats(inputStats);
-      this.setExperience(0);
-      this.setTempHP(this.getHealth());
+      
+        this.setTempHP(this.getHealth());
       
         this.setAllowedMoves(this.getMovement());
         this.setAllowedAttacks(1);
         this.setCoordinates(0, 0);
         this.setCoordinates_past(0, 0);
         this.setCoordinates_future(0, 0);
-    
     }
     
     @Override

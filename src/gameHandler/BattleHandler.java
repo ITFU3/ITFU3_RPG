@@ -17,7 +17,6 @@ public class BattleHandler
    * attcker tries to attack the target
    * @param attacker - PlayerCharacter (MonsterCharacters get casted)
    * @param target - PlayerCharacter (MonsterCharacters get casted)
-   * @return String - protokoll of what happend
    */
     
     
@@ -51,6 +50,11 @@ public class BattleHandler
                     + " And has " + target.getTempHP() + " HP left.\n";
             if(target.getTempHP() <= 0){
               output += target.getName() + " is no more.\n";
+              int newXP = target.getExperience();
+                System.err.println("XP droped: " + newXP);
+              attacker.addExperience( newXP );
+                System.err.println("Player xp: " + attacker.getExperience());
+                System.err.println("Player lvl: " + attacker.getProficiencyOrLevel('l'));
               killStrike(target);
             }
           }else{

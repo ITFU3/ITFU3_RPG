@@ -120,6 +120,13 @@ public class InputHandler {
     }
     
     /**
+     * 
+     */
+    public static void openCharacterScreen(){
+        new gui.popups.CharacterFrame().setVisible(true);
+    }
+    
+    /**
      * set focus for controls for every input to trigger.
      * @param isKeyboard Boolean to know which input type should be used.
      */

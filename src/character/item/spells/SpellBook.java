@@ -21,10 +21,10 @@ public class SpellBook
     for(int i = 0; i < this.getSpellBook().size(); i++)
     {
         output +=
-			"Spell Name: " + this.getSpellBook().get(i).getClass().getSimpleName() + "\n" + 
-			"Spell Range: " + this.getSpellBook().get(i).getSpellRange() + "\n" + 
-			"Spell dmg count: " + this.getSpellBook().get(i).getDieCount() + "\n" + 
-			"Spell dmg: " + this.getSpellBook().get(i).getDamageDie() + "\n" +
+			"Name: \t" + this.getSpellBook().get(i).getClass().getSimpleName() + "\n" + 
+			"Range: \t" + this.getSpellBook().get(i).getSpellRange() + "\n" + 
+			"dmg count: \t" + this.getSpellBook().get(i).getDieCount() + "\n" + 
+			"dmg: \t" + this.getSpellBook().get(i).getDamageDie() + "\n" +
 			" - - - \n"
 				;
     }

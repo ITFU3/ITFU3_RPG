@@ -19,6 +19,7 @@ public class KeyHandler implements KeyListener {
     private final int changeFocus = KeyEvent.VK_M;
     private final int spellbook = KeyEvent.VK_C;
     private final int inventory = KeyEvent.VK_I;
+    private final int character = KeyEvent.VK_V;
     
     
     private final int upperEnemy = KeyEvent.VK_NUMPAD8;
@@ -72,6 +73,9 @@ public class KeyHandler implements KeyListener {
             break;
         case inventory:
             InputHandler.openInventory();
+            break;
+        case character:
+            InputHandler.openCharacterScreen();
             break;
             // Info
         case changeFocus:

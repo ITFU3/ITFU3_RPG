@@ -64,7 +64,5 @@ public class Base {
         return (genderInt == 1)? 'm' : 'w';
       
     }
-    
    
-    
 }

@@ -100,7 +100,7 @@ public class MonsterAI {
         boolean next;
         do{
             Game.updateAttackInfo(ego.getName()+" thinks...");
-            Game.waitFor(1);
+            Game.waitFor(SleepTime.MONSTER_THINK_FIRST);
             if ( isInAttackRange() )
             {
                 Game.updateAttackInfo(ego.getName() + " is in Range.");
@@ -135,7 +135,7 @@ public class MonsterAI {
                     next = false; // cant move and cant attack since not in range
                 }
             }
-            Game.waitFor(1);
+            Game.waitFor(SleepTime.MONSTER_AFTER_THOUHGT);
             Game.updateGUI();
         } while(next);
     }

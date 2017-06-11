@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
 
@@ -438,13 +439,29 @@ public class GameFrame extends javax.swing.JFrame {
      * Override the close window function to save the HighScore
      */
     private void addWindowListener(){
-	this.addWindowListener(new java.awt.event.WindowAdapter() {
-		@Override
-		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-			fileHandler.DataHandler.writeHighScoreList();
-			System.out.println("main.GameFrame.addWindowListener.windowClosing: ==> SAVE");
-			System.exit(0);
-		}
+	this.addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent)
+            {
+                String ObjButtons[] = {"Yes","No"};
+                int PromptResult = JOptionPane.showOptionDialog(
+                    null, 
+                    "Do you want to save your HighScore?",
+                    "Ending Game", 
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null, 
+                    ObjButtons,
+                    ObjButtons[1]
+                );
+                if(PromptResult==0)
+                {
+                    fileHandler.DataHandler.writeHighScoreList();
+                }
+                System.out.println("main.GameFrame.addWindowListener.windowClosing: ==> SAVE");
+                System.exit(0);
+            }
 	});
     }
     

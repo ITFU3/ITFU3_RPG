@@ -11,4 +11,7 @@ package Enum;
  */
 public enum FieldContains {
     
+    PLAYER, MONSTER, WALL, NOTHING
+    
+    
 }

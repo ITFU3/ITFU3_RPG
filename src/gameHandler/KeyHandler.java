@@ -18,6 +18,7 @@ public class KeyHandler implements KeyListener {
     
     private final int changeFocus = KeyEvent.VK_M;
     private final int spellbook = KeyEvent.VK_C;
+    private final int inventory = KeyEvent.VK_I;
     
     
     private final int upperEnemy = KeyEvent.VK_NUMPAD8;
@@ -51,27 +52,30 @@ public class KeyHandler implements KeyListener {
         switch (keyCode) {
         // Movement
         case up:
-            inputHandler.moveUp();
+            InputHandler.moveUp();
             break;
         case down:
-            inputHandler.moveDown();
+            InputHandler.moveDown();
             break;
         case left:
-            inputHandler.moveLeft();
+            InputHandler.moveLeft();
             break;
         case right:
-            inputHandler.moveRight();
+            InputHandler.moveRight();
             break;
             // Battle Commands
         case attack:
-            inputHandler.attack();
+            InputHandler.attack();
             break;
         case spellbook:
-            inputHandler.openSpellbook();
+            InputHandler.openSpellbook();
+            break;
+        case inventory:
+            InputHandler.openInventory();
             break;
             // Info
         case changeFocus:
-            inputHandler.setControlFocus(false);
+            InputHandler.setControlFocus(false);
             break;
             // System Commands
         case pause:
@@ -81,7 +85,7 @@ public class KeyHandler implements KeyListener {
             System.err.println("Esc");
             break;
         case enter:
-            inputHandler.endRound();
+            InputHandler.endRound();
             break;
         }
     }

@@ -82,9 +82,9 @@ public class SpellbookFrame extends JFrame
                 @Override
                 public void valueChanged(ListSelectionEvent e)
                 {
-                    Spell spell = (Spell) spellList.getSelectedValue();
                     try
                     {
+                        Spell spell = (Spell) spellList.getSelectedValue();
                         selectedSpell = spell.getName();
                         String tmp = "Name: " + selectedSpell + "\n";
                         tmp += "Range: " + spell.getSpellRange() + "\n";

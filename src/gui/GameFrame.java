@@ -254,7 +254,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
-       inputHandler.moveDown();
+       InputHandler.moveDown();
     }//GEN-LAST:event_downButtonActionPerformed
 
     /**
@@ -262,7 +262,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
-        inputHandler.moveLeft();
+        InputHandler.moveLeft();
     }//GEN-LAST:event_leftButtonActionPerformed
 
     /**
@@ -270,7 +270,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-        inputHandler.attack();
+        InputHandler.attack();
     }//GEN-LAST:event_attackButtonActionPerformed
 
     /**
@@ -278,7 +278,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeInputTypeButtonActionPerformed
-        inputHandler.setControlFocus(true);
+        InputHandler.setControlFocus(true);
     }//GEN-LAST:event_changeInputTypeButtonActionPerformed
 
     /**
@@ -286,7 +286,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
-        inputHandler.moveUp();
+        InputHandler.moveUp();
     }//GEN-LAST:event_upButtonActionPerformed
 
     /**
@@ -294,7 +294,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
-        inputHandler.moveUp();
+        InputHandler.moveUp();
     }//GEN-LAST:event_rightButtonActionPerformed
 
     /**
@@ -306,7 +306,7 @@ public class GameFrame extends javax.swing.JFrame {
 //        testHp = testHp-1;
 //        System.out.println(testHp);
 //        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
-        inputHandler.openSpellbook();
+        InputHandler.openSpellbook();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -315,7 +315,7 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
-        inputHandler.endRound();
+        InputHandler.endRound();
     }//GEN-LAST:event_btn_EndRoundActionPerformed
 
     /**

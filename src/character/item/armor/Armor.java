@@ -1,6 +1,7 @@
 package character.item.armor;
+import character.item.Item;
 
-public class Armor
+public class Armor extends Item
 {
   private String name;
   private String type;
@@ -83,4 +84,9 @@ public class Armor
   public Category getCategory() {
       return category;
   }
+  
+    @Override
+    public String toString(){
+        return this.getClass().getSimpleName();
+    }
 }

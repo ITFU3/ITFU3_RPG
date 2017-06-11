@@ -1,6 +1,7 @@
 package character.item.weapons;
+import character.item.Item;
 
-public class Weapon
+public class Weapon extends Item
 {
   private String name;
   private int damageDie;
@@ -71,5 +72,9 @@ public class Weapon
   }
   public void setWeaponGroup(String weaponGroup) {
     this.weaponGroup = weaponGroup;
+  }
+  @Override
+  public String toString(){
+    return this.getClass().getSimpleName();
   }
 }

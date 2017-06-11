@@ -6,7 +6,7 @@ import Enum.MoveDirection;
  *
  * @author Matthias Dröge
  */
-public class inputHandler {
+public class InputHandler {
 
     /**
      * attack action for every Input to triger.
@@ -109,6 +109,14 @@ public class inputHandler {
     public static void openSpellbook(){
         // ToDo: more testing.
         new gui.popups.SpellbookFrame().setVisible(true);
+    }
+    
+    /**
+     * open inventory action for every input to trigger.
+     */
+    public static void openInventory(){
+        // ToDo: more testing.
+        new gui.popups.InventoryFrame().setVisible(true);
     }
     
     /**

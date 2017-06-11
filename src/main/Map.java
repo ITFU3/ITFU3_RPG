@@ -1,5 +1,7 @@
 package main;
 
+import Enum.FieldContains;
+import Enum.MoveDirection;
 import character.*;
 import character.races.*;
 
@@ -201,7 +203,7 @@ public class Map
           break;
         }
         
-// not nice needs a redo
+
         l_Y = this.entity.getCoordinates_past()[0];
         l_X = this.entity.getCoordinates_past()[1];
         
@@ -214,6 +216,7 @@ public class Map
         System.out.println("main.Map.walkOnMap ==> Indicator: " + mapIndicator);
         
         char field = this.labyrinthMap[n_y][n_x];
+        
         if(field != ' '){
         // Not empty Field
             this.resetNewPos(l_Y, l_X);
@@ -320,6 +323,7 @@ public class Map
   {
     // LEFT == x--
     this.entity.setCoordinates_future(y, x-1);
+    
   }
   
   /**
@@ -371,4 +375,28 @@ public class Map
     this.labyrinthMap[y][x] = ' ';
     this.buildMapString();
   }
+  // checks if the entered Move direction is not occupied and returns an alternative if necessary
+  public MoveDirection getMovedirectionAlternativeIfNecessary(MoveDirection direction) {
+      //TODO
+      return MoveDirection.DOWN;
+  }
+  
+  // checks what lies in the field where one wants to go
+  public static FieldContains getWhatsWhereIGo(BaseCharacter character, MoveDirection direction) {
+      
+      switch (direction) {
+          
+      }
+      
+      return FieldContains.NOTHING;
+  }
+  
+  // gets future Coordinates for Direction
+  public static int[] getFutureCoordinates(BaseCharacter) {
+      int[2] coordinates = [0,0];
+      return [0,0];
+  }
+  
+  
+  
 }

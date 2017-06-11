@@ -4,6 +4,8 @@ import character.MonsterCharacter;
 import character.PlayerCharacter;
 import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
+import gameHandler.SleepTime;
+import gameHandler.UserInfo;
 //import gameHandler.MonsterAI;
 import gui.GameFrame;
 //import gui.GuiHelper.HealthBarLabel;
@@ -164,6 +166,8 @@ public class Game /*implements Runnable*/{
     } 
 
     public void nextLevel(){
+        updateAttackInfo(UserInfo.NEXT_LEVEL);
+        Game.waitFor(SleepTime.NEXT_LEVEL);
         Map.getInstance().spawnRandomMonster(++this.level);
         updateMonsterInfo();
         Game.updateGUI();
@@ -215,17 +219,11 @@ public class Game /*implements Runnable*/{
         ).setHealthText( newHP );
     }
     
-    public static void waitFor(long halfSeconds) {
+    public static void waitFor(long millis) {
         
         try {
-            /*
-            long t0,t1;
-            t0=System.currentTimeMillis();
-            do{
-            t1=System.currentTimeMillis();
-            }while (t1-t0<halfSeconds *500);
-            */
-            Thread.sleep(halfSeconds* 500);
+            
+            Thread.sleep(millis);
         } catch (InterruptedException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }

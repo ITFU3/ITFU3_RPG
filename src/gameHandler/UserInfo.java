@@ -16,4 +16,5 @@ public class UserInfo {
     public static String GAME_OVER = "#####################\n"+
                                      "##### GAME OVER #####\n"+
                                      "#####################";
+    public static String NEXT_LEVEL = "Next Level! ... means more Monsters. Beware.";
 }

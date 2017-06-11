@@ -23,7 +23,7 @@ public class BattleHandler
   public static void tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
   { 
     Game.updateAttackInfo(attacker.getName() + " wants to attack.\n");
-    Game.waitFor(1);
+    Game.waitFor(SleepTime.ATTACK_WAIT);
     int distance = Map.getInstance().getDistance(attacker, target);
     
     String output = "";

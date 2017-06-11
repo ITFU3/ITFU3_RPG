@@ -177,17 +177,19 @@ public class BattleHandler
             {
                 attacker.setAllowedAttacks(--aa);
                 output += attacker.getName() + " ";
-            // TODO: redo spell handling with Healing Spells !!!
+            // TODO: redo spell handling with Healing Spells,
+            // When dooing Multiplayer/coop !!!
                 if(iSpell.getSpellEffect().equalsIgnoreCase("heal"))
                 {
                     int heal = castSpell(attacker, iSpell);
-                    output += "healed " + target.getName() + " for " + heal + " HP. ";
-                    target.setTempHP( target.getTempHP() + heal );
-                    if(target.getTempHP() > target.getHealth())
+                    // here must be attacker as target, because you want to heal yourself!
+                    output += "healed " + attacker.getName() + " for " + heal + " HP. ";
+                    attacker.setTempHP( attacker.getTempHP() + heal );
+                    if(attacker.getTempHP() > attacker.getHealth())
                     {
-                        target.setTempHP(target.getHealth());
+                        attacker.setTempHP(attacker.getHealth());
                     }
-                    output += "Health is now back to " + target.getTempHP() + "/" + target.getHealth() +".";
+                    output += "Health is now back to " + attacker.getTempHP() + "/" + attacker.getHealth() +".";
                 }
                 else if(iSpell.getSpellEffect().equalsIgnoreCase("damage"))
                 {

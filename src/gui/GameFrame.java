@@ -72,6 +72,9 @@ public class GameFrame extends javax.swing.JFrame {
         
         // needed for keyboard to work
         this.setButtonFocus(false);
+        
+        // add the Listener for WindowClosing
+        this.addWindowListener();
     }
 
     /**
@@ -429,6 +432,20 @@ public class GameFrame extends javax.swing.JFrame {
         this.addKeyListener(keyhandler);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+    
+    /**
+     * Override the close window function to save the HighScore
+     */
+    private void addWindowListener(){
+	this.addWindowListener(new java.awt.event.WindowAdapter() {
+		@Override
+		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+			fileHandler.DataHandler.writeHighScoreList();
+			System.out.println("main.GameFrame.addWindowListener.windowClosing: ==> SAVE");
+			System.exit(0);
+		}
+	});
     }
     
     /* Getter and Setter after this line */

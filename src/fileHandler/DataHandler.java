@@ -17,16 +17,14 @@ public class DataHandler
     }
     
     public static void writeHighScoreList(){
-        ArrayList<String[]> input = new ArrayList();
-        String[] tmp =  {"Zelo","2", "2"};
+        ArrayList<String[]> input = readHighscoreList();
+        // tmp ==> [name][level][Exp]
+        String[] tmp =  {
+            main.Game.getPlayer().getName(),
+            main.Game.getPlayer().getLevel()+"",
+            main.Game.getPlayer().getExperience()+""
+        };
         input.add( tmp );
-        
-        String[] tmp2 = {"Zelo", "3", "4"};
-        input.add(tmp2);
-        
-        String[] tmp3 = {"Zelo", "4", "6"};
-        input.add(tmp3);
-        
         // Reading from Table an writing it to the file.
         FileController.write(input);
     }

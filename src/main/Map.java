@@ -202,40 +202,32 @@ public class Map
                         this.moveUp(l_Y, l_X);
                         break;
                 }
-                
-                
                 l_Y = this.entity.getCoordinates_past()[0];
                 l_X = this.entity.getCoordinates_past()[1];
-                
                 n_y = this.entity.getCoordinates_future()[0];
                 n_x = this.entity.getCoordinates_future()[1];
-//        char OLDmapIndicator = this.labyrinthMap[l_Y][l_X];
                 
                 char mapIndicator = this.entity.getMapToken();
-                
                 System.out.println("main.Map.walkOnMap ==> Indicator: " + mapIndicator);
-                
                 char field = this.labyrinthMap[n_y][n_x];
                 
                 if(field != ' '){
                     // Not empty Field
                     this.resetNewPos(l_Y, l_X);
+                    // no move wasted for player.
+                    tempMovement++;
+                    // Following is the possibility for Attack Info Message
                     if(field == '#'){
-                        // is it a Wall ??
                         if( !this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") ){
-                            System.out.println("main.Map.walkOnMap ==> You bumped into a wall.");
-                            // no move wasted for player.
-                            tempMovement++;
+                            System.out.println("main.Map.walkOnMap ==> PLAYER bumped into a WALL.");
                         }else{
-                            System.err.println("main.Map.walkOnMap ==> AI should not walk in walls!!");
+                            System.err.println("main.Map.walkOnMap ==> AI hit WALL.");
                         }
                     }else if(field != 'P'){
-                        // or anything else than a  player ??
-                        if( this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") ) {
-                            // AI bumps in other AI
-                        } else {
-                            // Player bumps in Enemy
-                            System.out.println("main.Map.walkOnMap ==> You cannot fill the same Space as your enemy.");
+                        if( !this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") ) {
+                            System.out.println("main.Map.walkOnMap ==> PLAYER bumped into ENEMY.");
+                        }else{
+                            System.err.println( "main.Map.walkOnMap ==> AI: " + this.entity.getClass().getSimpleName() );
                         }
                     }
                 }else{

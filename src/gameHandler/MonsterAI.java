@@ -74,6 +74,10 @@ public class MonsterAI {
         int index = 0;
         if(moves.size() > 0) {
             index = Die.rollDie(moves.size(), 1) -1; // because dice done have no zero
+        }else{
+            // preventing a crash!!
+            calcMovesToPlayer();
+            System.err.println( "gameHandler.MonsterAI.move => NEW moves.size: " + moves.size() );
         }
         MoveDirection directionIntent = moves.get(index);
         boolean needToChange;
@@ -89,7 +93,7 @@ public class MonsterAI {
                 needToChange = true;
                 // Labyrinth Logic here:
                 // always turn left...
-                System.out.println("gameHandler.MonsterAI.move ==> LABYRINTH MOVE");
+                System.out.println("gameHandler.MonsterAI.move ==> PRE LABYRINTH MOVE [" + directionIntent +"]");
                 switch(directionIntent){
                     case UP:
                         directionIntent = MoveDirection.LEFT;
@@ -155,7 +159,7 @@ public class MonsterAI {
             {
                 if (ego.getAllowedMoves() > 0)
                 {
-                    System.out.println("gameHandler.MonsterAI.think: => MONSTER:" + ego.getName()+"moves");
+                    System.out.println("gameHandler.MonsterAI.think: => MONSTER: " + ego.getName()+" moves");
                     Game.updateAttackInfo(ego.getName() + " chooses to move.", true);
                     move();
                     next = true;

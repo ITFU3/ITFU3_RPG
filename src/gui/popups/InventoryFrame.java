@@ -104,7 +104,7 @@ public class InventoryFrame extends JFrame{
                     }
                     catch (Exception exception)
                     {
-                        System.err.println("Ooops!!! => Lieste?");
+                        System.err.println("gui.popups.InventoryFrame.valueChanged ==> LIST ERROR");
                     }
                 }
             }

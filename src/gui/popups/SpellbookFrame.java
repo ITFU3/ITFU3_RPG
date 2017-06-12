@@ -93,7 +93,7 @@ public class SpellbookFrame extends JFrame
                     }
                     catch (Exception exception)
                     {
-                        System.err.println("Ooops!!! => Lieste?");
+                        System.err.println("gui.popups.SpellbookFrame.valueChanged ==> LIST ERROR");
                     }
                 }
             }
@@ -120,7 +120,7 @@ public class SpellbookFrame extends JFrame
                     }
                     else
                     {
-                        System.err.println("Select a Spell to cast.");
+                        System.err.println("gui.popups.SpellbookFrame.actionPerformed ==> BUTTON ERROR");
                     }
                 }
             }

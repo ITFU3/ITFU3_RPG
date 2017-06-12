@@ -28,7 +28,7 @@ public class BattleHandler
     
     String output = "";
     int aa = attacker.getAllowedAttacks();
-      System.err.println("gameHandler.BattleHandler.tryToAttack: ==> Allowed Attacks: "+ attacker.getAllowedAttacks());
+      System.out.println("gameHandler.BattleHandler.tryToAttack: ==> Allowed Attacks: "+ attacker.getAllowedAttacks());
     if( aa > 0)
     {
         if(distance <= attacker.getpWeapon().getDistance())
@@ -63,7 +63,7 @@ public class BattleHandler
     }else{
         output += "No Attacks left to do.\n";
     }
-    System.err.println("gameHandler.BattleHandler.tryToAttack\n===>\n" + output + "\n<===");
+    System.out.println("gameHandler.BattleHandler.tryToAttack\n===>\n" + output + "\n<===");
     Game.addToAttackInfoString(output, true);
     Game.updateMonsterInfo();
     Game.updateGUI();
@@ -211,10 +211,7 @@ public class BattleHandler
                         {
                             output += target.getName() + " is no more.\n";
                             int newXP = target.getExperience();
-                            System.err.println("XP droped: " + newXP);
                             attacker.addExperience( newXP );
-                            System.err.println("Player xp: " + attacker.getExperience());
-                            System.err.println("Player lvl: " + attacker.getProficiencyOrLevel('l'));
                             killStrike(target);
                         }
                     }else{ output += "misses with a " + cTh[1] + "\n"; }

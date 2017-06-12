@@ -178,7 +178,7 @@ public class Map
                 n_y = this.entity.getCoordinates_future()[0];
                 n_x = this.entity.getCoordinates_future()[1];
                 
-                System.err.println(
+                System.out.println(
                         "main.Map.walkOnMap\n"+
                                 "===>\n" +
                                 "steps: " + steps +

@@ -72,11 +72,42 @@ public class MonsterAI {
     */
     public void move() {
         int index = 0;
-        if (moves.size() > 0) {
-            
+        if(moves.size() > 0) {
             index = Die.rollDie(moves.size(), 1) -1; // because dice done have no zero
         }
-        MovementHandler.move(ego, moves.get(index));
+        MoveDirection directionIntent = moves.get(index);
+        boolean needToChange;
+        int counter = 0;
+        do{
+            needToChange = false;
+            int before = this.ego.getAllowedMoves();
+            
+            MovementHandler.move(ego, directionIntent);
+            
+            int after = this.ego.getAllowedMoves();
+            if(before == after){
+                needToChange = true;
+                // Labyrinth Logic here:
+                // always turn left...
+                System.out.println("gameHandler.MonsterAI.move ==> LABYRINTH MOVE");
+                switch(directionIntent){
+                    case UP:
+                        directionIntent = MoveDirection.LEFT;
+                        break;
+                    case DOWN:
+                        directionIntent = MoveDirection.RIGHT;
+                        break;
+                    case RIGHT:
+                        directionIntent = MoveDirection.UP;
+                        break;
+                    case LEFT:
+                        directionIntent = MoveDirection.DOWN;
+                        break;
+                }
+                if(counter >= 4){ needToChange = false; }
+            }
+            counter++;
+        }while(needToChange);
         moves.remove(index);
     }
     

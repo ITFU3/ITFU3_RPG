@@ -3,7 +3,7 @@ import character.races.Race;
 import character.classes.PlayerClass;
 import character.item.weapons.Weapon;
 import character.item.armor.Armor;
-import Base2.Helper;
+import Base.Helper;
 
 /**
  * @author Matthias Dröge

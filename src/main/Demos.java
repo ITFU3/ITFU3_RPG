@@ -22,17 +22,7 @@ public class Demos
     MonsterCharacter[] output = {monster, rat};
     return output;
   }
-    
-  /**
-   * A test function for the monster creation
-   */
-  public static void monstertesting()
-  {
-    System.out.println(Helper.randomBossName(9));
-    MonsterCharacter monster = new MonsterCharacter(new Rat(MonsterRace.Type.EVIL));
-    monster.showCharInfo();
-    Rat[] rat = Rat.nest(10, MonsterRace.Type.EVIL);
-  }
+
     
   /**
    * The alpha version of the text based rpg of ours.

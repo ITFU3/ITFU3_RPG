@@ -12,14 +12,18 @@ public class Race
   // [6] movement
   // [7] health (calculated)
   
-  public Race()
-  {
+  public Race(){
     this.setName("unkown");
     this.BonusStats = new int[8];
     for(int i = 0; i < this.BonusStats.length; i++)
     {
       this.BonusStats[i] = 0;
     }
+  }
+  
+  public Race(int[] bonus){
+      this();
+      this.setStatsBonus(bonus);
   }
     
   // ######### Getter / Setter #########

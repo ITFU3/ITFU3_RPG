@@ -16,9 +16,13 @@ public class Rat extends MonsterRace {
     }
 
     public Rat(Type type) {
+        // strength, dexterity, Constitution, wisdom, inteligent, charisma, movement, health (calculated)
+        int[] bonus = {0,5,1,0,0,0,0,0};
+        
+        this.setStatsBonus(bonus);
         this.setType(type);
         this.setNameWithType(this.getClass().getSimpleName());
-        int[] BonusStats = super.getStatsBonus();
+        
         grow();
     }
     /**

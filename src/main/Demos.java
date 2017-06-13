@@ -1,8 +1,8 @@
 package main;
+import Base2.Helper;
 import character.races.*;
 import character.*;
 import gameHandler.*;
-import base.*;
 
 /**
  * 

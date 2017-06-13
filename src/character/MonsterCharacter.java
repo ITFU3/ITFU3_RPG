@@ -5,7 +5,7 @@
  */
 package character;
 
-import Base.Helper;
+import Base2.Helper;
 import Interfaces.Growable;
 import character.classes.PlayerClass;
 import character.races.MonsterRace;

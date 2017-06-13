@@ -190,7 +190,7 @@ public class GameFrame extends javax.swing.JFrame {
         monsterInfoTextArea.setRows(5);
         monsterScrollPane.setViewportView(monsterInfoTextArea);
 
-        getContentPane().add(monsterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, 170, 220));
+        getContentPane().add(monsterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 180, 220));
 
         monsterInfoTitleLabel.setText("Monster");
         getContentPane().add(monsterInfoTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 170, 20));

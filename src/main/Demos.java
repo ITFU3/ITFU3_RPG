@@ -18,7 +18,7 @@ public class Demos
   public static MonsterCharacter[] getDemoMonster()
   {
     MonsterCharacter monster = new MonsterCharacter();
-    MonsterCharacter rat = new MonsterCharacter(new Rat(monsterRace.Type.EVIL));
+    MonsterCharacter rat = new MonsterCharacter(new Rat(MonsterRace.Type.EVIL));
     MonsterCharacter[] output = {monster, rat};
     return output;
   }
@@ -28,10 +28,10 @@ public class Demos
    */
   public static void monstertesting()
   {
-    System.out.println(Base.randomBossName(9));
-    MonsterCharacter monster = new MonsterCharacter(new Rat(monsterRace.Type.EVIL));
+    System.out.println(Helper.randomBossName(9));
+    MonsterCharacter monster = new MonsterCharacter(new Rat(MonsterRace.Type.EVIL));
     monster.showCharInfo();
-    Rat[] rat = Rat.nest(10, monsterRace.Type.EVIL);
+    Rat[] rat = Rat.nest(10, MonsterRace.Type.EVIL);
   }
     
   /**

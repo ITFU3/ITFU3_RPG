@@ -134,6 +134,7 @@ public class MonsterAI {
     public void think() {
         boolean next;
         do{
+            
             Game.updateAttackInfo(ego.getName()+" thinks...");
             Game.waitFor(SleepTime.MONSTER_THINK_FIRST);
             if ( isInAttackRange() )
@@ -144,6 +145,7 @@ public class MonsterAI {
                 {
                     System.out.println("gameHandler.MonsterAI.think: => attack");
                     BattleHandler.tryToAttack(ego, Game.getPlayer());
+                    
                     next = true;
                 }
                 else

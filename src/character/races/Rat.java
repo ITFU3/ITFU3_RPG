@@ -9,11 +9,13 @@ package character.races;
  *
  * @author steffen
  */
-public class Rat extends monsterRace {
+public class Rat extends MonsterRace {
 
     public Rat() {
-        this(Type.NORMAL);
+        this(MonsterRace.getRandomType());
     }
+    
+    
 
     public Rat(Type type) {
         this.setType(type);
@@ -22,22 +24,22 @@ public class Rat extends monsterRace {
         grow();
     }
 
-    public Rat grow() {
+    public void grow() {
         int bonus = 0;
         if (this.getType() == Type.EVIL) {
             bonus = 1;
         } else if (this.getType() == Type.EVIL) {
             bonus = 3;
-        } else {
-            return this;
-        }
+        } 
         int[] BonusStats = super.getStatsBonus();
         for (int i = 0; i < BonusStats.length; i++) {
             BonusStats[i] += bonus;
         }
         this.setStatsBonus(BonusStats);
-        return this;
+        System.out.println(this.getName() + " GROWS");
     }
+    
+    
     
     public static Rat[] nest(int size, Type type) {
         Rat[] ratsNest = new Rat[size];

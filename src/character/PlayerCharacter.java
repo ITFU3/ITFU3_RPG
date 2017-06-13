@@ -3,7 +3,7 @@ import character.races.Race;
 import character.classes.PlayerClass;
 import character.item.weapons.Weapon;
 import character.item.armor.Armor;
-import base.Base;
+import Base.Helper;
 
 /**
  * @author Matthias Dröge
@@ -136,8 +136,8 @@ public class PlayerCharacter extends BaseCharacter
   {
       int[] inputStats = {10, 10, 10, 10, 10, 10, 5, 0};
       init(
-        Base.randomName(5),
-        Base.randomGender(),
+        Helper.randomName(5),
+        Helper.randomGender(),
         inputStats,
         new PlayerClass(),
         new Race(),

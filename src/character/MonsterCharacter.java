@@ -5,7 +5,10 @@
  */
 package character;
 
+import Base.Helper;
+import Interfaces.Growable;
 import character.classes.PlayerClass;
+import character.races.MonsterRace;
 import character.races.Race;
 import character.races.Rat;
 
@@ -23,9 +26,11 @@ import character.races.Rat;
  * @author Steffen Haas
  * @author Matthias Dröge
  */
-public class MonsterCharacter extends PlayerCharacter {
+public class MonsterCharacter extends PlayerCharacter implements Growable{
+    
+    
     public MonsterCharacter() {
-        this.setName(base.Base.randomName(5));
+        this.setName(Helper.randomName(5));
         this.setMapToken('M');
         this.setGender('m');
         this.setpClass(new PlayerClass());
@@ -37,7 +42,7 @@ public class MonsterCharacter extends PlayerCharacter {
         stats[this.inteligence] = 5;
         stats[this.charisma] = 5;
         stats[this.movement] = 5;
-        stats[this.health] = 5;
+        stats[this.health] = 3;
         this.setBasicStats(stats);
         this.setTempHP(this.getHealth());
         this.setAllowedAttacks(1);
@@ -56,7 +61,8 @@ public class MonsterCharacter extends PlayerCharacter {
         this.setExperience(50);
         this.setpRace(race);
         this.setName(
-            this.getName() + " the " + this.getpRace().getClass().getSimpleName());
+            this.getName() + " the " + this.getpRace().getName());
+            
 //        this.setMapToken(  this.getName().toUpperCase().charAt(0) );
         this.setMapToken(  this.getpRace().getClass().getSimpleName().toUpperCase().charAt(0) );
 
@@ -98,6 +104,7 @@ public class MonsterCharacter extends PlayerCharacter {
         this.setHealth(
               this.getHealth() +
               this.getpClass().getStatsBonus()[this.health]
+              
               //this.getModifier(this.getConstitution()) ???
         );
 
@@ -127,7 +134,8 @@ public class MonsterCharacter extends PlayerCharacter {
       String output;
       output = "Einfaches Monster: " + this.getName() + "\n"
             + "Racename: " + this.getpRace().getName() + "\n"
-            + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n";
+            + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n"
+            + "STRENGHT:" + this.getStrength()+"\n";
       return output;
     }
     
@@ -140,4 +148,60 @@ public class MonsterCharacter extends PlayerCharacter {
             this.mapToken = mapToken;
         }
     }
+
+    @Override
+    public void grow() {
+        if (getpRace() instanceof MonsterRace) {
+            ((MonsterRace) getpRace()).grow();
+            setStatsWithBonus();
+        }
+    }
+    
+    private void setStatsWithBonus() {
+        this.setStrength(
+              this.getStrength()+
+              this.getpClass().getStatsBonus()[this.strength] +
+              this.getpRace().getStatsBonus()[this.strength]
+        );
+        this.setDexterity(
+              this.getDexterity() +
+              this.getpClass().getStatsBonus()[this.dexterity] +
+              this.getpRace().getStatsBonus()[this.dexterity]
+        );
+        this.setConstitution(
+              this.getConstitution() +
+              this.getpClass().getStatsBonus()[this.Constitution] +
+              this.getpRace().getStatsBonus()[this.Constitution]            
+        );
+        this.setWisdom(
+              this.getWisdom() +
+              this.getpClass().getStatsBonus()[this.wisdom] +
+              this.getpRace().getStatsBonus()[this.wisdom]            
+        );
+        this.setInteligent(
+              this.getIntelegent() +
+              this.getpClass().getStatsBonus()[this.inteligence] +
+              this.getpRace().getStatsBonus()[this.inteligence]
+        );
+        this.setCharisma(
+              this.getCharisma() +
+              this.getpClass().getStatsBonus()[this.charisma] +
+              this.getpRace().getStatsBonus()[this.charisma]
+        );
+        this.setMovement(
+              this.getMovement() +
+              this.getpClass().getStatsBonus()[this.movement] +
+              this.getpRace().getStatsBonus()[this.movement]
+        );
+        this.setHealth(
+              this.getHealth() +
+              this.getpClass().getStatsBonus()[this.health]
+              
+              //this.getModifier(this.getConstitution()) ???
+        );
+    }
+
+    
+    
+    
 }

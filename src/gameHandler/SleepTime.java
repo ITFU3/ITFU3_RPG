@@ -13,7 +13,8 @@ public class SleepTime {
     
     public static int NEXT_LEVEL = 500;
     public static int ATTACK_WAIT = 300;
-    public static int MONSTER_THINK_FIRST = 300;
+    public static int MONSTER_THINK_FIRST = 100;
     public static int MONSTER_AFTER_THOUHGT = 200;
+    public static int HIT = 600;
     
 }

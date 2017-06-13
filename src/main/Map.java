@@ -1,7 +1,7 @@
 package main;
 
-import Enum2.FieldContains;
-import Enum2.MoveDirection;
+import Enum.FieldContains;
+import Enum.MoveDirection;
 import character.*;
 import character.races.*;
 

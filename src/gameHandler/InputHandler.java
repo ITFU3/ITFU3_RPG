@@ -1,6 +1,6 @@
 package gameHandler;
 
-import Enum2.MoveDirection;
+import Enum.MoveDirection;
 import main.Game;
 
 /**

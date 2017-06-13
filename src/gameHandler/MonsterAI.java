@@ -5,7 +5,7 @@
 */
 package gameHandler;
 
-import Enum2.MoveDirection;
+import Enum.MoveDirection;
 import java.util.ArrayList;
 import character.*;
 import main.Die;

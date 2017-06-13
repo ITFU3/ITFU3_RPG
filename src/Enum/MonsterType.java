@@ -3,15 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Enum2;
+package Enum;
 
 /**
  *
  * @author steffen
  */
-public enum FieldContains {
+public enum MonsterType {
     
-    PLAYER, MONSTER, WALL, NOTHING
-    
-    
+    NORMAL(""), EVIL("Evil"), OFDOOM("of Doom");
+   
+      public String value;
+      
+    private MonsterType(String value) {
+        this.value = value;
+    }    
 }
+    
+

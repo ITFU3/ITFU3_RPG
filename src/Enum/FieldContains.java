@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces2;
+package Enum;
 
 /**
  *
  * @author steffen
  */
-public interface Growable {
+public enum FieldContains {
     
-    public void grow();
+    PLAYER, MONSTER, WALL, NOTHING
+    
     
 }

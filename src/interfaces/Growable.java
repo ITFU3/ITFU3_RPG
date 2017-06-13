@@ -3,21 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Enum2;
+package interfaces;
 
 /**
  *
  * @author steffen
  */
-public enum MonsterType {
+public interface Growable {
     
-    NORMAL(""), EVIL("Evil"), OFDOOM("of Doom");
-   
-      public String value;
-      
-    private MonsterType(String value) {
-        this.value = value;
-    }    
+    public void grow();
+    
 }
-    
-

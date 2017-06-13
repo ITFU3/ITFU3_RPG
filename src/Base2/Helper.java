@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Base;
+package Base2;
 
-import Enum.MonsterType;
+import Enum2.MonsterType;
 import character.races.MonsterRace;
     import java.util.Random;
 

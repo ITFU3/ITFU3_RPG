@@ -1,6 +1,6 @@
 package character.races;
 
-import Interfaces.Growable;
+import Interfaces2.Growable;
 import main.Die;
 
 /**

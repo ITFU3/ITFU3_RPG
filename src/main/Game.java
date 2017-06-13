@@ -2,6 +2,7 @@ package main;
 
 import character.MonsterCharacter;
 import character.PlayerCharacter;
+import character.races.MonsterRace;
 import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
 import gameHandler.SleepTime;
@@ -21,7 +22,7 @@ import javax.swing.JTextArea;
 public class Game /*implements Runnable*/{
     
     public static Game instance;
-    
+      
     private PlayerCharacter player;
     private ArrayList<MonsterCharacter> monsters  = new ArrayList();
     
@@ -34,8 +35,6 @@ public class Game /*implements Runnable*/{
     
     public String attackInfo = "";
     public String monsterInfo = "";
-    
-    private boolean playing = true;
     
     // Input
     private KeyHandler keymanager;
@@ -58,25 +57,22 @@ public class Game /*implements Runnable*/{
         gameFrame.setTitle(title);
     }
 
-//    @Override
-//    public void run() {
-//        init();
-//        // Game Logic
-//        
-//        stop();
-//    }
     
     public /*synchronized*/ void start() {
-//        if(!running){
-//            running = true;
-//            thread = new Thread(this);
-//            thread.start();
-//        } 
+//        
         init();
     }
     
     public void stop() {
         
+    }
+    /**
+     * created by Steffen Haas
+     * @param hit 
+     */
+    public static void hitDisplay() {
+        updateAttackInfo(UserInfo.HIT, true);
+        Game.waitFor(SleepTime.HIT);
     }
 
     public static void updateGUI(){
@@ -120,7 +116,7 @@ public class Game /*implements Runnable*/{
         String newMonsterInfo = "Monsters in Arena: " + monsters.size() + "\n";
         
         for(MonsterCharacter monster : monsters){
-            newMonsterInfo += ((MonsterCharacter)monster).getName() + " " +
+            newMonsterInfo += ((MonsterCharacter)monster).getName() + "\n" +
                 monster.getTempHP() + "/" + monster.getHealth() + "\n";
         }
         getInstance().setMonsterInfo( newMonsterInfo );
@@ -130,10 +126,9 @@ public class Game /*implements Runnable*/{
     
     public static void endRound() {
         setPlayerTurn(false);
-        
+        upgradeMonsters();
         if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
-            
             System.out.println("main.Game.endRound ==> NEXT LEVEL: " + getInstance().getLevel());
         }
         
@@ -146,6 +141,11 @@ public class Game /*implements Runnable*/{
             monsterAi.think();
             monsterAi.restTurnStats();
             updateGUI();
+            if (getPlayer().getTempHP() < 0) {
+                Game.over();
+                return;
+            }
+            
         }
         setPlayerTurn(true);
         
@@ -311,5 +311,24 @@ public class Game /*implements Runnable*/{
         getInstance().playerTurn = playerTurn;
     }
     
+    private static void upgradeMonsters() {
+        System.out.println("########################## UPGRADE MONSTERS #####START####################");
+        for (MonsterCharacter monster : getMonsters()) {
+            
+            System.out.println(monster.showCharInfo());
+            System.out.println("MONSTER "+monster.getName()+" is GROWING");
+            monster.grow();
+            System.out.println(monster.showCharInfo());
+           
+            
+        }
+        System.out.println("########################## UPGRADE MONSTERS #####END#####################");
+    }
     
+    private static void over() {
+        
+        Game.getInstance().stop();
+        Game.updateAttackInfo(UserInfo.GAME_OVER);
+        System.out.println(UserInfo.GAME_OVER);
+    }
 }

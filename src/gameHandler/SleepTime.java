@@ -12,8 +12,8 @@ package gameHandler;
 public class SleepTime {
     
     public static int NEXT_LEVEL = 500;
-    public static int ATTACK_WAIT = 500;
-    public static int MONSTER_THINK_FIRST = 800;
-    public static int MONSTER_AFTER_THOUHGT = 300;
+    public static int ATTACK_WAIT = 300;
+    public static int MONSTER_THINK_FIRST = 300;
+    public static int MONSTER_AFTER_THOUHGT = 200;
     
 }

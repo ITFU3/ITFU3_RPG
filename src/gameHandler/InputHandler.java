@@ -1,6 +1,7 @@
 package gameHandler;
 
 import Enum.MoveDirection;
+import main.Game;
 
 /**
  *
@@ -21,7 +22,7 @@ public class InputHandler {
                 );
                 gameHandler.BattleHandler.tryToAttack(attacker, target);
             } else {
-                main.Game.addToAttackInfoString(
+                Game.addToAttackInfoString(
                         "What do you want to attack?\n"
                         + "There are no Monsters around. "
                         + gameHandler.UserInfo.END_ROUND_PROMPT,
@@ -29,13 +30,13 @@ public class InputHandler {
                 );
             }
 
-            if (main.Game.getPlayer().getAllowedAttacks() == 0) {
-                main.Game.addToAttackInfoString(
+            if (Game.getPlayer().getAllowedAttacks() == 0) {
+                Game.addToAttackInfoString(
                         gameHandler.UserInfo.NO_ATTACKS_LEFT + gameHandler.UserInfo.END_ROUND_PROMPT,
                         playerTurn
                 );
             }
-            main.Game.updateGUI();
+           Game.updateGUI();
         } else {
             System.out.println("NOT YOUR TURN");
         }

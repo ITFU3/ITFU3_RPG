@@ -145,7 +145,12 @@ public class Map
                 i--;
             }else{
                 //Correct: place monster in world
+                // Here only Rats.
                 Game.getInstance().addMonster( new MonsterCharacter(y,x) );
+                
+            // Here a given Race Monster. [ X could be a Random Monster Race Class ]
+            //Game.getInstance().addMonster( new MonsterCharacter(y,x, new X()) );
+            
                 this.labyrinthMap[y][x] = Game.getMonsters().get( Game.getMonsters().size()-1 ).getMapToken();
             }
         }

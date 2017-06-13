@@ -56,6 +56,13 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setCoordinates_past(y, x);
     }
     
+    public MonsterCharacter(int y, int x, Race race){
+        this(race);
+        this.setCoordinates(y, x);
+        this.setCoordinates_future(y, x);
+        this.setCoordinates_past(y, x);
+    }
+    
     public MonsterCharacter(Race race) {
         this();
         this.setExperience(50);
@@ -63,52 +70,14 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setName(
             this.getName() + " the " + this.getpRace().getName());
             
-//        this.setMapToken(  this.getName().toUpperCase().charAt(0) );
+        // this.setMapToken(  this.getName().toUpperCase().charAt(0) );
         this.setMapToken(  this.getpRace().getClass().getSimpleName().toUpperCase().charAt(0) );
 
-        this.setStrength(
-              this.getStrength()+
-              this.getpClass().getStatsBonus()[this.strength] +
-              this.getpRace().getStatsBonus()[this.strength]
-        );
-        this.setDexterity(
-              this.getDexterity() +
-              this.getpClass().getStatsBonus()[this.dexterity] +
-              this.getpRace().getStatsBonus()[this.dexterity]
-        );
-        this.setConstitution(
-              this.getConstitution() +
-              this.getpClass().getStatsBonus()[this.Constitution] +
-              this.getpRace().getStatsBonus()[this.Constitution]            
-        );
-        this.setWisdom(
-              this.getWisdom() +
-              this.getpClass().getStatsBonus()[this.wisdom] +
-              this.getpRace().getStatsBonus()[this.wisdom]            
-        );
-        this.setInteligent(
-              this.getIntelegent() +
-              this.getpClass().getStatsBonus()[this.inteligence] +
-              this.getpRace().getStatsBonus()[this.inteligence]
-        );
-        this.setCharisma(
-              this.getCharisma() +
-              this.getpClass().getStatsBonus()[this.charisma] +
-              this.getpRace().getStatsBonus()[this.charisma]
-        );
-        this.setMovement(
-              this.getMovement() +
-              this.getpClass().getStatsBonus()[this.movement] +
-              this.getpRace().getStatsBonus()[this.movement]
-        );
-        this.setHealth(
-              this.getHealth() +
-              this.getpClass().getStatsBonus()[this.health]
-              
-              //this.getModifier(this.getConstitution()) ???
-        );
+        // get all the Bonuses added to the Stats.
+        this.setStatsWithBonus();
 
-        // lvl bonus for HP
+        // Player-Level-Bonus for total HP value.
+        // Base Stats is 1, therefore this starts with 2!
         if(this.getpClass().getLevel() > 1){
           for(int i = 2; i <= this.getpClass().getLevel(); i++){
             this.setHealth(

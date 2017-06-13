@@ -35,17 +35,17 @@ public class BattleHandler
             {
                 attacker.setAllowedAttacks(--aa);
                 output += attacker.getName() + " ";
-                int[] cTh = tryHit(attacker, false);
-                if(cTh[0] == 20 || cTh[1] >= target.getpArmor().getArmorValue())
+                int[] chanceToHit = tryHit(attacker, false);
+                if(chanceToHit[0] == 20 || chanceToHit[1] >= target.getpArmor().getArmorValue())
                 {
                     int dmg = doDamage(attacker);
-                    if(cTh[0] == 20)
+                    if(chanceToHit[0] == 20)
                     {
                         dmg *= 2;
                         output += "*";
                     }
                     target.setTempHP( target.getTempHP() - dmg );
-                    output += "hits " + target.getName() + " with a " + cTh[1]
+                    output += "hits " + target.getName() + " with a " + chanceToHit[1]
                             + " and does " + dmg + " damage.\n"
                             + " And has " + target.getTempHP() + " HP left.\n";
                     Game.hitDisplay();
@@ -67,7 +67,7 @@ public class BattleHandler
                         
                     }
                 }else{
-                    output += "misses with a " + cTh[1] + "\n";
+                    output += "misses with a " + chanceToHit[1] + "\n";
                 }
             }else{
                 output += "Target is too far away. Move closer.\n";
@@ -101,7 +101,7 @@ public class BattleHandler
      * @param useSpell - if a spell is used or not
      * @return int[]
      * [0] = actual die roll
-     * [1] = cTh with roll and modifier
+     * [1] = overall chance To Hit with roll + modifier
      */
     private static int[] tryHit( PlayerCharacter attacker, boolean useSpell )
     {

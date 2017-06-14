@@ -1,22 +1,12 @@
-package gameHandler;
-import character.item.spells.HealingWord;
-import character.item.spells.Fireball;
-import character.races.Dwarf;
-import character.races.Human;
-import character.races.Elf;
-import character.classes.Wizzard;
-import character.classes.Cleric;
-import character.classes.Ranger;
-import character.classes.Fighter;
-import character.PlayerCharacter;
-import character.item.weapons.Weapon;
-import character.item.weapons.ShortBow;
-import character.item.weapons.Mace;
-import character.item.weapons.LongSword;
-import character.item.armor.ChainMail;
-import character.item.armor.Plate;
-import character.item.armor.Cloth;
-import character.item.armor.Leather;
+package character.helper;
+
+import character.item.spells.*;
+import character.races.*;
+import character.classes.*;
+import character.*;
+import character.item.weapons.*;
+import character.item.armor.*;
+
 import java.util.ArrayList;
 
 /**

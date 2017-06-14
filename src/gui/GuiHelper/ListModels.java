@@ -6,7 +6,7 @@
 package gui.GuiHelper;
 
 import character.PlayerCharacter;
-import gameHandler.CharacterSelecter;
+import character.helper.CharacterSelecter;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 

@@ -136,9 +136,9 @@ public class Game /*implements Runnable*/{
                 monster.getName() +"'s turn"
             );
             MonsterAI monsterAi = new MonsterAI(monster);
-            monsterAi.calcMovesToPlayer();
+//            monsterAi.calcMovesToPlayer(); // now private in think
             monsterAi.think();
-            monsterAi.resetTurnStats();
+//            monsterAi.resetTurnStats(); // now private in think
             updateGUI();
             if (getPlayer().getTempHP() < 0) {
                 Game.over();

@@ -7,6 +7,7 @@ import javax.swing.event.*;
 import character.item.Item;
 import character.item.weapons.*;
 import character.item.armor.*;
+import gameHandler.InputHandler;
 import gameHandler.KeyHandler;
 import main.Game;
 
@@ -20,6 +21,10 @@ public class InventoryFrame extends JFrame{
     private final JList itemList;
     private final JTextArea itemInfoArea;
 
+    public static InventoryFrame instance;
+    
+    
+    
     public InventoryFrame() {
         this.scrollPane = new JScrollPane();
         this.itemList = new JList();
@@ -47,7 +52,7 @@ public class InventoryFrame extends JFrame{
         this.setLocation(xInventoryFrame, yInventoryFrame);
         this.setResizable(false);
         this.setFocusable(true);
-        this.addKeyListener(new KeyHandler());
+        this.addKeyListener(Game.getKeyhandler());
         
         
         // Grid Layout of the Frame to put the components in.
@@ -55,12 +60,19 @@ public class InventoryFrame extends JFrame{
         this.setLayout(new GridLayout(1, 2));
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         
-        this.addKeyListener(new KeyHandler());
+        
         
         // adding the comonents to the Frame
         // the order predicts the Grid Position
         this.add(this.scrollPane);
         this.add(this.itemInfoArea);
+    }
+    
+    public static InventoryFrame getInstance() {
+        if (instance == null) {
+            instance = new InventoryFrame();
+        }
+        return instance;
     }
     
     /**

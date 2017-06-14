@@ -1,6 +1,7 @@
 package gameHandler;
 
 import Enum.MoveDirection;
+import gui.popups.InventoryFrame;
 import main.Game;
 
 /**
@@ -8,6 +9,23 @@ import main.Game;
  * @author Matthias Dröge
  */
 public class InputHandler {
+    
+    private boolean isInventoryShown    = false;
+    private boolean isSpellbookShown    = false;
+    private boolean isCharInfoShown     = false; 
+    
+    private static InputHandler instance;
+
+    private InputHandler() {
+    }
+    
+    
+    public static InputHandler getInstance() {
+        if (instance == null) {
+            instance = new InputHandler();
+        }
+        return instance;
+    }
 
     /**
      * attack action for every Input to triger.
@@ -104,10 +122,14 @@ public class InputHandler {
         }
     }
     
+    
+    
+    
+    
     /**
      * open spellbook action for every input to trigger.
      */
-    public static void openSpellbook(){
+    public static void openCloseSpellbook(){
         // ToDo: more testing.
         new gui.popups.SpellbookFrame().setVisible(true);
     }
@@ -115,16 +137,18 @@ public class InputHandler {
     /**
      * open inventory action for every input to trigger.
      */
-    public static void openInventory(){
+    public static void openCloseInventory(){
+        
         // ToDo: more testing.
-        new gui.popups.InventoryFrame().setVisible(true);
+        InventoryFrame.getInstance().setVisible(getInstance().isInventoryShown);
+        getInstance().isInventoryShown = !getInstance().isInventoryShown;
     }
     
     /**
      * 
      */
-    public static void openCharacterScreen(){
-        new gui.popups.CharacterFrame().setVisible(true);
+    public static void openCloseCharacterScreen(){
+        new gui.popups.CharacterFrame().setVisible(getInstance().isCharInfoShown);
     }
     
     /**

@@ -22,7 +22,8 @@ import javax.swing.JTextArea;
 public class Game /*implements Runnable*/{
     
     public static Game instance;
-      
+    private KeyHandler keyhandler = new KeyHandler();
+    
     private PlayerCharacter player;
     private ArrayList<MonsterCharacter> monsters  = new ArrayList();
     
@@ -36,8 +37,6 @@ public class Game /*implements Runnable*/{
     public String attackInfo = "";
     public String monsterInfo = "";
     
-    // Input
-    private KeyHandler keymanager;
     private boolean running = false;
     private boolean playerTurn = true;
     
@@ -270,9 +269,7 @@ public class Game /*implements Runnable*/{
     public GameFrame getGameFrame() {
         return gameFrame;
     }
-    public KeyHandler getKeymanager() {
-        return keymanager;
-    }
+    
     public boolean isRunning() {
         return running;
     }
@@ -310,6 +307,12 @@ public class Game /*implements Runnable*/{
     public static void setPlayerTurn(boolean playerTurn) {
         getInstance().playerTurn = playerTurn;
     }
+
+    public static KeyHandler getKeyhandler() {
+        return getInstance().keyhandler;
+    }
+    
+    
     
     private static void upgradeMonsters() {
         System.out.println("########################## UPGRADE MONSTERS #####START####################");

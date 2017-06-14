@@ -24,7 +24,7 @@ import javax.swing.text.DefaultCaret;
 public class GameFrame extends javax.swing.JFrame {
     ArrayList<JComponent> components = new ArrayList();
     int testHp = Game.getPlayer().getHealth();
-    KeyHandler keyhandler = new KeyHandler();
+    
     int xPosition;
     int yPosition;
     
@@ -324,7 +324,7 @@ public class GameFrame extends javax.swing.JFrame {
 //        testHp = testHp-1;
 //        System.out.println(testHp);
 //        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
-        InputHandler.openSpellbook();
+        InputHandler.openCloseSpellbook();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -450,7 +450,7 @@ public class GameFrame extends javax.swing.JFrame {
         this.setMinimumSize(dimensions);
         this.setMaximumSize(dimensions);
         this.setFocusable(true);
-        this.addKeyListener(keyhandler);
+        this.addKeyListener(Game.getKeyhandler());
         
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension windowSize = this.getSize();

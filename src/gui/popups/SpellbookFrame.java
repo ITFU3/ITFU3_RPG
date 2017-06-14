@@ -56,7 +56,7 @@ public class SpellbookFrame extends JFrame
         int ySpellBookFrame = yGameFrame;
         this.setLocation(xSpellBookFrame, ySpellBookFrame);
         
-        this.addKeyListener(new KeyHandler());
+        this.addKeyListener(Game.getKeyhandler());
 
        
         this.setResizable(false);

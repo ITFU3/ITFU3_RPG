@@ -43,7 +43,7 @@ public class CharacterFrame extends JFrame{
         // Grid Layout of the Frame to put the components in.
         this.setLayout(new GridLayout(1, 1));
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        this.addKeyListener(new KeyHandler());
+        this.addKeyListener(Game.getKeyhandler());
         
         
         this.add( this.scrollPane );

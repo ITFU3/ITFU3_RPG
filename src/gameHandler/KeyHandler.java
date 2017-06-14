@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
  */
 public class KeyHandler implements KeyListener {
     
+    
+    
     // key setup
     private final int up = KeyEvent.VK_W;
     private final int down = KeyEvent.VK_S;
@@ -69,13 +71,13 @@ public class KeyHandler implements KeyListener {
             InputHandler.attack();
             break;
         case spellbook:
-            InputHandler.openSpellbook();
+            InputHandler.openCloseSpellbook();
             break;
         case inventory:
-            InputHandler.openInventory();
+            InputHandler.openCloseInventory();
             break;
         case character:
-            InputHandler.openCharacterScreen();
+            InputHandler.openCloseCharacterScreen();
             break;
             // Info
         case changeFocus:

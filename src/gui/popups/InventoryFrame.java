@@ -100,36 +100,31 @@ public class InventoryFrame extends JFrame{
                     System.out.println("gui.popUps.InventoryFrame.addListListener.valueChanged: ==> CLICK");
                     try{
                         Item item = (Item) itemList.getSelectedValue();
-                        Class[] itemClasses = item.getClass().getClasses();
-                        for (Class itemClass : itemClasses)
+                        String baseClass = item.getClass().getSuperclass().getSimpleName();
+                        String tmp = "";
+                        if(baseClass.equalsIgnoreCase("Weapon"))
                         {
-                            if(itemClass.getSimpleName().equalsIgnoreCase("Weapon"))
-                            {
-                                Weapon w = (Weapon) item;
-                                String tmp = "Name: " + w.getName() + "\n"
-                                    + "Type: " + w.getType() + "\n"
-                                    + "Max Dmg: " + (w.getDamageDie()*w.getDieCount()) + "\n"
-                                    + "Range: " + w.getDistance() + "\n"
-                                    + "Category: " + w.getCat() + "\n"
-                                    + "Weapon Group: " + w.getWeaponGroup() + "\n";
-                                itemInfoArea.setText(tmp);
-                                break;
-                            }
-                            else if(itemClass.getSimpleName().equalsIgnoreCase("Armor"))
-                            {
-                                Armor a = (Armor) item;
-                                String tmp = "Name: " + a.getName() + "\n"
-                                    + "Type: " + a.getType() + "\n"
-                                    + "Armor Value: " + a.getArmorValue()  + "\n"
-                                    + "Category: " + a.getCat();
-                                itemInfoArea.setText(tmp);
-                                break;
-                            }
+                            Weapon w = (Weapon) item;
+                            tmp = "Name: " + w.getName() + "\n"
+                                + "Type: " + w.getType() + "\n"
+                                + "Max Dmg: " + (w.getDamageDie()*w.getDieCount()) + "\n"
+                                + "Range: " + w.getDistance() + "\n"
+                                + "Category: " + w.getCat() + "\n"
+                                + "Weapon Group: " + w.getWeaponGroup() + "\n";
                         }
+                        else if(baseClass.equalsIgnoreCase("Armor"))
+                        {
+                            Armor a = (Armor) item;
+                            tmp = "Name: " + a.getName() + "\n"
+                                + "Type: " + a.getType() + "\n"
+                                + "Armor Value: " + a.getArmorValue()  + "\n"
+                                + "Category: " + a.getCat();
+                        }
+                        itemInfoArea.setText(tmp);
                     }
                     catch (Exception exception)
                     {
-                        System.err.println("gui.popups.InventoryFrame.valueChanged ==> LIST ERROR");
+                        System.err.println("gui.popups.InventoryFrame.valueChanged ==> LIST ERROR\n" + exception.getMessage());
                     }
                 }
             }

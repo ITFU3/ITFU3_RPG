@@ -160,7 +160,9 @@ public class BattleHandler
                 input.getDamageDie(),
                 input.getDieCount()
         );
-        spellDmg += attacker.getModifier(attacker.getIntelegent());
+        // that doen not work.
+//        spellDmg += attacker.getModifier(attacker.getIntelegent());
+        spellDmg += input.getDamageDie();
         return spellDmg;
     }
     

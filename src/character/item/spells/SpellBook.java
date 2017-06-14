@@ -49,6 +49,47 @@ public class SpellBook
     }
     return output;
   }
+  
+  /**
+   * If spell with a specific Effect exists in the spellbook
+   * @param input - SpellEffect as String
+   * @return boolean
+   */
+  public boolean containsSpellWithEffect(String input){
+      boolean output = false;
+      for(Spell spell : listOfSpells) {
+          if( spell.getSpellEffect().equalsIgnoreCase(input) ){
+            output = true;
+            break;
+          }
+      }
+      return output;
+  }
+  
+  /**
+   * If spell with a specific name exists in the spellbook
+   * @param input - SpellName as String
+   * @return boolean
+   */
+  public boolean conainsSpellWithName(String input){
+      boolean output = false;
+      for(Spell spell : listOfSpells) {
+          if( spell.getName().equalsIgnoreCase(input) ){
+            output = true;
+            break;
+          }
+      }
+      return output;
+  }
+  
+  /**
+   * Check if the Spellbook is empty
+   * @return boolean
+   */
+  public boolean isEmpty(){
+      return listOfSpells.isEmpty();
+  }
+  
 // ######### Getter / Setter #########
   public ArrayList<Spell> getSpellBook() {
     return listOfSpells;

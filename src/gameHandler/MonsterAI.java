@@ -145,12 +145,17 @@ public class MonsterAI {
         do{
             Game.updateAttackInfo(ego.getName()+" thinks...");
             Game.waitFor(SleepTime.MONSTER_THINK_FIRST);
-            ArrayList spellbook = ego.getpClass().getMyBook().getSpellBook();
+            character.item.spells.SpellBook spellbook = ego.getpClass().getMyBook();
+            
             if( !spellbook.isEmpty() ){
-                if( spellbook.contains( new character.item.spells.HealingWord() ) ){
+                System.err.println(
+                    "gameHandler.MonsterAI.spell_Check: => " +  
+                    spellbook.conainsSpellWithName( "HealingWord" )
+                );
+                if( spellbook.conainsSpellWithName("HealingWord") ){
                     // cast healingword on friend if in range
                     next = casting(true);
-                }else if( spellbook.contains( new character.item.spells.Fireball() ) ){
+                }else if( spellbook.conainsSpellWithName("Fireball") ){
                     // cast fireball player if in range
                     next = casting(false);
                 }

@@ -108,6 +108,10 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
       return output;
     }
     
+    public String showAllCharInfo(){
+        return super.showCharInfo();
+    }
+    
     @Override
     public void setMapToken(char mapToken) {
         //safty reason. Because P is for Player!!

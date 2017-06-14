@@ -3,6 +3,10 @@ package main;
 import Enum.FieldContains;
 import Enum.MoveDirection;
 import character.*;
+import character.classes.Cleric;
+import character.item.armor.Cloth;
+import character.item.spells.HealingWord;
+import character.item.weapons.Mace;
 import character.races.*;
 
 /**
@@ -57,7 +61,7 @@ public class Map
                 "#                                     #"+
                 "#                                     #"+
                 "#        P                            #"+
-                "#        R                            #"+
+                "#        O                            #"+
                 "#                                     #"+
                 "#                                     #"+
                 "#                                     #"+
@@ -68,7 +72,15 @@ public class Map
         this.map = init_map;
         this.width = 39;
         this.height = 12;
-        Game.getInstance().addMonster( new MonsterCharacter(new Rat()));
+//        Game.getInstance().addMonster( new MonsterCharacter(new Rat()));
+        MonsterCharacter ogerShaman = new MonsterCharacter( new Oger());
+        ogerShaman.setHealth(10);
+        ogerShaman.setpClass(new Cleric());
+        ogerShaman.addWeapon(new Mace());
+        ogerShaman.addArmor(new Cloth());
+        ogerShaman.getpClass().getMyBook().addSpell(new HealingWord());
+        System.err.println(ogerShaman.showAllCharInfo());
+        Game.getInstance().addMonster( ogerShaman );
         Game.getInstance().setLevel(1);
         this.buildMapArray();
     }

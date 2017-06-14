@@ -7,6 +7,7 @@ import javax.swing.event.*;
 import character.*;
 import character.item.spells.*;
 import gameHandler.BattleHandler;
+import gameHandler.KeyHandler;
 import main.Game;
 
 /**
@@ -43,9 +44,21 @@ public class SpellbookFrame extends JFrame
         this.setName("Spellbook");
         this.setTitle(this.getName());
         this.castSpellButton.setText("cast spell");
-
+        int width = 200;
+        int height = 300;
         // setting the Size of the Frame
-        this.setSize(new Dimension(300, 300));
+        // [width][height]
+        this.setSize(new Dimension(width, height));
+        // calculate Position
+        int xGameFrame = Game.getInstance().getGameFrame().getxPosition();
+        int yGameFrame = Game.getInstance().getGameFrame().getyPosition();
+        int xSpellBookFrame = xGameFrame + Game.getInstance().getGameFrame().getWidth();
+        int ySpellBookFrame = yGameFrame;
+        this.setLocation(xSpellBookFrame, ySpellBookFrame);
+        
+        this.addKeyListener(new KeyHandler());
+
+       
         this.setResizable(false);
         this.setFocusable(true);
         

@@ -180,7 +180,7 @@ public class MonsterAI {
     /**
      * The Forgotten Reset Fuction for the AI
      */
-    public void restTurnStats(){
+    public void resetTurnStats(){
         this.ego.setAllowedMoves( this.ego.getMovement() );
         this.ego.setAllowedAttacks( 1 );
     }

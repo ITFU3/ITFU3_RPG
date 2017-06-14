@@ -20,4 +20,15 @@ public class UserInfo {
     public static String HIT =  "#####################\n"+
                                 "#####    HIT    #####\n"+
                                 "#####################\n";
+    public static String KEYS = "UP             = W\n"
+                              + "LEFT           = A\n"
+                              + "DOWN           = S\n"
+                              + "RIGHT          = D\n"
+                              + "ATTACK         = SPACE\n"
+                              + "END ROUND      = ENTER\n"
+                              + "CAST SPELL     = C\n"
+                              + "CHARACTER INFO = V\n"
+                              + "INVENTORY      = I";
+                
+    
 }

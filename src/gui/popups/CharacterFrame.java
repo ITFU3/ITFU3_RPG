@@ -1,8 +1,10 @@
 package gui.popups;
 
 import character.PlayerCharacter;
+import gameHandler.KeyHandler;
 import java.awt.*;
 import javax.swing.*;
+import main.Game;
 
 /**
  * Simple Charater Screen, to show the Basic Information of the Charater.
@@ -26,14 +28,23 @@ public class CharacterFrame extends JFrame{
                 
         this.setName("Character Screen");
         this.setTitle(this.getName());
-        
-        this.setSize(new Dimension(250, 600));
+        int width = 200;
+        int height = 600;
+        this.setSize(new Dimension(width, height));
+        // calculate Position
+        int xGameFrame = Game.getInstance().getGameFrame().getxPosition();
+        int yGameFrame = Game.getInstance().getGameFrame().getyPosition();
+        int xCharacterFrame = xGameFrame - width;
+        int yCharacterFrame = yGameFrame;
+        this.setLocation(xCharacterFrame, yCharacterFrame);
         this.setResizable(false);
         this.setFocusable(true);
         
         // Grid Layout of the Frame to put the components in.
         this.setLayout(new GridLayout(1, 1));
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        this.addKeyListener(new KeyHandler());
+        
         
         this.add( this.scrollPane );
     }

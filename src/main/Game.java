@@ -139,7 +139,7 @@ public class Game /*implements Runnable*/{
             MonsterAI monsterAi = new MonsterAI(monster);
             monsterAi.calcMovesToPlayer();
             monsterAi.think();
-            monsterAi.restTurnStats();
+            monsterAi.resetTurnStats();
             updateGUI();
             if (getPlayer().getTempHP() < 0) {
                 Game.over();

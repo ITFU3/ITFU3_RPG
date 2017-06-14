@@ -7,6 +7,7 @@ import gui.GuiHelper.HealthBarLabel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -24,6 +25,8 @@ public class GameFrame extends javax.swing.JFrame {
     ArrayList<JComponent> components = new ArrayList();
     int testHp = Game.getPlayer().getHealth();
     KeyHandler keyhandler = new KeyHandler();
+    int xPosition;
+    int yPosition;
     
     /**
      * Creates new form GameFrame
@@ -45,6 +48,12 @@ public class GameFrame extends javax.swing.JFrame {
         this.attackInfoTextArea.setFocusable(false);
         this.attackInfoTextArea.setDisabledTextColor(Color.BLACK);
         this.attackInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        
+        this.keyInfoTextArea.setText(UserInfo.KEYS);
+        this.keyInfoTextArea.setEnabled(false);
+        this.keyInfoTextArea.setFocusable(false);
+        this.keyInfoTextArea.setDisabledTextColor(Color.BLACK);
+        this.keyInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
         
         DefaultCaret caret = (DefaultCaret)attackInfoTextArea.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -115,10 +124,13 @@ public class GameFrame extends javax.swing.JFrame {
         currentActiveCharLabel = new javax.swing.JLabel();
         roundLabel = new javax.swing.JLabel();
         levelLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        keyInfoTextArea = new javax.swing.JTextArea();
 
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 619));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         attackInfoTextArea.setColumns(20);
@@ -127,7 +139,7 @@ public class GameFrame extends javax.swing.JFrame {
         attackInfoTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         arenaScrollPane.setViewportView(attackInfoTextArea);
 
-        getContentPane().add(arenaScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 500, 170));
+        getContentPane().add(arenaScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 460, 170));
 
         downButton.setText("Down");
         downButton.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +155,7 @@ public class GameFrame extends javax.swing.JFrame {
                 btn_EndRoundActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_EndRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 510, -1, -1));
+        getContentPane().add(btn_EndRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 460, -1, -1));
 
         healthLabel.setText("Health");
         getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 200, -1));
@@ -157,7 +169,7 @@ public class GameFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 550, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 550, -1, -1));
 
         upButton.setText("Up");
         upButton.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +202,7 @@ public class GameFrame extends javax.swing.JFrame {
         monsterInfoTextArea.setRows(5);
         monsterScrollPane.setViewportView(monsterInfoTextArea);
 
-        getContentPane().add(monsterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 180, 220));
+        getContentPane().add(monsterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, 200, 220));
 
         monsterInfoTitleLabel.setText("Monster");
         getContentPane().add(monsterInfoTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 170, 20));
@@ -201,7 +213,7 @@ public class GameFrame extends javax.swing.JFrame {
                 attackButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(attackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 590, 500, -1));
+        getContentPane().add(attackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 590, 470, -1));
 
         arenaTextArea.setColumns(20);
         arenaTextArea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
@@ -209,13 +221,13 @@ public class GameFrame extends javax.swing.JFrame {
         arenaTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         attackScrollPane.setViewportView(arenaTextArea);
 
-        getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 500, 220));
+        getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 460, 220));
 
         arenaTitleLabel.setText("Arena");
         getContentPane().add(arenaTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 90, -1));
 
         inputInfoLabel.setText("KeyboardInput");
-        getContentPane().add(inputInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 90, -1));
+        getContentPane().add(inputInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 280, 90, 10));
 
         numberOfMovesLeftLabel.setText("Movement left:");
         getContentPane().add(numberOfMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 110, -1));
@@ -229,7 +241,7 @@ public class GameFrame extends javax.swing.JFrame {
                 changeInputTypeButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(changeInputTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, -1));
+        getContentPane().add(changeInputTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, -1, 30));
 
         numberOfActionsLeftLabel1.setText("Attacks left:");
         getContentPane().add(numberOfActionsLeftLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, -1));
@@ -245,6 +257,12 @@ public class GameFrame extends javax.swing.JFrame {
 
         levelLabel.setText("Level 1");
         getContentPane().add(levelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
+
+        keyInfoTextArea.setColumns(20);
+        keyInfoTextArea.setRows(5);
+        jScrollPane1.setViewportView(keyInfoTextArea);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 330, 200, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -367,6 +385,8 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel inputInfoLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea keyInfoTextArea;
     private javax.swing.JButton leftButton;
     private javax.swing.JLabel levelLabel;
     private javax.swing.JTextArea monsterInfoTextArea;
@@ -425,13 +445,19 @@ public class GameFrame extends javax.swing.JFrame {
      */
     private void initFrameSetup() {
         this.setResizable(false);
-        Dimension dimensions = new Dimension(900, 600);
+        Dimension dimensions = new Dimension(800, 600);
         this.setPreferredSize(dimensions);
         this.setMinimumSize(dimensions);
         this.setMaximumSize(dimensions);
         this.setFocusable(true);
         this.addKeyListener(keyhandler);
-        this.setLocationRelativeTo(null);
+        
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension windowSize = this.getSize();
+
+        this.xPosition = Math.max(0, (screenSize.width  - windowSize.width ) / 2);
+        this.yPosition = Math.max(0, (screenSize.height - windowSize.height) / 2);
+        this.setLocation(xPosition, yPosition);
         this.setVisible(true);
     }
     
@@ -503,4 +529,22 @@ public class GameFrame extends javax.swing.JFrame {
     public JLabel getRoundLabel() {
         return roundLabel;
     }
+
+    public int getxPosition() {
+        return xPosition;
+    }
+
+    public void setxPosition(int xPosition) {
+        this.xPosition = xPosition;
+    }
+
+    public int getyPosition() {
+        return yPosition;
+    }
+
+    public void setyPosition(int yPosition) {
+        this.yPosition = yPosition;
+    }
+    
+    
 }

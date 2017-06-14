@@ -7,6 +7,8 @@ import javax.swing.event.*;
 import character.item.Item;
 import character.item.weapons.*;
 import character.item.armor.*;
+import gameHandler.KeyHandler;
+import main.Game;
 
 
 /**
@@ -32,17 +34,28 @@ public class InventoryFrame extends JFrame{
     {
         this.setName("Inventory");
         this.setTitle(this.getName());
-
+        int width = 200;
+        int height = 300;
         // setting the Size of the Frame
         // [width][height]
-        this.setSize(new Dimension(300, 150));
+        this.setSize(new Dimension(width, height));
+        // calculate Position
+        int xGameFrame = Game.getInstance().getGameFrame().getxPosition();
+        int yGameFrame = Game.getInstance().getGameFrame().getyPosition();
+        int xInventoryFrame = xGameFrame + Game.getInstance().getGameFrame().getWidth();
+        int yInventoryFrame = yGameFrame + height; // as it is same height as Spellbook it will be displayed below
+        this.setLocation(xInventoryFrame, yInventoryFrame);
         this.setResizable(false);
         this.setFocusable(true);
+        this.addKeyListener(new KeyHandler());
+        
         
         // Grid Layout of the Frame to put the components in.
         // [row, col]
         this.setLayout(new GridLayout(1, 2));
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        
+        this.addKeyListener(new KeyHandler());
         
         // adding the comonents to the Frame
         // the order predicts the Grid Position

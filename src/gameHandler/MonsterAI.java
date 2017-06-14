@@ -8,6 +8,7 @@ package gameHandler;
 import Enum.MoveDirection;
 import java.util.ArrayList;
 import character.*;
+import javax.swing.text.html.HTML;
 import main.Die;
 import main.Game;
 import main.Map;
@@ -139,12 +140,22 @@ public class MonsterAI {
      * test if in range else moves towards player
      */
     public void think() {
-        boolean next;
+        boolean next = false;
         calcMovesToPlayer();
         do{
             Game.updateAttackInfo(ego.getName()+" thinks...");
             Game.waitFor(SleepTime.MONSTER_THINK_FIRST);
-            if ( isInAttackRange() ){
+            ArrayList spellbook = ego.getpClass().getMyBook().getSpellBook();
+            if( !spellbook.isEmpty() ){
+                if( spellbook.contains( new character.item.spells.HealingWord() ) ){
+                    // cast healingword on friend if in range
+                    next = casting(true);
+                }else if( spellbook.contains( new character.item.spells.Fireball() ) ){
+                    // cast fireball player if in range
+                    next = casting(false);
+                }
+            }
+            if( isInAttackRange() ){
                 next = attacking();
             }else{
                 next = moving();
@@ -196,6 +207,44 @@ public class MonsterAI {
             System.out.println("gameHandler.MonsterAI.think: => NOT Moving");
             return false; // cant move and cant attack since not in range
         }
+    }
+    
+    private boolean casting(boolean healing){
+        if( ego.getAllowedAttacks() > 0 && healing == true){
+            // healing
+            PlayerCharacter target = findFriendToHeal();
+            if(target.getTempHP() <= target.getHealth()){
+                BattleHandler.tryToSpellAttack(ego, target, "HealingWord");
+            }
+            return true;
+        }else if( ego.getAllowedAttacks() > 0 && healing == false){
+            // DMG
+            BattleHandler.tryToSpellAttack(ego, Game.getPlayer(), "Fireball");
+            return true;
+        }else{
+            // not casting at all
+            return false;
+        }
+    }
+    
+    /**
+     * finding the right target 
+     * @return PlayerCharacter - target to cast heal on
+     */
+    private PlayerCharacter findFriendToHeal(){
+        int healingDistance = ego.getpClass().getMyBook().getSpellByName("HealingWord").getSpellRange();
+        int monsterDistance;
+        MonsterCharacter lowest = null;
+        for (MonsterCharacter monster : Game.getMonsters()) {
+            if( monster.getTempHP() < monster.getHealth() ){
+                monsterDistance = Map.getInstance().getDistance(ego, monster);
+                if( monsterDistance <= healingDistance ){
+                    if( lowest == null || monster.getTempHP() < lowest.getTempHP() )
+                    lowest = monster;
+                }
+            }
+        }
+        return (lowest == null) ? ego : lowest;
     }
     
     /**

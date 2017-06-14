@@ -195,13 +195,13 @@ public class BattleHandler
                 {
                     int heal = castSpell(attacker, iSpell);
                     // here must be attacker as target, because you want to heal yourself!
-                    output += "healed " + attacker.getName() + " for " + heal + " HP. ";
-                    attacker.setTempHP( attacker.getTempHP() + heal );
-                    if(attacker.getTempHP() > attacker.getHealth())
+                    output += "healed " + target.getName() + " for " + heal + " HP. ";
+                    target.setTempHP( target.getTempHP() + heal );
+                    if(target.getTempHP() > target.getHealth())
                     {
-                        attacker.setTempHP(attacker.getHealth());
+                        target.setTempHP(target.getHealth());
                     }
-                    output += "Health is now back to " + attacker.getTempHP() + "/" + attacker.getHealth() +".";
+                    output += "Health is now back to " + target.getTempHP() + "/" + target.getHealth() +".";
                 }
                 else if(iSpell.getSpellEffect().equalsIgnoreCase("damage"))
                 {

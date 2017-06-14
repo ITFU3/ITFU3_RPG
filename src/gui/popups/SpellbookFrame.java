@@ -124,16 +124,11 @@ public class SpellbookFrame extends JFrame
                 {
                     if( !selectedSpell.equalsIgnoreCase("") )
                     {
-                        PlayerCharacter attacker = main.Game.getPlayer();
-                        MonsterCharacter target = main.Game.getMonsters().get(
-                            Game.getInstance().getMonsterClosedToPlayer()
-                        );
-                        BattleHandler.tryToSpellAttack(attacker, target, selectedSpell);
-                        Game.updateGUI();
+                        gameHandler.InputHandler.spellattack( selectedSpell );
                     }
                     else
                     {
-                        System.err.println("gui.popups.SpellbookFrame.actionPerformed ==> BUTTON ERROR");
+                        System.err.println("gui.popups.SpellbookFrame.actionPerformed ==> no Spell selected.");
                     }
                 }
             }

@@ -61,6 +61,24 @@ public class InputHandler {
         main.Game.updateGUI();
     }
 
+    public static void spellattack(String spellname){
+        boolean playerTurn = main.Game.isPlayerTurn();
+        if (playerTurn == true){
+            character.PlayerCharacter attacker;
+            character.PlayerCharacter target;
+            attacker = main.Game.getPlayer();
+            if(attacker.getpClass().getMyBook().getSpellByName(spellname).getSpellEffect().equalsIgnoreCase("heal")){
+                target = attacker;
+            }else{
+                target = main.Game.getMonsters().get(
+                    Game.getInstance().getMonsterClosedToPlayer()
+                );
+            }
+            BattleHandler.tryToSpellAttack(attacker, target, spellname);
+            Game.updateGUI();
+        }
+    }
+    
     /**
      * move up action for every Input to triger.
      */

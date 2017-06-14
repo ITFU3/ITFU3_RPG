@@ -160,9 +160,10 @@ public class BattleHandler
                 input.getDamageDie(),
                 input.getDieCount()
         );
-        // that doen not work.
-//        spellDmg += attacker.getModifier(attacker.getIntelegent());
+        // flat bouns
         spellDmg += input.getDamageDie();
+        // plus modifier ( or in case of low monster minus)
+        spellDmg += attacker.getModifier(attacker.getIntelegent());
         return spellDmg;
     }
     

@@ -13,42 +13,43 @@ import character.item.spells.*;
  */
 public class MonsterPreset {
     /**
-     * creates an Oger Shaman that can heal
+     * more like the standart MonsterCharacter default Rat
      * @return MonsterCharacter
      */
-    public static MonsterCharacter createOgerShaman(){
-        MonsterCharacter ogerShaman = new MonsterCharacter( new Oger() );
-        ogerShaman.setHealth(10);
-        ogerShaman.setpClass(new Cleric());
-        ogerShaman.addWeapon(new Mace());
-        ogerShaman.addArmor(new Cloth());
-        ogerShaman.getpClass().getMyBook().addSpell(new HealingWord());
-        return ogerShaman;
+    public static MonsterCharacter createRat(){
+        MonsterCharacter monster = new MonsterCharacter( new Rat() );
+        monster.setHealth(3);
+        monster.setTempHP(3);
+        monster.setpClass(new PlayerClass());
+        monster.addWeapon(new Weapon());
+        monster.addArmor(new Armor());
+        return monster;
     }
-    
     /**
      * creates an Oger Grunt
      * @return MonsterCharacter
      */
     public static MonsterCharacter createOgerGrunt(){
-        MonsterCharacter ogerShaman = new MonsterCharacter( new Oger() );
-        ogerShaman.setHealth(15);
-        ogerShaman.setpClass(new Fighter());
-        ogerShaman.addWeapon(new Mace());
-        ogerShaman.addArmor(new Leather());
-        return ogerShaman;
+        MonsterCharacter monster = new MonsterCharacter( new Oger() );
+        monster.setHealth(15);
+        monster.setTempHP(15);
+        monster.setpClass(new Fighter());
+        monster.addWeapon(new Mace());
+        monster.addArmor(new Leather());
+        return monster;
     }
-    
     /**
-     * more like the standart MonsterCharacter default Rat
+     * creates an Oger Shaman that can heal
      * @return MonsterCharacter
      */
-    public static MonsterCharacter createRat(){
-        MonsterCharacter rat = new MonsterCharacter( new Rat() );
-        rat.setHealth(3);
-        rat.setpClass(new PlayerClass());
-        rat.addWeapon(new Weapon());
-        rat.addArmor(new Armor());
-        return rat;
-    }
+    public static MonsterCharacter createOgerShaman(){
+        MonsterCharacter monster = new MonsterCharacter( new Oger() );
+        monster.setHealth(10);
+        monster.setTempHP(10);
+        monster.setpClass(new Cleric());
+        monster.addWeapon(new Mace());
+        monster.addArmor(new Cloth());
+        monster.getpClass().getMyBook().addSpell(new HealingWord());
+        return monster;
+    }    
 }

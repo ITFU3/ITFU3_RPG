@@ -7,11 +7,38 @@ import character.item.armor.*;
 import character.item.weapons.*;
 import character.item.spells.*;
 
+import java.lang.reflect.Method;
+
 /**
  *
  * @author Matthias Dröge
  */
 public class MonsterPreset {
+    /**
+     * Sweet little function to pic a preset at random.
+     * self adjusting by using reflection of this class.
+     * When these presets get bigger and more dangerous, this could be quite bad.
+     * 
+     * @return MonsterCharacter
+     */
+    public static MonsterCharacter createRandom(){
+        try{
+            Method[] ran = MonsterPreset.class.getDeclaredMethods();
+            int monsterIndex = main.Die.rollDie(ran.length-1, 1);
+            if(
+                ran[monsterIndex].toString().equalsIgnoreCase(
+                "public static MonsterCharacter character.helper.MonsterPreset.createRandom()"
+            )){
+                // on picking self, try again.
+                return createRandom();
+            }
+            return (MonsterCharacter)ran[monsterIndex].invoke( MonsterPreset.class );
+        }catch(Throwable e){
+            System.err.println( e );
+            // on error spwan rat.
+            return createRat();
+        }
+    }
     /**
      * more like the standart MonsterCharacter default Rat
      * @return MonsterCharacter

@@ -47,6 +47,11 @@ public abstract class BaseCharacter {
     public void setDmg(int dmg) {
         this.dmg = dmg;
     }
+    public void setAllCoordinates( int y, int x ){
+        this.setCoordinates(y, x);
+        this.setCoordinates_future(y, x);
+        this.setCoordinates_past(y, x);
+    }
     public int[] getCoordinates() {
         return coordinates_now;
     }

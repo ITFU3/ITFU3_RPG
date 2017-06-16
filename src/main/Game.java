@@ -167,7 +167,10 @@ public class Game /*implements Runnable*/{
     public void nextLevel(){
         updateAttackInfo(UserInfo.NEXT_LEVEL);
         Game.waitFor(SleepTime.NEXT_LEVEL);
-        Map.getInstance().spawnRandomMonster(++this.level);
+        // This makes BOSS Monster spawn in groups of 1
+        int monsterCout = ++this.level;
+        if( ( this.level % 2) == 0 ){ monsterCout = 1; }
+        Map.getInstance().spawnRandomMonster(this.level,monsterCout);
         updateMonsterInfo();
         Game.updateGUI();
     }

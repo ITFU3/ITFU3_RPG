@@ -47,20 +47,17 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setTempHP(this.getHealth());
         this.setAllowedAttacks(1);
         this.setAllowedMoves(this.getMovement());
+        this.setAllCoordinates(0, 0);
     }
     
     public MonsterCharacter(int y, int x) {
         this( new Rat() );
-        this.setCoordinates(y, x);
-        this.setCoordinates_future(y, x);
-        this.setCoordinates_past(y, x);
+        this.setAllCoordinates(y, x);
     }
     
     public MonsterCharacter(int y, int x, Race race){
         this(race);
-        this.setCoordinates(y, x);
-        this.setCoordinates_future(y, x);
-        this.setCoordinates_past(y, x);
+        this.setAllCoordinates(y, x);
     }
     
     public MonsterCharacter(Race race) {
@@ -91,9 +88,6 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
       
         this.setAllowedMoves(this.getMovement());
         this.setAllowedAttacks(1);
-        this.setCoordinates(0, 0);
-        this.setCoordinates_past(0, 0);
-        this.setCoordinates_future(0, 0);
     }
     
     @Override

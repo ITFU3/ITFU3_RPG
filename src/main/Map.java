@@ -132,28 +132,34 @@ public class Map
 //      System.out.print("\n");
         }
     }
+    private void singleSpawn(int y,int x, int mapLevel){
+        MonsterCharacter monster;
+        switch(mapLevel){
+            case 4:
+                monster = MonsterPreset.createOgerGrunt();
+                break;
+            case 6:
+                monster = MonsterPreset.createOgerShaman();
+                break;
+            default:
+                // spawn rat
+                monster = MonsterPreset.createRat();
+        }
+        monster.setAllCoordinates(y, x);
+        Game.getInstance().addMonster( monster );
+        this.labyrinthMap[y][x] = monster.getMapToken();
+    }
     
-    public void spawnRandomMonster(int mapLevel){
-        int y,x;
-        char pos;
-        // mapLevel == number of monster ???
-        for (int i = 0; i < mapLevel; i++){
-            y = Die.rollDie(height-1, 1);
-            x = Die.rollDie(width-1, 1);
-            pos = this.labyrinthMap[y][x];
+    public void spawnRandomMonster(int mapLevel, int monsterCount){
+        for (int i = 0; i < monsterCount; i++){
+            int y = Die.rollDie(height-1, 1);
+            int x = Die.rollDie(width-1, 1);
+            char pos = this.labyrinthMap[y][x];
             if( pos != ' '){
-                // WRONG: Redo
                 i--;
             }else{
-                //Correct: place monster in world
-                // Here only Rats.
-                Game.getInstance().addMonster( new MonsterCharacter(y,x) );
-                
-            // Here a given Race Monster. [ X could be a Random Monster Race Class ]
-            //Game.getInstance().addMonster( new MonsterCharacter(y,x, new X()) );
-            
-                this.labyrinthMap[y][x] = Game.getMonsters().get( Game.getMonsters().size()-1 ).getMapToken();
-            }
+                singleSpawn(y,x, mapLevel);
+            }    
         }
         this.buildMapString();
     }
@@ -215,6 +221,9 @@ public class Map
                 
                 char mapIndicator = this.entity.getMapToken();
                 System.out.println("main.Map.walkOnMap ==> Indicator: " + mapIndicator);
+                System.err.println("["+n_y+"]");
+                System.err.println("["+n_x+"]");
+                System.err.println(this.labyrinthMap[n_y][n_x]);
                 char field = this.labyrinthMap[n_y][n_x];
                 
                 if(field != ' '){

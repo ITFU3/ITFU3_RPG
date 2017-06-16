@@ -1,9 +1,25 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package character;
 
 import base.Helper;
 import interfaces.Growable;
-import character.classes.*;
-import character.races.*;
+import character.classes.PlayerClass;
+import character.races.MonsterRace;
+import character.races.Race;
+import character.races.Rat;
+
+/*protected final int strength = 0;
+  protected final int dexterity = 1;
+  protected final int Constitution = 2;
+  protected final int wisdom = 3;
+  protected final int inteligence = 4;
+  protected final int charisma = 5;
+  protected final int movement = 6;
+  protected final int health = 7;*/
 
 /**
  *
@@ -12,9 +28,7 @@ import character.races.*;
  */
 public class MonsterCharacter extends PlayerCharacter implements Growable{
     
-    /**
-     * Constuctor that creates a random monster 
-     */
+    
     public MonsterCharacter() {
         this.setName(Helper.randomName(5));
         this.setMapToken('M');
@@ -35,11 +49,6 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setAllowedMoves(this.getMovement());
     }
     
-    /**
-     * Constuctor that creates rats
-     * @param y
-     * @param x 
-     */
     public MonsterCharacter(int y, int x) {
         this( new Rat() );
         this.setCoordinates(y, x);
@@ -47,12 +56,6 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setCoordinates_past(y, x);
     }
     
-    /**
-     * Constuctor that creates a monster with a given race.
-     * @param y
-     * @param x
-     * @param race 
-     */
     public MonsterCharacter(int y, int x, Race race){
         this(race);
         this.setCoordinates(y, x);
@@ -60,10 +63,6 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setCoordinates_past(y, x);
     }
     
-    /**
-     * Constuctor that creates a monster with a given race.
-     * @param race 
-     */
     public MonsterCharacter(Race race) {
         this();
         this.setExperience(50);
@@ -97,10 +96,6 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setCoordinates_future(0, 0);
     }
     
-    /**
-     * show basic monster information
-     * @return String
-     */
     @Override
     public String showCharInfo()
     {
@@ -113,18 +108,10 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
       return output;
     }
     
-    /**
-     * show advanced monster information
-     * @return String
-     */
     public String showAllCharInfo(){
         return super.showCharInfo();
     }
     
-    /**
-     * Safty override to ensure that P marker is for player
-     * @param mapToken char
-     */
     @Override
     public void setMapToken(char mapToken) {
         //safty reason. Because P is for Player!!
@@ -135,23 +122,14 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         }
     }
 
-    /**
-     * implementation of the grow method from interface
-     */
     @Override
     public void grow() {
         if (getpRace() instanceof MonsterRace) {
             ((MonsterRace) getpRace()).grow();
-            // increases the exp that a monster drops by a factor of 2
-            this.setExperience( this.getExperience() * 2 );
-            // adds the modifier bonus ontop of the grow modifier bonus
-            //setStatsWithBonus();
+            setStatsWithBonus();
         }
     }
     
-    /**
-     * Seting the Stats with all class and race boni.
-     */
     private void setStatsWithBonus() {
         this.setStrength(
               this.getStrength()+
@@ -195,4 +173,8 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
               //this.getModifier(this.getConstitution()) ???
         );
     }
+
+    
+    
+    
 }

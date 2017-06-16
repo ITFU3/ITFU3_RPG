@@ -48,15 +48,14 @@ public class MonsterRace extends Race implements Growable{
     }
     /**
      * The grow methode, that makes Monsters stronger and harder to kill.
-     * Here the numbers can be tweaked.
      */
     @Override
     public void grow() {
         int bonus = 0;
         if (this.getType() == Type.EVIL) {
-            bonus = 5;
-        } else if (this.getType() == Type.OFDOOM) {
-            bonus = 10;
+            bonus = 1;
+        } else if (this.getType() == Type.EVIL) {
+            bonus = 3;
         } 
         int[] BonusStats = super.getStatsBonus();
         for (int i = 0; i < BonusStats.length; i++) {

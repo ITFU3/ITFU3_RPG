@@ -6,6 +6,7 @@ import character.classes.*;
 import character.*;
 import character.item.weapons.*;
 import character.item.armor.*;
+import character.item.shields.SmallShield;
 
 import java.util.ArrayList;
 
@@ -73,6 +74,7 @@ public class CharacterSelecter
     );
     player2.addWeapon(new Mace("Glower", 8, 1, 1));
     player2.addArmor(new ChainMail());
+    player2.addShield( new SmallShield() );
     player2.getpClass().getMyBook().addSpell(new HealingWord());
     
     PlayerCharacter player3 = new PlayerCharacter(

@@ -3,6 +3,7 @@ import character.races.Race;
 import character.classes.PlayerClass;
 import character.item.weapons.Weapon;
 import character.item.armor.Armor;
+import character.item.shields.Shield;
 import base.Helper;
 
 /**
@@ -17,6 +18,7 @@ public class PlayerCharacter extends BaseCharacter
   private Race pRace;
   private Weapon pWeapon;
   private Armor pArmor;
+  private Shield pShield;
   private int[] basicStats = new int[8];
   private int tempHP;
 
@@ -103,6 +105,7 @@ public class PlayerCharacter extends BaseCharacter
           Race inputRace,
           int id
   ){
+    this();
     int[] inputStats = {10, 10, 10, 10, 10, 10, 5, 0};
     init(inputName,inputGender,inputStats,inputClass,inputRace,id);
   }
@@ -126,6 +129,7 @@ public class PlayerCharacter extends BaseCharacter
           Race inputRace,
           int id
   ){
+    this();
     init(inputName,inputGender,inputStats,inputClass,inputRace,id);
   }
   /**
@@ -143,8 +147,9 @@ public class PlayerCharacter extends BaseCharacter
         new Race(),
         0
       );
-      this.setpWeapon(new Weapon());
-      this.setpArmor(new Armor());
+      this.setpWeapon( new Weapon() );
+      this.setpArmor( new Armor() );
+      this.setpShield( new Shield() );
   }
 // ################# EQUIPMENT #################
   /**
@@ -153,7 +158,11 @@ public class PlayerCharacter extends BaseCharacter
    */
   public void addWeapon(Weapon input)
   {
-    this.setpWeapon(input);
+    if ( this.isProfThere( input.getCat() ) ){  
+        this.setpWeapon(input);
+    }else{
+        System.err.println("You can't equip this Item.");
+    }
   }
   /**
    * Puts the weanpon out of the characters hand.
@@ -168,14 +177,18 @@ public class PlayerCharacter extends BaseCharacter
    */
   public void addArmor(Armor input)
   {
-    if(input.getType().equalsIgnoreCase("None"))
-    {
-      input.setArmorValue(
-                      input.getArmorValue() 
-                      + this.getModifier(this.getDexterity())
-                    );
+    if ( this.isProfThere( input.getCat() ) ){
+      if(input.getType().equalsIgnoreCase("None"))
+      {
+        input.setArmorValue(
+                        input.getArmorValue() 
+                        + this.getModifier(this.getDexterity())
+                      );
+      }
+      setpArmor(input);
+    }else{
+        System.err.println("You can't equip this Item.");
     }
-    setpArmor(input);
   }
   /**
    * Puts the armor off the characters.
@@ -188,6 +201,25 @@ public class PlayerCharacter extends BaseCharacter
         + this.getModifier(this.getDexterity())
       );
     this.setpArmor(input);
+  }
+  /**
+   * Puts a shield in the hand of the character.
+     * @param input - Shield
+   */
+  public void addShield(Shield input)
+  {
+      if ( this.isProfThere( input.getCat() ) ){
+        setpShield(input);
+      }else{
+          System.err.println("You can't equip this Item.");
+      }
+  }
+  /**
+   * Takes away the shield from the character.
+   */
+  public void removeShield()
+  {
+      setpShield( new Shield() );
   }
 // ################# CALCULATIONS #################
   /**
@@ -265,22 +297,23 @@ public class PlayerCharacter extends BaseCharacter
 	}
 	return output;
   }
-  /**
-   * Returns the calculated max Armor value of the Character.
-   * @return - int
-   */
-  public int getAC()
-  {
-    if(this.getpArmor().getCat().equalsIgnoreCase("heavy"))
+  
+    /**
+    * Returns the calculated max Armor value of the Character.
+    * @return - int
+    */
+    public int getAC()
     {
-      return this.getpArmor().getArmorValue();
+      int ac = 0;
+        if(this.getpArmor().getCat().equalsIgnoreCase("heavy")){
+          ac = this.getpArmor().getArmorValue();
+        }else{
+          ac = (this.getpArmor().getArmorValue() 
+                + this.getModifier(this.getDexterity()));
+        }
+        ac = ac + this.getpShield().getArmorValue();
+        return ac;
     }
-    else
-    {
-      return (this.getpArmor().getArmorValue() 
-            + this.getModifier(this.getDexterity()));
-    }
-  }
   /**
    * Returns the initiative value of the Character.
    * (incl. die roll)
@@ -481,6 +514,11 @@ public class PlayerCharacter extends BaseCharacter
         + "HP: \t" + this.getTempHP() + " / " + this.getHealth() + "\n"
         + "Armor: \t" + this.getpArmor().getType() + " (" 
                     + this.getAC() + ")\n"
+        + (
+            (this.getpShield().getArmorValue() > 0)?
+            "Shield: \t" + this.getpShield().getName() +" ("+ this.getpShield().getArmorValue()+")\n":
+            ""
+        )
         + "Mov: \t" + this.getMovement() + "\n"
         + "\n"
         + "Str: \t" + this.getStrength() + " | " + this.getModifier(this.getStrength()) + "\n"
@@ -615,6 +653,12 @@ public class PlayerCharacter extends BaseCharacter
   public void setTempHP(int tempHP) {
       this.tempHP = tempHP;
   }
+    public Shield getpShield() {
+        return pShield;
+    }
+    public void setpShield(Shield pShield) {
+        this.pShield = pShield;
+    }
 
     @Override
     public String toString() {

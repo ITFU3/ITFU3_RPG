@@ -326,6 +326,24 @@ public class Game
         Game.getInstance().stop();
         Game.updateAttackInfo(UserInfo.GAME_OVER);
         System.out.println(UserInfo.GAME_OVER);
+        
+        String ObjButtons[] = {"Yes","No"};
+        int PromptResult = javax.swing.JOptionPane.showOptionDialog(
+            null, 
+            "Game Over" + "\n" +
+            "Do you want to save your HighScore before starting over?",
+            "Game Over", 
+            javax.swing.JOptionPane.DEFAULT_OPTION,
+            javax.swing.JOptionPane.WARNING_MESSAGE,
+            null, 
+            ObjButtons,
+            ObjButtons[1]
+        );
+        if(PromptResult==0)
+        {
+            fileHandler.DataHandler.writeHighScoreList();
+        }
+        // TODO: Start over with Character Selecter ...
     }
     
     // Getter and Setter

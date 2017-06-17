@@ -146,9 +146,9 @@ public class PlayerCharacter extends BaseCharacter
         new Race(),
         0
       );
-      this.setpWeapon( new Weapon() );
-      this.setpArmor( new Armor() );
-      this.setpShield( new Shield() );
+      this.addWeapon( new Weapon() );
+      this.addArmor( new Armor() );
+      this.addShield( new Shield() );
   }
 // ################# EQUIPMENT #################
   /**
@@ -156,7 +156,16 @@ public class PlayerCharacter extends BaseCharacter
    * @param input - Weapon
    */
   public void addWeapon(Weapon input){
-    if ( this.isProfThere( input.getWeaponGroup() ) ){  
+    // big IF for checking if a weapon can be equiped
+    if(
+        this.isProfThere( input.getWeaponGroup() )
+        &&
+        (
+            this.getpShield().getArmorValue() == 0
+            ||
+            this.getpShield().getArmorValue() > 0 && !input.isProperty("dualhanded")
+        )
+    ){  
         this.setpWeapon(input);
     }else{
         System.err.println("You can't equip this weapon.");
@@ -207,6 +216,7 @@ public class PlayerCharacter extends BaseCharacter
         if(
             this.isProfThere(input.getCat())
             && !this.getpWeapon().getCat().equalsIgnoreCase("range")
+            && !this.getpWeapon().isProperty("dualhanded")
         ){
             setpShield(input);
         }else{

@@ -12,6 +12,8 @@ public class LongBow extends Weapon
     this.setCat("range");
     this.setDistance(15);
     this.setWeaponGroup("martial weapons");
+    String[] prop = {"dualhanded"};
+    this.setProperties(prop);
   }
   
   public LongBow(String name, int damageDie, int dieCount, int distance)

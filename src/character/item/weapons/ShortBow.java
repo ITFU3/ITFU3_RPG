@@ -12,17 +12,16 @@ public class ShortBow extends Weapon
     this.setCat("range");
     this.setDistance(10);
     this.setWeaponGroup("simple weapons");
+    String[] prop = {"dualhanded"};
+    this.setProperties(prop);
   }
   
   public ShortBow(String name, int damageDie, int dieCount, int distance)
   {
+    this();
     this.setName(name);
     this.setDamageDie(damageDie);
     this.setDieCount(dieCount);
-    this.setDurability(100);
-    this.setType(this.getClass().getSimpleName());
-    this.setCat("range");
     this.setDistance(distance);
-    this.setWeaponGroup("simple weapons");
   }
 }

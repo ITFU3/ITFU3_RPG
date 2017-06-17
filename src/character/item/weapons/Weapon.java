@@ -1,5 +1,6 @@
 package character.item.weapons;
 import character.item.Item;
+import java.util.Arrays;
 
 public class Weapon extends Item
 {
@@ -11,6 +12,7 @@ public class Weapon extends Item
   private String cat;
   private int distance;
   private String weaponGroup;
+  private String[] properties  = {"none"};
   
   public Weapon()
   {
@@ -72,6 +74,15 @@ public class Weapon extends Item
   }
   public void setWeaponGroup(String weaponGroup) {
     this.weaponGroup = weaponGroup;
+  }
+  public String[] getProperties() {
+    return properties;
+  }
+  public void setProperties(String[] properties) {
+    this.properties = properties;
+  }
+  public boolean isProperty(String input){
+      return Arrays.asList(this.getProperties()).contains(input);
   }
   @Override
   public String toString(){

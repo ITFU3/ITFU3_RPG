@@ -11,6 +11,8 @@ public class LongSword extends Weapon
     this.setCat("melee");
     this.setDistance(1);
     this.setWeaponGroup("martial weapons");
+    String[] prop = {"versitile"};
+    this.setProperties(prop);
   }
   
   public LongSword(String name, int damageDie, int dieCount, int distance)

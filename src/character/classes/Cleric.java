@@ -10,7 +10,7 @@ public class Cleric extends PlayerClass
     BonusStats[5] += 2;
     BonusStats[7] += 8;
     this.setStatsBonus(BonusStats);
-    String[] profs = {"light armor","medium armor", "shields",
+    String[] profs = {"none","light armor","medium armor", "shields",
       "simple weapons","wisdom","charisma"};
     this.setProficiencies(profs);
   }

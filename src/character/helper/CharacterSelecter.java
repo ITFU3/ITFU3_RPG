@@ -94,8 +94,8 @@ public class CharacterSelecter
         new Human(), 
         0
     );
-    player4.addWeapon(new Weapon());
-    player4.addArmor(new Cloth());
+    player4.addWeapon( new Weapon() );
+    player4.addArmor( new Cloth() );
     player4.getpClass().getMyBook().addSpell(new Fireball());
     
     PlayerCharacter[] output = {player1, player2, player3, player4};

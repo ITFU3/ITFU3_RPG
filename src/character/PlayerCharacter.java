@@ -136,8 +136,7 @@ public class PlayerCharacter extends BaseCharacter
    * Constructor for PlayerCharacter with no parameter.
    * Gives only basic values.
    */
-  public PlayerCharacter ()
-  {
+  public PlayerCharacter (){
       int[] inputStats = {10, 10, 10, 10, 10, 10, 5, 0};
       init(
         Helper.randomName(5),
@@ -156,30 +155,26 @@ public class PlayerCharacter extends BaseCharacter
    * Puts a weanpon in the characters hand.
    * @param input - Weapon
    */
-  public void addWeapon(Weapon input)
-  {
-    if ( this.isProfThere( input.getCat() ) ){  
+  public void addWeapon(Weapon input){
+    if ( this.isProfThere( input.getWeaponGroup() ) ){  
         this.setpWeapon(input);
     }else{
-        System.err.println("You can't equip this Item.");
+        System.err.println("You can't equip this weapon.");
     }
   }
   /**
    * Puts the weanpon out of the characters hand.
    */
-  public void removeWeapon()
-  {
+  public void removeWeapon(){
     this.setpWeapon(new Weapon());
   }
   /**
    * Puts a armor on the characters.
    * @param input - Armor
    */
-  public void addArmor(Armor input)
-  {
+  public void addArmor(Armor input){
     if ( this.isProfThere( input.getCat() ) ){
-      if(input.getType().equalsIgnoreCase("None"))
-      {
+      if(input.getType().equalsIgnoreCase("None")){
         input.setArmorValue(
                         input.getArmorValue() 
                         + this.getModifier(this.getDexterity())
@@ -187,7 +182,7 @@ public class PlayerCharacter extends BaseCharacter
       }
       setpArmor(input);
     }else{
-        System.err.println("You can't equip this Item.");
+        System.err.println("You can't equip this armor.");
     }
   }
   /**
@@ -206,14 +201,18 @@ public class PlayerCharacter extends BaseCharacter
    * Puts a shield in the hand of the character.
      * @param input - Shield
    */
-  public void addShield(Shield input)
-  {
-      if ( this.isProfThere( input.getCat() ) ){
-        setpShield(input);
-      }else{
-          System.err.println("You can't equip this Item.");
-      }
-  }
+    public void addShield(Shield input)
+    {
+        // TODO: check for dual-handed-weapons AND add that to weapons
+        if(
+            this.isProfThere(input.getCat())
+            && !this.getpWeapon().getCat().equalsIgnoreCase("range")
+        ){
+            setpShield(input);
+        }else{
+            System.err.println("You can't equip this shield.");
+        }
+    }
   /**
    * Takes away the shield from the character.
    */
@@ -349,11 +348,6 @@ public class PlayerCharacter extends BaseCharacter
   public boolean isProfThere(String inputType)
   {
     boolean output = false;
-    /**
-     * This is a new thing in java called "foreach"
-     * Foreach element from array "this.getpClass().getProficiencies()"
-     * as "String proficiency"
-     */ 
     for(String proficiency : this.getpClass().getProficiencies())
     {
       if(proficiency.equalsIgnoreCase(inputType))
@@ -513,12 +507,13 @@ public class PlayerCharacter extends BaseCharacter
         + "Experience: \t" + this.getExperience() + "\n"
         + "HP: \t" + this.getTempHP() + " / " + this.getHealth() + "\n"
         + "Armor: \t" + this.getpArmor().getType() + " (" 
-                    + this.getAC() + ")\n"
+                    + this.getpArmor().getArmorValue() + ")\n"
         + (
             (this.getpShield().getArmorValue() > 0)?
             "Shield: \t" + this.getpShield().getName() +" ("+ this.getpShield().getArmorValue()+")\n":
             ""
         )
+        + "Overall Armor: \t" + this.getAC() + "\n\n"
         + "Mov: \t" + this.getMovement() + "\n"
         + "\n"
         + "Str: \t" + this.getStrength() + " | " + this.getModifier(this.getStrength()) + "\n"

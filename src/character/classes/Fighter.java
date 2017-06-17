@@ -9,7 +9,7 @@ public class Fighter extends PlayerClass
     BonusStats[2] += 2;
     BonusStats[7] += 10;
     this.setStatsBonus(BonusStats);
-    String[] profs = {"light armor","medium armor","heavy armor","shields", 
+    String[] profs = {"none","light armor","medium armor","heavy armor","shields", 
       "simple weapons","martial weapons","stregnth","constitution"};
     this.setProficiencies(profs);
   }

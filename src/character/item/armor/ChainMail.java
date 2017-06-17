@@ -6,7 +6,7 @@ public class ChainMail extends Armor
     this.setName(this.getClass().getSimpleName());
     this.setType(this.getClass().getSimpleName());
     this.setArmorValue(16);
-    this.setCat("heavy");
+    this.setCat("medium armor");
   }
   
   public ChainMail(String inputName, int inputArmorValue)

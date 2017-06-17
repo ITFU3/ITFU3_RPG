@@ -39,7 +39,7 @@ public class Armor extends Item
     this.setName("None");
     this.setType("None");
     this.setArmorValue(10);
-    this.setCat("light");
+    this.setCat("none");
     
   }
   

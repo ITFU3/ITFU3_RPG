@@ -38,10 +38,10 @@ public class Shield extends Item
 
     public Shield()
     {
-      this.setName("None");
-      this.setType("None");
+      this.setName("none");
+      this.setType("none");
       this.setArmorValue(0);
-      this.setCat("None");
+      this.setCat("none");
     }
 
     public Shield(Object[] input)

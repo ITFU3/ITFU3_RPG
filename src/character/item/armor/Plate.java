@@ -6,7 +6,7 @@ public class Plate extends Armor
     this.setName(this.getClass().getSimpleName());
     this.setType(this.getClass().getSimpleName());
     this.setArmorValue(18);
-    this.setCat("heavy");
+    this.setCat("heavy armor");
   }
   
   public Plate(String inputName, int inputArmorValue)

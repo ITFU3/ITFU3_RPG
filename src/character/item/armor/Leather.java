@@ -7,7 +7,7 @@ public class Leather extends Armor
     this.setName(this.getClass().getSimpleName());
     this.setType(this.getClass().getSimpleName());
     this.setArmorValue(11);
-    this.setCat("light");
+    this.setCat("light armor");
   }
   
   public Leather(String inputName, int inputArmorValue)

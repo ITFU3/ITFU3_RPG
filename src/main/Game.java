@@ -2,14 +2,12 @@ package main;
 
 import character.MonsterCharacter;
 import character.PlayerCharacter;
-import character.races.MonsterRace;
 import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
 import gameHandler.SleepTime;
 import gameHandler.UserInfo;
-//import gameHandler.MonsterAI;
 import gui.GameFrame;
-//import gui.GuiHelper.HealthBarLabel;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +17,8 @@ import javax.swing.JTextArea;
  *
  * @author Steffen Haas
  */
-public class Game /*implements Runnable*/{
+public class Game
+{
     
     public static Game instance;
     private KeyHandler keyhandler = new KeyHandler();
@@ -40,41 +39,48 @@ public class Game /*implements Runnable*/{
     private boolean running = false;
     private boolean playerTurn = true;
     
-    private Game() {
-        
+    private Game()
+    {
     }
 
-    public static Game getInstance() {
+    public static Game getInstance()
+    {
         if (instance == null) {
             instance = new Game();
         }
         return instance;
     }
 
-    private void init() {
+    private void init()
+    {
         gameFrame = new GameFrame();
         gameFrame.setTitle(title);
     }
 
     
-    public /*synchronized*/ void start() {
-//        
+    public void start()
+    {
         init();
     }
     
-    public void stop() {
-        
+    public void stop()
+    {
     }
+    
     /**
      * created by Steffen Haas
-     * @param hit 
      */
-    public static void hitDisplay() {
+    public static void hitDisplay()
+    {
         updateAttackInfo(UserInfo.HIT, true);
         Game.waitFor(SleepTime.HIT);
     }
 
-    public static void updateGUI(){
+    /**
+     * main GUI update function
+     */
+    public static void updateGUI()
+    {
         getInstance().getGameFrame().getArenaTextArea().setText(Map.getInstance().getMap());
         getInstance().getGameFrame().getArenaTextArea().update(
             getInstance().getGameFrame().getArenaTextArea().getGraphics()
@@ -104,13 +110,17 @@ public class Game /*implements Runnable*/{
         );
         
         // Update HP-Bar for the Player
-        getInstance().updateHealthBar( getPlayer().getTempHP() );
+        updateHealthBar( getPlayer().getTempHP() );
         
         getInstance().getGameFrame().repaint();
         System.out.println("main.Game.updateGUI => UPDATED");
     }
     
-    public static void updateMonsterInfo() {
+    /**
+     * GUI MOnsterInfo Update for all monsters
+     */
+    public static void updateMonsterInfo()
+    {
         ArrayList<MonsterCharacter> monsters = getMonsters();
         String newMonsterInfo = "Monsters in Arena: " + monsters.size() + "\n";
         
@@ -123,7 +133,12 @@ public class Game /*implements Runnable*/{
         System.out.println("main.Game.updateMonsterInfo => UPDATED");
     }
     
-    public static void endRound() {
+    /**
+     * EndRound Fuction for the Player
+     * and the MonsterAI loop for all Monsters
+     */
+    public static void endRound()
+    {
         setPlayerTurn(false);
         upgradeMonsters();
         if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
@@ -164,7 +179,12 @@ public class Game /*implements Runnable*/{
         updateGUI();
     } 
 
-    public void nextLevel(){
+    /**
+     * starts the next level with new spawning monster
+     * and GUI update
+     */
+    public void nextLevel()
+    {
         updateAttackInfo(UserInfo.NEXT_LEVEL);
         Game.waitFor(SleepTime.NEXT_LEVEL);
         // This makes BOSS Monster spawn in groups of 1
@@ -175,11 +195,24 @@ public class Game /*implements Runnable*/{
         Game.updateGUI();
     }
     
-    public static void updateAttackInfo(String addString) {
+    /**
+     * created by Steffen Haas
+     * 
+     * @param addString
+     */
+    public static void updateAttackInfo(String addString)
+    {
         updateAttackInfo(addString, false);
     }
     
-    public static void updateAttackInfo(String addString, boolean add) {
+    /**
+     * created by Steffen Haas
+     * 
+     * @param addString
+     * @param add
+     */
+    public static void updateAttackInfo(String addString, boolean add)
+    {
         
         String newOldString=  addString;
         if (add) {
@@ -196,11 +229,12 @@ public class Game /*implements Runnable*/{
         getInstance().setAttackInfo(newOldString); //???
         System.out.println("main.Game.updateAttackInfo => UPDATED");
     }
+    
     /**
      * created by Steffen Haas
      * 
      * @param addString
-     * @param add 
+     * @param add
      */
     public static void addToAttackInfoString(String addString, boolean add)
     {
@@ -213,7 +247,10 @@ public class Game /*implements Runnable*/{
         System.out.println("main.Game.addToAttackInfoString => UPDATED");
     }
     
-    
+    /**
+     * GUI HelthBar update
+     * @param newHP - int
+     */
     public static void updateHealthBar(int newHP)
     {
         ((gui.GuiHelper.HealthBarLabel) Game.getInstance()
@@ -221,18 +258,26 @@ public class Game /*implements Runnable*/{
         ).setHealthText( newHP );
     }
     
-    public static void waitFor(long millis) {
-        
+    /**
+     * Makes the game wait for smother gameplay.
+     * @param millis - long
+     */
+    public static void waitFor(long millis)
+    {
         try {
-            
             Thread.sleep(millis);
         } catch (InterruptedException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
-    public int getMonsterClosedToPlayer(){
+    /**
+     * From all monsters calculates the closest and most wounded Monster.
+     * In that Order.
+     * @return int - MonsterIndex
+     */
+    public int getMonsterClosedToPlayer()
+    {
         int output = 0, dist = 99, hp = 99;
         PlayerCharacter pc = getPlayer();
         for(int i = 0; i < getMonsters().size(); i++){
@@ -254,6 +299,36 @@ public class Game /*implements Runnable*/{
         return output;
     }
     
+    /**
+     * Triggers the grow fuction for all monsters
+     */
+    private static void upgradeMonsters()
+    {
+        System.out.println("########################## UPGRADE MONSTERS #####START####################");
+        for (MonsterCharacter monster : getMonsters()) {
+            
+            System.out.println(monster.showCharInfo());
+            System.out.println("MONSTER "+monster.getName()+" is GROWING");
+            monster.grow();
+            System.out.println(monster.showCharInfo());
+           
+            
+        }
+        System.out.println("########################## UPGRADE MONSTERS #####END#####################");
+    }
+    
+    /**
+     * Prompt the Game Over Screen and stop the Game
+     */
+    private static void over()
+    {
+        
+        Game.getInstance().stop();
+        Game.updateAttackInfo(UserInfo.GAME_OVER);
+        System.out.println(UserInfo.GAME_OVER);
+    }
+    
+    // Getter and Setter
     public static PlayerCharacter getPlayer() {
         return getInstance().player;
     }
@@ -272,7 +347,6 @@ public class Game /*implements Runnable*/{
     public GameFrame getGameFrame() {
         return gameFrame;
     }
-    
     public boolean isRunning() {
         return running;
     }
@@ -301,40 +375,14 @@ public class Game /*implements Runnable*/{
     public static JTextArea getAttackInfoTextArea() {
         return getInstance().getGameFrame().getAttackInfoTextArea();
     }
-
     public static boolean isPlayerTurn() {
         System.out.println("main.Game.isPlayerTurn ==> Is player turn: " +getInstance().playerTurn);
         return getInstance().playerTurn;
     }
-
     public static void setPlayerTurn(boolean playerTurn) {
         getInstance().playerTurn = playerTurn;
     }
-
     public static KeyHandler getKeyhandler() {
         return getInstance().keyhandler;
-    }
-    
-    
-    
-    private static void upgradeMonsters() {
-        System.out.println("########################## UPGRADE MONSTERS #####START####################");
-        for (MonsterCharacter monster : getMonsters()) {
-            
-            System.out.println(monster.showCharInfo());
-            System.out.println("MONSTER "+monster.getName()+" is GROWING");
-            monster.grow();
-            System.out.println(monster.showCharInfo());
-           
-            
-        }
-        System.out.println("########################## UPGRADE MONSTERS #####END#####################");
-    }
-    
-    private static void over() {
-        
-        Game.getInstance().stop();
-        Game.updateAttackInfo(UserInfo.GAME_OVER);
-        System.out.println(UserInfo.GAME_OVER);
     }
 }

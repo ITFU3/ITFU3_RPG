@@ -6,6 +6,7 @@ import character.classes.*;
 import character.*;
 import character.item.weapons.*;
 import character.item.armor.*;
+import character.item.shields.Shield;
 import character.item.shields.SmallShield;
 
 import java.util.ArrayList;
@@ -72,10 +73,10 @@ public class CharacterSelecter
         new Dwarf(),
         0
     );
-    player2.addWeapon(new Mace("Glower", 8, 1, 1));
-    player2.addArmor(new ChainMail());
+    player2.addWeapon( new Mace("Glower", 8, 1, 1) );
+    player2.addArmor( new ChainMail() );
     player2.addShield( new SmallShield() );
-    player2.getpClass().getMyBook().addSpell(new HealingWord());
+    player2.getpClass().getMyBook().addSpell( new HealingWord() );
     
     PlayerCharacter player3 = new PlayerCharacter(
         "Vahlran",
@@ -98,7 +99,19 @@ public class CharacterSelecter
     player4.addArmor( new Cloth() );
     player4.getpClass().getMyBook().addSpell(new Fireball());
     
-    PlayerCharacter[] output = {player1, player2, player3, player4};
+    PlayerCharacter player5 = new PlayerCharacter(
+        "Egeord",
+        'm',
+        new Fighter(), 
+        new Dwarf(), 
+        0 // id 
+    );
+    player5.addWeapon( new Handaxe() );
+    player5.addOffHandWeapon( new Handaxe() );
+    player5.addArmor(new Plate());
+//    player5.addShield( new Shield() );
+    
+    PlayerCharacter[] output = {player1, player2, player3, player4, player5};
     return output;
   }
   
@@ -110,6 +123,7 @@ public class CharacterSelecter
     chars.add(player[1]);
     chars.add(player[2]);
     chars.add(player[3]);
+    chars.add(player[4]);
     return chars;
     
   }

@@ -3,7 +3,7 @@ public class Race
 {
   private String name;
   private int[] BonusStats;
-    
+  
   public Race(){
     // strength, dexterity, Constitution, wisdom, inteligent, charisma, movement, health (calculated)
     int[] bonus = {0,0,0,0,0,0,0,0};

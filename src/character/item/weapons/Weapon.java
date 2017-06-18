@@ -1,8 +1,9 @@
 package character.item.weapons;
-import character.item.Item;
+import character.item.*;
 import java.util.Arrays;
 
-public class Weapon extends Item
+//public class Weapon extends Item
+public class Weapon extends OffHandItem
 {
   private String name;
   private int damageDie;
@@ -20,7 +21,7 @@ public class Weapon extends Item
     this.setDamageDie(4);
     this.setDurability(100);
     this.setDieCount(2);
-    this.setType("Hand");
+    this.setType("hand");
     this.setCat("melee");
     this.setDistance(1);
     this.setWeaponGroup("none");

@@ -1,10 +1,12 @@
 package character.item.shields;
 import character.item.Item;
+import character.item.OffHandItem;
 
 /**
  * @author Matthias Dröge
  */
-public class Shield extends Item
+//public class Shield extends Item
+public class Shield extends OffHandItem
 {
     private String name;
     private String type;

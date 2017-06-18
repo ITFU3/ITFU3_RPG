@@ -140,6 +140,13 @@ public class BattleHandler
                 attacker.getWeaponSlot().getDamageDie(),
                 attacker.getWeaponSlot().getDieCount()
         );
+        // 'Simplified' Dual-Weapon-Attack, just adding up the damage.
+        if( !attacker.getOffHandWeaponSlot().getType().equalsIgnoreCase("hand") ){
+            dmg += main.Die.rollDie(
+                attacker.getOffHandWeaponSlot().getDamageDie(),
+                attacker.getOffHandWeaponSlot().getDieCount()
+            );
+        }
         if(attacker.getWeaponSlot().getCat().equalsIgnoreCase("range")){
             dmg += attacker.getModifier(attacker.getDexterity());
         }else{

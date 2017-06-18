@@ -1,5 +1,5 @@
 package main;
-import base.Helper;
+
 import character.races.*;
 import character.*;
 import gameHandler.*;
@@ -22,8 +22,6 @@ public class Demos
     MonsterCharacter[] output = {monster, rat};
     return output;
   }
-
-    
   /**
    * The alpha version of the text based rpg of ours.
    * 

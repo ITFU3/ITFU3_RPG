@@ -14,13 +14,13 @@ public class PlayerCharacter extends BaseCharacter
   private String name;
   private char gender;
   private int experience;
-  private PlayerClass pClass;
-  private Race pRace;
-  private Weapon pWeapon;
-  private Armor pArmor;
-  private Shield pShield;
   private int[] basicStats = new int[8];
   private int tempHP;
+  private PlayerClass pClass;
+  private Race pRace;
+  private Weapon weaponSlot;
+  private Armor armorSlot;
+  private Shield shieldSlot;
 
   protected final int strength = 0;
   protected final int dexterity = 1;
@@ -161,12 +161,12 @@ public class PlayerCharacter extends BaseCharacter
         this.isProfThere( input.getWeaponGroup() )
         &&
         (
-            this.getpShield().getArmorValue() == 0
+            this.getShieldSlot().getArmorValue() == 0
             ||
-            this.getpShield().getArmorValue() > 0 && !input.isProperty("dualhanded")
+            this.getShieldSlot().getArmorValue() > 0 && !input.isProperty("dualhanded")
         )
     ){  
-        this.setpWeapon(input);
+        this.setWeaponSlot(input);
     }else{
         System.err.println("You can't equip this weapon.");
     }
@@ -175,7 +175,7 @@ public class PlayerCharacter extends BaseCharacter
    * Puts the weanpon out of the characters hand.
    */
   public void removeWeapon(){
-    this.setpWeapon(new Weapon());
+    this.setWeaponSlot(new Weapon());
   }
   /**
    * Puts a armor on the characters.
@@ -189,7 +189,7 @@ public class PlayerCharacter extends BaseCharacter
                         + this.getModifier(this.getDexterity())
                       );
       }
-      setpArmor(input);
+      setArmorSlot(input);
     }else{
         System.err.println("You can't equip this armor.");
     }
@@ -204,7 +204,7 @@ public class PlayerCharacter extends BaseCharacter
         input.getArmorValue() 
         + this.getModifier(this.getDexterity())
       );
-    this.setpArmor(input);
+    this.setArmorSlot(input);
   }
   /**
    * Puts a shield in the hand of the character.
@@ -215,10 +215,10 @@ public class PlayerCharacter extends BaseCharacter
         // TODO: check for dual-handed-weapons AND add that to weapons
         if(
             this.isProfThere(input.getCat())
-            && !this.getpWeapon().getCat().equalsIgnoreCase("range")
-            && !this.getpWeapon().isProperty("dualhanded")
+            && !this.getWeaponSlot().getCat().equalsIgnoreCase("range")
+            && !this.getWeaponSlot().isProperty("dualhanded")
         ){
-            setpShield(input);
+            setShieldSlot(input);
         }else{
             System.err.println("You can't equip this shield.");
         }
@@ -228,7 +228,7 @@ public class PlayerCharacter extends BaseCharacter
    */
   public void removeShield()
   {
-      setpShield( new Shield() );
+      setShieldSlot( new Shield() );
   }
 // ################# CALCULATIONS #################
   /**
@@ -314,13 +314,13 @@ public class PlayerCharacter extends BaseCharacter
     public int getAC()
     {
       int ac = 0;
-        if(this.getpArmor().getCat().equalsIgnoreCase("heavy")){
-          ac = this.getpArmor().getArmorValue();
+        if(this.getArmorSlot().getCat().equalsIgnoreCase("heavy")){
+          ac = this.getArmorSlot().getArmorValue();
         }else{
-          ac = (this.getpArmor().getArmorValue() 
+          ac = (this.getArmorSlot().getArmorValue() 
                 + this.getModifier(this.getDexterity()));
         }
-        ac = ac + this.getpShield().getArmorValue();
+        ac = ac + this.getShieldSlot().getArmorValue();
         return ac;
     }
   /**
@@ -516,11 +516,11 @@ public class PlayerCharacter extends BaseCharacter
         + "Level: \t" + this.getpClass().getLevel() + "\n"
         + "Experience: \t" + this.getExperience() + "\n"
         + "HP: \t" + this.getTempHP() + " / " + this.getHealth() + "\n"
-        + "Armor: \t" + this.getpArmor().getType() + " (" 
-                    + this.getpArmor().getArmorValue() + ")\n"
+        + "Armor: \t" + this.getArmorSlot().getType() + " (" 
+                    + this.getArmorSlot().getArmorValue() + ")\n"
         + (
-            (this.getpShield().getArmorValue() > 0)?
-            "Shield: \t" + this.getpShield().getName() +" ("+ this.getpShield().getArmorValue()+")\n":
+            (this.getShieldSlot().getArmorValue() > 0)?
+            "Shield: \t" + this.getShieldSlot().getName() +" ("+ this.getShieldSlot().getArmorValue()+")\n":
             ""
         )
         + "Overall Armor: \t" + this.getAC() + "\n\n"
@@ -533,12 +533,12 @@ public class PlayerCharacter extends BaseCharacter
         + "Int: \t" + this.getIntelegent() + " | " + this.getModifier(this.getIntelegent())+ "\n"
         + "Cha: \t" + this.getCharisma() + " | " + this.getModifier(this.getCharisma())+ "\n"
         + "\n"
-        + "Weapon: \t" + this.getpWeapon().getType() + "\n"
-        + "Weaponname: \t" + this.getpWeapon().getName() + "\n"
-        + "DMG Die: \t" + this.getpWeapon().getDamageDie() + "\n"
-        + "Die Count: \t" + this.getpWeapon().getDieCount() + "\n"
-        + "Type: \t" + this.getpWeapon().getType() + "\n"
-        + "Range: \t" + this.getpWeapon().getDistance() + "\n"
+        + "Weapon: \t" + this.getWeaponSlot().getType() + "\n"
+        + "Weaponname: \t" + this.getWeaponSlot().getName() + "\n"
+        + "DMG Die: \t" + this.getWeaponSlot().getDamageDie() + "\n"
+        + "Die Count: \t" + this.getWeaponSlot().getDieCount() + "\n"
+        + "Type: \t" + this.getWeaponSlot().getType() + "\n"
+        + "Range: \t" + this.getWeaponSlot().getDistance() + "\n"
         + "= = = = = = = = = = = = = =\n";
     if(this.getpClass().getName().equalsIgnoreCase("wizzard") 
     || this.getpClass().getName().equalsIgnoreCase("cleric")){
@@ -640,17 +640,17 @@ public class PlayerCharacter extends BaseCharacter
   public void setpRace(Race pRace) {
 	this.pRace = pRace;
   }
-  public Weapon getpWeapon(){
-	return pWeapon;
+  public Weapon getWeaponSlot(){
+	return weaponSlot;
   }
-  public void setpWeapon(Weapon pWeapon){
-	this.pWeapon = pWeapon;
+  public void setWeaponSlot(Weapon weapon){
+	this.weaponSlot = weapon;
   }
-  public Armor getpArmor() {
-	return pArmor;
+  public Armor getArmorSlot() {
+	return armorSlot;
   }
-  public void setpArmor(Armor pArmor) {
-	this.pArmor = pArmor;
+  public void setArmorSlot(Armor armor) {
+	this.armorSlot = armor;
   }
   public int getTempHP() {
       return tempHP;
@@ -658,11 +658,11 @@ public class PlayerCharacter extends BaseCharacter
   public void setTempHP(int tempHP) {
       this.tempHP = tempHP;
   }
-    public Shield getpShield() {
-        return pShield;
+    public Shield getShieldSlot() {
+        return shieldSlot;
     }
-    public void setpShield(Shield pShield) {
-        this.pShield = pShield;
+    public void setShieldSlot(Shield shield) {
+        this.shieldSlot = shield;
     }
 
     @Override

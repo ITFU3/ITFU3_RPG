@@ -127,8 +127,8 @@ public class MonsterAI {
     private boolean isInAttackRange() {
        int distance = Map.getInstance().getDistance(Game.getPlayer(), ego);
         System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> Monster is "+ distance+" away."); 
-        System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> Monster can attack in a range of "+ ego.getpWeapon().getDistance()+".");
-       if (distance <= ego.getpWeapon().getDistance()) {
+        System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> Monster can attack in a range of "+ ego.getWeaponSlot().getDistance()+".");
+       if (distance <= ego.getWeaponSlot().getDistance()) {
            System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> IS IN RANGE");
            return true;
        }

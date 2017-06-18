@@ -82,8 +82,8 @@ public class InventoryFrame extends JFrame{
     {
         DefaultListModel<Item> ItemListModel = new DefaultListModel<>();
         
-        ItemListModel.addElement(main.Game.getPlayer().getpArmor());
-        ItemListModel.addElement(main.Game.getPlayer().getpWeapon());
+        ItemListModel.addElement(main.Game.getPlayer().getArmorSlot());
+        ItemListModel.addElement(main.Game.getPlayer().getWeaponSlot());
             
         this.itemList.setModel(ItemListModel);
         this.scrollPane.setViewportView(this.itemList);

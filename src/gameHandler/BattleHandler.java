@@ -31,12 +31,12 @@ public class BattleHandler
         System.out.println("gameHandler.BattleHandler.tryToAttack: ==> Allowed Attacks: "+ attacker.getAllowedAttacks());
         if( aa > 0)
         {
-            if(distance <= attacker.getpWeapon().getDistance())
+            if(distance <= attacker.getWeaponSlot().getDistance())
             {
                 attacker.setAllowedAttacks(--aa);
                 output += attacker.getName() + " ";
                 int[] chanceToHit = tryHit(attacker, false);
-                if(chanceToHit[0] == 20 || chanceToHit[1] >= target.getpArmor().getArmorValue())
+                if(chanceToHit[0] == 20 || chanceToHit[1] >= target.getArmorSlot().getArmorValue())
                 {
                     int dmg = doDamage(attacker);
                     if(chanceToHit[0] == 20)
@@ -116,13 +116,13 @@ public class BattleHandler
             output[1] += attacker.getModifier(attacker.getIntelegent());
             output[1] += attacker.getProficiencyOrLevel('p');
         }else{
-            if(attacker.getpWeapon().getCat().equalsIgnoreCase("range")){
+            if(attacker.getWeaponSlot().getCat().equalsIgnoreCase("range")){
                 output[1] += attacker.getModifier(attacker.getDexterity());
             }else{
                 output[1] += attacker.getModifier(attacker.getStrength());
             }
-            if(attacker.isProfThere(attacker.getpWeapon().getWeaponGroup())
-                    || attacker.isProfThere(attacker.getpWeapon().getType()))
+            if(attacker.isProfThere(attacker.getWeaponSlot().getWeaponGroup())
+                    || attacker.isProfThere(attacker.getWeaponSlot().getType()))
             {
                 output[1] += attacker.getProficiencyOrLevel('p');
             }
@@ -137,10 +137,10 @@ public class BattleHandler
      */
     private static int doDamage( PlayerCharacter attacker ){
         int dmg = main.Die.rollDie(
-                attacker.getpWeapon().getDamageDie(),
-                attacker.getpWeapon().getDieCount()
+                attacker.getWeaponSlot().getDamageDie(),
+                attacker.getWeaponSlot().getDieCount()
         );
-        if(attacker.getpWeapon().getCat().equalsIgnoreCase("range")){
+        if(attacker.getWeaponSlot().getCat().equalsIgnoreCase("range")){
             dmg += attacker.getModifier(attacker.getDexterity());
         }else{
             // if weapon is versitile use DexMod
@@ -210,7 +210,7 @@ public class BattleHandler
                 {
                     // Damage Spells
                     int[] chanceToHit = tryHit(attacker, true);
-                    if(chanceToHit[0] == 20 || chanceToHit[1] >= target.getpArmor().getArmorValue())
+                    if(chanceToHit[0] == 20 || chanceToHit[1] >= target.getArmorSlot().getArmorValue())
                     {
                         int dmg = castSpell(attacker, iSpell);
                         if(chanceToHit[0] == 20)

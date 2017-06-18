@@ -135,7 +135,7 @@ public class TurnHandlerOld
     
     while( game && monsterTurn && ( monster.getTempHP() > 0 ) ) {
       System.out.println("--- It is the Monsters Turn! ---");
-      if(dungeonMap.getDistance(player,monster) == monster.getpWeapon().getDistance()) {
+      if(dungeonMap.getDistance(player,monster) == monster.getWeaponSlot().getDistance()) {
         if(monsterHasAction) {
           monsterHasAction = this.doAttack( game, new String[0], dungeonMap, player, monster, false, false );
         } else {

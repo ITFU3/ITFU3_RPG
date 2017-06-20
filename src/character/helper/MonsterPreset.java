@@ -1,11 +1,14 @@
 package character.helper;
 
+import character.races.monster.Rat;
+import character.races.monster.Oger;
 import character.*;
 import character.races.*;
 import character.classes.*;
 import character.item.armor.*;
 import character.item.weapons.*;
 import character.item.spells.*;
+import character.races.monster.Orc;
 
 import java.lang.reflect.Method;
 
@@ -79,4 +82,13 @@ public class MonsterPreset {
         monster.getpClass().getMyBook().addSpell(new HealingWord());
         return monster;
     }    
+    
+    public static MonsterCharacter createBear() {
+        MonsterCharacter monster = new MonsterCharacter ( new Orc());
+        monster.setHealth(12);
+        monster.setTempHP(12);
+        monster.setpClass(new Fighter());
+        
+        return monster; 
+    }
 }

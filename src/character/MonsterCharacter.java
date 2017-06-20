@@ -49,7 +49,14 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setAllowedMoves(this.getMovement());
         this.setAllCoordinates(0, 0);
     }
-    
+    /**
+     * will create Rat as Base Monster
+     * 
+     * parameters are coordinates on Map
+     * 
+     * @param y 
+     * @param x 
+     */
     public MonsterCharacter(int y, int x) {
         this( new Rat() );
         this.setAllCoordinates(y, x);
@@ -62,7 +69,10 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
     
     public MonsterCharacter(Race race) {
         this();
-        this.setExperience(50);
+        int mXP = getXPDependentOnMonsterRaceType(race);
+       
+        this.setExperience(mXP);
+        // add 
         this.setpRace(race);
         this.setName(
             this.getName() + " the " + this.getpRace().getName());
@@ -97,6 +107,7 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
       String output;
       output = "Einfaches Monster: " + this.getName() + "\n"
             + "Racename: " + this.getpRace().getName() + "\n"
+            + "XP: " + this.getExperience() + "\n"
             + "HP: " + this.getTempHP() + " / " + this.getHealth() + "\n"
             + "STRENGHT:" + this.getStrength()+"\n";
       return output;
@@ -120,8 +131,10 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
     public void grow() {
         if (getpRace() instanceof MonsterRace) {
             ((MonsterRace) getpRace()).grow();
-            setStatsWithBonus();
+            setStatsWithBonus(); 
+            
         }
+        
     }
     
     private void setStatsWithBonus() {
@@ -168,6 +181,27 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         );
     }
 
+    public int getXPDependentOnMonsterRaceType(Race race) {
+        int mXP = race.XP();
+        
+        if (race instanceof MonsterRace) {
+            MonsterRace.Type type = ((MonsterRace)race).getType();
+            switch (type) {
+                case OFDOOM:
+                    mXP += MonsterRace.Type.OFDOOM_XP_BONUS;
+                    break;
+                case EVIL:
+                    mXP += MonsterRace.Type.EVIL_XP_BONUS;
+                    break;
+            }
+            System.out.println("################################");
+            System.out.println("XP UPDATED");
+            System.out.println(race.getName() + " XP: " + mXP);
+            System.out.println("################################");
+        }
+        return mXP;
+    }
+    
     
     
     

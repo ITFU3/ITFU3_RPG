@@ -2,6 +2,7 @@ package character.races.monster;
 
 import character.races.Race;
 import interfaces.Growable;
+
 import main.Die;
 
 /**
@@ -9,26 +10,35 @@ import main.Die;
  * @author Matthias Dröge
  */
 public class MonsterRace extends Race implements Growable{
+    private static int BASE_XP = 50;
+   
+    
     /**
      * Enum Type that classifies Monsters
      */
+    
     public enum Type {
       NORMAL("normal"),
       EVIL("evil"),
       OFDOOM("of DOOM");
       public String value;
+      public static int EVIL_XP_BONUS = 5;
+      public static int OFDOOM_XP_BONUS = 10;
+     
       private Type(String value) {
           this.value = value;
+          
       }
     }
     
     private Type type;
     
     /**
-     * Constroctor
+     * Constructor
      */
     public MonsterRace() {
         this(Type.NORMAL);
+        
     }
     /**
      * Constuctor with Type
@@ -37,6 +47,7 @@ public class MonsterRace extends Race implements Growable{
     public MonsterRace(Type type){
         super();
         this.type = type;
+        
     }
     /**
      * Constuctor with Bonus to Stats and Type
@@ -46,6 +57,7 @@ public class MonsterRace extends Race implements Growable{
     public MonsterRace(Type type, int [] bonus){
         super(bonus);
         this.type = type;
+       
     }
     /**
      * The grow methode, that makes Monsters stronger and harder to kill.
@@ -53,9 +65,11 @@ public class MonsterRace extends Race implements Growable{
     @Override
     public void grow() {
         int bonus = 0;
+        
         if (this.getType() == Type.EVIL) {
             bonus = 1;
-        } else if (this.getType() == Type.EVIL) {
+ 
+        } else if (this.getType() == Type.OFDOOM) {
             bonus = 3;
         } 
         int[] BonusStats = super.getStatsBonus();
@@ -120,4 +134,12 @@ public class MonsterRace extends Race implements Growable{
         System.out.println(type);
         return type;
     }
+
+    @Override
+    public int XP() {
+        return BASE_XP; 
+    }
+    
+    
+        
 }

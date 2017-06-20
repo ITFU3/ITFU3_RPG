@@ -4,8 +4,8 @@ import character.MonsterCharacter;
 import character.PlayerCharacter;
 import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
-import gameHandler.SleepTime;
-import gameHandler.UserInfo;
+import Base.SleepTime;
+import Base.UserInfo;
 import gui.GameFrame;
 
 import java.util.ArrayList;

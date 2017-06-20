@@ -5,6 +5,7 @@
 */
 package gameHandler;
 
+import Base.SleepTime;
 import Enum.MoveDirection;
 import java.util.ArrayList;
 import character.*;

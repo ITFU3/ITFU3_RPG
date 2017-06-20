@@ -1,4 +1,6 @@
 package gameHandler;
+import Base.UserInfo;
+import Base.SleepTime;
 import Enum.WeaponCategory;
 import character.item.spells.Spell;
 import character.MonsterCharacter;
@@ -57,6 +59,7 @@ public class BattleHandler
                             
                             int newXP = target.getExperience();
                             attacker.addExperience( newXP );
+                            
                             killStrike(target);
                         } else {
                             // Here Game shoud be over

@@ -5,6 +5,9 @@ package character.races.monster;
  * @author Matthias Dröge
  */
 public class Oger extends MonsterRace{
+    
+    public static int XP  = 400;
+    
     public Oger(){
         this(MonsterRace.getRandomType());
     }
@@ -22,4 +25,10 @@ public class Oger extends MonsterRace{
         this( type );
         this.setStatsBonus(bonus);
     }
+    
+    @Override
+    public int XP() {
+        return XP; 
+    }
+    
 }

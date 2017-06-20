@@ -53,6 +53,7 @@ public class MonsterPreset {
         monster.setpClass(new PlayerClass());
         monster.addWeapon(new Weapon());
         monster.addArmor(new Armor());
+        
         return monster;
     }
     /**
@@ -88,7 +89,8 @@ public class MonsterPreset {
         monster.setHealth(12);
         monster.setTempHP(12);
         monster.setpClass(new Fighter());
-        
+        monster.setWeaponSlot(new Claw());
+        monster.setOffHandWeaponSlot(new Claw());
         return monster; 
     }
 }

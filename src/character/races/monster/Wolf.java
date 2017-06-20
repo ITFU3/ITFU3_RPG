@@ -9,23 +9,29 @@ package character.races.monster;
  *
  * @author steffen
  */
-public class Orc extends MonsterRace{
+public class Wolf extends MonsterRace{
+
+    private static int XP = 50;
+   
     
-    public static int XP  = 200;
-    
-    public Orc(){
-        this(MonsterRace.getRandomType());
+    public Wolf() {
+        
     }
-    public Orc(MonsterRace.Type type){
-        // strength, dexterity, Constitution, wisdom, inteligent, charisma, movement, health (calculated)
-        int[] bonus = {10,2,5,0,0,0,0,0};
+
+    public Wolf(Type type) {
+        super(type);
+        
+        
+          // strength, dexterity, Constitution, wisdom, inteligent, charisma, movement, health (calculated)
+        int[] bonus = {2,7,2,0,0,0,0,0};
         
         this.setStatsBonus(bonus);
         this.setType(type);
         this.setNameWithType(this.getClass().getSimpleName());
     }
-    public Orc(MonsterRace.Type type, int [] bonus){
-        this( type );
+
+    public Wolf(Type type, int[] bonus) {
+        this(type);
         this.setStatsBonus(bonus);
     }
     
@@ -33,5 +39,7 @@ public class Orc extends MonsterRace{
     public int XP() {
         return XP; 
     }
+    
+    
     
 }

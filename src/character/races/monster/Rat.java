@@ -10,6 +10,8 @@ package character.races.monster;
  * @author steffen
  */
 public class Rat extends MonsterRace {
+    
+    public static int XP  = 10;
 
     public Rat() {
         this(MonsterRace.getRandomType());
@@ -34,4 +36,11 @@ public class Rat extends MonsterRace {
         this( type );
         this.setStatsBonus(bonus);
     }
+
+    @Override
+    public int XP() {
+        return XP; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

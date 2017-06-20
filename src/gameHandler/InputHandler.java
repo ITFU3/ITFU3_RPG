@@ -43,14 +43,14 @@ public class InputHandler {
                 Game.addToAttackInfoString(
                         "What do you want to attack?\n"
                         + "There are no Monsters around. "
-                        + gameHandler.UserInfo.END_ROUND_PROMPT,
+                        + Base.UserInfo.END_ROUND_PROMPT,
                         true
                 );
             }
 
             if (Game.getPlayer().getAllowedAttacks() == 0) {
                 Game.addToAttackInfoString(
-                        gameHandler.UserInfo.NO_ATTACKS_LEFT + gameHandler.UserInfo.END_ROUND_PROMPT,
+                        Base.UserInfo.NO_ATTACKS_LEFT + Base.UserInfo.END_ROUND_PROMPT,
                         playerTurn
                 );
             }

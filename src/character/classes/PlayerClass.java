@@ -28,7 +28,7 @@ public class PlayerClass
     }
     this.setMyBook(new SpellBook());
     this.setLevel(1);
-    this.setHitDie(0);
+    this.setHitDie(1);
     this.setProficiencies(new String[0]);
   }
 

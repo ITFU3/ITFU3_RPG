@@ -11,6 +11,8 @@ package character.races.monster;
  */
 public class Bear extends MonsterRace {
     
+    public static int XP  = 100;
+    
     public Bear() {
         this(MonsterRace.getRandomType());
     }
@@ -32,5 +34,11 @@ public class Bear extends MonsterRace {
         this( type );
         this.setStatsBonus(bonus);
     }
+    
+    @Override
+    public int XP() {
+        return XP; 
+    }
+    
     
 }

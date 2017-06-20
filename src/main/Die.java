@@ -17,12 +17,16 @@ public class Die
   public static int rollDie(int nSides, int dieCount)
   {
     int output = 0;
-    Random r = new Random();
+    // to make sure not 0 sides are selected by accident
+    if (nSides > 0) {
+         Random r = new Random();
     for(int i = 1; i <= dieCount; i++)
     {
       // Weil nextInt(int) von 0 bis nSides-1 geht.
       output += r.nextInt(nSides) + 1;
     }
+    }
+   
     return output;
   }
   

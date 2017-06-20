@@ -7,6 +7,7 @@ import gameHandler.MonsterAI;
 import Base.SleepTime;
 import Base.UserInfo;
 import gui.GameFrame;
+import gui.SelectionFrame;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -51,16 +52,15 @@ public class Game
         return instance;
     }
 
-    private void init()
-    {
-        gameFrame = new GameFrame();
-        gameFrame.setTitle(title);
-    }
-
-    
     public void start()
     {
-        init();
+        this.playerTurn = true;
+        this.attackInfo = "Good luck!";
+        this.monsters = new ArrayList<>();
+        this.level = 1;
+        this.roundCount = 1;
+        gameFrame = new GameFrame();
+        gameFrame.setTitle(title);
     }
     
     public void stop()
@@ -130,7 +130,7 @@ public class Game
         }
         getInstance().setMonsterInfo( newMonsterInfo );
         
-        System.out.println("main.Game.updateMonsterInfo => UPDATED");
+        //System.out.println("main.Game.updateMonsterInfo => UPDATED");
     }
     
     /**
@@ -170,12 +170,16 @@ public class Game
                             "##############################");
         System.out.println("main.Game.endRound ==> It is your turn. Wake up.!");
         getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
+        
+        updateXPInfo();
         // Reset PLayerCharacter
         getPlayer().setAllowedMoves(
             //sollte eingerückt sein, ist ein Parameter
             getPlayer().getMovement()
         );
-        getPlayer().setAllowedAttacks(1);
+        getPlayer().setAllowedAttacks(
+                getPlayer().getAttacks()
+        );
         updateGUI();
     } 
 
@@ -227,7 +231,11 @@ public class Game
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
         getInstance().setAttackInfo(newOldString); //???
-        System.out.println("main.Game.updateAttackInfo => UPDATED");
+      //  System.out.println("main.Game.updateAttackInfo => UPDATED");
+    }
+    
+    public static void updateXPInfo() {
+        getInstance().getGameFrame().getExperienceValueLabel().setText(getPlayer().getExperience() + "");
     }
     
     /**
@@ -244,7 +252,7 @@ public class Game
         }
         
         getInstance().setAttackInfo(newOldString);
-        System.out.println("main.Game.addToAttackInfoString => UPDATED");
+        //System.out.println("main.Game.addToAttackInfoString => UPDATED");
     }
     
     /**
@@ -343,7 +351,10 @@ public class Game
         {
             fileHandler.DataHandler.writeHighScoreList();
         }
-        // TODO: Start over with Character Selecter ...
+        Game.getInstance().getGameFrame().setVisible(false);
+        // start again
+        new SelectionFrame();
+        
     }
     
     // Getter and Setter
@@ -394,7 +405,7 @@ public class Game
         return getInstance().getGameFrame().getAttackInfoTextArea();
     }
     public static boolean isPlayerTurn() {
-        System.out.println("main.Game.isPlayerTurn ==> Is player turn: " +getInstance().playerTurn);
+       
         return getInstance().playerTurn;
     }
     public static void setPlayerTurn(boolean playerTurn) {

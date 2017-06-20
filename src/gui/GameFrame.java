@@ -37,7 +37,7 @@ public class GameFrame extends javax.swing.JFrame {
         initFrameSetup();
         
         // Arean Setup
-        this.arenaTextArea.setText( Map.getInstance().getMap());
+        this.arenaTextArea.setText( new Map().getMap());
         this.arenaTextArea.setEnabled(false);
         this.arenaTextArea.setFocusable(false);
         this.arenaTextArea.setDisabledTextColor(Color.BLACK);
@@ -73,6 +73,8 @@ public class GameFrame extends javax.swing.JFrame {
         
         this.valueMovesLeftLabel.setText( Game.getPlayer().getAllowedMoves() + "" );
         this.valueAttacksLeftLabel.setText( Game.getPlayer().getAllowedAttacks() + "" );
+        
+        this.experienceValueLabel.setText(Game.getPlayer().getExperience() + "");
         
         // init Healthbar
         ((HealthBarLabel)this.playerHealthBarLabel).setHealthText(
@@ -127,6 +129,8 @@ public class GameFrame extends javax.swing.JFrame {
         levelLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         keyInfoTextArea = new javax.swing.JTextArea();
+        experienceTitelLabel = new javax.swing.JLabel();
+        experienceValueLabel = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -265,6 +269,12 @@ public class GameFrame extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 330, 200, 280));
 
+        experienceTitelLabel.setText("Experience");
+        getContentPane().add(experienceTitelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+
+        experienceValueLabel.setText("0");
+        getContentPane().add(experienceValueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -382,6 +392,8 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JButton changeInputTypeButton;
     private javax.swing.JLabel currentActiveCharLabel;
     private javax.swing.JButton downButton;
+    private javax.swing.JLabel experienceTitelLabel;
+    private javax.swing.JLabel experienceValueLabel;
     private javax.swing.JLabel healthLabel;
     private javax.swing.JLabel inputInfoLabel;
     private javax.swing.JButton jButton1;
@@ -546,6 +558,12 @@ public class GameFrame extends javax.swing.JFrame {
     public void setyPosition(int yPosition) {
         this.yPosition = yPosition;
     }
+
+    public JLabel getExperienceValueLabel() {
+        return experienceValueLabel;
+    }
+    
+    
     
     
 }

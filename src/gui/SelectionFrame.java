@@ -138,6 +138,7 @@ public class SelectionFrame extends javax.swing.JFrame {
         if (pc != null) {
             // error handling if nothing is selected.
             this.setVisible(false);
+          
             Game.getInstance().setPlayer(pc);
             Game.getInstance().start();
         }

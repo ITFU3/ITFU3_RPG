@@ -51,6 +51,7 @@ public class Map
      * The default Constructor
      */
     public Map() {
+        instance = this;
         // without \n !!!
         String init_map =
                 "#######################################"+

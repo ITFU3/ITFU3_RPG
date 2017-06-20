@@ -13,7 +13,7 @@ public class Handaxe extends Weapon{
         this.setDieCount(1);
         this.setDurability(100);
         this.setType(this.getClass().getSimpleName());
-        this.setCat(WeaponCategory.RANGE);
+        this.setCat(WeaponCategory.MELEE);
         this.setDistance(1);
         this.setWeaponGroup("simple weapons");
     }

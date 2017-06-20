@@ -40,7 +40,7 @@ public class GameFrame extends javax.swing.JFrame {
         this.arenaTextArea.setEnabled(false);
         this.arenaTextArea.setFocusable(false);
         this.arenaTextArea.setDisabledTextColor(Color.BLACK);
-        this.arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        this.arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 19) );
         
         // Attack Info Setup
         this.attackInfoTextArea.setText(Game.getInstance().attackInfo);
@@ -130,7 +130,7 @@ public class GameFrame extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 619));
+        setMinimumSize(new java.awt.Dimension(800, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         attackInfoTextArea.setColumns(20);
@@ -139,7 +139,7 @@ public class GameFrame extends javax.swing.JFrame {
         attackInfoTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         arenaScrollPane.setViewportView(attackInfoTextArea);
 
-        getContentPane().add(arenaScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 460, 170));
+        getContentPane().add(arenaScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 460, 170));
 
         downButton.setText("Down");
         downButton.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +147,7 @@ public class GameFrame extends javax.swing.JFrame {
                 downButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(downButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 540, -1, -1));
+        getContentPane().add(downButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 610, -1, -1));
 
         btn_EndRound.setText("End Round");
         btn_EndRound.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +155,7 @@ public class GameFrame extends javax.swing.JFrame {
                 btn_EndRoundActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_EndRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 460, -1, -1));
+        getContentPane().add(btn_EndRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 530, -1, -1));
 
         healthLabel.setText("Health");
         getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 200, -1));
@@ -169,7 +169,7 @@ public class GameFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 550, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 620, -1, -1));
 
         upButton.setText("Up");
         upButton.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +177,7 @@ public class GameFrame extends javax.swing.JFrame {
                 upButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(upButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 460, -1, -1));
+        getContentPane().add(upButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 530, -1, -1));
 
         rightButton.setText("Right");
         rightButton.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +185,7 @@ public class GameFrame extends javax.swing.JFrame {
                 rightButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(rightButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 500, -1, -1));
+        getContentPane().add(rightButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 570, -1, -1));
 
         leftButton.setText("Left");
         leftButton.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +193,7 @@ public class GameFrame extends javax.swing.JFrame {
                 leftButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(leftButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 500, -1, -1));
+        getContentPane().add(leftButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, -1, -1));
 
         playerNamelLabel.setText("- Player Name -");
         getContentPane().add(playerNamelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 200, -1));
@@ -213,7 +213,7 @@ public class GameFrame extends javax.swing.JFrame {
                 attackButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(attackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 590, 470, -1));
+        getContentPane().add(attackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 650, 470, -1));
 
         arenaTextArea.setColumns(20);
         arenaTextArea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
@@ -221,7 +221,7 @@ public class GameFrame extends javax.swing.JFrame {
         arenaTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         attackScrollPane.setViewportView(arenaTextArea);
 
-        getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 460, 220));
+        getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 460, 310));
 
         arenaTitleLabel.setText("Arena");
         getContentPane().add(arenaTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 90, -1));
@@ -445,7 +445,7 @@ public class GameFrame extends javax.swing.JFrame {
      */
     private void initFrameSetup() {
         this.setResizable(false);
-        Dimension dimensions = new Dimension(800, 600);
+        Dimension dimensions = new Dimension(800, 700);
         this.setPreferredSize(dimensions);
         this.setMinimumSize(dimensions);
         this.setMaximumSize(dimensions);

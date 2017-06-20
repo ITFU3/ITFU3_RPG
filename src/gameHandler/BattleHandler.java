@@ -57,8 +57,9 @@ public class BattleHandler
                         output += target.getName() + " is no more.\n";
                         if (attacker.getName().equals(Game.getPlayer().getName())) {
                             
-                            int newXP = target.getExperience();
-                            attacker.addExperience( newXP );
+                            
+                            PlayerUpdateHandler.addExperience(attacker, target.getExperience());
+                           
                             
                             killStrike(target);
                         } else {

@@ -11,6 +11,7 @@ import main.Die;
  */
 public class MonsterRace extends Race implements Growable{
     private static int BASE_XP = 50;
+    
    
     
     /**
@@ -73,9 +74,12 @@ public class MonsterRace extends Race implements Growable{
             bonus = 3;
         } 
         int[] BonusStats = super.getStatsBonus();
-        for (int i = 0; i < BonusStats.length; i++) {
+        if (this.getType() != Type.NORMAL) {
+            for (int i = 0; i < BonusStats.length; i++) {
             BonusStats[i] += bonus;
+            }
         }
+        
         this.setStatsBonus(BonusStats);
         System.out.println(this.getName() + " GROWS");
     }

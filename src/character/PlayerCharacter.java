@@ -33,6 +33,8 @@ public class PlayerCharacter extends BaseCharacter {
     protected final int charisma = 5;
     protected final int movement = 6;
     protected final int health = 7;
+    
+    private int unUsedExperience;
 
     private void init(
         String inputName,
@@ -78,10 +80,13 @@ public class PlayerCharacter extends BaseCharacter {
 
         this.setBasicStats(inputStats);
         this.setExperience(0);
+        this.setUnUsedExperience(getExperience());
+        
         this.setTempHP(this.getHealth());
 
         this.setAllowedMoves( this.getMovement() );
         this.setAllowedAttacks(1);
+        this.setAttacks(1);
 
         this.setCoordinates(0, 0);
         this.setCoordinates_past(0, 0);
@@ -671,8 +676,15 @@ public class PlayerCharacter extends BaseCharacter {
         this.experience = experience;
         this.setLevel(this.getProficiencyOrLevel('l'));
     }
+    /**
+     * Updates Experience
+     * UnUsedExperience
+     * and LEVEL
+     * @param experience 
+     */
     public void addExperience(int experience) {
         this.experience += experience;
+        this.unUsedExperience += experience;
         this.setLevel(this.getProficiencyOrLevel('l'));
     }
     public int getLevel() {
@@ -723,4 +735,13 @@ public class PlayerCharacter extends BaseCharacter {
     public void setOffHandWeaponSlot(Weapon offHandWeaponSlot) {
         this.offHandWeaponSlot = offHandWeaponSlot;
     }
+
+    public int getUnUsedExperience() {
+        return unUsedExperience;
+    }
+    public void setUnUsedExperience(int unUsedExperience) {
+        this.unUsedExperience = unUsedExperience;
+    }
+    
+  
 }

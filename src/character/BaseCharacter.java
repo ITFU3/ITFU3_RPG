@@ -9,6 +9,7 @@ public abstract class BaseCharacter {
     private int id;
     private int allowedAttacks;
     private int allowedMoves;
+    private int attacks;
     private int hp;
     private int dmg;
     int[] coordinates_now;
@@ -35,6 +36,8 @@ public abstract class BaseCharacter {
     public void setAllowedMoves(int allowedMoves) {
         this.allowedMoves = allowedMoves;
     }
+    
+    
     public int getHp() {
         return hp;
     }
@@ -88,4 +91,14 @@ public abstract class BaseCharacter {
     public void setMapToken(char mapToken) {
         this.mapToken = mapToken;
     }
+
+    public int getAttacks() {
+        return attacks;
+    }
+
+    public void setAttacks(int attacks) {
+        this.attacks = attacks;
+    }
+    
+    
 }

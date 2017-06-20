@@ -5,10 +5,14 @@
  */
 package gui.GuiHelper;
 
+import Enum.UpdateAbleStats;
+import static Enum.UpdateAbleStats.*;
 import character.PlayerCharacter;
 import character.helper.CharacterSelecter;
 import java.util.ArrayList;
+import static java.util.Arrays.asList;
 import javax.swing.DefaultListModel;
+
 
 /**
  *
@@ -27,4 +31,15 @@ public class ListModels {
         
         return listmodel;
     }
+    
+    public static DefaultListModel<UpdateAbleStats> getUpdateablePlayerStats() {
+        DefaultListModel<UpdateAbleStats> listmodel = new DefaultListModel<>();
+        ArrayList<UpdateAbleStats> stats = new ArrayList<UpdateAbleStats>(asList(STRENGTH, DEXTERITY, CONSTITUTION, WISDOM, INTELLEGENCE, CHARISMA, MOVEMENT, ATTACKS, HEALTH));
+        for (UpdateAbleStats stat : stats) {
+            listmodel.addElement(stat);
+        }
+        
+        return listmodel;
+    }
+    
 }

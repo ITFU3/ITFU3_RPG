@@ -131,7 +131,7 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
     public void grow() {
         if (getpRace() instanceof MonsterRace) {
             ((MonsterRace) getpRace()).grow();
-            setStatsWithBonus(); 
+            
             
         }
         

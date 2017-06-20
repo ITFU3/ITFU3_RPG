@@ -1,5 +1,7 @@
 package main;
 
+import character.races.monster.MonsterRace;
+import character.races.monster.Rat;
 import character.races.*;
 import character.*;
 import gameHandler.*;

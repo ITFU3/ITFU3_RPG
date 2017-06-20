@@ -13,5 +13,4 @@ public enum FieldContains {
     
     PLAYER, MONSTER, WALL, NOTHING
     
-    
 }

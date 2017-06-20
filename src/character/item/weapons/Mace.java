@@ -1,4 +1,7 @@
 package character.item.weapons;
+
+import Enum.WeaponCategory;
+
 public class Mace extends Weapon
 {
   public Mace()
@@ -8,7 +11,7 @@ public class Mace extends Weapon
     this.setDieCount(1);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat("melee");
+    this.setCat(WeaponCategory.MELEE);
     this.setDistance(1);
     this.setWeaponGroup("simple weapons");
   }
@@ -20,7 +23,7 @@ public class Mace extends Weapon
     this.setDieCount(dieCount);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat("melee");
+    this.setCat(WeaponCategory.MELEE);
     this.setDistance(distance);
     this.setWeaponGroup("simple weapons");
   }

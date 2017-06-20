@@ -1,5 +1,6 @@
 package character;
 
+import Enum.WeaponCategory;
 import character.races.Race;
 import character.classes.PlayerClass;
 import character.item.weapons.Weapon;
@@ -221,7 +222,7 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public void addShield(Shield input) {
         if (this.isProfThere(input.getCat())
-            && !this.getWeaponSlot().getCat().equalsIgnoreCase("range")
+            &&  this.getWeaponSlot().getCat()!=  WeaponCategory.RANGE
             && !this.getWeaponSlot().isProperty("dualhanded")
             && this.getOffHandWeaponSlot().getType().equalsIgnoreCase("hand")
         ){
@@ -247,7 +248,7 @@ public class PlayerCharacter extends BaseCharacter {
         if (this.isProfThere(input.getWeaponGroup())
             && this.getShieldSlot() == null
             || (this.getShieldSlot().getArmorValue() == 0
-            && !this.getWeaponSlot().getCat().equalsIgnoreCase("range")
+            && this.getWeaponSlot().getCat() != WeaponCategory.RANGE
             && !this.getWeaponSlot().isProperty("dualhanded"))
         ){
             setOffHandWeaponSlot(input);

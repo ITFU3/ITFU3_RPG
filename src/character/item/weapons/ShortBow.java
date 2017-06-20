@@ -1,5 +1,7 @@
 package character.item.weapons;
 
+import Enum.WeaponCategory;
+
 public class ShortBow extends Weapon
 {
   public ShortBow()
@@ -9,7 +11,7 @@ public class ShortBow extends Weapon
     this.setDieCount(1);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat("range");
+    this.setCat(WeaponCategory.RANGE);
     this.setDistance(10);
     this.setWeaponGroup("simple weapons");
     String[] prop = {"dualhanded"};

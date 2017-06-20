@@ -1,4 +1,5 @@
 package gameHandler;
+import Enum.WeaponCategory;
 import character.item.spells.Spell;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
@@ -39,7 +40,7 @@ public class BattleHandler
                 if(chanceToHit[0] == 20 || chanceToHit[1] >= target.getArmorSlot().getArmorValue())
                 {
                     int dmg = doDamage(attacker);
-                    if(chanceToHit[0] == 20)
+                    if(chanceToHit[0] == 20) // perfect throw
                     {
                         dmg *= 2;
                         output += "*";
@@ -47,7 +48,7 @@ public class BattleHandler
                     target.setTempHP( target.getTempHP() - dmg );
                     output += "hits " + target.getName() + " with a " + chanceToHit[1]
                             + " and does " + dmg + " damage.\n"
-                            + " And has " + target.getTempHP() + " HP left.\n";
+                            + target.getName()+ " has " + target.getTempHP() + " HP left.\n";
                     Game.hitDisplay();
                     
                     if(target.getTempHP() <= 0){
@@ -116,9 +117,11 @@ public class BattleHandler
             output[1] += attacker.getModifier(attacker.getIntelegent());
             output[1] += attacker.getProficiencyOrLevel('p');
         }else{
-            if(attacker.getWeaponSlot().getCat().equalsIgnoreCase("range")){
+            if(attacker.getWeaponSlot().getCat()!= WeaponCategory.RANGE){
+                // a range weapon is used
                 output[1] += attacker.getModifier(attacker.getDexterity());
             }else{
+                // a melee weapon is used
                 output[1] += attacker.getModifier(attacker.getStrength());
             }
             if(attacker.isProfThere(attacker.getWeaponSlot().getWeaponGroup())
@@ -147,7 +150,8 @@ public class BattleHandler
                 attacker.getOffHandWeaponSlot().getDieCount()
             );
         }
-        if(attacker.getWeaponSlot().getCat().equalsIgnoreCase("range")){
+        
+        if(attacker.getWeaponSlot().getCat() != WeaponCategory.RANGE){
             dmg += attacker.getModifier(attacker.getDexterity());
         }else{
             // if weapon is versitile use DexMod

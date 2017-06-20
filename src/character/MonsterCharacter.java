@@ -8,9 +8,9 @@ package character;
 import base.Helper;
 import interfaces.Growable;
 import character.classes.PlayerClass;
-import character.races.MonsterRace;
+import character.races.monster.MonsterRace;
 import character.races.Race;
-import character.races.Rat;
+import character.races.monster.Rat;
 
 /*protected final int strength = 0;
   protected final int dexterity = 1;

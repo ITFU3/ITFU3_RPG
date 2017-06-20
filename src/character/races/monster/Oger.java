@@ -1,4 +1,4 @@
-package character.races;
+package character.races.monster;
 
 /**
  *

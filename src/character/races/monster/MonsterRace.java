@@ -1,5 +1,6 @@
-package character.races;
+package character.races.monster;
 
+import character.races.Race;
 import interfaces.Growable;
 import main.Die;
 

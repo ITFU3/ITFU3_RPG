@@ -35,11 +35,12 @@ public class CharacterInfoFrame extends JFrame{
         this.scrollPane.setViewportView( this.charInfoArea );
         this.charInfoArea.setEditable(false);
                 
-        this.setName("Character Screen");
+        this.setName("Character Info Screen");
         this.setTitle(this.getName());
         int width = 200;
-        int height = 600;
+        int height = 800;
         this.setSize(new Dimension(width, height));
+        
         // calculate Position
         int xGameFrame = Game.getInstance().getGameFrame().getxPosition();
         int yGameFrame = Game.getInstance().getGameFrame().getyPosition();
@@ -53,8 +54,6 @@ public class CharacterInfoFrame extends JFrame{
         this.setLayout(new GridLayout(1, 1));
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         this.addKeyListener(Game.getKeyhandler());
-        
-        
         this.add( this.scrollPane );
     }
     

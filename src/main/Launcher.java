@@ -8,7 +8,7 @@ import gui.popups.SelectGameTypeFrame;
  */
 public class Launcher{
   public static void main(String[] args){
-    SelectionFrame sf = new SelectionFrame();
-    //  new SelectGameTypeFrame();
+      
+    new SelectGameTypeFrame();
   }
 }

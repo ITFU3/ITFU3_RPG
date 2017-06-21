@@ -5,10 +5,13 @@
  */
 package gui.popups;
 
+import gui.SelectionFrame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -42,7 +45,7 @@ public class SelectGameTypeFrame extends JFrame{
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         
         this.setResizable(false);
-        Dimension dimensions = new Dimension(500, 300);
+        Dimension dimensions = new Dimension(380, 260);
         this.setPreferredSize(dimensions);
         this.setMinimumSize(dimensions);
         this.setMaximumSize(dimensions);
@@ -54,7 +57,7 @@ public class SelectGameTypeFrame extends JFrame{
         int spacing = 20;
         Font titleFont = new java.awt.Font("Courier New", Font.BOLD, 16);
         Font subTitleFont = new java.awt.Font("Courier New", 0, 13);
-        Dimension labelDimension = new Dimension(400, 20);
+        Dimension labelDimension = new Dimension(320, 20);
         Dimension buttonDimension = new Dimension(buttonSize, buttonSize);
         
         titleLabel = new JLabel();
@@ -75,19 +78,33 @@ public class SelectGameTypeFrame extends JFrame{
         int buttonY = spacing + userPrompLabelPosition.y + userPromptLabel.getHeight();
         
         singlePlayerButton = new JButton();
+        singlePlayerButton.setText("SinglePlayer");
         singlePlayerButton.setSize(buttonDimension);
         Point singlePlayerButtonPoint = new Point(spacing, buttonY);
         AbsoluteConstraints constraintsSpB = new AbsoluteConstraints(singlePlayerButtonPoint, buttonDimension);
         getContentPane().add(singlePlayerButton, constraintsSpB);
+        singlePlayerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                singlePlayerButtonActionPerformed(evt);
+            }
+        });
         
+        multiPlayerButton = new JButton();
+        multiPlayerButton.setText("Cooperation");
+        multiPlayerButton.setSize(buttonDimension);
+        Point multiPlayerButtonPoint = new Point(spacing + buttonSize + spacing , buttonY);
+        AbsoluteConstraints constraintsMultiPlayer = new AbsoluteConstraints(multiPlayerButtonPoint, buttonDimension);
+        getContentPane().add(multiPlayerButton, constraintsMultiPlayer);
+        multiPlayerButton.setEnabled(false);
         
-        twoPlayerCoopButton = new JButton();
-        twoPlayerCoopButton.setSize(buttonDimension);
-        Point twoPlayerButtonPoint = new Point(spacing + buttonSize + spacing, buttonY);
-        AbsoluteConstraints constraintsTWOPlayerB = new AbsoluteConstraints(twoPlayerButtonPoint, buttonDimension);
-        getContentPane().add(twoPlayerCoopButton, constraintsTWOPlayerB);
+        vsButton = new JButton();
+        vsButton.setText("VS");
+        vsButton.setSize(buttonDimension);
+        Point vsModeButtonPoint = new Point(spacing + buttonSize + spacing +buttonSize + spacing, buttonY);
+        AbsoluteConstraints constraintsVSMode = new AbsoluteConstraints(vsModeButtonPoint, buttonDimension);
+        getContentPane().add(vsButton, constraintsVSMode);
+        vsButton.setEnabled(false);
         
-       
     }
     
     public int getCetterPosHorz(JComponent component) {
@@ -96,6 +113,10 @@ public class SelectGameTypeFrame extends JFrame{
         int centerPosMinusComponentWidth = centerHorzFrame - halfComponentWidth;
        
         return centerPosMinusComponentWidth;
+    }
+    
+    public void singlePlayerButtonActionPerformed(ActionEvent evt) {
+        new SelectionFrame();
     }
     
 }

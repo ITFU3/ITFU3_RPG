@@ -6,7 +6,6 @@ import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
 import Base.SleepTime;
 import Base.UserInfo;
-import gui.GameFrameClickedTogether;
 import gui.GameFrame;
 import gui.SelectionFrame;
 
@@ -38,11 +37,11 @@ public class Game
     public String attackInfo = "";
     public String monsterInfo = "";
     
-    private boolean running = false;
     private boolean playerTurn = true;
     
-    private Game()
+    protected Game()
     {
+        // empty due to singelton
     }
 
     public static Game getInstance()
@@ -64,9 +63,7 @@ public class Game
         gameFrame.setTitle(title);
     }
     
-    public void stop()
-    {
-    }
+    
     
     /**
      * created by Steffen Haas
@@ -292,7 +289,7 @@ public class Game
      * In that Order.
      * @return int - MonsterIndex
      */
-    public int getMonsterClosedToPlayer()
+    public int getMonsterClosestToPlayer()
     {
         int output = 0, dist = 99, hp = 99;
         PlayerCharacter pc = getPlayer();
@@ -339,7 +336,6 @@ public class Game
     private static void over()
     {
         
-        Game.getInstance().stop();
         Game.updateAttackInfo(UserInfo.GAME_OVER);
         System.out.println(UserInfo.GAME_OVER);
         
@@ -384,12 +380,7 @@ public class Game
     public GameFrame getGameFrame() {
         return gameFrame;
     }
-    public boolean isRunning() {
-        return running;
-    }
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
+   
     public int getLevel() {
         return level;
     }

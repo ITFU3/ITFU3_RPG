@@ -38,7 +38,7 @@ public class InputHandler {
             if (main.Game.getMonsters().size() > 0) {
                 character.PlayerCharacter attacker = main.Game.getPlayer();
                 character.MonsterCharacter target = main.Game.getMonsters().get(
-                        main.Game.getInstance().getMonsterClosedToPlayer()
+                        main.Game.getInstance().getMonsterClosestToPlayer()
                 );
                 gameHandler.BattleHandler.tryToAttack(attacker, target);
             } else {
@@ -73,7 +73,7 @@ public class InputHandler {
                 target = attacker;
             }else{
                 target = main.Game.getMonsters().get(
-                    Game.getInstance().getMonsterClosedToPlayer()
+                    Game.getInstance().getMonsterClosestToPlayer()
                 );
             }
             BattleHandler.tryToSpellAttack(attacker, target, spellname);
@@ -146,17 +146,14 @@ public class InputHandler {
      * open spellbook action for every input to trigger.
      */
     public static void openCloseSpellbook(){
-        // ToDo: more testing.
         SpellbookFrame.getInstance().setVisible(!getInstance().isSpellbookShown);
         getInstance().isSpellbookShown = !getInstance().isSpellbookShown;
-        
     }
     
     /**
      * open inventory action for every input to trigger.
      */
     public static void openCloseInventory(){
-        
         InventoryFrame.getInstance().setVisible(!getInstance().isInventoryShown);
         getInstance().isInventoryShown = !getInstance().isInventoryShown;
     }
@@ -165,11 +162,8 @@ public class InputHandler {
      * 
      */
     public static void openCloseCharacterScreen(){
-        
         CharacterInfoFrame.getInstance().setVisible(!getInstance().isCharInfoShown);
         getInstance().isCharInfoShown = !getInstance().isCharInfoShown;
-        
-       
     }
     
     /**

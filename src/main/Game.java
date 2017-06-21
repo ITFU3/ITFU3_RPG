@@ -6,6 +6,7 @@ import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
 import Base.SleepTime;
 import Base.UserInfo;
+import gui.GameFrameClickedTogether;
 import gui.GameFrame;
 import gui.SelectionFrame;
 
@@ -108,6 +109,13 @@ public class Game
         getInstance().getGameFrame().getLevelLabel().setText(
             "Level " + getInstance().getLevel()
         );
+        
+       getInstance().getGameFrame().getValueAttacksLeftLabel().setText(
+               getPlayer().getAllowedAttacks() +"/"+getPlayer().getAttacks()
+       );
+       getInstance().getGameFrame().getValueMovesLeftLabel().setText(
+               getPlayer().getAllowedMoves()+"/"+getPlayer().getMovement()
+       );
         
         // Update HP-Bar for the Player
         updateHealthBar( getPlayer().getTempHP() );

@@ -1,28 +1,72 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gui;
 
 import Base.UserInfo;
-import main.*;
-import gameHandler.*;
+import gameHandler.InputHandler;
 import gui.GuiHelper.HealthBarLabel;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
+import javax.swing.JFrame;
 import javax.swing.text.DefaultCaret;
+import main.Game;
+import main.Map;
 
 /**
  *
- * @author Steffen Haas
- * @author Matthias Dröge
+ * @author steffen
  */
-public class GameFrame extends javax.swing.JFrame {
+public class GameFrame extends JFrame{
+    
+    // UI Components
+       HealthBarLabel playerHealthBarLabel = new HealthBarLabel(Game.getPlayer().getHealth());
+       
+       JButton spellCastButton = new javax.swing.JButton();
+       JButton upButton = new javax.swing.JButton();
+       JButton rightButton = new javax.swing.JButton();
+       JButton leftButton = new javax.swing.JButton();
+       JButton changeInputTypeButton = new javax.swing.JButton();
+       JButton downButton = new javax.swing.JButton();
+       JButton btn_EndRound = new javax.swing.JButton();
+       
+       
+       JLabel healthLabel = new javax.swing.JLabel();
+       JLabel playerNamelLabel = new javax.swing.JLabel();
+       JLabel monsterInfoTitleLabel = new javax.swing.JLabel();
+       JLabel arenaTitleLabel = new javax.swing.JLabel();
+       JLabel inputInfoLabel = new javax.swing.JLabel();
+       JLabel numberOfMovesLeftLabel = new javax.swing.JLabel();
+       JLabel valueMovesLeftLabel = new javax.swing.JLabel();
+       
+       JLabel numberOfAttacksLeftLabel1 = new javax.swing.JLabel();
+       JLabel valueAttacksLeftLabel = new javax.swing.JLabel();
+       JLabel currentActiveCharLabel = new javax.swing.JLabel();
+       JLabel roundLabel = new javax.swing.JLabel();
+       JLabel levelLabel = new javax.swing.JLabel();
+       JLabel experienceTitelLabel = new javax.swing.JLabel();
+       JLabel experienceValueLabel = new javax.swing.JLabel();
+       
+       JButton attackButton = new javax.swing.JButton();
+       JScrollPane areanaJScrollPane = new javax.swing.JScrollPane();
+       JTextArea arenaTextArea = new javax.swing.JTextArea();
+       
+       JScrollPane keyInforScrollPane = new javax.swing.JScrollPane();
+       JTextArea keyInfoTextArea = new javax.swing.JTextArea();
+       
+       JScrollPane monsterScrollPane = new javax.swing.JScrollPane();
+       JTextArea monsterInfoTextArea = new javax.swing.JTextArea();
+    
+       JScrollPane attackJScrollPane = new javax.swing.JScrollPane();
+       JTextArea attackInfoTextArea = new javax.swing.JTextArea();
+       
+    
     ArrayList<JComponent> components = new ArrayList();
     int testHp = Game.getPlayer().getHealth();
     
@@ -33,30 +77,48 @@ public class GameFrame extends javax.swing.JFrame {
      * Creates new form GameFrame
      */
     public GameFrame() {
-        initComponents();
         initFrameSetup();
+        initComponents();
+         
+       
         
-        // Arean Setup
+        this.initButtonList();
+        
+        // needed for keyboard to work
+        this.setButtonFocus(false);
+        
+        // add the Listener for WindowClosing
+        this.addWindowListener();
+        
+        
+        // Show Frame
+        this.setVisible(true);
+    }
+    
+        private void initComponents() {
+
+         // Arean Setup
         this.arenaTextArea.setText( new Map().getMap());
         this.arenaTextArea.setEnabled(false);
         this.arenaTextArea.setFocusable(false);
         this.arenaTextArea.setDisabledTextColor(Color.BLACK);
-        this.arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 19) );
+        this.arenaTextArea.setFont( new java.awt.Font("Courier New", 0, 19) );    
+        this.arenaTextArea.setColumns(20);
+        this.arenaTextArea.setRows(5);
+        this.areanaJScrollPane.setViewportView(arenaTextArea);
+        getContentPane().add(areanaJScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 460, 310));
         
-        // Attack Info Setup
+          // Attack Info Setup
+        this.attackInfoTextArea.setColumns(20);
+        this.attackInfoTextArea.setRows(5);
         this.attackInfoTextArea.setText(Game.getInstance().attackInfo);
         this.attackInfoTextArea.setEnabled(false);
         this.attackInfoTextArea.setFocusable(false);
         this.attackInfoTextArea.setDisabledTextColor(Color.BLACK);
         this.attackInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
-        
-        this.keyInfoTextArea.setText(UserInfo.KEYS);
-        this.keyInfoTextArea.setEnabled(false);
-        this.keyInfoTextArea.setFocusable(false);
-        this.keyInfoTextArea.setDisabledTextColor(Color.BLACK);
-        this.keyInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
-        
-        DefaultCaret caret = (DefaultCaret)attackInfoTextArea.getCaret();
+        this.attackJScrollPane.setViewportView(attackInfoTextArea);
+        getContentPane().add(attackJScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 460, 170));
+          DefaultCaret caret = (DefaultCaret)attackInfoTextArea.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         
         // Monster Info Setup
@@ -65,6 +127,25 @@ public class GameFrame extends javax.swing.JFrame {
         this.monsterInfoTextArea.setFocusable(false);
         this.monsterInfoTextArea.setDisabledTextColor(Color.BLACK);
         this.monsterInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        this.monsterInfoTextArea.setColumns(20);
+        this.monsterInfoTextArea.setRows(5);
+        monsterScrollPane.setViewportView(monsterInfoTextArea);
+        getContentPane().add(monsterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, 200, 220));
+
+        // KeyInfoSetup
+        this.keyInfoTextArea.setColumns(20);
+        this.keyInfoTextArea.setRows(5);
+        this.keyInforScrollPane.setViewportView(keyInfoTextArea);
+        this.keyInfoTextArea.setText(UserInfo.KEYS);
+        this.keyInfoTextArea.setEnabled(false);
+        this.keyInfoTextArea.setFocusable(false);
+        this.keyInfoTextArea.setDisabledTextColor(Color.BLACK);
+        this.keyInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
+        getContentPane().add(keyInforScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 330, 200, 280));
+        
+        // Labels
+        healthLabel.setText("Health");
+        getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 200, -1));
         
         this.playerNamelLabel.setFont(new Font("Courier New", Font.BOLD, 15));
         this.playerNamelLabel.setText(Game.getPlayer().getName());
@@ -77,75 +158,54 @@ public class GameFrame extends javax.swing.JFrame {
         this.experienceValueLabel.setText(Game.getPlayer().getExperience() + "");
         
         // init Healthbar
-        ((HealthBarLabel)this.playerHealthBarLabel).setHealthText(
+        this.playerHealthBarLabel.setHealthText(
             Game.getPlayer().getHealth()
         );
+
+        playerHealthBarLabel.setText("");
+        getContentPane().add(playerHealthBarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, -1));
         
-        this.initButtonList();
+        playerNamelLabel.setText("- Player Name -");
+        getContentPane().add(playerNamelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 200, -1));
+
+        monsterInfoTitleLabel.setText("Monster");
+        getContentPane().add(monsterInfoTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 170, 20));
+
+       
+        arenaTitleLabel.setText("Arena");
+        getContentPane().add(arenaTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 90, -1));
+
+        inputInfoLabel.setText("KeyboardInput");
+        getContentPane().add(inputInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 280, 90, 10));
+
+        numberOfMovesLeftLabel.setText("Movement left:");
+        getContentPane().add(numberOfMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 110, -1));
+
+        valueMovesLeftLabel.setText("6");
+        getContentPane().add(valueMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
+
+        numberOfAttacksLeftLabel1.setText("Attacks left:");
+        getContentPane().add(numberOfAttacksLeftLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, -1));
+
+        valueAttacksLeftLabel.setText("6");
+        getContentPane().add(valueAttacksLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, -1, -1));
+
+        currentActiveCharLabel.setText("Active gamer label");
+        getContentPane().add(currentActiveCharLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        roundLabel.setText("Round 1");
+        getContentPane().add(roundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
+
+        levelLabel.setText("Level 1");
+        getContentPane().add(levelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
+
+        experienceTitelLabel.setText("Experience");
+        getContentPane().add(experienceTitelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+
+        experienceValueLabel.setText("0");
+        getContentPane().add(experienceValueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
         
-        // needed for keyboard to work
-        this.setButtonFocus(false);
-        
-        // add the Listener for WindowClosing
-        this.addWindowListener();
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jLabel2 = new javax.swing.JLabel();
-        arenaScrollPane = new javax.swing.JScrollPane();
-        attackInfoTextArea = new javax.swing.JTextArea();
-        downButton = new javax.swing.JButton();
-        btn_EndRound = new javax.swing.JButton();
-        healthLabel = new javax.swing.JLabel();
-        playerHealthBarLabel = new HealthBarLabel(Game.getInstance().getPlayer().getHealth());
-        jButton1 = new javax.swing.JButton();
-        upButton = new javax.swing.JButton();
-        rightButton = new javax.swing.JButton();
-        leftButton = new javax.swing.JButton();
-        playerNamelLabel = new javax.swing.JLabel();
-        monsterScrollPane = new javax.swing.JScrollPane();
-        monsterInfoTextArea = new javax.swing.JTextArea();
-        monsterInfoTitleLabel = new javax.swing.JLabel();
-        attackButton = new javax.swing.JButton();
-        attackScrollPane = new javax.swing.JScrollPane();
-        arenaTextArea = new javax.swing.JTextArea();
-        arenaTitleLabel = new javax.swing.JLabel();
-        inputInfoLabel = new javax.swing.JLabel();
-        numberOfMovesLeftLabel = new javax.swing.JLabel();
-        valueMovesLeftLabel = new javax.swing.JLabel();
-        changeInputTypeButton = new javax.swing.JButton();
-        numberOfActionsLeftLabel1 = new javax.swing.JLabel();
-        valueAttacksLeftLabel = new javax.swing.JLabel();
-        currentActiveCharLabel = new javax.swing.JLabel();
-        roundLabel = new javax.swing.JLabel();
-        levelLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        keyInfoTextArea = new javax.swing.JTextArea();
-        experienceTitelLabel = new javax.swing.JLabel();
-        experienceValueLabel = new javax.swing.JLabel();
-
-        jLabel2.setText("jLabel2");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 700));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        attackInfoTextArea.setColumns(20);
-        attackInfoTextArea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
-        attackInfoTextArea.setRows(5);
-        attackInfoTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        arenaScrollPane.setViewportView(attackInfoTextArea);
-
-        getContentPane().add(arenaScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 460, 170));
-
+        // Buttons
         downButton.setText("Down");
         downButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,19 +222,13 @@ public class GameFrame extends javax.swing.JFrame {
         });
         getContentPane().add(btn_EndRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 530, -1, -1));
 
-        healthLabel.setText("Health");
-        getContentPane().add(healthLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 200, -1));
-
-        playerHealthBarLabel.setText("");
-        getContentPane().add(playerHealthBarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, -1));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        spellCastButton.setText("jButton1");
+        spellCastButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                castSpellActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 620, -1, -1));
+        getContentPane().add(spellCastButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 620, -1, -1));
 
         upButton.setText("Up");
         upButton.addActionListener(new java.awt.event.ActionListener() {
@@ -200,18 +254,6 @@ public class GameFrame extends javax.swing.JFrame {
         });
         getContentPane().add(leftButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, -1, -1));
 
-        playerNamelLabel.setText("- Player Name -");
-        getContentPane().add(playerNamelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 200, -1));
-
-        monsterInfoTextArea.setColumns(20);
-        monsterInfoTextArea.setRows(5);
-        monsterScrollPane.setViewportView(monsterInfoTextArea);
-
-        getContentPane().add(monsterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, 200, 220));
-
-        monsterInfoTitleLabel.setText("Monster");
-        getContentPane().add(monsterInfoTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 170, 20));
-
         attackButton.setText("Attack");
         attackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,26 +262,6 @@ public class GameFrame extends javax.swing.JFrame {
         });
         getContentPane().add(attackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 650, 470, -1));
 
-        arenaTextArea.setColumns(20);
-        arenaTextArea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
-        arenaTextArea.setRows(5);
-        arenaTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        attackScrollPane.setViewportView(arenaTextArea);
-
-        getContentPane().add(attackScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 460, 310));
-
-        arenaTitleLabel.setText("Arena");
-        getContentPane().add(arenaTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 90, -1));
-
-        inputInfoLabel.setText("KeyboardInput");
-        getContentPane().add(inputInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 280, 90, 10));
-
-        numberOfMovesLeftLabel.setText("Movement left:");
-        getContentPane().add(numberOfMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 110, -1));
-
-        valueMovesLeftLabel.setText("6");
-        getContentPane().add(valueMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
-
         changeInputTypeButton.setText("Keyboard");
         changeInputTypeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,175 +269,9 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(changeInputTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, -1, 30));
-
-        numberOfActionsLeftLabel1.setText("Attacks left:");
-        getContentPane().add(numberOfActionsLeftLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, -1));
-
-        valueAttacksLeftLabel.setText("6");
-        getContentPane().add(valueAttacksLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, -1, -1));
-
-        currentActiveCharLabel.setText("Active gamer label");
-        getContentPane().add(currentActiveCharLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
-
-        roundLabel.setText("Round 1");
-        getContentPane().add(roundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
-
-        levelLabel.setText("Level 1");
-        getContentPane().add(levelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
-
-        keyInfoTextArea.setColumns(20);
-        keyInfoTextArea.setRows(5);
-        jScrollPane1.setViewportView(keyInfoTextArea);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 330, 200, 280));
-
-        experienceTitelLabel.setText("Experience");
-        getContentPane().add(experienceTitelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
-
-        experienceValueLabel.setText("0");
-        getContentPane().add(experienceValueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
-
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * Movementcontrol of the Character via mouse
-     * @param evt 
-     */
-    private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
-       InputHandler.moveDown();
-    }//GEN-LAST:event_downButtonActionPerformed
-
-    /**
-     * Movementcontrol of the Character via mouse
-     * @param evt 
-     */
-    private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
-        InputHandler.moveLeft();
-    }//GEN-LAST:event_leftButtonActionPerformed
-
-    /**
-     * Attack command via mouse
-     * @param evt 
-     */
-    private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-        InputHandler.attack();
-    }//GEN-LAST:event_attackButtonActionPerformed
-
-    /**
-     * Change the Input Type back to Keyboard.
-     * @param evt 
-     */
-    private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeInputTypeButtonActionPerformed
-        InputHandler.setControlFocus(true);
-    }//GEN-LAST:event_changeInputTypeButtonActionPerformed
-
-    /**
-     * Movementcontrol of the Character via mouse
-     * @param evt 
-     */
-    private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
-        InputHandler.moveUp();
-    }//GEN-LAST:event_upButtonActionPerformed
-
-    /**
-     * Movementcontrol of the Character via mouse
-     * @param evt 
-     */
-    private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
-        InputHandler.moveUp();
-    }//GEN-LAST:event_rightButtonActionPerformed
-
-    /**
-     * Testing purpose
-     * @param evt 
-     */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        // reduce Player Health Test
-//        testHp = testHp-1;
-//        System.out.println(testHp);
-//        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
-        InputHandler.openCloseSpellbook();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * Ending the Turn of the Player.
-     * Starts the Turn of the Monster.
-     * @param evt 
-     */
-    private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EndRoundActionPerformed
-        InputHandler.endRound();
-    }//GEN-LAST:event_btn_EndRoundActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GameFrame().setVisible(true);
-            }
-        });
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane arenaScrollPane;
-    private javax.swing.JTextArea arenaTextArea;
-    private javax.swing.JLabel arenaTitleLabel;
-    private javax.swing.JButton attackButton;
-    private javax.swing.JTextArea attackInfoTextArea;
-    private javax.swing.JScrollPane attackScrollPane;
-    private javax.swing.JButton btn_EndRound;
-    private javax.swing.JButton changeInputTypeButton;
-    private javax.swing.JLabel currentActiveCharLabel;
-    private javax.swing.JButton downButton;
-    private javax.swing.JLabel experienceTitelLabel;
-    private javax.swing.JLabel experienceValueLabel;
-    private javax.swing.JLabel healthLabel;
-    private javax.swing.JLabel inputInfoLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea keyInfoTextArea;
-    private javax.swing.JButton leftButton;
-    private javax.swing.JLabel levelLabel;
-    private javax.swing.JTextArea monsterInfoTextArea;
-    private javax.swing.JLabel monsterInfoTitleLabel;
-    private javax.swing.JScrollPane monsterScrollPane;
-    private javax.swing.JLabel numberOfActionsLeftLabel1;
-    private javax.swing.JLabel numberOfMovesLeftLabel;
-    private javax.swing.JLabel playerHealthBarLabel;
-    private javax.swing.JLabel playerNamelLabel;
-    private javax.swing.JButton rightButton;
-    private javax.swing.JLabel roundLabel;
-    private javax.swing.JButton upButton;
-    private javax.swing.JLabel valueAttacksLeftLabel;
-    private javax.swing.JLabel valueMovesLeftLabel;
-    // End of variables declaration//GEN-END:variables
-
+        
     /**
      * collecting the GUI Elements for easy access.
      */
@@ -429,12 +285,12 @@ public class GameFrame extends javax.swing.JFrame {
         components.add(attackButton);
         // Other
         components.add(btn_EndRound);
-        components.add(jButton1);
+        components.add(spellCastButton);
         components.add(changeInputTypeButton);
         //scrollpanes
-        components.add(attackScrollPane);
+        components.add(areanaJScrollPane);
         components.add(monsterScrollPane);
-        components.add(arenaScrollPane);
+        components.add(attackJScrollPane);
     }
     
     /**
@@ -457,8 +313,12 @@ public class GameFrame extends javax.swing.JFrame {
      * 
      */
     private void initFrameSetup() {
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); 
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        
         this.setResizable(false);
-        Dimension dimensions = new Dimension(800, 700);
+        Dimension dimensions = new Dimension(900, 700);
         this.setPreferredSize(dimensions);
         this.setMinimumSize(dimensions);
         this.setMaximumSize(dimensions);
@@ -471,7 +331,7 @@ public class GameFrame extends javax.swing.JFrame {
         this.xPosition = Math.max(0, (screenSize.width  - windowSize.width ) / 2);
         this.yPosition = Math.max(0, (screenSize.height - windowSize.height) / 2);
         this.setLocation(xPosition, yPosition);
-        this.setVisible(true);
+        
     }
     
     /**
@@ -504,43 +364,337 @@ public class GameFrame extends javax.swing.JFrame {
 	});
     }
     
-    /* Getter and Setter after this line */
+        /**
+     * Movementcontrol of the Character via mouse
+     * @param evt 
+     */
+    private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+       InputHandler.moveDown();
+    }                                          
+
+    /**
+     * Movementcontrol of the Character via mouse
+     * @param evt 
+     */
+    private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        InputHandler.moveLeft();
+    }                                          
+
+    /**
+     * Attack command via mouse
+     * @param evt 
+     */
+    private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        InputHandler.attack();
+    }                                            
+
+    /**
+     * Change the Input Type back to Keyboard.
+     * @param evt 
+     */
+    private void changeInputTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+        InputHandler.setControlFocus(true);
+    }                                                     
+
+    /**
+     * Movementcontrol of the Character via mouse
+     * @param evt 
+     */
+    private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        InputHandler.moveUp();
+    }                                        
+
+    /**
+     * Movementcontrol of the Character via mouse
+     * @param evt 
+     */
+    private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        InputHandler.moveUp();
+    }                                           
+
+    /**
+     * Testing purpose
+     * @param evt 
+     */
+    private void castSpellActionPerformed(java.awt.event.ActionEvent evt) {                                         
+//        // reduce Player Health Test
+//        testHp = testHp-1;
+//        System.out.println(testHp);
+//        ((HealthBarLabel)playerHealthBarLabel).setHealthText(testHp);
+        InputHandler.openCloseSpellbook();
+    }                                        
+
+    /**
+     * Ending the Turn of the Player.
+     * Starts the Turn of the Monster.
+     * @param evt 
+     */
+    private void btn_EndRoundActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        InputHandler.endRound();
+    }     
+
+    public HealthBarLabel getPlayerHealthBarLabel() {
+        return playerHealthBarLabel;
+    }
+
+    public void setPlayerHealthBarLabel(HealthBarLabel playerHealthBarLabel) {
+        this.playerHealthBarLabel = playerHealthBarLabel;
+    }
+
+    public JButton getjButton1() {
+        return spellCastButton;
+    }
+
+    public void setjButton1(JButton jButton1) {
+        this.spellCastButton = jButton1;
+    }
+
+    public JButton getUpButton() {
+        return upButton;
+    }
+
+    public void setUpButton(JButton upButton) {
+        this.upButton = upButton;
+    }
+
+    public JButton getRightButton() {
+        return rightButton;
+    }
+
+    public void setRightButton(JButton rightButton) {
+        this.rightButton = rightButton;
+    }
+
+    public JButton getLeftButton() {
+        return leftButton;
+    }
+
+    public void setLeftButton(JButton leftButton) {
+        this.leftButton = leftButton;
+    }
+
+    public JButton getChangeInputTypeButton() {
+        return changeInputTypeButton;
+    }
+
+    public void setChangeInputTypeButton(JButton changeInputTypeButton) {
+        this.changeInputTypeButton = changeInputTypeButton;
+    }
+
+    public JButton getDownButton() {
+        return downButton;
+    }
+
+    public void setDownButton(JButton downButton) {
+        this.downButton = downButton;
+    }
+
+    public JButton getBtn_EndRound() {
+        return btn_EndRound;
+    }
+
+    public void setBtn_EndRound(JButton btn_EndRound) {
+        this.btn_EndRound = btn_EndRound;
+    }
+
     public JLabel getHealthLabel() {
         return healthLabel;
     }
-    public JLabel getPlayerHealthBarLabel() {
-        return playerHealthBarLabel;
+
+    public void setHealthLabel(JLabel healthLabel) {
+        this.healthLabel = healthLabel;
     }
-    public JTextArea getMonsterTextArea() {
-        return monsterInfoTextArea;
-    }
+
     public JLabel getPlayerNamelLabel() {
         return playerNamelLabel;
     }
-    public JTextArea getAttackInfoTextArea() {
-        return attackInfoTextArea;
+
+    public void setPlayerNamelLabel(JLabel playerNamelLabel) {
+        this.playerNamelLabel = playerNamelLabel;
     }
-    public JTextArea getMonsterInfoTextArea() {
-        return monsterInfoTextArea;
+
+    public JLabel getMonsterInfoTitleLabel() {
+        return monsterInfoTitleLabel;
     }
-    public JLabel getValueAttacksLeftLabel() {
-        return valueAttacksLeftLabel;
+
+    public void setMonsterInfoTitleLabel(JLabel monsterInfoTitleLabel) {
+        this.monsterInfoTitleLabel = monsterInfoTitleLabel;
     }
+
+    public JLabel getArenaTitleLabel() {
+        return arenaTitleLabel;
+    }
+
+    public void setArenaTitleLabel(JLabel arenaTitleLabel) {
+        this.arenaTitleLabel = arenaTitleLabel;
+    }
+
+    public JLabel getInputInfoLabel() {
+        return inputInfoLabel;
+    }
+
+    public void setInputInfoLabel(JLabel inputInfoLabel) {
+        this.inputInfoLabel = inputInfoLabel;
+    }
+
+    public JLabel getNumberOfMovesLeftLabel() {
+        return numberOfMovesLeftLabel;
+    }
+
+    public void setNumberOfMovesLeftLabel(JLabel numberOfMovesLeftLabel) {
+        this.numberOfMovesLeftLabel = numberOfMovesLeftLabel;
+    }
+
     public JLabel getValueMovesLeftLabel() {
         return valueMovesLeftLabel;
     }
-    public JTextArea getArenaTextArea() {
- 
-        return arenaTextArea;
+
+    public void setValueMovesLeftLabel(JLabel valueMovesLeftLabel) {
+        this.valueMovesLeftLabel = valueMovesLeftLabel;
     }
+
+    public JButton getSpellCastButton() {
+        return spellCastButton;
+    }
+
+    public void setSpellCastButton(JButton spellCastButton) {
+        this.spellCastButton = spellCastButton;
+    }
+
+    public JLabel getNumberOfAttacksLeftLabel() {
+        return numberOfAttacksLeftLabel1;
+    }
+
+    public void setNumberOfAttacksLeftLabel1(JLabel numberOfAttacksLeftLabel1) {
+        this.numberOfAttacksLeftLabel1 = numberOfAttacksLeftLabel1;
+    }
+
+    public JLabel getValueAttacksLeftLabel() {
+        return valueAttacksLeftLabel;
+    }
+
+    public void setValueAttacksLeftLabel(JLabel valueAttacksLeftLabel) {
+        this.valueAttacksLeftLabel = valueAttacksLeftLabel;
+    }
+
     public JLabel getCurrentActiveCharLabel() {
         return currentActiveCharLabel;
     }
+
+    public void setCurrentActiveCharLabel(JLabel currentActiveCharLabel) {
+        this.currentActiveCharLabel = currentActiveCharLabel;
+    }
+
+    public JLabel getRoundLabel() {
+        return roundLabel;
+    }
+
+    public void setRoundLabel(JLabel roundLabel) {
+        this.roundLabel = roundLabel;
+    }
+
     public JLabel getLevelLabel() {
         return levelLabel;
     }
-    public JLabel getRoundLabel() {
-        return roundLabel;
+
+    public void setLevelLabel(JLabel levelLabel) {
+        this.levelLabel = levelLabel;
+    }
+
+    public JLabel getExperienceTitelLabel() {
+        return experienceTitelLabel;
+    }
+
+    public void setExperienceTitelLabel(JLabel experienceTitelLabel) {
+        this.experienceTitelLabel = experienceTitelLabel;
+    }
+
+    public JLabel getExperienceValueLabel() {
+        return experienceValueLabel;
+    }
+
+    public void setExperienceValueLabel(JLabel experienceValueLabel) {
+        this.experienceValueLabel = experienceValueLabel;
+    }
+
+    public JButton getAttackButton() {
+        return attackButton;
+    }
+
+    public void setAttackButton(JButton attackButton) {
+        this.attackButton = attackButton;
+    }
+
+    public JScrollPane getAttackScrollPane() {
+        return areanaJScrollPane;
+    }
+
+    public void setAttackScrollPane(JScrollPane attackScrollPane) {
+        this.areanaJScrollPane = attackScrollPane;
+    }
+
+    public JTextArea getArenaTextArea() {
+        return arenaTextArea;
+    }
+
+    public void setArenaTextArea(JTextArea arenaTextArea) {
+        this.arenaTextArea = arenaTextArea;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return keyInforScrollPane;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.keyInforScrollPane = jScrollPane1;
+    }
+
+    public JTextArea getKeyInfoTextArea() {
+        return keyInfoTextArea;
+    }
+
+    public void setKeyInfoTextArea(JTextArea keyInfoTextArea) {
+        this.keyInfoTextArea = keyInfoTextArea;
+    }
+
+    public JScrollPane getMonsterScrollPane() {
+        return monsterScrollPane;
+    }
+
+    public void setMonsterScrollPane(JScrollPane monsterScrollPane) {
+        this.monsterScrollPane = monsterScrollPane;
+    }
+
+    public JTextArea getMonsterInfoTextArea() {
+        return monsterInfoTextArea;
+    }
+
+    public void setMonsterInfoTextArea(JTextArea monsterInfoTextArea) {
+        this.monsterInfoTextArea = monsterInfoTextArea;
+    }
+
+    public JScrollPane getArenaScrollPane() {
+        return attackJScrollPane;
+    }
+
+    public void setArenaScrollPane(JScrollPane arenaScrollPane) {
+        this.attackJScrollPane = arenaScrollPane;
+    }
+
+    public JTextArea getAttackInfoTextArea() {
+        return attackInfoTextArea;
+    }
+
+    public void setAttackInfoTextArea(JTextArea attackInfoTextArea) {
+        this.attackInfoTextArea = attackInfoTextArea;
+    }
+
+    public int getTestHp() {
+        return testHp;
+    }
+
+    public void setTestHp(int testHp) {
+        this.testHp = testHp;
     }
 
     public int getxPosition() {
@@ -558,11 +712,6 @@ public class GameFrame extends javax.swing.JFrame {
     public void setyPosition(int yPosition) {
         this.yPosition = yPosition;
     }
-
-    public JLabel getExperienceValueLabel() {
-        return experienceValueLabel;
-    }
-    
     
     
     

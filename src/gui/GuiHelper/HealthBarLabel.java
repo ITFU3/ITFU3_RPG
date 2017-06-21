@@ -24,6 +24,18 @@ public class HealthBarLabel extends JLabel {
         this.setForeground(Color.red);
     }
     
+    public HealthBarLabel() {
+        this.maxHealth = 0;
+        this.currentHealth = 0;
+        this.setFont(new java.awt.Font("Courier New", 0, 13));
+        this.setForeground(Color.red);
+    }
+    
+    public void setMaxHealthCurrentHealth(int maxHealth, int currentHealth) {
+        this.maxHealth = maxHealth;
+        this.currentHealth = currentHealth;
+        setHealthText(currentHealth);
+    }
     
     
 public void setHealthText(int newCurrentHealth) {

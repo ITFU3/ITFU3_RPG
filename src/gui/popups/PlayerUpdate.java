@@ -62,7 +62,7 @@ public class PlayerUpdate extends javax.swing.JFrame {
         intellegenceLabel.setText(String.valueOf(pc.getIntelegent()));
         charismaLabel.setText(String.valueOf(pc.getCharisma()));
         healthLabel.setText(String.valueOf(pc.getHealth()));
-        attacksLabel.setText(String.valueOf(pc.getAllowedAttacks()));
+        attacksLabel.setText(String.valueOf(pc.getAttacks()));
         movementLabel.setText(String.valueOf(pc.getMovement()));
     }
     
@@ -317,9 +317,16 @@ public class PlayerUpdate extends javax.swing.JFrame {
         pc.setCharisma(charisma + pc.getpRace().getStatsBonus()[5]);
         pc.setMovement(moves + pc.getpRace().getStatsBonus()[6]);
         pc.setAttacks(attacks);
-        pc.setHealth(health + pc.getpRace().getStatsBonus()[7]);
-        
         pc.setUnUsedExperience(pc.getUnUsedExperience() - usedExperience);
+        int newTempHealth = health - pc.getHealth() + pc.getTempHP();
+        
+        pc.setHealth(health + pc.getpRace().getStatsBonus()[7]);
+        pc.setTempHP(newTempHealth);
+        
+        Game.getInstance().setPlayer(pc);
+        // due to new max health Healthbarlabel needs update
+        Game.getInstance().getGameFrame().getPlayerHealthBarLabel().setMaxHealthCurrentHealth(health, newTempHealth);
+        Game.updateGUI();
         System.out.println(pc.showCharInfo());
         setVisible(false);
     }//GEN-LAST:event_okButtonActionPerformed

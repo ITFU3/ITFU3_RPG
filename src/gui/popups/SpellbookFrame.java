@@ -22,6 +22,8 @@ public class SpellbookFrame extends JFrame
     private final JButton castSpellButton;
     private String selectedSpell;
     
+    private static SpellbookFrame instance;
+    
     public SpellbookFrame()
     {
         this.scrollPane = new JScrollPane();
@@ -34,6 +36,13 @@ public class SpellbookFrame extends JFrame
         this.addListModel();
         this.addListListener();
         this.addButtonListener();
+    }
+    
+    public static SpellbookFrame getInstance() {
+        if (instance == null) {
+            instance = new SpellbookFrame();
+        }
+        return instance;
     }
     
     /**

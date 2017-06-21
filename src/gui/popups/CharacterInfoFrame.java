@@ -10,14 +10,23 @@ import main.Game;
  * Simple Charater Screen, to show the Basic Information of the Charater.
  * @author Matthias Dröge
  */
-public class CharacterFrame extends JFrame{
+public class CharacterInfoFrame extends JFrame{
     private JTextArea charInfoArea;
     private JScrollPane scrollPane;
+    
+    private static CharacterInfoFrame instance;
 
-    public CharacterFrame(){
+    private CharacterInfoFrame(){
         
         initFrame();
         addData();
+    }
+    
+    public static CharacterInfoFrame getInstance() {
+        if (instance == null) {
+            instance = new CharacterInfoFrame();
+        }
+        return instance;
     }
     
     private void initFrame(){

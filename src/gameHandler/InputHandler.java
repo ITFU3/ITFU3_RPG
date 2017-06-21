@@ -1,7 +1,9 @@
 package gameHandler;
 
 import Enum.MoveDirection;
+import gui.popups.CharacterInfoFrame;
 import gui.popups.InventoryFrame;
+import gui.popups.SpellbookFrame;
 import main.Game;
 
 /**
@@ -140,16 +142,14 @@ public class InputHandler {
         }
     }
     
-    
-    
-    
-    
     /**
      * open spellbook action for every input to trigger.
      */
     public static void openCloseSpellbook(){
         // ToDo: more testing.
-        new gui.popups.SpellbookFrame().setVisible(true);
+        SpellbookFrame.getInstance().setVisible(!getInstance().isSpellbookShown);
+        getInstance().isSpellbookShown = !getInstance().isSpellbookShown;
+        
     }
     
     /**
@@ -157,8 +157,7 @@ public class InputHandler {
      */
     public static void openCloseInventory(){
         
-        // ToDo: more testing.
-        InventoryFrame.getInstance().setVisible(getInstance().isInventoryShown);
+        InventoryFrame.getInstance().setVisible(!getInstance().isInventoryShown);
         getInstance().isInventoryShown = !getInstance().isInventoryShown;
     }
     
@@ -166,7 +165,11 @@ public class InputHandler {
      * 
      */
     public static void openCloseCharacterScreen(){
-        new gui.popups.CharacterFrame().setVisible(getInstance().isCharInfoShown);
+        
+        CharacterInfoFrame.getInstance().setVisible(!getInstance().isCharInfoShown);
+        getInstance().isCharInfoShown = !getInstance().isCharInfoShown;
+        
+       
     }
     
     /**

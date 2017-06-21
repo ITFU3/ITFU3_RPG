@@ -240,8 +240,8 @@ public class BattleHandler
                         if(target.getTempHP() <= 0)
                         {
                             output += target.getName() + " is no more.\n";
-                            int newXP = target.getExperience();
-                            attacker.addExperience( newXP );
+                            
+                            PlayerUpdateHandler.addExperience(attacker, target.getExperience());
                             killStrike(target);
                         }
                     }else{ output += "misses with a " + chanceToHit[1] + "\n"; }

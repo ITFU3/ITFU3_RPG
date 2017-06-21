@@ -1,12 +1,14 @@
 package main;
 import gui.SelectionFrame;
+import gui.popups.SelectGameTypeFrame;
 /**
  * Minimalistic Luncher for the Game.
  * 
  * @author Matthias Dröge
  */
-public class RPG_GAME{
+public class Launcher{
   public static void main(String[] args){
-     SelectionFrame sf = new SelectionFrame();
+    SelectionFrame sf = new SelectionFrame();
+    //  new SelectGameTypeFrame();
   }
 }

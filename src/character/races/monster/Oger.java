@@ -8,6 +8,8 @@ public class Oger extends MonsterRace{
     
     public static int XP  = 400;
     
+    
+    
     public Oger(){
         this(MonsterRace.getRandomType());
     }

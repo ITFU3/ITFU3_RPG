@@ -8,7 +8,9 @@ import character.classes.*;
 import character.item.armor.*;
 import character.item.weapons.*;
 import character.item.spells.*;
+import character.races.monster.Bear;
 import character.races.monster.Orc;
+import character.races.monster.Wolf;
 
 import java.lang.reflect.Method;
 
@@ -24,6 +26,11 @@ public class MonsterPreset {
      * 
      * @return MonsterCharacter
      */
+    
+    public static final int MOVEMENT_SLOW = 2;
+    public static final int MOVEMENT_MEDIUM = 4;
+    public static final int MOVEMENT_FAST = 6;
+    
     public static MonsterCharacter createRandom(){
         try{
             Method[] ran = MonsterPreset.class.getDeclaredMethods();
@@ -48,6 +55,7 @@ public class MonsterPreset {
      */
     public static MonsterCharacter createRat(){
         MonsterCharacter monster = new MonsterCharacter( new Rat() );
+        monster.setMovement(MOVEMENT_FAST);
         monster.setHealth(3);
         monster.setTempHP(3);
         monster.setpClass(new PlayerClass());
@@ -62,6 +70,7 @@ public class MonsterPreset {
      */
     public static MonsterCharacter createOgerGrunt(){
         MonsterCharacter monster = new MonsterCharacter( new Oger() );
+        monster.setMovement(MOVEMENT_SLOW);
         monster.setHealth(15);
         monster.setTempHP(15);
         monster.setpClass(new Fighter());
@@ -69,12 +78,14 @@ public class MonsterPreset {
         monster.addArmor(new Leather());
         return monster;
     }
+    
     /**
      * creates an Oger Shaman that can heal
      * @return MonsterCharacter
      */
     public static MonsterCharacter createOgerShaman(){
         MonsterCharacter monster = new MonsterCharacter( new Oger() );
+        monster.setMovement(MOVEMENT_SLOW);
         monster.setHealth(10);
         monster.setTempHP(10);
         monster.setpClass(new Cleric());
@@ -82,15 +93,51 @@ public class MonsterPreset {
         monster.addArmor(new Cloth());
         monster.getpClass().getMyBook().addSpell(new HealingWord());
         return monster;
+    } 
+    /**
+     * creates an ORC FIGHTER 
+     * @return MonsterCharacter
+     */
+    public static MonsterCharacter createOrcFighter(){
+        MonsterCharacter monster = new MonsterCharacter( new Orc() );
+        monster.setMovement(MOVEMENT_MEDIUM);
+        monster.setHealth(8);
+        monster.setTempHP(8);
+        monster.setpClass(new Fighter());
+        monster.addWeapon(new Handaxe());
+        monster.addArmor(new ChainMail());
+        monster.setMapToken('o');
+        return monster;
     }    
-    
+    /**
+     * creates a BEAR FIGHTER 
+     * 
+     * @return MonsterCharacter
+     */
     public static MonsterCharacter createBear() {
-        MonsterCharacter monster = new MonsterCharacter ( new Orc());
+        MonsterCharacter monster = new MonsterCharacter ( new Bear());
+        monster.setMovement(MOVEMENT_MEDIUM);
         monster.setHealth(12);
         monster.setTempHP(12);
         monster.setpClass(new Fighter());
         monster.setWeaponSlot(new Claw());
         monster.setOffHandWeaponSlot(new Claw());
+        monster.setMapToken('B');
+        return monster; 
+    }
+/**
+     * creates a WOLF  
+     * 
+     * @return MonsterCharacter
+     */
+    public static MonsterCharacter createWolf() {
+        MonsterCharacter monster = new MonsterCharacter ( new Wolf());
+        monster.setMovement(MOVEMENT_MEDIUM);
+        monster.setHealth(10);
+        monster.setTempHP(10);
+        monster.setpClass(new Fighter());
+        monster.setWeaponSlot(new Claw());
+        monster.setMapToken('W');
         return monster; 
     }
 }

@@ -28,7 +28,7 @@ public class UserInfo {
                               + "END ROUND      = ENTER\n"
                               + "CAST SPELL     = C\n"
                               + "CHARACTER INFO = V\n"
-                              + "INVENTORY      = I"
+                              + "INVENTORY      = I\n"
                               + "SWITCH INPUT   = M\n";
                 
     

@@ -127,10 +127,8 @@ public class Map
             {
                 char field = this.labyrinthMap[y][x];
                 this.map += field;
-//        System.out.print(field);
             }
             this.map += "\n";
-//      System.out.print("\n");
         }
     }
     private void singleSpawn(int y,int x, int mapLevel){
@@ -184,22 +182,13 @@ public class Map
         {
             for(int i=0; i<steps; i++)
             {
-// not nice needs a redo
+
                 l_Y = this.entity.getCoordinates_past()[0];
                 l_X = this.entity.getCoordinates_past()[1];
                 
                 n_y = this.entity.getCoordinates_future()[0];
                 n_x = this.entity.getCoordinates_future()[1];
                 
-                System.out.println(
-                        "main.Map.walkOnMap\n"+
-                                "===>\n" +
-                                "steps: " + steps +
-                                " | tempMovement: " + tempMovement +
-                                " | x: " + n_x + " | y:" + n_y + " | l_X: " + l_X +
-                                " | l_Y: " + l_Y + "\n"+
-                                "<==="
-                );
                 switch(input)
                 {
                     case "left":
@@ -221,10 +210,7 @@ public class Map
                 n_x = this.entity.getCoordinates_future()[1];
                 
                 char mapIndicator = this.entity.getMapToken();
-                System.out.println("main.Map.walkOnMap ==> Indicator: " + mapIndicator);
-                System.err.println("["+n_y+"]");
-                System.err.println("["+n_x+"]");
-                System.err.println(this.labyrinthMap[n_y][n_x]);
+                
                 char field = this.labyrinthMap[n_y][n_x];
                 
                 if(field != ' '){
@@ -233,19 +219,7 @@ public class Map
                     // no move wasted for player.
                     tempMovement++;
                     // Following is the possibility for Attack Info Message
-                    if(field == '#'){
-                        if( !this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") ){
-                            System.out.println("main.Map.walkOnMap ==> PLAYER bumped into a WALL.");
-                        }else{
-                            System.err.println("main.Map.walkOnMap ==> AI hit WALL.");
-                        }
-                    }else if(field != 'P'){
-                        if( !this.entity.getClass().getSimpleName().equalsIgnoreCase("monsterCharater") ) {
-                            System.out.println("main.Map.walkOnMap ==> PLAYER bumped into ENEMY.");
-                        }else{
-                            System.err.println( "main.Map.walkOnMap ==> AI: " + this.entity.getClass().getSimpleName() );
-                        }
-                    }
+                    
                 }else{
                     //walk freely
                     this.resetMarkerOnMap(l_Y, l_X);
@@ -256,10 +230,7 @@ public class Map
                 tempMovement--;
             }
         }
-        else
-        {
-            System.out.println("main.Map.walkOnMap ==> That is " + (steps-tempMovement) + " too far.");
-        }
+        
         return tempMovement;
     }
     
@@ -276,7 +247,6 @@ public class Map
         int y = Math.abs( a.getCoordinates_past()[0] - b.getCoordinates()[0] );
         int x = Math.abs( a.getCoordinates_past()[1] - b.getCoordinates()[1] );
         int dist = Math.round( (float) Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) ) );
-        System.out.println("main.Map.getDistance ==> " + dist);
         return dist;
     }
     

@@ -21,6 +21,8 @@ import javax.swing.text.DefaultCaret;
  *
  * @author Steffen Haas
  * @author Matthias Dröge
+ * 
+ * // OLD VERSION
  */
 public class GameFrameClickedTogether extends javax.swing.JFrame {
     ArrayList<JComponent> components = new ArrayList();

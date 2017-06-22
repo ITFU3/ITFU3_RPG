@@ -17,38 +17,7 @@ import java.util.ArrayList;
  */
 public class CharacterSelecter
 {
-  /**
-   * Select a character from a preset.
-   * 
-   * @return The choosen character
-   */
-  public static PlayerCharacter selectCharacter()
-  {
-    // for testing some chars in an array
-    // in this way it is not so much overhead
-    PlayerCharacter[] players = getDemoChars();
-    
-    // Preview
-    for(int i=0; i< players.length;i++)
-    {
-      System.out.println("Player " + (i+1) + ":");
-      System.out.println(
-          "Player name: " + players[i].getName() + "\n" +
-          "Player class: " + players[i].getpClass().getName() + "\n" +
-          "Player race: " + players[i].getpRace().getName() + "\n"
-          );
-    }
-
-    System.out.println("Please select Player:");
-    
-    // The Selecting
-    int input = gameHandler.InputHandlerOld.readIntegerValue();
-    int choice = (input-1);
-    System.out.println("\n");
-    
-    // Final output
-    return players[choice];
-  }
+  
   /**
    * Building a preset of characters for fast use in testing.
    * 

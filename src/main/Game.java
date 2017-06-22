@@ -61,6 +61,9 @@ public class Game
         this.roundCount = 1;
         gameFrame = new GameFrame();
         gameFrame.setTitle(title);
+        gameFrame.getPlayerNamelLabel().setText(player.getName());
+        
+        //updateGUI();
     }
     
     
@@ -118,7 +121,6 @@ public class Game
         updateHealthBar( getPlayer().getTempHP() );
         
         getInstance().getGameFrame().repaint();
-        System.out.println("main.Game.updateGUI => UPDATED");
     }
     
     /**
@@ -148,7 +150,7 @@ public class Game
         upgradeMonsters();
         if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
-            System.out.println("main.Game.endRound ==> NEXT LEVEL: " + getInstance().getLevel());
+           
         }
         
         for (MonsterCharacter monster : getMonsters()) {
@@ -173,7 +175,7 @@ public class Game
         updateAttackInfo(   "##############################\n"+
                             "# It is your turn. Wake up.! #\n"+
                             "##############################");
-        System.out.println("main.Game.endRound ==> It is your turn. Wake up.!");
+       
         getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
         
         updateXPInfo();
@@ -236,7 +238,7 @@ public class Game
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
         getInstance().setAttackInfo(newOldString); //???
-      //  System.out.println("main.Game.updateAttackInfo => UPDATED");
+      
     }
     
     public static void updateXPInfo() {
@@ -257,7 +259,6 @@ public class Game
         }
         
         getInstance().setAttackInfo(newOldString);
-        //System.out.println("main.Game.addToAttackInfoString => UPDATED");
     }
     
     /**
@@ -317,17 +318,11 @@ public class Game
      */
     private static void upgradeMonsters()
     {
-        System.out.println("########################## UPGRADE MONSTERS #####START####################");
+       
         for (MonsterCharacter monster : getMonsters()) {
-            
-            System.out.println(monster.showCharInfo());
-            System.out.println("MONSTER "+monster.getName()+" is GROWING");
             monster.grow();
-            System.out.println(monster.showCharInfo());
-           
-            
         }
-        System.out.println("########################## UPGRADE MONSTERS #####END#####################");
+      
     }
     
     /**

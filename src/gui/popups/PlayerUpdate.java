@@ -52,6 +52,7 @@ public class PlayerUpdate extends javax.swing.JFrame {
         moves = pc.getMovement();
         
         
+        
         characterName.setText(pc.getName());
         experienceLeftToUseValueLabel.setText(String.valueOf(pc.getUnUsedExperience()));
         
@@ -316,6 +317,8 @@ public class PlayerUpdate extends javax.swing.JFrame {
         pc.setInteligent(intellegence + pc.getpRace().getStatsBonus()[4]);
         pc.setCharisma(charisma + pc.getpRace().getStatsBonus()[5]);
         pc.setMovement(moves + pc.getpRace().getStatsBonus()[6]);
+        int newTempMov = moves - pc.getMovement() + pc.getAllowedMoves();
+        pc.setAllowedMoves(newTempMov);
         pc.setAttacks(attacks);
         pc.setUnUsedExperience(pc.getUnUsedExperience() - usedExperience);
         int newTempHealth = health - pc.getHealth() + pc.getTempHP();

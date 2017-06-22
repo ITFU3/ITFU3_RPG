@@ -79,7 +79,7 @@ public class GameFrame extends JFrame{
     public GameFrame() {
         initFrameSetup();
         initComponents();
-        
+ 
         this.initButtonList();
         
         // needed for keyboard to work
@@ -184,11 +184,10 @@ public class GameFrame extends JFrame{
         this.playerHealthBarLabel.setHealthText(
                 Game.getPlayer().getHealth()
         );
-        
-        playerHealthBarLabel.setText("");
+      
         getContentPane().add(playerHealthBarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, -1));
         
-        playerNamelLabel.setText("- Player Name -");
+        playerNamelLabel.setText(Game.getPlayer().getName());
         getContentPane().add(playerNamelLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 200, -1));
         
         monsterInfoTitleLabel.setText("Monster");
@@ -204,16 +203,16 @@ public class GameFrame extends JFrame{
         numberOfMovesLeftLabel.setText("Movement left:");
         getContentPane().add(numberOfMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 110, -1));
         
-        valueMovesLeftLabel.setText("6");
+        valueMovesLeftLabel.setText(String.valueOf(Game.getPlayer().getMovement()));
         getContentPane().add(valueMovesLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
         
         numberOfAttacksLeftLabel1.setText("Attacks left:");
         getContentPane().add(numberOfAttacksLeftLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, -1));
         
-        valueAttacksLeftLabel.setText("6");
+        valueAttacksLeftLabel.setText(String.valueOf(Game.getPlayer().getAttacks()+"/"+Game.getPlayer().getAttacks()));
         getContentPane().add(valueAttacksLeftLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, -1, -1));
         
-        currentActiveCharLabel.setText("Active gamer label");
+        this.currentActiveCharLabel.setText( Game.getPlayer().getName()+ "'s turn");
         getContentPane().add(currentActiveCharLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
         
         roundLabel.setText("Round 1");

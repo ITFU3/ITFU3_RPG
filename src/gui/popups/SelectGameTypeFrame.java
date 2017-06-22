@@ -117,6 +117,7 @@ public class SelectGameTypeFrame extends JFrame{
     
     public void singlePlayerButtonActionPerformed(ActionEvent evt) {
         new SelectionFrame();
+        this.setVisible(false);
     }
     
 }

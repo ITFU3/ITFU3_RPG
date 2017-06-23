@@ -20,16 +20,26 @@ public class UserInfo {
     public static String HIT =  "#####################\n"+
                                 "#####    HIT    #####\n"+
                                 "#####################\n";
-    public static String KEYS = "UP             = W\n"
+    public static String KEYS = "MOVEMENT:\n"
+                              + "------------------\n"
+                              + "UP             = W\n"
                               + "LEFT           = A\n"
                               + "DOWN           = S\n"
                               + "RIGHT          = D\n"
+                              + "\n"
+                              + "ATTACKS\n"
+                              + "------------------\n"
                               + "ATTACK         = SPACE\n"
-                              + "END ROUND      = ENTER\n"
-                              + "CAST SPELL     = C\n"
+                              + "SPELL ATTACK   = SHIFT\n"  
+                              + "\n"
+                              + "MISCELLANEOUS\n"
+                              + "------------------\n"
+                              + "OPEN SPELLBOOK = C\n"
                               + "CHARACTER INFO = V\n"
                               + "INVENTORY      = I\n"
-                              + "SWITCH INPUT   = M\n";
+                              + "SWITCH INPUT   = M\n"
+                              + "END ROUND      = ENTER\n";
+    public static String NO_SPELL_AVAILABLE = "You have no spell selected as a primary Spell";
                 
     
 }

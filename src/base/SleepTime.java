@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Base;
+package base;
 
 /**
  *
@@ -16,6 +16,6 @@ public class SleepTime {
     public static int MONSTER_THINK_FIRST = 100;
     public static int MONSTER_AFTER_THOUHGT = 200;
     public static int HIT = 600;
-    public static int ATTACK_INFO = 100;
+    public static int ATTACK_INFO = 300;
     
 }

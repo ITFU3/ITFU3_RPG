@@ -4,8 +4,7 @@ import character.MonsterCharacter;
 import character.PlayerCharacter;
 import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
-import Base.SleepTime;
-import Base.UserInfo;
+import base.*;
 import gui.GameFrame;
 import gui.SelectionFrame;
 

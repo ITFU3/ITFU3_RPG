@@ -8,6 +8,7 @@ import character.item.weapons.*;
 import character.item.armor.*;
 import character.item.shields.Shield;
 import character.item.shields.SmallShield;
+import enums.Spell;
 
 import java.util.ArrayList;
 
@@ -46,7 +47,7 @@ public class CharacterSelecter
     player2.addArmor( new ChainMail() );
     player2.addShield( new SmallShield() );
     player2.getpClass().getMyBook().addSpell( new HealingWord() );
-    
+    player2.setPrimarySpell(Spell.HEALINGWORD);
     PlayerCharacter player3 = new PlayerCharacter(
         "Vahlran",
         'm',
@@ -67,7 +68,7 @@ public class CharacterSelecter
     player4.addWeapon( new Weapon() );
     player4.addArmor( new Cloth() );
     player4.getpClass().getMyBook().addSpell(new Fireball());
-    
+    player4.setPrimarySpell(Spell.FIREBALL);
     PlayerCharacter player5 = new PlayerCharacter(
         "Egeord",
         'm',

@@ -164,7 +164,7 @@ public class GameFrame extends JFrame{
         this.keyInfoTextArea.setFocusable(false);
         this.keyInfoTextArea.setDisabledTextColor(Color.BLACK);
         this.keyInfoTextArea.setFont( new java.awt.Font("Courier New", 0, 13) );
-        getContentPane().add(keyInforScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 330, 200, 280));
+        getContentPane().add(keyInforScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 330, 200, 300));
         
         // Labels
         healthLabel.setText("Health");

@@ -209,6 +209,7 @@ public class Game
     /**
      * created by Steffen Haas
      * 
+     * default false add
      * @param addString
      */
     public static void updateAttackInfo(String addString)
@@ -237,7 +238,8 @@ public class Game
         int tmpLength = getAttackInfoTextArea().getText().length();
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
-        getInstance().setAttackInfo(newOldString); //???
+        getInstance().setAttackInfo(newOldString); 
+        Game.waitFor(SleepTime.ATTACK_INFO);
       
     }
     

@@ -19,15 +19,13 @@ public class KeyHandler implements KeyListener {
     private final int left = KeyEvent.VK_A;
     private final int right = KeyEvent.VK_D;
     private final int attack = KeyEvent.VK_SPACE;
+    private final int secondaryAttack = KeyEvent.VK_SHIFT;
     
     private final int changeFocus = KeyEvent.VK_M;
     private final int spellbook = KeyEvent.VK_C;
     private final int inventory = KeyEvent.VK_I;
     private final int character = KeyEvent.VK_V;
-    
-    
-    private final int upperEnemy = KeyEvent.VK_NUMPAD8;
-    private final int upperEnemy2 = KeyEvent.VK_UP;
+     
     
     private final int pause = KeyEvent.VK_P;
     private final int esc = KeyEvent.VK_ESCAPE;
@@ -72,16 +70,20 @@ public class KeyHandler implements KeyListener {
         case attack:
             InputHandler.attack();
             break;
+        case secondaryAttack: // spell
+            InputHandler.spellattack(Game.getPlayer().getPrimarySpell().string);
+            break;
         case spellbook:
             InputHandler.openCloseSpellbook();
             break;
+        // Info
         case inventory:
             InputHandler.openCloseInventory();
             break;
         case character:
             InputHandler.openCloseCharacterScreen();
             break;
-            // Info
+     
         case changeFocus:
             InputHandler.setControlFocus(false);
             break;

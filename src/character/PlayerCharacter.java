@@ -25,6 +25,7 @@ public class PlayerCharacter extends BaseCharacter {
     private Armor armorSlot;
     private Shield shieldSlot;
     private Weapon offHandWeaponSlot;
+    private Spell primarySpell = Spell.NONE; 
 
     protected final int strength = 0;
     protected final int dexterity = 1;
@@ -78,6 +79,8 @@ public class PlayerCharacter extends BaseCharacter {
                 inputStats[health] += main.Die.rollDie(this.getpClass().getHitDie(), 1);
             }
         }
+        
+        
 
         this.setBasicStats(inputStats);
         this.setExperience(0);
@@ -94,7 +97,9 @@ public class PlayerCharacter extends BaseCharacter {
         this.setCoordinates_future(0, 0);
     }
 
-// ################# CONSTRUCTOR #################
+   
+
+    // ################# CONSTRUCTOR #################
     /**
      * Constructor for PlayerCharacter using the name of the character, the
      * gender, the class and the race
@@ -105,13 +110,7 @@ public class PlayerCharacter extends BaseCharacter {
      * @param inputRace - Race
      * @param id
      */
-    public PlayerCharacter(
-        String inputName,
-        char inputGender,
-        PlayerClass inputClass,
-        Race inputRace,
-        int id
-    ) {
+    public PlayerCharacter(String inputName, char inputGender, PlayerClass inputClass, Race inputRace, int id) {
         this();
         int[] inputStats = {10, 10, 10, 10, 10, 10, 5, 0};
         init(inputName, inputGender, inputStats, inputClass, inputRace, id);
@@ -742,6 +741,17 @@ public class PlayerCharacter extends BaseCharacter {
     }
     public void setUnUsedExperience(int unUsedExperience) {
         this.unUsedExperience = unUsedExperience;
+    }
+    
+     public Spell getPrimarySpell(
+        
+    ) {
+        return primarySpell;
+    }
+
+
+    public void setPrimarySpell(Spell primarySpell) {
+        this.primarySpell = primarySpell;
     }
     
   

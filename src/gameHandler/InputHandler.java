@@ -1,6 +1,6 @@
 package gameHandler;
 
-import Base.UserInfo;
+import base.*;
 import enums.MoveDirection;
 import enums.Spell;
 import gui.popups.CharacterInfoFrame;
@@ -47,14 +47,14 @@ public class InputHandler {
                 Game.addToAttackInfoString(
                         "What do you want to attack?\n"
                                 + "There are no Monsters around. "
-                                + Base.UserInfo.END_ROUND_PROMPT,
+                                + UserInfo.END_ROUND_PROMPT,
                         true
                 );
             }
             
             if (Game.getPlayer().getAllowedAttacks() == 0) {
                 Game.addToAttackInfoString(
-                        Base.UserInfo.NO_ATTACKS_LEFT + Base.UserInfo.END_ROUND_PROMPT,
+                        UserInfo.NO_ATTACKS_LEFT + UserInfo.END_ROUND_PROMPT,
                         playerTurn
                 );
             }

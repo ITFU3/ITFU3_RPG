@@ -5,7 +5,7 @@
 */
 package gui;
 
-import Base.UserInfo;
+import base.*;
 import gameHandler.InputHandler;
 import gui.GuiHelper.HealthBarLabel;
 import java.awt.Color;

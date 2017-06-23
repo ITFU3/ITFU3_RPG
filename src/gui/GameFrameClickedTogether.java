@@ -1,6 +1,6 @@
 package gui;
 
-import Base.UserInfo;
+import base.*;
 import main.*;
 import gameHandler.*;
 import gui.GuiHelper.HealthBarLabel;

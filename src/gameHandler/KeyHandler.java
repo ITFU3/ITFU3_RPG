@@ -1,7 +1,9 @@
 package gameHandler;
 
+import enums.Spell;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import main.Game;
 
 /**
  *

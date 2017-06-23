@@ -5,8 +5,8 @@
  */
 package gui.GuiHelper;
 
-import Enum.UpdateAbleStats;
-import static Enum.UpdateAbleStats.*;
+import enums.UpdateAbleStats;
+import static enums.UpdateAbleStats.*;
 import character.PlayerCharacter;
 import character.helper.CharacterSelecter;
 import java.util.ArrayList;

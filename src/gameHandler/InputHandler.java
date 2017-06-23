@@ -1,6 +1,8 @@
 package gameHandler;
 
-import Enum.MoveDirection;
+import Base.UserInfo;
+import enums.MoveDirection;
+import enums.Spell;
 import gui.popups.CharacterInfoFrame;
 import gui.popups.InventoryFrame;
 import gui.popups.SpellbookFrame;
@@ -14,10 +16,10 @@ public class InputHandler {
     
     private boolean isInventoryShown    = false;
     private boolean isSpellbookShown    = false;
-    private boolean isCharInfoShown     = false; 
+    private boolean isCharInfoShown     = false;
     
     private static InputHandler instance;
-
+    
     private InputHandler() {
     }
     
@@ -28,7 +30,7 @@ public class InputHandler {
         }
         return instance;
     }
-
+    
     /**
      * attack action for every Input to triger.
      */
@@ -44,39 +46,47 @@ public class InputHandler {
             } else {
                 Game.addToAttackInfoString(
                         "What do you want to attack?\n"
-                        + "There are no Monsters around. "
-                        + Base.UserInfo.END_ROUND_PROMPT,
+                                + "There are no Monsters around. "
+                                + Base.UserInfo.END_ROUND_PROMPT,
                         true
                 );
             }
-
+            
             if (Game.getPlayer().getAllowedAttacks() == 0) {
                 Game.addToAttackInfoString(
                         Base.UserInfo.NO_ATTACKS_LEFT + Base.UserInfo.END_ROUND_PROMPT,
                         playerTurn
                 );
             }
-           Game.updateGUI();
+            Game.updateGUI();
         } else {
             System.out.println("NOT YOUR TURN");
         }
         main.Game.updateGUI();
     }
-
+    
     public static void spellattack(String spellname){
         boolean playerTurn = main.Game.isPlayerTurn();
         if (playerTurn == true){
             character.PlayerCharacter attacker;
             character.PlayerCharacter target;
             attacker = main.Game.getPlayer();
-            if(attacker.getpClass().getMyBook().getSpellByName(spellname).getSpellEffect().equalsIgnoreCase("heal")){
-                target = attacker;
-            }else{
-                target = main.Game.getMonsters().get(
-                    Game.getInstance().getMonsterClosestToPlayer()
-                );
+            if(!spellname.equals(Spell.NONE.string)) {
+                // we have a primary spell
+                if(attacker.getpClass().getMyBook().getSpellByName(spellname).getSpellEffect().equalsIgnoreCase("heal")){
+                    target = attacker;
+                } else{
+                    target = main.Game.getMonsters().get(
+                            Game.getInstance().getMonsterClosestToPlayer()
+                    );
+                }
+                BattleHandler.tryToSpellAttack(attacker, target, spellname);
+            } else {
+                // no primary spell
+                Game.updateAttackInfo(UserInfo.NO_SPELL_AVAILABLE, true);
             }
-            BattleHandler.tryToSpellAttack(attacker, target, spellname);
+            
+            
             Game.updateGUI();
         }
     }
@@ -92,7 +102,7 @@ public class InputHandler {
             System.out.println("NOT YOUR TURN");
         }
     }
-
+    
     /**
      * move down action for every Input to triger.
      */
@@ -104,7 +114,7 @@ public class InputHandler {
             System.out.println("NOT YOUR TURN");
         }
     }
-
+    
     /**
      * move right action for every Input to triger.
      */
@@ -116,7 +126,7 @@ public class InputHandler {
             System.out.println("NOT YOUR TURN");
         }
     }
-
+    
     /**
      * move left action for every Input to triger.
      */
@@ -128,7 +138,7 @@ public class InputHandler {
             System.out.println("NOT YOUR TURN");
         }
     }
-
+    
     /**
      * end round action for every input to trigger.
      */
@@ -159,7 +169,7 @@ public class InputHandler {
     }
     
     /**
-     * 
+     *
      */
     public static void openCloseCharacterScreen(){
         CharacterInfoFrame.getInstance().setVisible(!getInstance().isCharInfoShown);

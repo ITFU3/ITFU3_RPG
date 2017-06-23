@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Enum;
+package enums;
 
 /**
  *
  * @author steffen
  */
-public enum WeaponCategory {
+public enum Turn {
     
-    MELEE, RANGE;
+    MONSTER, PLAYER_ONE, PLAYER_TWO, NONE;
     
 }

@@ -1,6 +1,6 @@
 package character.item.weapons;
 
-import Enum.WeaponCategory;
+import enums.WeaponCategory;
 
 public class ShortBow extends Weapon
 {

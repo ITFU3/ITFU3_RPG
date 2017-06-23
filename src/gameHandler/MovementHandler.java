@@ -1,7 +1,7 @@
 
 package gameHandler;
 
-import Enum.MoveDirection;
+import enums.MoveDirection;
 import character.PlayerCharacter;
 import main.*;
 

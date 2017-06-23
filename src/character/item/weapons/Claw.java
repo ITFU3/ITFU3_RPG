@@ -5,7 +5,7 @@
  */
 package character.item.weapons;
 
-import Enum.WeaponCategory;
+import enums.WeaponCategory;
 
 /**
  *

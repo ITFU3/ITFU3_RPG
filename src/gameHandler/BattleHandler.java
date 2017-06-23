@@ -1,7 +1,7 @@
 package gameHandler;
 import Base.UserInfo;
 import Base.SleepTime;
-import Enum.WeaponCategory;
+import enums.WeaponCategory;
 import character.item.spells.Spell;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
@@ -247,10 +247,10 @@ public class BattleHandler
                     }else{ output += "misses with a " + chanceToHit[1] + "\n"; }
                 }
             }else{ output += "Target is too far away. Move closer.\n"; }
-            Game.updateAttackInfo(output,true);
+            
         }else{ output += "No Attacks left to do.\n"; }
         System.out.println("gameHandler.BattleHandler.tryToSpellAttack ===> \n" + output + "<===");
-        Game.addToAttackInfoString(output, true);
+        Game.addToAttackInfoString(output,true);
         Game.updateMonsterInfo();
         Game.updateGUI();
     }

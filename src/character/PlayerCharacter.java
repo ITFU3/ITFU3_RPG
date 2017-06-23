@@ -1,6 +1,7 @@
 package character;
 
-import Enum.WeaponCategory;
+import enums.Spell;
+import enums.WeaponCategory;
 import character.races.Race;
 import character.classes.PlayerClass;
 import character.item.weapons.Weapon;

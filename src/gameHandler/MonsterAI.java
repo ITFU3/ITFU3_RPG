@@ -6,7 +6,7 @@
 package gameHandler;
 
 import Base.SleepTime;
-import Enum.MoveDirection;
+import enums.MoveDirection;
 import java.util.ArrayList;
 import character.*;
 import javax.swing.text.html.HTML;

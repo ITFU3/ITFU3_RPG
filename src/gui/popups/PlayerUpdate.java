@@ -5,7 +5,7 @@
 */
 package gui.popups;
 
-import Enum.UpdateAbleStats;
+import enums.UpdateAbleStats;
 import character.PlayerCharacter;
 import character.helper.CharacterSelecter;
 import java.awt.Dimension;

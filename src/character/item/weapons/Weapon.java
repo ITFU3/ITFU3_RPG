@@ -1,5 +1,5 @@
 package character.item.weapons;
-import Enum.WeaponCategory;
+import enums.WeaponCategory;
 import character.item.*;
 import java.util.Arrays;
 

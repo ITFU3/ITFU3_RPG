@@ -1,7 +1,7 @@
 package main;
 
-import Enum.FieldContains;
-import Enum.MoveDirection;
+import enums.FieldContains;
+import enums.MoveDirection;
 import character.*;
 import character.helper.MonsterPreset;
 

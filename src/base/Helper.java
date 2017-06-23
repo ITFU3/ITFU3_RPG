@@ -5,7 +5,7 @@
  */
 package base;
 
-import Enum.MonsterType;
+import enums.MonsterType;
 import character.races.monster.MonsterRace;
     import java.util.Random;
 

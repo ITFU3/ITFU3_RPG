@@ -1,7 +1,6 @@
 package character.classes;
 
 import enums.Proficiencies;
-import enums.StatsIndex;
 
 public class Ranger extends PlayerClass
 {
@@ -9,10 +8,10 @@ public class Ranger extends PlayerClass
   {
     this.setName(this.getClass().getSimpleName());
     int[] BonusStats = super.getStatsBonus();
-    BonusStats[StatsIndex.DEXTERITY.toInt()] += 2;
-    BonusStats[StatsIndex.WISDOM.toInt()] += 2;
-    BonusStats[StatsIndex.MOVMENT.toInt()] += 2;
-    BonusStats[StatsIndex.HEALTH.toInt()] += 10;
+    BonusStats[Proficiencies.DEXTERITY.getIndex()] += 2;
+    BonusStats[Proficiencies.WISDOM.getIndex()] += 2;
+    BonusStats[Proficiencies.MOVEMENT.getIndex()] += 2;
+    BonusStats[Proficiencies.HEALTH.getIndex()] += 10;
     this.setStatsBonus(BonusStats);
     String[] profs = {
         Proficiencies.NONE.toString(),

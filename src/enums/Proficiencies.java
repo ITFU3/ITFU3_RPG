@@ -32,7 +32,9 @@ public enum Proficiencies {
     CONSTITUTION("constitution"),
     WISDOM("wisdom"),
     INTELLEGENCE("intellegence"),
-    CHARISMA("charisma");
+    CHARISMA("charisma"),
+    MOVEMENT("movement"),
+    HEALTH("health");
     
 // ========================
     
@@ -43,5 +45,36 @@ public enum Proficiencies {
     @Override
     public String toString() {
         return this.proficiency;
+    }
+    
+    public int getIndex(){
+        int output = -1;
+        switch(this){
+            case STRENGTH:
+                output=0;
+                break;
+            case DEXTERITY:
+                output=1;
+                break;
+            case CONSTITUTION:
+                output=2;
+                break;
+            case WISDOM:
+                output=3;
+                break;
+            case INTELLEGENCE:
+                output=4;
+                break;
+            case CHARISMA:
+                output=5;
+                break;
+            case MOVEMENT:
+                output=6;
+                break;
+            case HEALTH:
+                output=7;
+                break;
+        }
+        return output;
     }
 }

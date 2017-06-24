@@ -10,7 +10,7 @@ import interfaces.*;
 import character.classes.*;
 import character.races.monster.*;
 import character.races.*;
-import enums.StatsIndex;
+import enums.Proficiencies;
 
 /**
  *
@@ -26,14 +26,14 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setGender('m');
         this.setpClass(new PlayerClass());
         int[] stats = new int[8];
-        stats[StatsIndex.STRENGTH.toInt()] = 5;
-        stats[StatsIndex.DEXTERITY.toInt()] = 5;
-        stats[StatsIndex.CONSTITUTION.toInt()] = 5;
-        stats[StatsIndex.WISDOM.toInt()] = 5;
-        stats[StatsIndex.INTELLIGENT.toInt()] = 5;
-        stats[StatsIndex.CHARISMA.toInt()] = 5;
-        stats[StatsIndex.MOVMENT.toInt()] = 5;
-        stats[StatsIndex.HEALTH.toInt()] = 3;
+        stats[Proficiencies.STRENGTH.getIndex()] = 5;
+        stats[Proficiencies.DEXTERITY.getIndex()] = 5;
+        stats[Proficiencies.CONSTITUTION.getIndex()] = 5;
+        stats[Proficiencies.WISDOM.getIndex()] = 5;
+        stats[Proficiencies.INTELLEGENCE.getIndex()] = 5;
+        stats[Proficiencies.CHARISMA.getIndex()] = 5;
+        stats[Proficiencies.MOVEMENT.getIndex()] = 5;
+        stats[Proficiencies.HEALTH.getIndex()] = 3;
         this.setBasicStats(stats);
         this.setTempHP(this.getHealth());
         this.setAllowedAttacks(1);
@@ -125,42 +125,42 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
     private void setStatsWithBonus() {
         this.setStrength(
               this.getStrength()+
-              this.getpClass().getStatsBonus()[StatsIndex.STRENGTH.toInt()] +
-              this.getpRace().getStatsBonus()[StatsIndex.STRENGTH.toInt()]
+              this.getpClass().getStatsBonus()[Proficiencies.STRENGTH.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiencies.STRENGTH.getIndex()]
         );
         this.setDexterity(
               this.getDexterity() +
-              this.getpClass().getStatsBonus()[StatsIndex.DEXTERITY.toInt()] +
-              this.getpRace().getStatsBonus()[StatsIndex.DEXTERITY.toInt()]
+              this.getpClass().getStatsBonus()[Proficiencies.DEXTERITY.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiencies.DEXTERITY.getIndex()]
         );
         this.setConstitution(
               this.getConstitution() +
-              this.getpClass().getStatsBonus()[StatsIndex.CONSTITUTION.toInt()] +
-              this.getpRace().getStatsBonus()[StatsIndex.CONSTITUTION.toInt()]            
+              this.getpClass().getStatsBonus()[Proficiencies.CONSTITUTION.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiencies.CONSTITUTION.getIndex()]            
         );
         this.setWisdom(
               this.getWisdom() +
-              this.getpClass().getStatsBonus()[StatsIndex.WISDOM.toInt()] +
-              this.getpRace().getStatsBonus()[StatsIndex.WISDOM.toInt()]            
+              this.getpClass().getStatsBonus()[Proficiencies.WISDOM.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiencies.WISDOM.getIndex()]            
         );
         this.setInteligent(
               this.getIntelegent() +
-              this.getpClass().getStatsBonus()[StatsIndex.INTELLIGENT.toInt()] +
-              this.getpRace().getStatsBonus()[StatsIndex.INTELLIGENT.toInt()]
+              this.getpClass().getStatsBonus()[Proficiencies.INTELLEGENCE.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiencies.INTELLEGENCE.getIndex()]
         );
         this.setCharisma(
               this.getCharisma() +
-              this.getpClass().getStatsBonus()[StatsIndex.CHARISMA.toInt()] +
-              this.getpRace().getStatsBonus()[StatsIndex.CHARISMA.toInt()]
+              this.getpClass().getStatsBonus()[Proficiencies.CHARISMA.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiencies.CHARISMA.getIndex()]
         );
         this.setMovement(
               this.getMovement() +
-              this.getpClass().getStatsBonus()[StatsIndex.MOVMENT.toInt()] +
-              this.getpRace().getStatsBonus()[StatsIndex.MOVMENT.toInt()]
+              this.getpClass().getStatsBonus()[Proficiencies.MOVEMENT.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiencies.MOVEMENT.getIndex()]
         );
         this.setHealth(
               this.getHealth() +
-              this.getpClass().getStatsBonus()[StatsIndex.HEALTH.toInt()]
+              this.getpClass().getStatsBonus()[Proficiencies.HEALTH.getIndex()]
               
               //this.getModifier(this.getConstitution()) ???
         );

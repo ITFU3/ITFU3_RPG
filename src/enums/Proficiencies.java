@@ -7,26 +7,30 @@ package enums;
 public enum Proficiencies {
 //nothing
     NONE("none"),
-//Armor Groups
+    
+// Armor Type
     LIGHT_ARMOR("light armor"),
     MEDIUM_ARMOR("medium armor"),
     HEAVY_ARMOR("heavy armor"),
-//shield group    
+    
+// Shields    
     SHIELDS("shields"),
-//main weapon groups
+    
+// Weapon Groups
     SIMPLE_WEAPONS("simple weapons"),
     MARTIAL_WEAPONS("martial weapons"),
-// single melee weapons to list!
+    
+// Weapon Type
     QUATERSTAFF("quaterstaff"),
     DAGGER("dagger"),
     SHORTSWORD("shortsword"),
     LONGSWORD("longsword"),
-// single range weapon to list!
     DARTS("darts"),
     SLING("sling"),
     LIGHT_CROSSBOW("light crossbow"),
     LONGBOW("longbow"),
-//Stats names
+    
+// Stats Names
     STRENGTH("strength"), 
     DEXTERITY("dexterityy"),
     CONSTITUTION("constitution"),
@@ -35,10 +39,21 @@ public enum Proficiencies {
     CHARISMA("charisma"),
     MOVEMENT("movement"),
     HEALTH("health"),
+    
 // Weapon Category
     MELEE("melee"), 
-    RANGE("range");
+    RANGE("range"),
     
+// Properties
+    DUALHANDED("dualhanded"),
+    SINGLEHANDED("singelhanded"),
+    VERSITILE("versitile"),
+    THROWABLE("throwable"),
+    REACH("reach"),//=> distance of 2
+    
+// Spell Effect
+    DAMAGE("damage"),
+    HEAL("heal");
 // ========================
     
     private String proficiency;

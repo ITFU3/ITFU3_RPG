@@ -143,8 +143,8 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
               this.getpClass().getStatsBonus()[Proficiencies.WISDOM.getIndex()] +
               this.getpRace().getStatsBonus()[Proficiencies.WISDOM.getIndex()]            
         );
-        this.setInteligent(
-              this.getIntelegent() +
+        this.setIntellegence(
+              this.getIntellegence() +
               this.getpClass().getStatsBonus()[Proficiencies.INTELLEGENCE.getIndex()] +
               this.getpRace().getStatsBonus()[Proficiencies.INTELLEGENCE.getIndex()]
         );

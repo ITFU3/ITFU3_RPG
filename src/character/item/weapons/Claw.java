@@ -14,28 +14,28 @@ import enums.Proficiencies;
 public class Claw extends Weapon{
     public Claw()
   {
-    this.setName("Claw");
-    this.setDamageDie(10);
-    this.setDieCount(1);
-    this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat(Proficiencies.MELEE);
+    this.setName(this.getType());
+    this.setDurability(100);
+    this.setDamageDie(10);
     this.setDistance(2);
-    this.setWeaponGroup("simple weapons");
-    String[] prop = {"dualhanded"};
+    this.setDieCount(1);
+    this.setCat(Proficiencies.MELEE);
+    this.setWeaponGroup(Proficiencies.SIMPLE_WEAPONS.toString());
+    String[] prop = {
+        Proficiencies.DUALHANDED.toString(),
+        Proficiencies.REACH.toString()
+    };
     this.setProperties(prop);
   }
   
   public Claw(String name, int damageDie, int dieCount, int distance)
   {
+    this();
     this.setName(name);
     this.setDamageDie(damageDie);
     this.setDieCount(dieCount);
-    this.setDurability(100);
-    this.setType(this.getClass().getSimpleName());
-    this.setCat(Proficiencies.MELEE);
     this.setDistance(distance);
-    this.setWeaponGroup("martial weapons");
   }
     
 }

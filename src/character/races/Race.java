@@ -1,11 +1,8 @@
 package character.races;
 
-
-
 public class Race {
   private String name;
   private int[] BonusStats;
-  
  
   public Race(){
     // strength, dexterity, Constitution, wisdom, inteligent, charisma, movement, health (calculated)
@@ -34,13 +31,7 @@ public class Race {
   public void setName(String name){
     this.name = name;
   }
-  
   public int XP() {
       return 100;
   }
-
-  
-
-  
-  
 }

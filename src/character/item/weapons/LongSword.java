@@ -13,20 +13,17 @@ public class LongSword extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat(Proficiencies.MELEE);
     this.setDistance(1);
-    this.setWeaponGroup("martial weapons");
-    String[] prop = {"versitile"};
+    this.setWeaponGroup(Proficiencies.MARTIAL_WEAPONS.toString());
+    String[] prop = { Proficiencies.VERSITILE.toString() };
     this.setProperties(prop);
   }
   
   public LongSword(String name, int damageDie, int dieCount, int distance)
   {
+    this();
     this.setName(name);
     this.setDamageDie(damageDie);
     this.setDieCount(dieCount);
-    this.setDurability(100);
-    this.setType(this.getClass().getSimpleName());
-    this.setCat(Proficiencies.MELEE);
     this.setDistance(distance);
-    this.setWeaponGroup("martial weapons");
   }
 }

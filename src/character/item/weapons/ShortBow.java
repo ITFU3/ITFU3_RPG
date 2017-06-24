@@ -13,8 +13,8 @@ public class ShortBow extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat(Proficiencies.RANGE);
     this.setDistance(10);
-    this.setWeaponGroup("simple weapons");
-    String[] prop = {"dualhanded"};
+    this.setWeaponGroup(Proficiencies.SIMPLE_WEAPONS.toString());
+    String[] prop = { Proficiencies.DUALHANDED.toString() };
     this.setProperties(prop);
   }
   

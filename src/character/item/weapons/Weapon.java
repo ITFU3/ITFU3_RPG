@@ -1,4 +1,5 @@
 package character.item.weapons;
+
 import enums.Proficiencies;
 import character.item.*;
 import java.util.Arrays;
@@ -18,11 +19,11 @@ public class Weapon extends OffHandItem
   
   public Weapon()
   {
-    this.setName("Fist");
+    this.setName("NoName");
     this.setDamageDie(4);
     this.setDurability(100);
     this.setDieCount(2);
-    this.setType("hand");
+    this.setType("Hand");
     this.setCat(Proficiencies.MELEE);
     this.setDistance(1);
     this.setWeaponGroup("none");

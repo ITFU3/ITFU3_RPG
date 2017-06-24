@@ -117,7 +117,7 @@ public class BattleHandler
         if(useSpell)
         {
             // gets change to ...getpClass().getSpellAttackBonus()
-            output[1] += attacker.getModifier(attacker.getIntelegent());
+            output[1] += attacker.getModifier(attacker.getIntellegence());
             output[1] += attacker.getProficiencyOrLevel('p');
         }else{
             if(attacker.getWeaponSlot().getCat()!= Proficiencies.RANGE){
@@ -177,7 +177,7 @@ public class BattleHandler
         // flat bouns
         spellDmg += input.getDamageDie();
         // plus modifier ( or in case of low monster minus)
-        spellDmg += attacker.getModifier(attacker.getIntelegent());
+        spellDmg += attacker.getModifier(attacker.getIntellegence());
         return spellDmg;
     }
     

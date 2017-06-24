@@ -1,5 +1,5 @@
 package character.item.shields;
-import character.item.Item;
+
 import character.item.OffHandItem;
 
 /**
@@ -12,31 +12,6 @@ public class Shield extends OffHandItem
     private String type;
     private int armorValue;
     private String cat;
-    private Category category;
-
-    public enum Category
-    {
-        LIGHT(1.0),
-        MEDIUM(0.6),
-        HEAVY(0.3);
-        private double value;
-        private Category(double value)
-        {
-            this.value = value;
-        }
-    }
-
-    public enum CategoryString
-    {
-        LIGHT("light"),
-        MEDIUM("medium"),
-        HEAVY("heavy");
-        private String sValue;
-        private CategoryString(String sValue)
-        {
-            this.sValue = sValue;
-        }
-    }
 
     public Shield()
     {
@@ -46,17 +21,10 @@ public class Shield extends OffHandItem
       this.setCat("none");
     }
 
-    public Shield(Object[] input)
-    {
-      this.setName((String) input[0]);
-      this.setType((String) input[1]);
-      this.setArmorValue((int) input[2]);
-    }
-
     @Override
     public String toString()
     {
-        return this.getClass().getSimpleName();
+        return this.getType();
     }
     
 // ######### Getter / Setter #########
@@ -83,11 +51,5 @@ public class Shield extends OffHandItem
   }
   public void setCat(String cat) {
     this.cat = cat;
-  }
-  public void setArmorCategory(Category category) {
-      this.category = category;
-  }
-  public Category getCategory() {
-      return category;
   }
 }

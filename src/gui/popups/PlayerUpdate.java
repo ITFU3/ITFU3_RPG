@@ -46,7 +46,7 @@ public class PlayerUpdate extends javax.swing.JFrame {
         constituion = pc.getConstitution();
         wisdom = pc.getWisdom();
         charisma = pc.getCharisma();
-        intellegence = pc.getIntelegent();
+        intellegence = pc.getIntellegence();
         health = pc.getHealth();
         attacks =pc.getAttacks();
         moves = pc.getMovement();
@@ -60,7 +60,7 @@ public class PlayerUpdate extends javax.swing.JFrame {
         constitutionLabel.setText(String.valueOf(pc.getConstitution()));
         dexterityLabel.setText(String.valueOf(pc.getDexterity()));
         wisdomLabel.setText(String.valueOf(pc.getWisdom()));
-        intellegenceLabel.setText(String.valueOf(pc.getIntelegent()));
+        intellegenceLabel.setText(String.valueOf(pc.getIntellegence()));
         charismaLabel.setText(String.valueOf(pc.getCharisma()));
         healthLabel.setText(String.valueOf(pc.getHealth()));
         attacksLabel.setText(String.valueOf(pc.getAttacks()));
@@ -314,7 +314,7 @@ public class PlayerUpdate extends javax.swing.JFrame {
         pc.setDexterity(dexterity + pc.getpRace().getStatsBonus()[1]);
         pc.setConstitution(constituion + pc.getpRace().getStatsBonus()[2]);
         pc.setWisdom(wisdom + pc.getpRace().getStatsBonus()[3]);
-        pc.setInteligent(intellegence + pc.getpRace().getStatsBonus()[4]);
+        pc.setIntellegence(intellegence + pc.getpRace().getStatsBonus()[4]);
         pc.setCharisma(charisma + pc.getpRace().getStatsBonus()[5]);
         pc.setMovement(moves + pc.getpRace().getStatsBonus()[6]);
         int newTempMov = moves - pc.getMovement() + pc.getAllowedMoves();

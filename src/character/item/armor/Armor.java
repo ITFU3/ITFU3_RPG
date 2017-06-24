@@ -7,48 +7,13 @@ public class Armor extends Item
   private String type;
   private int armorValue;
   private String cat;
-  private Category category;
   
-  
-  
-  public enum Category {
-      LIGHT(1.0),
-      MEDIUM(0.6),
-      HEAVY(0.3);
-      private double value;
-      
-      private Category(double value) {
-          this.value = value;
-      }
-  }
-  
-  public enum CategoryString {
-      LIGHT("light"),
-      MEDIUM("medium"),
-      HEAVY("heavy");
-      private String sValue;
-      
-      private CategoryString(String sValue) {
-          this.sValue = sValue;
-      }
-  }
-  
-
   public Armor()
   {
     this.setName("none");
     this.setType("none");
     this.setArmorValue(10);
     this.setCat("none");
-    
-  }
-  
-  public Armor(Object[] input)
-  {
-    this.setName((String) input[0]);
-    this.setType((String) input[1]);
-    this.setArmorValue((int) input[2]);
-    
   }
     
 // ######### Getter / Setter #########
@@ -77,16 +42,8 @@ public class Armor extends Item
     this.cat = cat;
   }
   
-  public void setArmorCategory(Category category) {
-      this.category = category;
+  @Override
+  public String toString(){
+      return this.getType();
   }
-  
-  public Category getCategory() {
-      return category;
-  }
-  
-    @Override
-    public String toString(){
-        return this.getClass().getSimpleName();
-    }
 }

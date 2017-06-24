@@ -1,5 +1,7 @@
 package character.item.shields;
 
+import enums.Proficiencies;
+
 /**
  * @author Matthias Dröge
  */
@@ -10,13 +12,13 @@ public class MediumShield extends Shield
         this.setName(this.getClass().getSimpleName());
         this.setType(this.getClass().getSimpleName());
         this.setArmorValue(2);
-        this.setCat("shields");
+        this.setCat(Proficiencies.SHIELDS.toString());
     }
 
     public MediumShield(String inputName, int inputArmorValue)
     {
+        this();
         this.setName(inputName);
-        this.setType(this.getClass().getSimpleName());
         this.setArmorValue(inputArmorValue);
     }
 }

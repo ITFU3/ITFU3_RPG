@@ -13,18 +13,17 @@ public class Mace extends Weapon
     this.setType(this.getClass().getSimpleName());
     this.setCat(Proficiencies.MELEE);
     this.setDistance(1);
-    this.setWeaponGroup("simple weapons");
+    this.setWeaponGroup(Proficiencies.SIMPLE_WEAPONS.toString());
+    String[] prop = { Proficiencies.SINGLEHANDED.toString() };
+    this.setProperties(prop);
   }
   
   public Mace(String name, int damageDie, int dieCount, int distance)
   {
+    this();
     this.setName(name);
     this.setDamageDie(damageDie);
     this.setDieCount(dieCount);
-    this.setDurability(100);
-    this.setType(this.getClass().getSimpleName());
-    this.setCat(Proficiencies.MELEE);
     this.setDistance(distance);
-    this.setWeaponGroup("simple weapons");
   }
 }

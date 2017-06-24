@@ -15,7 +15,12 @@ public class Handaxe extends Weapon{
         this.setType(this.getClass().getSimpleName());
         this.setCat(Proficiencies.MELEE);
         this.setDistance(1);
-        this.setWeaponGroup("simple weapons");
+        this.setWeaponGroup(Proficiencies.SIMPLE_WEAPONS.toString());
+        String[] prop = {
+            Proficiencies.SINGLEHANDED.toString(),
+//            Proficiencies.THROWABLE.toString()
+        };
+        this.setProperties(prop);
     }
 
     public Handaxe(String name, int damageDie, int dieCount, int distance)

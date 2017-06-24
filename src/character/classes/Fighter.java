@@ -1,13 +1,16 @@
 package character.classes;
+
+import enums.StatsIndex;
+
 public class Fighter extends PlayerClass
 {
   public Fighter()
   {
     this.setName(this.getClass().getSimpleName());
     int[] BonusStats = super.getStatsBonus();
-    BonusStats[0] += 2;
-    BonusStats[2] += 2;
-    BonusStats[7] += 10;
+    BonusStats[StatsIndex.STRENGTH.toInt()] += 2;
+    BonusStats[StatsIndex.CONSTITUTION.toInt()] += 2;
+    BonusStats[StatsIndex.HEALTH.toInt()] += 10;
     this.setStatsBonus(BonusStats);
     String[] profs = {"none","light armor","medium armor","heavy armor","shields", 
       "simple weapons","martial weapons","stregnth","constitution"};

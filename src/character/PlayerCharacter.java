@@ -8,6 +8,7 @@ import character.item.weapons.Weapon;
 import character.item.armor.Armor;
 import character.item.shields.Shield;
 import base.Helper;
+import enums.StatsIndex;
 
 /**
  * @author Matthias Dröge
@@ -26,15 +27,6 @@ public class PlayerCharacter extends BaseCharacter {
     private Shield shieldSlot;
     private Weapon offHandWeaponSlot;
     private Spell primarySpell = Spell.NONE; 
-
-    protected final int strength = 0;
-    protected final int dexterity = 1;
-    protected final int Constitution = 2;
-    protected final int wisdom = 3;
-    protected final int inteligence = 4;
-    protected final int charisma = 5;
-    protected final int movement = 6;
-    protected final int health = 7;
     
     private int unUsedExperience;
 
@@ -55,28 +47,28 @@ public class PlayerCharacter extends BaseCharacter {
 
         this.setBasicStats(inputStats);
 
-        inputStats[strength] += this.getpClass().getStatsBonus()[strength]
-                + this.getpRace().getStatsBonus()[strength];
-        inputStats[dexterity] += this.getpClass().getStatsBonus()[dexterity]
-                + this.getpRace().getStatsBonus()[dexterity];
-        inputStats[Constitution] += this.getpClass().getStatsBonus()[Constitution]
-                + this.getpRace().getStatsBonus()[Constitution];
-        inputStats[wisdom] += this.getpClass().getStatsBonus()[wisdom]
-                + this.getpRace().getStatsBonus()[wisdom];
-        inputStats[inteligence] += this.getpClass().getStatsBonus()[inteligence]
-                + this.getpRace().getStatsBonus()[inteligence];
-        inputStats[charisma] += this.getpClass().getStatsBonus()[charisma]
-                + this.getpRace().getStatsBonus()[charisma];
+        inputStats[StatsIndex.STRENGTH.toInt()] += this.getpClass().getStatsBonus()[StatsIndex.STRENGTH.toInt()]
+                + this.getpRace().getStatsBonus()[StatsIndex.STRENGTH.toInt()];
+        inputStats[StatsIndex.DEXTERITY.toInt()] += this.getpClass().getStatsBonus()[StatsIndex.DEXTERITY.toInt()]
+                + this.getpRace().getStatsBonus()[StatsIndex.DEXTERITY.toInt()];
+        inputStats[StatsIndex.CONSTITUTION.toInt()] += this.getpClass().getStatsBonus()[StatsIndex.CONSTITUTION.toInt()]
+                + this.getpRace().getStatsBonus()[StatsIndex.CONSTITUTION.toInt()];
+        inputStats[StatsIndex.WISDOM.toInt()] += this.getpClass().getStatsBonus()[StatsIndex.WISDOM.toInt()]
+                + this.getpRace().getStatsBonus()[StatsIndex.WISDOM.toInt()];
+        inputStats[StatsIndex.INTELLIGENT.toInt()] += this.getpClass().getStatsBonus()[StatsIndex.INTELLIGENT.toInt()]
+                + this.getpRace().getStatsBonus()[StatsIndex.INTELLIGENT.toInt()];
+        inputStats[StatsIndex.CHARISMA.toInt()] += this.getpClass().getStatsBonus()[StatsIndex.CHARISMA.toInt()]
+                + this.getpRace().getStatsBonus()[StatsIndex.CHARISMA.toInt()];
         // - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        inputStats[movement] += this.getpClass().getStatsBonus()[movement]
-                + this.getpRace().getStatsBonus()[movement];
+        inputStats[StatsIndex.MOVMENT.toInt()] += this.getpClass().getStatsBonus()[StatsIndex.MOVMENT.toInt()]
+                + this.getpRace().getStatsBonus()[StatsIndex.MOVMENT.toInt()];
         // - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        inputStats[health] += this.getpClass().getStatsBonus()[health]
+        inputStats[StatsIndex.HEALTH.toInt()] += this.getpClass().getStatsBonus()[StatsIndex.HEALTH.toInt()]
                 + this.getModifier(this.getConstitution());
 
         if (this.getpClass().getLevel() > 1) {
             for (int i = 2; i <= this.getpClass().getLevel(); i++) {
-                inputStats[health] += main.Die.rollDie(this.getpClass().getHitDie(), 1);
+                inputStats[StatsIndex.HEALTH.toInt()] += main.Die.rollDie(this.getpClass().getHitDie(), 1);
             }
         }
         

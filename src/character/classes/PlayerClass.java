@@ -9,14 +9,6 @@ public class PlayerClass
   private int level;
   private int hitDie;
   private String[] proficiencies;
-  // [0] strength
-  // [1] dexterity
-  // [2] Constitution
-  // [3] wisdom
-  // [4] inteligent
-  // [5] charisma
-  // [6] movement
-  // [7] health (calculated)
 
   public PlayerClass()
   {

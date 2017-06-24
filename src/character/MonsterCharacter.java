@@ -5,21 +5,12 @@
  */
 package character;
 
-import base.Helper;
-import interfaces.Growable;
-import character.classes.PlayerClass;
-import character.races.monster.MonsterRace;
-import character.races.Race;
-import character.races.monster.Rat;
-
-/*protected final int strength = 0;
-  protected final int dexterity = 1;
-  protected final int Constitution = 2;
-  protected final int wisdom = 3;
-  protected final int inteligence = 4;
-  protected final int charisma = 5;
-  protected final int movement = 6;
-  protected final int health = 7;*/
+import base.*;
+import interfaces.*;
+import character.classes.*;
+import character.races.monster.*;
+import character.races.*;
+import enums.StatsIndex;
 
 /**
  *
@@ -35,14 +26,14 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setGender('m');
         this.setpClass(new PlayerClass());
         int[] stats = new int[8];
-        stats[this.strength] = 5;
-        stats[this.dexterity] = 5;
-        stats[this.Constitution] = 5;
-        stats[this.wisdom] = 5;
-        stats[this.inteligence] = 5;
-        stats[this.charisma] = 5;
-        stats[this.movement] = 5;
-        stats[this.health] = 3;
+        stats[StatsIndex.STRENGTH.toInt()] = 5;
+        stats[StatsIndex.DEXTERITY.toInt()] = 5;
+        stats[StatsIndex.CONSTITUTION.toInt()] = 5;
+        stats[StatsIndex.WISDOM.toInt()] = 5;
+        stats[StatsIndex.INTELLIGENT.toInt()] = 5;
+        stats[StatsIndex.CHARISMA.toInt()] = 5;
+        stats[StatsIndex.MOVMENT.toInt()] = 5;
+        stats[StatsIndex.HEALTH.toInt()] = 3;
         this.setBasicStats(stats);
         this.setTempHP(this.getHealth());
         this.setAllowedAttacks(1);
@@ -70,7 +61,6 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
     public MonsterCharacter(Race race) {
         this();
         int mXP = getXPDependentOnMonsterRaceType(race);
-       
         this.setExperience(mXP);
         // add 
         this.setpRace(race);
@@ -93,9 +83,7 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
             );
           }
         }
-      
         this.setTempHP(this.getHealth());
-      
         this.setAllowedMoves(this.getMovement());
         this.setAllowedAttacks(1);
     }
@@ -131,51 +119,48 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
     public void grow() {
         if (getpRace() instanceof MonsterRace) {
             ((MonsterRace) getpRace()).grow();
-            
-            
         }
-        
     }
     
     private void setStatsWithBonus() {
         this.setStrength(
               this.getStrength()+
-              this.getpClass().getStatsBonus()[this.strength] +
-              this.getpRace().getStatsBonus()[this.strength]
+              this.getpClass().getStatsBonus()[StatsIndex.STRENGTH.toInt()] +
+              this.getpRace().getStatsBonus()[StatsIndex.STRENGTH.toInt()]
         );
         this.setDexterity(
               this.getDexterity() +
-              this.getpClass().getStatsBonus()[this.dexterity] +
-              this.getpRace().getStatsBonus()[this.dexterity]
+              this.getpClass().getStatsBonus()[StatsIndex.DEXTERITY.toInt()] +
+              this.getpRace().getStatsBonus()[StatsIndex.DEXTERITY.toInt()]
         );
         this.setConstitution(
               this.getConstitution() +
-              this.getpClass().getStatsBonus()[this.Constitution] +
-              this.getpRace().getStatsBonus()[this.Constitution]            
+              this.getpClass().getStatsBonus()[StatsIndex.CONSTITUTION.toInt()] +
+              this.getpRace().getStatsBonus()[StatsIndex.CONSTITUTION.toInt()]            
         );
         this.setWisdom(
               this.getWisdom() +
-              this.getpClass().getStatsBonus()[this.wisdom] +
-              this.getpRace().getStatsBonus()[this.wisdom]            
+              this.getpClass().getStatsBonus()[StatsIndex.WISDOM.toInt()] +
+              this.getpRace().getStatsBonus()[StatsIndex.WISDOM.toInt()]            
         );
         this.setInteligent(
               this.getIntelegent() +
-              this.getpClass().getStatsBonus()[this.inteligence] +
-              this.getpRace().getStatsBonus()[this.inteligence]
+              this.getpClass().getStatsBonus()[StatsIndex.INTELLIGENT.toInt()] +
+              this.getpRace().getStatsBonus()[StatsIndex.INTELLIGENT.toInt()]
         );
         this.setCharisma(
               this.getCharisma() +
-              this.getpClass().getStatsBonus()[this.charisma] +
-              this.getpRace().getStatsBonus()[this.charisma]
+              this.getpClass().getStatsBonus()[StatsIndex.CHARISMA.toInt()] +
+              this.getpRace().getStatsBonus()[StatsIndex.CHARISMA.toInt()]
         );
         this.setMovement(
               this.getMovement() +
-              this.getpClass().getStatsBonus()[this.movement] +
-              this.getpRace().getStatsBonus()[this.movement]
+              this.getpClass().getStatsBonus()[StatsIndex.MOVMENT.toInt()] +
+              this.getpRace().getStatsBonus()[StatsIndex.MOVMENT.toInt()]
         );
         this.setHealth(
               this.getHealth() +
-              this.getpClass().getStatsBonus()[this.health]
+              this.getpClass().getStatsBonus()[StatsIndex.HEALTH.toInt()]
               
               //this.getModifier(this.getConstitution()) ???
         );
@@ -183,7 +168,6 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
 
     public int getXPDependentOnMonsterRaceType(Race race) {
         int mXP = race.XP();
-        
         if (race instanceof MonsterRace) {
             MonsterRace.Type type = ((MonsterRace)race).getType();
             switch (type) {
@@ -200,9 +184,5 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
             System.out.println("################################");
         }
         return mXP;
-    }
-    
-    
-    
-    
+    }   
 }

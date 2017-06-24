@@ -1,24 +1,24 @@
 package character.helper;
 
-import character.races.monster.Rat;
-import character.races.monster.Oger;
 import character.*;
-import character.races.*;
 import character.classes.*;
 import character.item.armor.*;
 import character.item.weapons.*;
 import character.item.spells.*;
-import character.races.monster.Bear;
-import character.races.monster.Orc;
-import character.races.monster.Wolf;
+import character.races.monster.*;
 
 import java.lang.reflect.Method;
+import main.Die;
 
 /**
  *
  * @author Matthias Dröge
  */
 public class MonsterPreset {
+    public static final int MOVEMENT_SLOW = 2;
+    public static final int MOVEMENT_MEDIUM = 4;
+    public static final int MOVEMENT_FAST = 6;
+    
     /**
      * Sweet little function to pic a preset at random.
      * self adjusting by using reflection of this class.
@@ -26,11 +26,6 @@ public class MonsterPreset {
      * 
      * @return MonsterCharacter
      */
-    
-    public static final int MOVEMENT_SLOW = 2;
-    public static final int MOVEMENT_MEDIUM = 4;
-    public static final int MOVEMENT_FAST = 6;
-    
     public static MonsterCharacter createRandom(){
         try{
             Method[] ran = MonsterPreset.class.getDeclaredMethods();
@@ -49,6 +44,29 @@ public class MonsterPreset {
             return createRat();
         }
     }
+    
+    /**
+     * Random Creates normal monsters without bossmonster.
+     * This is not automatic adapting to new Monster-Presets.
+     * 
+     * @return MonsterCharacter
+     */
+    public static MonsterCharacter createNormalRandom(){
+        MonsterCharacter output = null;
+        switch( Die.rollDie(3, 1) ){
+            case 1:
+                output = createRat();
+                break;
+            case 2:
+                output = createWolf();
+                break;
+            case 3:
+                output = createBear();
+                break;
+        }
+        return output;
+    }
+    
     /**
      * more like the standart MonsterCharacter default Rat
      * @return MonsterCharacter
@@ -61,9 +79,9 @@ public class MonsterPreset {
         monster.setpClass(new PlayerClass());
         monster.addWeapon(new Weapon());
         monster.addArmor(new Armor());
-        
         return monster;
     }
+    
     /**
      * creates an Oger Grunt
      * @return MonsterCharacter

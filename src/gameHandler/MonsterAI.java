@@ -128,13 +128,13 @@ public class MonsterAI {
      **/
     private boolean isInAttackRange() {
        int distance = Map.getInstance().getDistance(Game.getPlayer(), ego);
-        System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> Monster is "+ distance+" away."); 
-        System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> Monster can attack in a range of "+ ego.getWeaponSlot().getDistance()+".");
+//        System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> Monster is "+ distance+" away."); 
+//        System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> Monster can attack in a range of "+ ego.getWeaponSlot().getDistance()+".");
        if (distance <= ego.getWeaponSlot().getDistance()) {
-           System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> IS IN RANGE");
+//           System.out.println("gameHandler.MonsterAI.isInAttackRange: ==> IS IN RANGE");
            return true;
        }
-       System.out.println("gameHandler.MonsterAI.isInAttackRange: => IS NOT RANGE");
+//       System.out.println("gameHandler.MonsterAI.isInAttackRange: => IS NOT RANGE");
         return false;
     }
     
@@ -179,17 +179,17 @@ public class MonsterAI {
      */
     private boolean attacking(){
         Game.updateAttackInfo(ego.getName() + " is in Range.");
-        System.out.println("gameHandler.MonsterAI.think: => AllowedAttacks: " + ego.getAllowedAttacks());
+//        System.out.println("gameHandler.MonsterAI.think: => AllowedAttacks: " + ego.getAllowedAttacks());
         if (ego.getAllowedAttacks() > 0)
         {
-            System.out.println("gameHandler.MonsterAI.think: => attack");
+//            System.out.println("gameHandler.MonsterAI.think: => attack");
             BattleHandler.tryToAttack(ego, Game.getPlayer());
 
             return true;
         }
         else
         {
-            System.out.println("gameHandler.MonsterAI.think: => DON'T attack");
+//            System.out.println("gameHandler.MonsterAI.think: => DON'T attack");
             Game.updateAttackInfo(ego.getName()+" can't attack anymore.");
             return false;
             // monster is in range and does not want to run away 
@@ -204,14 +204,14 @@ public class MonsterAI {
     private boolean moving(){
         if (ego.getAllowedMoves() > 0)
         {
-            System.out.println("gameHandler.MonsterAI.think: => MONSTER: " + ego.getName()+" moves");
+//            System.out.println("gameHandler.MonsterAI.think: => MONSTER: " + ego.getName()+" moves");
             Game.updateAttackInfo(ego.getName() + " chooses to move.", true);
             move();
             return true;
         }
         else
         {
-            System.out.println("gameHandler.MonsterAI.think: => NOT Moving");
+//            System.out.println("gameHandler.MonsterAI.think: => NOT Moving");
             return false; // cant move and cant attack since not in range
         }
     }

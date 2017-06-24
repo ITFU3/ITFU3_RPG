@@ -9,19 +9,18 @@ import main.Map;
 
 /**
  *
- * @author steffen / Matthias Dröge
+ * @author Steffen Haas
+ * @author Matthias Dröge
  */
 public class BattleHandler
 {
     /**
      * The actual Comabt Attack Action:
      * attcker tries to attack the target
+     * 
      * @param attacker - PlayerCharacter (MonsterCharacters get casted)
      * @param target - PlayerCharacter (MonsterCharacters get casted)
      */
-    
-    
-    
     public static void tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
     {
         Game.updateAttackInfo(attacker.getName() + " wants to attack.\n");
@@ -55,11 +54,7 @@ public class BattleHandler
                     if(target.getTempHP() <= 0){
                         output += target.getName() + " is no more.\n";
                         if (attacker.getName().equals(Game.getPlayer().getName())) {
-                            
-                            
                             PlayerUpdateHandler.addExperience(attacker, target.getExperience());
-                           
-                            
                             killStrike(target);
                         } else {
                             // Here Game shoud be over
@@ -68,23 +63,23 @@ public class BattleHandler
                             Game.addToAttackInfoString(UserInfo.GAME_OVER, false);
                             Game.updateGUI();
                         }
-                        
                     }
-                }else{
-                    output += "misses with a " + chanceToHit[1] + "\n";
-                }
-            }else{
-                output += "Target is too far away. Move closer.\n";
-            }
-        }else{
-            output += "No Attacks left to do.\n";
-        }
+                }else{ output += "misses with a " + chanceToHit[1] + "\n"; }
+            }else{ output += "Target is too far away. Move closer.\n"; }
+        }else{ output += "No Attacks left to do.\n"; }
+        
         System.out.println("gameHandler.BattleHandler.tryToAttack\n===>\n" + output + "\n<===");
         Game.addToAttackInfoString(output, true);
         Game.updateMonsterInfo();
         Game.updateGUI();
     }
     
+    /**
+     * This function removes the mapmarker of the killed monster,
+     * and removes the monster from the monsterlist.
+     * 
+     * @param target 
+     */
     private static void killStrike(PlayerCharacter target){
         int monsterIndex = Game.getMonsters().indexOf(
                 (MonsterCharacter)target

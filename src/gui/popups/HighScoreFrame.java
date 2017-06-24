@@ -82,7 +82,6 @@ public class HighScoreFrame extends JFrame
                 if(one == two){ output=0; }
                 else if(one < two){ output=-1; }
                 else if(one > two){ output=1; }
-                System.err.println(one+" | "+two+" | "+output);
                 return output;
             }
         });

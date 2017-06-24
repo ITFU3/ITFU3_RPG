@@ -12,14 +12,21 @@ package base;
 public class UserInfo {
     
     public static String NO_ATTACKS_LEFT = "\nNo attacks left for this round.";
+    
     public static String END_ROUND_PROMPT = "\nJust end your round and see what comes next";
+    
+    public static String END_ROUND = "You ended your round.";
+    
     public static String GAME_OVER = "#####################\n"+
                                      "##### GAME OVER #####\n"+
                                      "#####################";
+    
     public static String NEXT_LEVEL = "Next Level! ... means more Monsters. Beware.";
+    
     public static String HIT =  "#####################\n"+
                                 "#####    HIT    #####\n"+
                                 "#####################\n";
+    
     public static String KEYS = "MOVEMENT:\n"
                               + "------------------\n"
                               + "UP             = W\n"
@@ -39,7 +46,10 @@ public class UserInfo {
                               + "INVENTORY      = I\n"
                               + "SWITCH INPUT   = M\n"
                               + "END ROUND      = ENTER\n";
+    
     public static String NO_SPELL_AVAILABLE = "You have no spell selected as a primary Spell";
-                
+    
+    public static String NO_MONSTER = "What do you want to attack?\n"
+                                    + "There are no Monsters around. ";
     
 }

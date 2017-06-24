@@ -2,6 +2,8 @@ package gui.popups;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.*;
 import javax.swing.table.*;
 
@@ -21,7 +23,6 @@ public class HighScoreFrame extends JFrame
         
         this.initFrame();
         this.addTableModel();
-        this.addSorter();
     }
 
     /**
@@ -52,6 +53,9 @@ public class HighScoreFrame extends JFrame
     {
         String[] colName = {"Name", "level", "Score"};
         ArrayList<String[]> scoreList = fileHandler.DataHandler.readHighscoreList();
+        
+        scoreList = preSorter(scoreList);
+        
         String[][] output = new String[scoreList.size()][3];
         for(int i = 0; i < scoreList.size(); i++)
         {
@@ -62,16 +66,27 @@ public class HighScoreFrame extends JFrame
         this.table.setModel(scoreTableModel);
         this.scrollPane.setViewportView(this.table);
     }
-
+    
     /**
-     * adding a sorter
+     * ArrayList<String[]> preSorter
+     * That is better than the TableRowSorter
      */
-    private void addSorter()
-    {
-        TableRowSorter<TableModel> sorter = new TableRowSorter(this.table.getModel());
-        this.table.setRowSorter(sorter);
-        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList(25);
-        sortKeys.add(new RowSorter.SortKey(2, SortOrder.DESCENDING));
-        sorter.setSortKeys(sortKeys);
+    private ArrayList<String[]> preSorter(ArrayList<String[]> input){
+        Collections.sort(input, new Comparator<String[]>(){
+            @Override
+            public int compare(String[] b, String[] a){
+                //[2] => Score row
+                int one = Integer.parseInt(a[2]);
+                int two = Integer.parseInt(b[2]);
+                int output = 0;
+                if(one == two){ output=0; }
+                else if(one < two){ output=-1; }
+                else if(one > two){ output=1; }
+                System.err.println(one+" | "+two+" | "+output);
+                return output;
+            }
+        });
+        ArrayList<String[]> output = input;        
+        return output;
     }
 }

@@ -5,7 +5,7 @@
  */
 package character.item.weapons;
 
-import enums.WeaponCategory;
+import enums.Proficiencies;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Claw extends Weapon{
     this.setDieCount(1);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat(WeaponCategory.MELEE);
+    this.setCat(Proficiencies.MELEE);
     this.setDistance(2);
     this.setWeaponGroup("simple weapons");
     String[] prop = {"dualhanded"};
@@ -33,7 +33,7 @@ public class Claw extends Weapon{
     this.setDieCount(dieCount);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat(WeaponCategory.MELEE);
+    this.setCat(Proficiencies.MELEE);
     this.setDistance(distance);
     this.setWeaponGroup("martial weapons");
   }

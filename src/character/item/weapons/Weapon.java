@@ -1,5 +1,5 @@
 package character.item.weapons;
-import enums.WeaponCategory;
+import enums.Proficiencies;
 import character.item.*;
 import java.util.Arrays;
 
@@ -11,7 +11,7 @@ public class Weapon extends OffHandItem
   private int durability;
   private int dieCount;
   private String type;
-  private WeaponCategory cat;
+  private Proficiencies cat;
   private int distance;
   private String weaponGroup;
   private String[] properties  = {"none"};
@@ -23,7 +23,7 @@ public class Weapon extends OffHandItem
     this.setDurability(100);
     this.setDieCount(2);
     this.setType("hand");
-    this.setCat(WeaponCategory.MELEE);
+    this.setCat(Proficiencies.MELEE);
     this.setDistance(1);
     this.setWeaponGroup("none");
   }
@@ -59,10 +59,10 @@ public class Weapon extends OffHandItem
   public void setType(String type) {
     this.type = type;
   }
-  public WeaponCategory getCat() {
+  public Proficiencies getCat() {
   	return cat;
   }
-  public void setCat(WeaponCategory cat) {
+  public void setCat(Proficiencies cat) {
     this.cat = cat;
   }
   public int getDistance() {

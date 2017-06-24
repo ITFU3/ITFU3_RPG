@@ -1,6 +1,6 @@
 package character.item.weapons;
 
-import enums.WeaponCategory;
+import enums.Proficiencies;
 
 public class LongSword extends Weapon
 {
@@ -11,7 +11,7 @@ public class LongSword extends Weapon
     this.setDieCount(1);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat(WeaponCategory.MELEE);
+    this.setCat(Proficiencies.MELEE);
     this.setDistance(1);
     this.setWeaponGroup("martial weapons");
     String[] prop = {"versitile"};
@@ -25,7 +25,7 @@ public class LongSword extends Weapon
     this.setDieCount(dieCount);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat(WeaponCategory.MELEE);
+    this.setCat(Proficiencies.MELEE);
     this.setDistance(distance);
     this.setWeaponGroup("martial weapons");
   }

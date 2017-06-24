@@ -34,7 +34,10 @@ public enum Proficiencies {
     INTELLEGENCE("intellegence"),
     CHARISMA("charisma"),
     MOVEMENT("movement"),
-    HEALTH("health");
+    HEALTH("health"),
+// Weapon Category
+    MELEE("melee"), 
+    RANGE("range");
     
 // ========================
     

@@ -1,6 +1,6 @@
 package character.item.weapons;
 
-import enums.WeaponCategory;
+import enums.Proficiencies;
 
 /**
  * @author Matthias Dröge
@@ -13,7 +13,7 @@ public class Handaxe extends Weapon{
         this.setDieCount(1);
         this.setDurability(100);
         this.setType(this.getClass().getSimpleName());
-        this.setCat(WeaponCategory.MELEE);
+        this.setCat(Proficiencies.MELEE);
         this.setDistance(1);
         this.setWeaponGroup("simple weapons");
     }

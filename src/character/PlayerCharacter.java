@@ -8,7 +8,6 @@ import character.item.armor.Armor;
 import character.item.shields.Shield;
 import character.item.spells.SpellBook;
 import enums.Proficiencies;
-import enums.WeaponCategory;
 
 /**
  * @author Matthias Dröge
@@ -216,7 +215,7 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public void addShield(Shield input) {
         if (this.isProficientWith(input.getCat())
-            &&  this.getWeaponSlot().getCat()!=  WeaponCategory.RANGE
+            &&  this.getWeaponSlot().getCat()!=  Proficiencies.RANGE
             && !this.getWeaponSlot().isProperty("dualhanded")
             && this.getOffHandWeaponSlot().getType().equalsIgnoreCase("hand")
         ){
@@ -242,7 +241,7 @@ public class PlayerCharacter extends BaseCharacter {
         if (this.isProficientWith(input.getWeaponGroup())
             && this.getShieldSlot() == null
             || (this.getShieldSlot().getArmorValue() == 0
-            && this.getWeaponSlot().getCat() != WeaponCategory.RANGE
+            && this.getWeaponSlot().getCat() != Proficiencies.RANGE
             && !this.getWeaponSlot().isProperty("dualhanded"))
         ){
             setOffHandWeaponSlot(input);

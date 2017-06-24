@@ -1,6 +1,6 @@
 package gameHandler;
 import base.*;
-import enums.WeaponCategory;
+import enums.Proficiencies;
 import character.item.spells.Spell;
 import character.MonsterCharacter;
 import character.PlayerCharacter;
@@ -120,7 +120,7 @@ public class BattleHandler
             output[1] += attacker.getModifier(attacker.getIntelegent());
             output[1] += attacker.getProficiencyOrLevel('p');
         }else{
-            if(attacker.getWeaponSlot().getCat()!= WeaponCategory.RANGE){
+            if(attacker.getWeaponSlot().getCat()!= Proficiencies.RANGE){
                 // a range weapon is used
                 output[1] += attacker.getModifier(attacker.getDexterity());
             }else{
@@ -154,7 +154,7 @@ public class BattleHandler
             );
         }
         
-        if(attacker.getWeaponSlot().getCat() != WeaponCategory.RANGE){
+        if(attacker.getWeaponSlot().getCat() != Proficiencies.RANGE){
             dmg += attacker.getModifier(attacker.getDexterity());
         }else{
             // if weapon is versitile use DexMod

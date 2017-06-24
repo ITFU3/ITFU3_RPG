@@ -109,7 +109,7 @@ public class MonsterPreset {
         monster.setpClass(new Cleric());
         monster.addWeapon(new Mace());
         monster.addArmor(new Cloth());
-        monster.getpClass().getMyBook().addSpell(new HealingWord());
+        monster.getSpellBook().addSpell(new HealingWord());
         return monster;
     } 
     /**

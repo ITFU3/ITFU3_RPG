@@ -4,10 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-import character.*;
 import character.item.spells.*;
-import gameHandler.BattleHandler;
-import gameHandler.KeyHandler;
+import gameHandler.InputHandler;
 import main.Game;
 
 /**
@@ -20,6 +18,7 @@ public class SpellbookFrame extends JFrame
     private final JList spellList;
     private final JTextArea spellInfoArea;
     private final JButton castSpellButton;
+    private final JButton setPrimarySpellButton;
     private String selectedSpell;
     
     private static SpellbookFrame instance;
@@ -30,6 +29,7 @@ public class SpellbookFrame extends JFrame
         this.spellList = new JList();
         this.spellInfoArea = new JTextArea();
         this.castSpellButton = new JButton();
+        this.setPrimarySpellButton = new JButton();
         this.selectedSpell = "";
         
         this.initFrame();
@@ -53,6 +53,7 @@ public class SpellbookFrame extends JFrame
         this.setName("Spellbook");
         this.setTitle(this.getName());
         this.castSpellButton.setText("cast spell");
+        this.setPrimarySpellButton.setText("set Primary Spell");
         int width = 200;
         int height = 300;
         // setting the Size of the Frame
@@ -80,6 +81,7 @@ public class SpellbookFrame extends JFrame
         this.add(this.scrollPane);
         this.add(this.spellInfoArea);
         this.add(this.castSpellButton);
+        this.add(this.setPrimarySpellButton);
     }
     
     /**
@@ -88,7 +90,7 @@ public class SpellbookFrame extends JFrame
     private void addListModel()
     {
         DefaultListModel<Spell> liederListModel = new DefaultListModel<>();
-        for (Spell spell : Game.getPlayer().getpClass().getMyBook().getSpellBook()) {
+        for (Spell spell : Game.getPlayer().getSpellBook().getSpellList()) {
             liederListModel.addElement(spell);
         }
         this.spellList.setModel(liederListModel);
@@ -102,21 +104,15 @@ public class SpellbookFrame extends JFrame
         this.spellList.addListSelectionListener(
             new ListSelectionListener(){
                 @Override
-                public void valueChanged(ListSelectionEvent e)
-                {
-                    try
-                    {
+                public void valueChanged(ListSelectionEvent e) {
+                    try {
                         Spell spell = (Spell) spellList.getSelectedValue();
                         selectedSpell = spell.getName();
                         String tmp = "Name: " + selectedSpell + "\n";
                         tmp += "Range: " + spell.getSpellRange() + "\n";
                         tmp += "max Dmg: " + ( spell.getDamageDie() * spell.getDieCount() ) + "\n";
                         spellInfoArea.setText(tmp);
-                    }
-                    catch (Exception exception)
-                    {
-                        System.err.println("gui.popups.SpellbookFrame.valueChanged ==> LIST ERROR");
-                    }
+                    } catch (Exception exception) { System.err.println("gui.popups.SpellbookFrame.valueChanged ==> LIST ERROR"); }
                 }
             }
         );
@@ -129,16 +125,21 @@ public class SpellbookFrame extends JFrame
         this.castSpellButton.addActionListener(
             new java.awt.event.ActionListener(){
                 @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    if( !selectedSpell.equalsIgnoreCase("") )
-                    {
-                        gameHandler.InputHandler.spellattack( selectedSpell );
-                    }
-                    else
-                    {
-                        System.err.println("gui.popups.SpellbookFrame.actionPerformed ==> no Spell selected.");
-                    }
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    if( !selectedSpell.equalsIgnoreCase("") ) {
+                        InputHandler.spellattack( selectedSpell );
+                    } else { System.err.println("gui.popups.SpellbookFrame.actionPerformed ==> no Spell selected."); }
+                }
+            }
+        );
+        
+        this.setPrimarySpellButton.addActionListener(
+            new java.awt.event.ActionListener(){
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    if( !selectedSpell.equalsIgnoreCase("") ) {
+                        InputHandler.setPrimarySpell(selectedSpell);
+                    } else { System.err.println("gui.popups.SpellbookFrame.actionPerformed ==> no Spell selected."); }
                 }
             }
         );

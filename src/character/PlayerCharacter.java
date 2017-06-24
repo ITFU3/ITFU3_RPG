@@ -8,6 +8,7 @@ import character.item.weapons.Weapon;
 import character.item.armor.Armor;
 import character.item.shields.Shield;
 import base.Helper;
+import character.item.spells.SpellBook;
 import enums.StatsIndex;
 
 /**
@@ -26,7 +27,6 @@ public class PlayerCharacter extends BaseCharacter {
     private Armor armorSlot;
     private Shield shieldSlot;
     private Weapon offHandWeaponSlot;
-    private Spell primarySpell = Spell.NONE; 
     
     private int unUsedExperience;
 
@@ -261,6 +261,10 @@ public class PlayerCharacter extends BaseCharacter {
         setOffHandWeaponSlot(new Weapon());
     }
 
+    public SpellBook getSpellBook(){
+        return this.getpClass().getMyBook();
+    }
+    
 // ################# CALCULATIONS #################
     /**
      * Returns the modifier value for the given ability stat value.
@@ -592,7 +596,7 @@ public class PlayerCharacter extends BaseCharacter {
 
         if (this.getpClass().getName().equalsIgnoreCase("wizzard")
                 || this.getpClass().getName().equalsIgnoreCase("cleric")) {
-            output += "'Spellbook':\n" + this.getpClass().getMyBook().showSpellBook() + "\n";
+            output += "'Spellbook':\n" + this.getSpellBook().showSpellBook() + "\n";
         }
         return output;
     }
@@ -727,24 +731,10 @@ public class PlayerCharacter extends BaseCharacter {
     public void setOffHandWeaponSlot(Weapon offHandWeaponSlot) {
         this.offHandWeaponSlot = offHandWeaponSlot;
     }
-
     public int getUnUsedExperience() {
         return unUsedExperience;
     }
     public void setUnUsedExperience(int unUsedExperience) {
         this.unUsedExperience = unUsedExperience;
     }
-    
-     public Spell getPrimarySpell(
-        
-    ) {
-        return primarySpell;
-    }
-
-
-    public void setPrimarySpell(Spell primarySpell) {
-        this.primarySpell = primarySpell;
-    }
-    
-  
 }

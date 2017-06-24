@@ -71,7 +71,9 @@ public class KeyHandler implements KeyListener {
             InputHandler.attack();
             break;
         case secondaryAttack: // spell
-            InputHandler.spellattack(Game.getPlayer().getPrimarySpell().string);
+            //InputHandler.spellattack(Game.getPlayer().getPrimarySpell().string);
+            // My take on the primary spell task.
+            InputHandler.spellattack(Game.getPlayer().getSpellBook().getPrimarySpell());
             break;
         case spellbook:
             InputHandler.openCloseSpellbook();

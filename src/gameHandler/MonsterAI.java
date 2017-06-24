@@ -9,6 +9,7 @@ import base.*;
 import enums.MoveDirection;
 import java.util.ArrayList;
 import character.*;
+import character.item.spells.SpellBook;
 import javax.swing.text.html.HTML;
 import main.Die;
 import main.Game;
@@ -146,7 +147,7 @@ public class MonsterAI {
         do{
             Game.updateAttackInfo(ego.getName()+" thinks...");
             Game.waitFor(SleepTime.MONSTER_THINK_FIRST);
-            character.item.spells.SpellBook spellbook = ego.getpClass().getMyBook();
+            SpellBook spellbook = ego.getSpellBook();
             
             if( !spellbook.isEmpty() ){
                 System.err.println(
@@ -238,7 +239,7 @@ public class MonsterAI {
      * @return PlayerCharacter - target to cast heal on
      */
     private PlayerCharacter findFriendToHeal(){
-        int healingDistance = ego.getpClass().getMyBook().getSpellByName("HealingWord").getSpellRange();
+        int healingDistance = ego.getSpellBook().getSpellByName("HealingWord").getSpellRange();
         int monsterDistance;
         MonsterCharacter lowest = null;
         for (MonsterCharacter monster : Game.getMonsters()) {

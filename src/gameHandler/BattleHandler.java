@@ -201,7 +201,7 @@ public class BattleHandler
         int aa = attacker.getAllowedAttacks();
         if( aa > 0)
         {
-            Spell iSpell = attacker.getpClass().getMyBook().getSpellByName(spellname);
+            Spell iSpell = attacker.getSpellBook().getSpellByName(spellname);
             if(distance <= iSpell.getSpellRange())
             {
                 attacker.setAllowedAttacks(--aa);

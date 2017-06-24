@@ -35,12 +35,12 @@ public class InputHandler {
      * attack action for every Input to triger.
      */
     public static void attack() {
-        boolean playerTurn = main.Game.isPlayerTurn();
+        boolean playerTurn = Game.isPlayerTurn();
         if (playerTurn == true) {
-            if (main.Game.getMonsters().size() > 0) {
-                character.PlayerCharacter attacker = main.Game.getPlayer();
-                character.MonsterCharacter target = main.Game.getMonsters().get(
-                        main.Game.getInstance().getMonsterClosestToPlayer()
+            if (Game.getMonsters().size() > 0) {
+                character.PlayerCharacter attacker = Game.getPlayer();
+                character.MonsterCharacter target = Game.getMonsters().get(
+                        Game.getInstance().getMonsterClosestToPlayer()
                 );
                 gameHandler.BattleHandler.tryToAttack(attacker, target);
             } else {
@@ -62,21 +62,21 @@ public class InputHandler {
         } else {
             System.out.println("NOT YOUR TURN");
         }
-        main.Game.updateGUI();
+        Game.updateGUI();
     }
     
     public static void spellattack(String spellname){
-        boolean playerTurn = main.Game.isPlayerTurn();
+        boolean playerTurn = Game.isPlayerTurn();
         if (playerTurn == true){
             character.PlayerCharacter attacker;
             character.PlayerCharacter target;
-            attacker = main.Game.getPlayer();
+            attacker = Game.getPlayer();
             if(!spellname.equals(Spell.NONE.string)) {
                 // we have a primary spell
-                if(attacker.getpClass().getMyBook().getSpellByName(spellname).getSpellEffect().equalsIgnoreCase("heal")){
+                if(attacker.getSpellBook().getSpellByName(spellname).getSpellEffect().equalsIgnoreCase("heal")){
                     target = attacker;
                 } else{
-                    target = main.Game.getMonsters().get(
+                    target = Game.getMonsters().get(
                             Game.getInstance().getMonsterClosestToPlayer()
                     );
                 }
@@ -145,8 +145,8 @@ public class InputHandler {
     public static void endRound(){
         boolean playerTurn = main.Game.isPlayerTurn();
         if(playerTurn == true) {
-            main.Game.updateAttackInfo("You ended your round.");
-            main.Game.endRound();
+            Game.updateAttackInfo("You ended your round.");
+            Game.endRound();
         } else {
             System.out.println("NOT YOUR TURN");
         }
@@ -182,6 +182,15 @@ public class InputHandler {
      */
     public static void setControlFocus(boolean isKeyboard){
         System.out.println("FocusChange");
-        main.Game.getInstance().getGameFrame().setButtonFocus( !isKeyboard );
+        Game.getInstance().getGameFrame().setButtonFocus( !isKeyboard );
+    }
+    
+    /**
+     * Setting the Primary Spell from a Frame
+     * 
+     * @param spellname - String
+     */
+    public static void setPrimarySpell(String spellname){
+        Game.getPlayer().getSpellBook().setPrimarySpell(spellname);
     }
 }

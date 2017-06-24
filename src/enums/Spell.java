@@ -19,6 +19,9 @@ public enum Spell {
         this.string = value;
     }
     
-    
+    @Override
+    public String toString() {
+        return this.string;
+    }
     
 }

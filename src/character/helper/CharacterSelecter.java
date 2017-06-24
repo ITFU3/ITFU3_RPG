@@ -1,13 +1,12 @@
 package character.helper;
 
-import character.item.spells.*;
-import character.races.*;
-import character.classes.*;
 import character.*;
-import character.item.weapons.*;
+import character.classes.*;
 import character.item.armor.*;
-import character.item.shields.Shield;
-import character.item.shields.SmallShield;
+import character.item.shields.*;
+import character.item.spells.*;
+import character.item.weapons.*;
+import character.races.*;
 import enums.Spell;
 
 import java.util.ArrayList;
@@ -46,8 +45,10 @@ public class CharacterSelecter
     player2.addWeapon( new Mace("Glower", 8, 1, 1) );
     player2.addArmor( new ChainMail() );
     player2.addShield( new SmallShield() );
-    player2.getpClass().getMyBook().addSpell( new HealingWord() );
-    player2.setPrimarySpell(Spell.HEALINGWORD);
+    player2.getSpellBook().addSpell( new HealingWord() );
+    // my take to the Primary Spell task
+    player2.getSpellBook().setPrimarySpell(Spell.HEALINGWORD.toString());
+    
     PlayerCharacter player3 = new PlayerCharacter(
         "Vahlran",
         'm',
@@ -67,8 +68,10 @@ public class CharacterSelecter
     );
     player4.addWeapon( new Weapon() );
     player4.addArmor( new Cloth() );
-    player4.getpClass().getMyBook().addSpell(new Fireball());
-    player4.setPrimarySpell(Spell.FIREBALL);
+    player4.getSpellBook().addSpell(new Fireball());
+    // my take to the Primary Spell task
+    player4.getSpellBook().setPrimarySpell(Spell.FIREBALL.toString());
+    
     PlayerCharacter player5 = new PlayerCharacter(
         "Egeord",
         'm',

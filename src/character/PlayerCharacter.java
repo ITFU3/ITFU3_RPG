@@ -1,15 +1,14 @@
 package character;
 
-import enums.Spell;
-import enums.WeaponCategory;
+import base.Helper;
 import character.races.Race;
 import character.classes.PlayerClass;
 import character.item.weapons.Weapon;
 import character.item.armor.Armor;
 import character.item.shields.Shield;
-import base.Helper;
 import character.item.spells.SpellBook;
 import enums.StatsIndex;
+import enums.WeaponCategory;
 
 /**
  * @author Matthias Dröge
@@ -72,8 +71,6 @@ public class PlayerCharacter extends BaseCharacter {
             }
         }
         
-        
-
         this.setBasicStats(inputStats);
         this.setExperience(0);
         this.setUnUsedExperience(getExperience());
@@ -162,7 +159,7 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public void addWeapon(Weapon input) {
         // big IF for checking if a weapon can be equiped
-        if (this.isProfThere(input.getWeaponGroup())
+        if (this.isProficientWith(input.getWeaponGroup())
             && (this.getShieldSlot() == null
             || this.getShieldSlot().getArmorValue() == 0
             || (this.getShieldSlot().getArmorValue() > 0
@@ -187,7 +184,7 @@ public class PlayerCharacter extends BaseCharacter {
      * @param input - Armor
      */
     public void addArmor(Armor input) {
-        if (this.isProfThere(input.getCat())) {
+        if (this.isProficientWith(input.getCat())) {
             if (input.getType().equalsIgnoreCase("None")) {
                 input.setArmorValue(
                     input.getArmorValue()
@@ -218,7 +215,7 @@ public class PlayerCharacter extends BaseCharacter {
      * @param input - Shield
      */
     public void addShield(Shield input) {
-        if (this.isProfThere(input.getCat())
+        if (this.isProficientWith(input.getCat())
             &&  this.getWeaponSlot().getCat()!=  WeaponCategory.RANGE
             && !this.getWeaponSlot().isProperty("dualhanded")
             && this.getOffHandWeaponSlot().getType().equalsIgnoreCase("hand")
@@ -242,7 +239,7 @@ public class PlayerCharacter extends BaseCharacter {
      * @param input
      */
     public void addOffHandWeapon(Weapon input) {
-        if (this.isProfThere(input.getWeaponGroup())
+        if (this.isProficientWith(input.getWeaponGroup())
             && this.getShieldSlot() == null
             || (this.getShieldSlot().getArmorValue() == 0
             && this.getWeaponSlot().getCat() != WeaponCategory.RANGE
@@ -394,7 +391,7 @@ public class PlayerCharacter extends BaseCharacter {
      * @param inputType - String (type of weapon oder armor)
      * @return - boolean
      */
-    public boolean isProfThere(String inputType) {
+    public boolean isProficientWith(String inputType) {
         boolean output = false;
         for (String proficiency : this.getpClass().getProficiencies()) {
             if (proficiency.equalsIgnoreCase(inputType)) {

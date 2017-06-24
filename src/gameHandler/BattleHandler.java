@@ -127,8 +127,8 @@ public class BattleHandler
                 // a melee weapon is used
                 output[1] += attacker.getModifier(attacker.getStrength());
             }
-            if(attacker.isProfThere(attacker.getWeaponSlot().getWeaponGroup())
-                    || attacker.isProfThere(attacker.getWeaponSlot().getType()))
+            if(attacker.isProficientWith(attacker.getWeaponSlot().getWeaponGroup())
+                    || attacker.isProficientWith(attacker.getWeaponSlot().getType()))
             {
                 output[1] += attacker.getProficiencyOrLevel('p');
             }

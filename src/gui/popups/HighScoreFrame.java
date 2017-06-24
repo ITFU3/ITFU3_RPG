@@ -85,7 +85,6 @@ public class HighScoreFrame extends JFrame
                 return output;
             }
         });
-        ArrayList<String[]> output = input;        
-        return output;
+        return input;
     }
 }

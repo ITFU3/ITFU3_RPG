@@ -48,8 +48,7 @@ public class UserInfo {
                               + "END ROUND      = ENTER\n";
     
     public static String NO_SPELL_AVAILABLE = "You have no spell selected as a primary Spell";
-    
+                
     public static String NO_MONSTER = "What do you want to attack?\n"
                                     + "There are no Monsters around. ";
-    
 }

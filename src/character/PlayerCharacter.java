@@ -561,7 +561,7 @@ public class PlayerCharacter extends BaseCharacter {
                 + this.getArmorSlot().getArmorValue() + ")\n";
 
         if (this.getShieldSlot() != null && this.getShieldSlot().getArmorValue() > 0) {
-            output += "Shield: \t" + this.getShieldSlot().getName() + " (" + this.getShieldSlot().getArmorValue() + ")\n";
+            output += "Shield: \t" + this.getShieldSlot().getType() + " (" + this.getShieldSlot().getArmorValue() + ")\n";
         }
 
         output  += "Overall Armor: \t" + this.getAC() + "\n\n"

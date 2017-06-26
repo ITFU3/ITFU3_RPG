@@ -22,7 +22,7 @@ public class BluntWeapon extends Weapon{
         this.setDurability(100);
         this.setCat(Proficiency.WEAPON_TYPE_MELEE);
         this.getProperties().add(Proficiency.SINGLEHANDED);
-        this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS);
+        this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
         
     }
 

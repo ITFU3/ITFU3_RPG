@@ -18,8 +18,8 @@ public class Fighter extends PlayerClass
         Proficiency.MEDIUM_ARMOR,
         Proficiency.HEAVY_ARMOR,
         Proficiency.SHIELDS, 
-        Proficiency.SIMPLE_WEAPONS,
-        Proficiency.MARTIAL_WEAPONS,
+        Proficiency.WEAPON_GROUP_SIMPLE,
+        Proficiency.WEAPON_GROUP_MARTIAL,
         Proficiency.STRENGTH,
         Proficiency.CONSTITUTION
     };

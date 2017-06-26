@@ -20,7 +20,7 @@ public class Axe extends Weapon{
         this.setDistance(1);
         this.setDurability(100);
         this.setCat(Proficiency.WEAPON_TYPE_MELEE);
-        this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS);
+        this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
     }
 
     public Axe(String name, int damageDie, int durability, int dieCount, Proficiency type, Proficiency cat, int distance, Proficiency weaponGroup) {

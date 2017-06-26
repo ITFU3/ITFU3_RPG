@@ -17,7 +17,7 @@ public class Cleric extends PlayerClass
         Proficiency.LIGHT_ARMOR,
         Proficiency.MEDIUM_ARMOR,
         Proficiency.SHIELDS,
-        Proficiency.SIMPLE_WEAPONS,
+        Proficiency.WEAPON_GROUP_SIMPLE,
         Proficiency.WISDOM,
         Proficiency.CHARISMA
     };

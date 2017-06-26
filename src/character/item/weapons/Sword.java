@@ -37,7 +37,7 @@ public class Sword extends Weapon{
         longsword.setName("Simple " + Proficiency.WEAPON_LONGSWORD);
         longsword.setDamageDie(8);
         longsword.setType(Proficiency.WEAPON_LONGSWORD);
-        longsword.setWeaponGroup(Proficiency.MARTIAL_WEAPONS);
+        longsword.setWeaponGroup(Proficiency.WEAPON_GROUP_MARTIAL);
         longsword.getProperties().add(Proficiency.VERSITILE);
         
         return longsword;

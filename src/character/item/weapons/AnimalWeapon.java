@@ -21,7 +21,7 @@ public class AnimalWeapon extends Weapon {
         this.setDistance(1);
         this.setDieCount(1);
         this.setCat(Proficiency.WEAPON_TYPE_MELEE);
-        this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS);
+        this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
     }
 
     private static AnimalWeapon getClaws() {

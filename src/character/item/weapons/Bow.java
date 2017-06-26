@@ -20,7 +20,7 @@ public class Bow  extends Weapon {
         // basics
         this.setDieCount(1);
         this.setCat(Proficiency.WEAPON_TYPE_RANGE);
-        this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS);
+        this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
         this.getProperties().add(Proficiency.DUALHANDED);
        
     }
@@ -54,7 +54,7 @@ public class Bow  extends Weapon {
         longbow.setType(Proficiency.WEAPON_LONGBOW);
         longbow.setCat(Proficiency.WEAPON_TYPE_MELEE);
         longbow.setDistance(12);
-        longbow.setWeaponGroup(Proficiency.MARTIAL_WEAPONS);
+        longbow.setWeaponGroup(Proficiency.WEAPON_GROUP_MARTIAL);
         longbow.getProperties().add(Proficiency.VERSITILE);
         return longbow;
     }

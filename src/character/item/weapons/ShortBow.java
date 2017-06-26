@@ -1,6 +1,6 @@
 package character.item.weapons;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 public class ShortBow extends Weapon
 {
@@ -11,10 +11,10 @@ public class ShortBow extends Weapon
     this.setDieCount(1);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat(Proficiencies.RANGE);
+    this.setCat(Proficiency.RANGE);
     this.setDistance(10);
-    this.setWeaponGroup(Proficiencies.SIMPLE_WEAPONS.toString());
-    String[] prop = { Proficiencies.DUALHANDED.toString() };
+    this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS.toString());
+    String[] prop = { Proficiency.DUALHANDED.toString() };
     this.setProperties(prop);
   }
   

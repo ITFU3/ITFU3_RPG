@@ -1,6 +1,6 @@
 package character.item.shields;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 /**
  * @author Matthias Dröge
@@ -12,7 +12,7 @@ public class SmallShield extends Shield
         this.setName(this.getClass().getSimpleName());
         this.setType(this.getClass().getSimpleName());
         this.setArmorValue(1);
-        this.setCat(Proficiencies.SHIELDS.toString());
+        this.setCat(Proficiency.SHIELDS.toString());
     }
 
     public SmallShield(String inputName, int inputArmorValue)

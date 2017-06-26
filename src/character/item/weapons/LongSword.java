@@ -1,6 +1,6 @@
 package character.item.weapons;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 public class LongSword extends Weapon
 {
@@ -11,10 +11,10 @@ public class LongSword extends Weapon
     this.setDieCount(1);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat(Proficiencies.MELEE);
+    this.setCat(Proficiency.MELEE);
     this.setDistance(1);
-    this.setWeaponGroup(Proficiencies.MARTIAL_WEAPONS.toString());
-    String[] prop = { Proficiencies.VERSITILE.toString() };
+    this.setWeaponGroup(Proficiency.MARTIAL_WEAPONS.toString());
+    String[] prop = { Proficiency.VERSITILE.toString() };
     this.setProperties(prop);
   }
   

@@ -1,6 +1,6 @@
 package character.races;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 public class Dwarf extends Race
 {
@@ -8,8 +8,8 @@ public class Dwarf extends Race
   {
     this.setName(this.getClass().getSimpleName());
     int[] BonusStats = super.getStatsBonus();
-    BonusStats[Proficiencies.CONSTITUTION.getIndex()] += 2;
-    BonusStats[Proficiencies.MOVEMENT.getIndex()] -= 2;
+    BonusStats[Proficiency.CONSTITUTION.getIndex()] += 2;
+    BonusStats[Proficiency.MOVEMENT.getIndex()] -= 2;
     this.setStatsBonus(BonusStats);
   }
 }

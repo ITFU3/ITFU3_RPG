@@ -7,7 +7,7 @@ import character.item.weapons.Weapon;
 import character.item.armor.Armor;
 import character.item.shields.Shield;
 import character.item.spells.SpellBook;
-import enums.Proficiencies;
+import enums.Proficiency;
 
 /**
  * @author Matthias Dröge
@@ -45,28 +45,28 @@ public class PlayerCharacter extends BaseCharacter {
 
         this.setBasicStats(inputStats);
 
-        inputStats[Proficiencies.STRENGTH.getIndex()] += this.getpClass().getStatsBonus()[Proficiencies.STRENGTH.getIndex()]
-                + this.getpRace().getStatsBonus()[Proficiencies.STRENGTH.getIndex()];
-        inputStats[Proficiencies.DEXTERITY.getIndex()] += this.getpClass().getStatsBonus()[Proficiencies.DEXTERITY.getIndex()]
-                + this.getpRace().getStatsBonus()[Proficiencies.DEXTERITY.getIndex()];
-        inputStats[Proficiencies.CONSTITUTION.getIndex()] += this.getpClass().getStatsBonus()[Proficiencies.CONSTITUTION.getIndex()]
-                + this.getpRace().getStatsBonus()[Proficiencies.CONSTITUTION.getIndex()];
-        inputStats[Proficiencies.WISDOM.getIndex()] += this.getpClass().getStatsBonus()[Proficiencies.WISDOM.getIndex()]
-                + this.getpRace().getStatsBonus()[Proficiencies.WISDOM.getIndex()];
-        inputStats[Proficiencies.INTELLEGENCE.getIndex()] += this.getpClass().getStatsBonus()[Proficiencies.INTELLEGENCE.getIndex()]
-                + this.getpRace().getStatsBonus()[Proficiencies.INTELLEGENCE.getIndex()];
-        inputStats[Proficiencies.CHARISMA.getIndex()] += this.getpClass().getStatsBonus()[Proficiencies.CHARISMA.getIndex()]
-                + this.getpRace().getStatsBonus()[Proficiencies.CHARISMA.getIndex()];
+        inputStats[Proficiency.STRENGTH.getIndex()] += this.getpClass().getStatsBonus()[Proficiency.STRENGTH.getIndex()]
+                + this.getpRace().getStatsBonus()[Proficiency.STRENGTH.getIndex()];
+        inputStats[Proficiency.DEXTERITY.getIndex()] += this.getpClass().getStatsBonus()[Proficiency.DEXTERITY.getIndex()]
+                + this.getpRace().getStatsBonus()[Proficiency.DEXTERITY.getIndex()];
+        inputStats[Proficiency.CONSTITUTION.getIndex()] += this.getpClass().getStatsBonus()[Proficiency.CONSTITUTION.getIndex()]
+                + this.getpRace().getStatsBonus()[Proficiency.CONSTITUTION.getIndex()];
+        inputStats[Proficiency.WISDOM.getIndex()] += this.getpClass().getStatsBonus()[Proficiency.WISDOM.getIndex()]
+                + this.getpRace().getStatsBonus()[Proficiency.WISDOM.getIndex()];
+        inputStats[Proficiency.INTELLEGENCE.getIndex()] += this.getpClass().getStatsBonus()[Proficiency.INTELLEGENCE.getIndex()]
+                + this.getpRace().getStatsBonus()[Proficiency.INTELLEGENCE.getIndex()];
+        inputStats[Proficiency.CHARISMA.getIndex()] += this.getpClass().getStatsBonus()[Proficiency.CHARISMA.getIndex()]
+                + this.getpRace().getStatsBonus()[Proficiency.CHARISMA.getIndex()];
         // - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        inputStats[Proficiencies.MOVEMENT.getIndex()] += this.getpClass().getStatsBonus()[Proficiencies.MOVEMENT.getIndex()]
-                + this.getpRace().getStatsBonus()[Proficiencies.MOVEMENT.getIndex()];
+        inputStats[Proficiency.MOVEMENT.getIndex()] += this.getpClass().getStatsBonus()[Proficiency.MOVEMENT.getIndex()]
+                + this.getpRace().getStatsBonus()[Proficiency.MOVEMENT.getIndex()];
         // - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        inputStats[Proficiencies.HEALTH.getIndex()] += this.getpClass().getStatsBonus()[Proficiencies.HEALTH.getIndex()]
+        inputStats[Proficiency.HEALTH.getIndex()] += this.getpClass().getStatsBonus()[Proficiency.HEALTH.getIndex()]
                 + this.getModifier(this.getConstitution());
 
         if (this.getpClass().getLevel() > 1) {
             for (int i = 2; i <= this.getpClass().getLevel(); i++) {
-                inputStats[Proficiencies.HEALTH.getIndex()] += main.Die.rollDie(this.getpClass().getHitDie(), 1);
+                inputStats[Proficiency.HEALTH.getIndex()] += main.Die.rollDie(this.getpClass().getHitDie(), 1);
             }
         }
         
@@ -162,7 +162,7 @@ public class PlayerCharacter extends BaseCharacter {
             && (this.getShieldSlot() == null
             || this.getShieldSlot().getArmorValue() == 0
             || (this.getShieldSlot().getArmorValue() > 0
-            && !input.isProperty(Proficiencies.DUALHANDED.toString())))
+            && !input.isProperty(Proficiency.DUALHANDED.toString())))
         ) {
             this.setWeaponSlot(input);
         } else {
@@ -184,7 +184,7 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public void addArmor(Armor input) {
         if (this.isProficientWith(input.getCat())) {
-            if (input.getType().equalsIgnoreCase(Proficiencies.NONE.toString())) {
+            if (input.getType().equalsIgnoreCase(Proficiency.NONE.toString())) {
                 input.setArmorValue(
                     input.getArmorValue()
                     + this.getModifier(this.getDexterity())
@@ -215,8 +215,8 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public void addShield(Shield input) {
         if (this.isProficientWith(input.getCat())
-            &&  this.getWeaponSlot().getCat()!=  Proficiencies.RANGE
-            && !this.getWeaponSlot().isProperty(Proficiencies.DUALHANDED.toString())
+            &&  this.getWeaponSlot().getCat()!=  Proficiency.RANGE
+            && !this.getWeaponSlot().isProperty(Proficiency.DUALHANDED.toString())
             && this.getOffHandWeaponSlot().getType().equalsIgnoreCase("Hand")
         ){
             setShieldSlot(input);
@@ -241,8 +241,8 @@ public class PlayerCharacter extends BaseCharacter {
         if (this.isProficientWith(input.getWeaponGroup())
             && this.getShieldSlot() == null
             || (this.getShieldSlot().getArmorValue() == 0
-            && this.getWeaponSlot().getCat() != Proficiencies.RANGE
-            && !this.getWeaponSlot().isProperty(Proficiencies.DUALHANDED.toString()))
+            && this.getWeaponSlot().getCat() != Proficiency.RANGE
+            && !this.getWeaponSlot().isProperty(Proficiency.DUALHANDED.toString()))
         ){
             setOffHandWeaponSlot(input);
         } else {
@@ -348,7 +348,7 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public int getAC() {
         int ac = 0;
-        if(this.getArmorSlot().getCat().equalsIgnoreCase(Proficiencies.HEAVY_ARMOR.toString())) {
+        if(this.getArmorSlot().getCat().equalsIgnoreCase(Proficiency.HEAVY_ARMOR.toString())) {
             ac = this.getArmorSlot().getArmorValue();
         } else {
             ac = this.getArmorSlot().getArmorValue()
@@ -620,52 +620,52 @@ public class PlayerCharacter extends BaseCharacter {
         this.gender = gender;
     }
     public int getStrength() {
-        return basicStats[Proficiencies.STRENGTH.getIndex()];
+        return basicStats[Proficiency.STRENGTH.getIndex()];
     }
     public void setStrength(int input) {
-        this.basicStats[Proficiencies.STRENGTH.getIndex()] = input;
+        this.basicStats[Proficiency.STRENGTH.getIndex()] = input;
     }
     public int getDexterity() {
-        return basicStats[Proficiencies.DEXTERITY.getIndex()];
+        return basicStats[Proficiency.DEXTERITY.getIndex()];
     }
     public void setDexterity(int input) {
-        this.basicStats[Proficiencies.DEXTERITY.getIndex()] = input;
+        this.basicStats[Proficiency.DEXTERITY.getIndex()] = input;
     }
     public int getConstitution() {
-        return basicStats[Proficiencies.CONSTITUTION.getIndex()];
+        return basicStats[Proficiency.CONSTITUTION.getIndex()];
     }
     public void setConstitution(int input) {
-        this.basicStats[Proficiencies.CONSTITUTION.getIndex()] = input;
+        this.basicStats[Proficiency.CONSTITUTION.getIndex()] = input;
     }
     public int getWisdom() {
-        return basicStats[Proficiencies.WISDOM.getIndex()];
+        return basicStats[Proficiency.WISDOM.getIndex()];
     }
     public void setWisdom(int input) {
-        this.basicStats[Proficiencies.WISDOM.getIndex()] = input;
+        this.basicStats[Proficiency.WISDOM.getIndex()] = input;
     }
     public int getIntellegence() {
-        return basicStats[Proficiencies.INTELLEGENCE.getIndex()];
+        return basicStats[Proficiency.INTELLEGENCE.getIndex()];
     }
     public void setIntellegence(int input) {
-        this.basicStats[Proficiencies.INTELLEGENCE.getIndex()] = input;
+        this.basicStats[Proficiency.INTELLEGENCE.getIndex()] = input;
     }
     public int getCharisma() {
-        return basicStats[Proficiencies.CHARISMA.getIndex()];
+        return basicStats[Proficiency.CHARISMA.getIndex()];
     }
     public void setCharisma(int input) {
-        this.basicStats[Proficiencies.CHARISMA.getIndex()] = input;
+        this.basicStats[Proficiency.CHARISMA.getIndex()] = input;
     }
     public int getMovement() {
-        return basicStats[Proficiencies.MOVEMENT.getIndex()];
+        return basicStats[Proficiency.MOVEMENT.getIndex()];
     }
     public void setMovement(int input) {
-        this.basicStats[Proficiencies.MOVEMENT.getIndex()] = input;
+        this.basicStats[Proficiency.MOVEMENT.getIndex()] = input;
     }
     public int getHealth() {
-        return basicStats[Proficiencies.HEALTH.getIndex()];
+        return basicStats[Proficiency.HEALTH.getIndex()];
     }
     public void setHealth(int input) {
-        this.basicStats[Proficiencies.HEALTH.getIndex()] = input;
+        this.basicStats[Proficiency.HEALTH.getIndex()] = input;
     }
     public int getExperience() {
         return experience;

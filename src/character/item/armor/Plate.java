@@ -1,6 +1,6 @@
 package character.item.armor;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 public class Plate extends Armor
 {
@@ -9,7 +9,7 @@ public class Plate extends Armor
     this.setName(this.getClass().getSimpleName());
     this.setType(this.getClass().getSimpleName());
     this.setArmorValue(18);
-    this.setCat(Proficiencies.HEAVY_ARMOR.toString());
+    this.setCat(Proficiency.HEAVY_ARMOR.toString());
   }
   
   public Plate(String inputName, int inputArmorValue)

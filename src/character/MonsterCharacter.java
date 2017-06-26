@@ -10,7 +10,7 @@ import interfaces.*;
 import character.classes.*;
 import character.races.monster.*;
 import character.races.*;
-import enums.Proficiencies;
+import enums.Proficiency;
 
 /**
  *
@@ -26,14 +26,14 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
         this.setGender('m');
         this.setpClass(new PlayerClass());
         int[] stats = new int[8];
-        stats[Proficiencies.STRENGTH.getIndex()] = 5;
-        stats[Proficiencies.DEXTERITY.getIndex()] = 5;
-        stats[Proficiencies.CONSTITUTION.getIndex()] = 5;
-        stats[Proficiencies.WISDOM.getIndex()] = 5;
-        stats[Proficiencies.INTELLEGENCE.getIndex()] = 5;
-        stats[Proficiencies.CHARISMA.getIndex()] = 5;
-        stats[Proficiencies.MOVEMENT.getIndex()] = 5;
-        stats[Proficiencies.HEALTH.getIndex()] = 3;
+        stats[Proficiency.STRENGTH.getIndex()] = 5;
+        stats[Proficiency.DEXTERITY.getIndex()] = 5;
+        stats[Proficiency.CONSTITUTION.getIndex()] = 5;
+        stats[Proficiency.WISDOM.getIndex()] = 5;
+        stats[Proficiency.INTELLEGENCE.getIndex()] = 5;
+        stats[Proficiency.CHARISMA.getIndex()] = 5;
+        stats[Proficiency.MOVEMENT.getIndex()] = 5;
+        stats[Proficiency.HEALTH.getIndex()] = 3;
         this.setBasicStats(stats);
         this.setTempHP(this.getHealth());
         this.setAllowedAttacks(1);
@@ -123,44 +123,36 @@ public class MonsterCharacter extends PlayerCharacter implements Growable{
     }
     
     private void setStatsWithBonus() {
-        this.setStrength(
-              this.getStrength()+
-              this.getpClass().getStatsBonus()[Proficiencies.STRENGTH.getIndex()] +
-              this.getpRace().getStatsBonus()[Proficiencies.STRENGTH.getIndex()]
+        this.setStrength(this.getStrength()+
+              this.getpClass().getStatsBonus()[Proficiency.STRENGTH.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiency.STRENGTH.getIndex()]
         );
-        this.setDexterity(
-              this.getDexterity() +
-              this.getpClass().getStatsBonus()[Proficiencies.DEXTERITY.getIndex()] +
-              this.getpRace().getStatsBonus()[Proficiencies.DEXTERITY.getIndex()]
+        this.setDexterity(this.getDexterity() +
+              this.getpClass().getStatsBonus()[Proficiency.DEXTERITY.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiency.DEXTERITY.getIndex()]
         );
-        this.setConstitution(
-              this.getConstitution() +
-              this.getpClass().getStatsBonus()[Proficiencies.CONSTITUTION.getIndex()] +
-              this.getpRace().getStatsBonus()[Proficiencies.CONSTITUTION.getIndex()]            
+        this.setConstitution(this.getConstitution() +
+              this.getpClass().getStatsBonus()[Proficiency.CONSTITUTION.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiency.CONSTITUTION.getIndex()]            
         );
-        this.setWisdom(
-              this.getWisdom() +
-              this.getpClass().getStatsBonus()[Proficiencies.WISDOM.getIndex()] +
-              this.getpRace().getStatsBonus()[Proficiencies.WISDOM.getIndex()]            
+        this.setWisdom(this.getWisdom() +
+              this.getpClass().getStatsBonus()[Proficiency.WISDOM.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiency.WISDOM.getIndex()]            
         );
-        this.setIntellegence(
-              this.getIntellegence() +
-              this.getpClass().getStatsBonus()[Proficiencies.INTELLEGENCE.getIndex()] +
-              this.getpRace().getStatsBonus()[Proficiencies.INTELLEGENCE.getIndex()]
+        this.setIntellegence(this.getIntellegence() +
+              this.getpClass().getStatsBonus()[Proficiency.INTELLEGENCE.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiency.INTELLEGENCE.getIndex()]
         );
-        this.setCharisma(
-              this.getCharisma() +
-              this.getpClass().getStatsBonus()[Proficiencies.CHARISMA.getIndex()] +
-              this.getpRace().getStatsBonus()[Proficiencies.CHARISMA.getIndex()]
+        this.setCharisma(this.getCharisma() +
+              this.getpClass().getStatsBonus()[Proficiency.CHARISMA.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiency.CHARISMA.getIndex()]
         );
-        this.setMovement(
-              this.getMovement() +
-              this.getpClass().getStatsBonus()[Proficiencies.MOVEMENT.getIndex()] +
-              this.getpRace().getStatsBonus()[Proficiencies.MOVEMENT.getIndex()]
+        this.setMovement(this.getMovement() +
+              this.getpClass().getStatsBonus()[Proficiency.MOVEMENT.getIndex()] +
+              this.getpRace().getStatsBonus()[Proficiency.MOVEMENT.getIndex()]
         );
-        this.setHealth(
-              this.getHealth() +
-              this.getpClass().getStatsBonus()[Proficiencies.HEALTH.getIndex()]
+        this.setHealth(this.getHealth() +
+              this.getpClass().getStatsBonus()[Proficiency.HEALTH.getIndex()]
               
               //this.getModifier(this.getConstitution()) ???
         );

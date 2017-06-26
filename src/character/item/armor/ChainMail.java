@@ -1,6 +1,6 @@
 package character.item.armor;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 public class ChainMail extends Armor
 {
@@ -9,7 +9,7 @@ public class ChainMail extends Armor
     this.setName(this.getClass().getSimpleName());
     this.setType(this.getClass().getSimpleName());
     this.setArmorValue(16);
-    this.setCat(Proficiencies.MEDIUM_ARMOR.toString());
+    this.setCat(Proficiency.MEDIUM_ARMOR.toString());
   }
   
   public ChainMail(String inputName, int inputArmorValue)

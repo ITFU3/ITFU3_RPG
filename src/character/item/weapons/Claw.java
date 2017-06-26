@@ -5,7 +5,7 @@
  */
 package character.item.weapons;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 /**
  *
@@ -20,11 +20,11 @@ public class Claw extends Weapon{
     this.setDamageDie(10);
     this.setDistance(2);
     this.setDieCount(1);
-    this.setCat(Proficiencies.MELEE);
-    this.setWeaponGroup(Proficiencies.SIMPLE_WEAPONS.toString());
+    this.setCat(Proficiency.MELEE);
+    this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS.toString());
     String[] prop = {
-        Proficiencies.DUALHANDED.toString(),
-        Proficiencies.REACH.toString()
+        Proficiency.DUALHANDED.toString(),
+        Proficiency.REACH.toString()
     };
     this.setProperties(prop);
   }

@@ -4,7 +4,7 @@ package enums;
  *
  * @author Matthias Dröge
  */
-public enum Proficiencies {
+public enum Proficiency {
 //nothing
     NONE("none"),
     
@@ -57,7 +57,7 @@ public enum Proficiencies {
 // ========================
     
     private String proficiency;
-    private Proficiencies(String s){
+    private Proficiency(String s){
         this.proficiency = s;
     }
     @Override

@@ -1,6 +1,6 @@
 package character.item.armor;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 public class Leather extends Armor
 {
@@ -9,7 +9,7 @@ public class Leather extends Armor
     this.setName(this.getClass().getSimpleName());
     this.setType(this.getClass().getSimpleName());
     this.setArmorValue(11);
-    this.setCat(Proficiencies.LIGHT_ARMOR.toString());
+    this.setCat(Proficiency.LIGHT_ARMOR.toString());
   }
   
   public Leather(String inputName, int inputArmorValue)

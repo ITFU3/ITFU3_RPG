@@ -1,6 +1,6 @@
 package character.item.weapons;
 
-import enums.Proficiencies;
+import enums.Proficiency;
 
 public class Mace extends Weapon
 {
@@ -11,10 +11,10 @@ public class Mace extends Weapon
     this.setDieCount(1);
     this.setDurability(100);
     this.setType(this.getClass().getSimpleName());
-    this.setCat(Proficiencies.MELEE);
+    this.setCat(Proficiency.MELEE);
     this.setDistance(1);
-    this.setWeaponGroup(Proficiencies.SIMPLE_WEAPONS.toString());
-    String[] prop = { Proficiencies.SINGLEHANDED.toString() };
+    this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS.toString());
+    String[] prop = { Proficiency.SINGLEHANDED.toString() };
     this.setProperties(prop);
   }
   

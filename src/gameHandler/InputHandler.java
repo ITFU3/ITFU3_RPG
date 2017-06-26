@@ -2,7 +2,7 @@ package gameHandler;
 
 import base.*;
 import enums.MoveDirection;
-import enums.Proficiencies;
+import enums.Proficiency;
 import enums.Spell;
 import gui.popups.CharacterInfoFrame;
 import gui.popups.InventoryFrame;
@@ -66,11 +66,11 @@ public class InputHandler {
             character.PlayerCharacter attacker;
             character.PlayerCharacter target;
             attacker = Game.getPlayer();
-            if(!spellname.equals(Proficiencies.NONE.toString())) {
+            if(!spellname.equals(Proficiency.NONE.toString())) {
                 if(attacker.getSpellBook()
                     .getSpellByName(spellname)
                     .getSpellEffect()
-                    .equalsIgnoreCase(Proficiencies.HEAL.toString())
+                    .equalsIgnoreCase(Proficiency.HEAL.toString())
                 ){
                     target = attacker;
                 } else{

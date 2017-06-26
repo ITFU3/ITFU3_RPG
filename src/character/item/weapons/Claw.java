@@ -14,14 +14,14 @@ import enums.Proficiency;
 public class Claw extends Weapon{
     public Claw()
   {
-    this.setType(this.getClass().getSimpleName());
-    this.setName(this.getType());
+    this.setType(Proficiency.WEAPON_HAND);
+    this.setName(Proficiency.WEAPON_HAND.name());
     this.setDurability(100);
     this.setDamageDie(10);
     this.setDistance(2);
     this.setDieCount(1);
-    this.setCat(Proficiency.MELEE);
-    this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS.toString());
+    this.setCat(Proficiency.WEAPON_TYPE_MELEE);
+    this.setWeaponGroup(Proficiency.SIMPLE_WEAPONS);
     String[] prop = {
         Proficiency.DUALHANDED.toString(),
         Proficiency.REACH.toString()

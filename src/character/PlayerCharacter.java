@@ -215,9 +215,9 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public void addShield(Shield input) {
         if (this.isProficientWith(input.getCat())
-            &&  this.getWeaponSlot().getCat()!=  Proficiency.RANGE
+            &&  this.getWeaponSlot().getCat()!=  Proficiency.WEAPON_TYPE_RANGE
             && !this.getWeaponSlot().isProperty(Proficiency.DUALHANDED.toString())
-            && this.getOffHandWeaponSlot().getType().equalsIgnoreCase("Hand")
+            && this.getOffHandWeaponSlot().getType() == Proficiency.WEAPON_HAND
         ){
             setShieldSlot(input);
         } else {
@@ -241,7 +241,7 @@ public class PlayerCharacter extends BaseCharacter {
         if (this.isProficientWith(input.getWeaponGroup())
             && this.getShieldSlot() == null
             || (this.getShieldSlot().getArmorValue() == 0
-            && this.getWeaponSlot().getCat() != Proficiency.RANGE
+            && this.getWeaponSlot().getCat() != Proficiency.WEAPON_TYPE_RANGE
             && !this.getWeaponSlot().isProperty(Proficiency.DUALHANDED.toString()))
         ){
             setOffHandWeaponSlot(input);
@@ -348,7 +348,7 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public int getAC() {
         int ac = 0;
-        if(this.getArmorSlot().getCat().equalsIgnoreCase(Proficiency.HEAVY_ARMOR.toString())) {
+        if(this.getArmorSlot().getCat() == Proficiency.HEAVY_ARMOR) {
             ac = this.getArmorSlot().getArmorValue();
         } else {
             ac = this.getArmorSlot().getArmorValue()
@@ -396,15 +396,17 @@ public class PlayerCharacter extends BaseCharacter {
      * @param inputType - String (type of weapon oder armor)
      * @return - boolean
      */
-    public boolean isProficientWith(String inputType) {
+    public boolean isProficientWith(Proficiency inputType) {
         boolean output = false;
         for (Proficiency proficiency : this.getpClass().getProficiencies()) {
-            if (proficiency.toString().equalsIgnoreCase(inputType)) {
+            if (proficiency == inputType) {
                 output = true;
             }
         }
         return output;
     }
+    
+    
 
     /**
      * Returns the proficiency bonus OR the character level by experience points

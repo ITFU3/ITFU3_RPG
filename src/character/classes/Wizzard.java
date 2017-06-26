@@ -14,11 +14,11 @@ public class Wizzard extends PlayerClass
     this.setStatsBonus(BonusStats);
     Proficiency[] profs = {
         Proficiency.NONE,
-        Proficiency.DAGGER,
-        Proficiency.QUATERSTAFF,
-        Proficiency.DARTS,
-        Proficiency.SLING,
-        Proficiency.LIGHT_CROSSBOW,
+        Proficiency.WEAPON_DAGGER,
+        Proficiency.WEAPON_QUATERSTAFF,
+        Proficiency.WEAPON_DARTS,
+        Proficiency.WEAPON_SLING,
+        Proficiency.WEAPON_LIGHT_CROSSBOW,
         Proficiency.INTELLEGENCE,
         Proficiency.WISDOM
     };

@@ -12,7 +12,7 @@ public class SmallShield extends Shield
         this.setName(this.getClass().getSimpleName());
         this.setType(this.getClass().getSimpleName());
         this.setArmorValue(1);
-        this.setCat(Proficiency.SHIELDS.toString());
+        this.setCat(Proficiency.SHIELDS);
     }
 
     public SmallShield(String inputName, int inputArmorValue)

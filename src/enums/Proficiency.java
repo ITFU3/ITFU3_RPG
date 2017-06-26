@@ -6,6 +6,7 @@ package enums;
  */
 public enum Proficiency {
 //nothing
+//nothing
     NONE("none"),
     
 // Armor Type
@@ -21,14 +22,19 @@ public enum Proficiency {
     MARTIAL_WEAPONS("martial weapons"),
     
 // Weapon Type
-    QUATERSTAFF("quaterstaff"),
-    DAGGER("dagger"),
-    SHORTSWORD("shortsword"),
-    LONGSWORD("longsword"),
-    DARTS("darts"),
-    SLING("sling"),
-    LIGHT_CROSSBOW("light crossbow"),
-    LONGBOW("longbow"),
+    WEAPON_HAND("hand"),
+    WEAPON_HANDAXE("handaxe"),
+    WEAPON_QUATERSTAFF("quaterstaff"),
+    WEAPON_MACE("mace"),
+    WEAPON_DAGGER("dagger"),
+    WEAPON_SHORTSWORD("shortsword"),
+    WEAPON_LONGSWORD("longsword"),
+    WEAPON_DARTS("darts"),
+    WEAPON_SLING("sling"),
+    WEAPON_LIGHT_CROSSBOW("light crossbow"),
+    WEAPON_SHORTBOW("shortbow"),
+    WEAPON_LONGBOW("longbow"),
+    WEAPON_CLAW("claw"),
     
 // Stats Names
     STRENGTH("strength"), 
@@ -41,8 +47,8 @@ public enum Proficiency {
     HEALTH("health"),
     
 // Weapon Category
-    MELEE("melee"), 
-    RANGE("range"),
+    WEAPON_TYPE_MELEE("melee"), 
+    WEAPON_TYPE_RANGE("range"),
     
 // Properties
     DUALHANDED("dualhanded"),

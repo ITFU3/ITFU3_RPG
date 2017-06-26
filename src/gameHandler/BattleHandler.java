@@ -115,7 +115,7 @@ public class BattleHandler
             output[1] += attacker.getModifier(attacker.getIntellegence());
             output[1] += attacker.getProficiencyOrLevel('p');
         }else{
-            if(attacker.getWeaponSlot().getCat()!= Proficiency.RANGE){
+            if(attacker.getWeaponSlot().getCat()!= Proficiency.WEAPON_TYPE_RANGE){
                 // a range weapon is used
                 output[1] += attacker.getModifier(attacker.getDexterity());
             }else{
@@ -142,14 +142,14 @@ public class BattleHandler
                 attacker.getWeaponSlot().getDieCount()
         );
         // 'Simplified' Dual-Weapon-Attack, just adding up the damage.
-        if( !attacker.getOffHandWeaponSlot().getType().equalsIgnoreCase("hand") ){
+        if( attacker.getOffHandWeaponSlot().getType() != Proficiency.WEAPON_HAND ){
             dmg += main.Die.rollDie(
                 attacker.getOffHandWeaponSlot().getDamageDie(),
                 attacker.getOffHandWeaponSlot().getDieCount()
             );
         }
         
-        if(attacker.getWeaponSlot().getCat() != Proficiency.RANGE){
+        if(attacker.getWeaponSlot().getCat() != Proficiency.WEAPON_TYPE_RANGE){
             dmg += attacker.getModifier(attacker.getDexterity());
         }else{
             // if weapon is versitile use DexMod

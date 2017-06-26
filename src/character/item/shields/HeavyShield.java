@@ -12,7 +12,7 @@ public class HeavyShield extends Shield
         this.setName(this.getClass().getSimpleName());
         this.setType(this.getClass().getSimpleName());
         this.setArmorValue(3);
-        this.setCat(Proficiency.SHIELDS.toString());
+        this.setCat(Proficiency.SHIELDS);
     }
 
     public HeavyShield(String inputName, int inputArmorValue)

@@ -10,10 +10,10 @@ public class LongBow extends Weapon
     this.setDamageDie(10);
     this.setDieCount(1);
     this.setDurability(100);
-    this.setType(this.getClass().getSimpleName());
-    this.setCat(Proficiency.RANGE);
+    this.setType(Proficiency.WEAPON_LONGBOW);
+    this.setCat(Proficiency.WEAPON_TYPE_RANGE);
     this.setDistance(15);
-    this.setWeaponGroup(Proficiency.MARTIAL_WEAPONS.toString());
+    this.setWeaponGroup(Proficiency.MARTIAL_WEAPONS);
     String[] prop = { Proficiency.DUALHANDED.toString() };
     this.setProperties(prop);
   }

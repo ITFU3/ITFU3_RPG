@@ -1,6 +1,7 @@
 package character.item.shields;
 
 import character.item.OffHandItem;
+import enums.Proficiency;
 
 /**
  * @author Matthias Dröge
@@ -11,14 +12,14 @@ public class Shield extends OffHandItem
     private String name;
     private String type;
     private int armorValue;
-    private String cat;
+    private Proficiency cat;
 
     public Shield()
     {
       this.setName("none");
       this.setType("none");
       this.setArmorValue(0);
-      this.setCat("none");
+      this.setCat(Proficiency.NONE);
     }
 
     @Override
@@ -46,10 +47,12 @@ public class Shield extends OffHandItem
   public void setArmorValue(int armorValue) {
     this.armorValue = armorValue;
   }
-  public String getCat() {
+    @Override
+  public Proficiency getCat() {
     return cat;
   }
-  public void setCat(String cat) {
+    @Override
+  public void setCat(Proficiency cat) {
     this.cat = cat;
   }
 }

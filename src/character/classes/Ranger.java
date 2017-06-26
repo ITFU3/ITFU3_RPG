@@ -13,15 +13,15 @@ public class Ranger extends PlayerClass
     BonusStats[Proficiency.MOVEMENT.getIndex()] += 2;
     BonusStats[Proficiency.HEALTH.getIndex()] += 10;
     this.setStatsBonus(BonusStats);
-    String[] profs = {
-        Proficiency.NONE.toString(),
-        Proficiency.LIGHT_ARMOR.toString(),
-        Proficiency.MEDIUM_ARMOR.toString(),
-        Proficiency.SHIELDS.toString(), 
-        Proficiency.SIMPLE_WEAPONS.toString(),
-        Proficiency.MARTIAL_WEAPONS.toString(),
-        Proficiency.STRENGTH.toString(),
-        Proficiency.DEXTERITY.toString()
+    Proficiency[] profs = {
+        Proficiency.NONE,
+        Proficiency.LIGHT_ARMOR,
+        Proficiency.MEDIUM_ARMOR,
+        Proficiency.SHIELDS, 
+        Proficiency.SIMPLE_WEAPONS,
+        Proficiency.MARTIAL_WEAPONS,
+        Proficiency.STRENGTH,
+        Proficiency.DEXTERITY
     };
     this.setProficiencies(profs);
   }

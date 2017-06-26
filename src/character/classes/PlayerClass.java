@@ -1,5 +1,6 @@
 package character.classes;
 import character.item.spells.SpellBook;
+import enums.Proficiency;
 
 public class PlayerClass
 {
@@ -8,7 +9,7 @@ public class PlayerClass
   private SpellBook myBook;
   private int level;
   private int hitDie;
-  private String[] proficiencies;
+  private Proficiency[] proficiencies;
 
   public PlayerClass()
   {
@@ -21,7 +22,7 @@ public class PlayerClass
     this.setMyBook(new SpellBook());
     this.setLevel(1);
     this.setHitDie(1);
-    this.setProficiencies(new String[0]);
+    this.setProficiencies(new Proficiency[0]);
   }
 
   // ######### Getter / Setter #########
@@ -55,10 +56,10 @@ public class PlayerClass
   public void setHitDie(int hitDie) {
     this.hitDie = hitDie;
   }
-  public String[] getProficiencies() {
+  public Proficiency[] getProficiencies() {
     return proficiencies;
   }
-  public void setProficiencies(String[] proficiencies) {
+  public void setProficiencies(Proficiency[] proficiencies) {
     this.proficiencies = proficiencies;
   }
 }

@@ -12,15 +12,15 @@ public class Wizzard extends PlayerClass
     BonusStats[Proficiency.INTELLEGENCE.getIndex()] += 2;
     BonusStats[Proficiency.HEALTH.getIndex()] += 6;
     this.setStatsBonus(BonusStats);
-    String[] profs = {
-        Proficiency.NONE.toString(),
-        Proficiency.DAGGER.toString(),
-        Proficiency.QUATERSTAFF.toString(),
-        Proficiency.DARTS.toString(),
-        Proficiency.SLING.toString(),
-        Proficiency.LIGHT_CROSSBOW.toString(),
-        Proficiency.INTELLEGENCE.toString(),
-        Proficiency.WISDOM.toString()
+    Proficiency[] profs = {
+        Proficiency.NONE,
+        Proficiency.DAGGER,
+        Proficiency.QUATERSTAFF,
+        Proficiency.DARTS,
+        Proficiency.SLING,
+        Proficiency.LIGHT_CROSSBOW,
+        Proficiency.INTELLEGENCE,
+        Proficiency.WISDOM
     };
     this.setProficiencies(profs);
   }

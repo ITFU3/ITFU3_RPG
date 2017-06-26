@@ -398,8 +398,8 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public boolean isProficientWith(String inputType) {
         boolean output = false;
-        for (String proficiency : this.getpClass().getProficiencies()) {
-            if (proficiency.equalsIgnoreCase(inputType)) {
+        for (Proficiency proficiency : this.getpClass().getProficiencies()) {
+            if (proficiency.toString().equalsIgnoreCase(inputType)) {
                 output = true;
             }
         }

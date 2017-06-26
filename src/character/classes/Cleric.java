@@ -12,14 +12,14 @@ public class Cleric extends PlayerClass
     BonusStats[Proficiency.CHARISMA.getIndex()] += 2;
     BonusStats[Proficiency.HEALTH.getIndex()] += 8;
     this.setStatsBonus(BonusStats);
-    String[] profs = {
-        Proficiency.NONE.toString(),
-        Proficiency.LIGHT_ARMOR.toString(),
-        Proficiency.MEDIUM_ARMOR.toString(),
-        Proficiency.SHIELDS.toString(),
-        Proficiency.SIMPLE_WEAPONS.toString(),
-        Proficiency.WISDOM.toString(),
-        Proficiency.CHARISMA.toString()
+    Proficiency[] profs = {
+        Proficiency.NONE,
+        Proficiency.LIGHT_ARMOR,
+        Proficiency.MEDIUM_ARMOR,
+        Proficiency.SHIELDS,
+        Proficiency.SIMPLE_WEAPONS,
+        Proficiency.WISDOM,
+        Proficiency.CHARISMA
     };
     this.setProficiencies(profs);
   }

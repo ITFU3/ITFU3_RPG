@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
  *
  * @author Steffen Haas
  */
-public class Game
+public class Game implements Runnable
 {
     
     public static Game instance;
@@ -38,11 +38,14 @@ public class Game
     
     private boolean playerTurn = true;
     
+    private Thread gameThread;
+    private boolean running = false;
+    
     protected Game()
     {
         // empty due to singelton
     }
-
+    
     public static Game getInstance()
     {
         if (instance == null) {
@@ -50,9 +53,8 @@ public class Game
         }
         return instance;
     }
-
-    public void start()
-    {
+    
+    public void init() {
         this.playerTurn = true;
         this.attackInfo = "Good luck!";
         this.monsters = new ArrayList<>();
@@ -61,9 +63,9 @@ public class Game
         gameFrame = new GameFrame();
         gameFrame.setTitle(title);
         gameFrame.getPlayerNamelLabel().setText(player.getName());
-        
-        //updateGUI();
     }
+    
+    
     
     
     
@@ -75,7 +77,7 @@ public class Game
         updateAttackInfo(UserInfo.HIT, true);
         Game.waitFor(SleepTime.HIT);
     }
-
+    
     /**
      * main GUI update function
      */
@@ -83,38 +85,38 @@ public class Game
     {
         getInstance().getGameFrame().getArenaTextArea().setText(Map.getInstance().getMap());
         getInstance().getGameFrame().getArenaTextArea().update(
-            getInstance().getGameFrame().getArenaTextArea().getGraphics()
+                getInstance().getGameFrame().getArenaTextArea().getGraphics()
         );
-      
+        
         updateAttackInfo(getInstance().getAttackInfo());
-               
+        
         int tmpLength = getAttackInfoTextArea().getText().length();
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
         getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
         getInstance().getGameFrame().getMonsterInfoTextArea().update(
-            getInstance().getGameFrame().getMonsterInfoTextArea().getGraphics()
+                getInstance().getGameFrame().getMonsterInfoTextArea().getGraphics()
         );
         
         getInstance().getGameFrame().getValueMovesLeftLabel().setText(
-            String.valueOf(getPlayer().getAllowedMoves())
+                String.valueOf(getPlayer().getAllowedMoves())
         );
         getInstance().getGameFrame().getValueAttacksLeftLabel().setText(
-            String.valueOf(getPlayer().getAllowedAttacks())
+                String.valueOf(getPlayer().getAllowedAttacks())
         );
         getInstance().getGameFrame().getRoundLabel().setText(
-            "Round " + getInstance().roundCount
+                "Round " + getInstance().roundCount
         );
         getInstance().getGameFrame().getLevelLabel().setText(
-            "Level " + getInstance().getLevel()
+                "Level " + getInstance().getLevel()
         );
         
-       getInstance().getGameFrame().getValueAttacksLeftLabel().setText(
-               getPlayer().getAllowedAttacks() +"/"+getPlayer().getAttacks()
-       );
-       getInstance().getGameFrame().getValueMovesLeftLabel().setText(
-               getPlayer().getAllowedMoves()+"/"+getPlayer().getMovement()
-       );
+        getInstance().getGameFrame().getValueAttacksLeftLabel().setText(
+                getPlayer().getAllowedAttacks() +"/"+getPlayer().getAttacks()
+        );
+        getInstance().getGameFrame().getValueMovesLeftLabel().setText(
+                getPlayer().getAllowedMoves()+"/"+getPlayer().getMovement()
+        );
         
         // Update HP-Bar for the Player
         updateHealthBar( getPlayer().getTempHP() );
@@ -132,7 +134,7 @@ public class Game
         
         for(MonsterCharacter monster : monsters){
             newMonsterInfo += ((MonsterCharacter)monster).getName() + "\n" +
-                monster.getTempHP() + "/" + monster.getHealth() + "\n";
+                    monster.getTempHP() + "/" + monster.getHealth() + "\n";
         }
         getInstance().setMonsterInfo( newMonsterInfo );
         
@@ -149,12 +151,12 @@ public class Game
         upgradeMonsters();
         if( getMonsters().size() <= 0 || getInstance().roundCount % 2 == 0 ){
             getInstance().nextLevel();
-           
+            
         }
         
         for (MonsterCharacter monster : getMonsters()) {
             getInstance().getGameFrame().getCurrentActiveCharLabel().setText(
-                monster.getName() +"'s turn"
+                    monster.getName() +"'s turn"
             );
             MonsterAI monsterAi = new MonsterAI(monster);
 //            monsterAi.calcMovesToPlayer(); // now private in think
@@ -170,25 +172,25 @@ public class Game
         setPlayerTurn(true);
         
         getInstance().roundCount ++;
-      
+        
         updateAttackInfo(   "##############################\n"+
-                            "# It is your turn. Wake up.! #\n"+
-                            "##############################");
-       
+                "# It is your turn. Wake up.! #\n"+
+                "##############################");
+        
         getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
         
         updateXPInfo();
         // Reset PLayerCharacter
         getPlayer().setAllowedMoves(
-            //sollte eingerückt sein, ist ein Parameter
-            getPlayer().getMovement()
+                //sollte eingerückt sein, ist ein Parameter
+                getPlayer().getMovement()
         );
         getPlayer().setAllowedAttacks(
                 getPlayer().getAttacks()
         );
         updateGUI();
-    } 
-
+    }
+    
     /**
      * starts the next level with new spawning monster
      * and GUI update
@@ -207,7 +209,7 @@ public class Game
     
     /**
      * created by Steffen Haas
-     * 
+     *
      * default false add
      * @param addString
      */
@@ -218,7 +220,7 @@ public class Game
     
     /**
      * created by Steffen Haas
-     * 
+     *
      * @param addString
      * @param add
      */
@@ -227,19 +229,19 @@ public class Game
         
         String newOldString=  addString;
         if (add) {
-          newOldString =  getInstance().getAttackInfo() + "\n"+ addString;
+            newOldString =  getInstance().getAttackInfo() + "\n"+ addString;
         }
         getAttackInfoTextArea().setText(addString);
         getAttackInfoTextArea().update(
-            getAttackInfoTextArea().getGraphics()
+                getAttackInfoTextArea().getGraphics()
         );
         
         int tmpLength = getAttackInfoTextArea().getText().length();
         getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
-        getInstance().setAttackInfo(newOldString); 
+        getInstance().setAttackInfo(newOldString);
         Game.waitFor(SleepTime.ATTACK_INFO);
-      
+        
     }
     
     public static void updateXPInfo() {
@@ -248,7 +250,7 @@ public class Game
     
     /**
      * created by Steffen Haas
-     * 
+     *
      * @param addString
      * @param add
      */
@@ -256,7 +258,7 @@ public class Game
     {
         String newOldString=  addString;
         if (add) {
-          newOldString =  getInstance().getAttackInfo() + "\n"+ addString;
+            newOldString =  getInstance().getAttackInfo() + "\n"+ addString;
         }
         
         getInstance().setAttackInfo(newOldString);
@@ -269,8 +271,8 @@ public class Game
     public static void updateHealthBar(int newHP)
     {
         ((gui.GuiHelper.HealthBarLabel) Game.getInstance()
-            .getGameFrame().getPlayerHealthBarLabel()
-        ).setHealthText( newHP );
+                .getGameFrame().getPlayerHealthBarLabel()
+                ).setHealthText( newHP );
     }
     
     /**
@@ -319,11 +321,11 @@ public class Game
      */
     private static void upgradeMonsters()
     {
-       
+        
         for (MonsterCharacter monster : getMonsters()) {
             monster.grow();
         }
-      
+        
     }
     
     /**
@@ -337,15 +339,15 @@ public class Game
         
         String ObjButtons[] = {"Yes","No"};
         int PromptResult = javax.swing.JOptionPane.showOptionDialog(
-            null, 
-            "Game Over" + "\n" +
-            "Do you want to save your HighScore before starting over?",
-            "Game Over", 
-            javax.swing.JOptionPane.DEFAULT_OPTION,
-            javax.swing.JOptionPane.WARNING_MESSAGE,
-            null, 
-            ObjButtons,
-            ObjButtons[1]
+                null,
+                "Game Over" + "\n" +
+                        "Do you want to save your HighScore before starting over?",
+                "Game Over",
+                javax.swing.JOptionPane.DEFAULT_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE,
+                null,
+                ObjButtons,
+                ObjButtons[1]
         );
         if(PromptResult==0)
         {
@@ -376,7 +378,7 @@ public class Game
     public GameFrame getGameFrame() {
         return gameFrame;
     }
-   
+    
     public int getLevel() {
         return level;
     }
@@ -400,7 +402,7 @@ public class Game
         return getInstance().getGameFrame().getAttackInfoTextArea();
     }
     public static boolean isPlayerTurn() {
-       
+        
         return getInstance().playerTurn;
     }
     public static void setPlayerTurn(boolean playerTurn) {
@@ -408,5 +410,49 @@ public class Game
     }
     public static KeyHandler getKeyhandler() {
         return getInstance().keyhandler;
+    }
+    
+    // ####### GAME LOOP #######
+    
+    @Override
+    public void run() {
+        
+        init();
+        while(running) {
+            update();
+            render();
+        }
+        
+        
+    }
+    
+    public synchronized void start() {
+        if (running) {
+            return;
+        }
+        running =true;
+        gameThread = new Thread(this);
+        gameThread.start(); // calls run method above
+    }
+    
+    public synchronized void stop() {
+        if (!running) {
+            return;
+        }
+        
+        running = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void update() {
+        
+    }
+    
+    private void render() {
+        updateGUI();
     }
 }

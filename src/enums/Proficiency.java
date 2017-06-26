@@ -18,8 +18,8 @@ public enum Proficiency {
     SHIELDS("shields"),
     
 // Weapon Groups
-    SIMPLE_WEAPONS("simple weapons"),
-    MARTIAL_WEAPONS("martial weapons"),
+    WEAPON_GROUP_SIMPLE("simple weapons"),
+    WEAPON_GROUP_MARTIAL("martial weapons"),
     
 // Weapon Type
     WEAPON_HAND("hand"),

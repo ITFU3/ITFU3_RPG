@@ -162,7 +162,7 @@ public class PlayerCharacter extends BaseCharacter {
             && (this.getShieldSlot() == null
             || this.getShieldSlot().getArmorValue() == 0
             || (this.getShieldSlot().getArmorValue() > 0
-            && !input.isProperty(Proficiency.DUALHANDED.toString())))
+            && !input.isProperty(Proficiency.DUALHANDED)))
         ) {
             this.setWeaponSlot(input);
         } else {
@@ -216,7 +216,7 @@ public class PlayerCharacter extends BaseCharacter {
     public void addShield(Shield input) {
         if (this.isProficientWith(input.getCat())
             &&  this.getWeaponSlot().getCat()!=  Proficiency.WEAPON_TYPE_RANGE
-            && !this.getWeaponSlot().isProperty(Proficiency.DUALHANDED.toString())
+            && !this.getWeaponSlot().isProperty(Proficiency.DUALHANDED)
             && this.getOffHandWeaponSlot().getType() == Proficiency.WEAPON_HAND
         ){
             setShieldSlot(input);
@@ -242,7 +242,7 @@ public class PlayerCharacter extends BaseCharacter {
             && this.getShieldSlot() == null
             || (this.getShieldSlot().getArmorValue() == 0
             && this.getWeaponSlot().getCat() != Proficiency.WEAPON_TYPE_RANGE
-            && !this.getWeaponSlot().isProperty(Proficiency.DUALHANDED.toString()))
+            && !this.getWeaponSlot().isProperty(Proficiency.DUALHANDED))
         ){
             setOffHandWeaponSlot(input);
         } else {

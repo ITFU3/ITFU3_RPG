@@ -111,8 +111,8 @@ public class Weapon extends OffHandItem
         this.properties = properties;
     }
 
-  public boolean isProperty(String input){
-      return Arrays.asList(this.getProperties()).contains(input);
+  public boolean isProperty(Proficiency input){
+      return this.getProperties().contains(input);
   }
   @Override
   public String toString(){

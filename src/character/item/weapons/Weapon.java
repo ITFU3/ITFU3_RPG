@@ -7,12 +7,9 @@ import java.util.ArrayList;
 //public class Weapon extends Item
 public class Weapon extends OffHandItem
 {
-  private String name;
   private int damageDie;
   private int durability;
   private int dieCount;
-  private Proficiency type;
-  private Proficiency cat;
   private int distance;
   private Proficiency weaponGroup;
   
@@ -67,12 +64,6 @@ public class Weapon extends OffHandItem
     }
   
   // ######### Getter / Setter #########
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
   public int getDamageDie() {
     return damageDie;
   }

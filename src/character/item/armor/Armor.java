@@ -4,9 +4,7 @@ import enums.Proficiency;
 
 public class Armor extends Item
 {
-  private String name;
   private int armorValue;
-  
   
   public Armor()
   {
@@ -17,13 +15,6 @@ public class Armor extends Item
   }
     
 // ######### Getter / Setter #########
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
-  
   public int getArmorValue() {
     return armorValue;
   }

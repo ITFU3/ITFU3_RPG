@@ -9,7 +9,6 @@ import enums.Proficiency;
 //public class Shield extends Item
 public class Shield extends OffHandItem
 {
-    private String name;
     private int armorValue;
 
     public Shield()
@@ -21,13 +20,6 @@ public class Shield extends OffHandItem
     }
 
 // ######### Getter / Setter #########
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
-  
   public int getArmorValue() {
     return armorValue;
   }

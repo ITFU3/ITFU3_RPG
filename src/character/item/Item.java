@@ -3,9 +3,16 @@ package character.item;
 import enums.Proficiency;
 
 public abstract class Item {
+    private String name;
     private Proficiency cat;
     private Proficiency type;
-    
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public Proficiency getCat() {
         return cat;
     }

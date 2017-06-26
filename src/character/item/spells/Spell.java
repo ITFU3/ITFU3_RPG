@@ -1,5 +1,6 @@
 package character.item.spells;
 
+// It's in the item package, but it does not inherit from the item class.
 public class Spell
 {
   private String name;

@@ -32,7 +32,9 @@ public class CharacterSelecter
         new Human(), 
         0 // id 
     );
-    player1.addWeapon(new LongSword("Excalibur", 10, 1, 1));
+    Sword excalibur = Sword.LONGSWORD;
+    excalibur.updateNameAndStats("Excalibur", 10, 1, 1);
+    player1.addWeapon(excalibur);
     player1.addArmor(new Plate());
     
     PlayerCharacter player2 = new PlayerCharacter(
@@ -42,7 +44,10 @@ public class CharacterSelecter
         new Dwarf(),
         0
     );
-    player2.addWeapon( new Mace("Glower", 8, 1, 1) );
+    BluntWeapon mace = BluntWeapon.MACE;
+    mace.updateNameAndStats("Glower", 8, 1, 1);
+    
+    player2.addWeapon(mace);
     player2.addArmor( new ChainMail() );
     player2.addShield( new SmallShield() );
     player2.getSpellBook().addSpell( new HealingWord() );
@@ -56,7 +61,11 @@ public class CharacterSelecter
         new Elf(),
         0
     );
-    player3.addWeapon(new ShortBow("Feather", 6, 2, 10));
+    
+    Bow feather = Bow.SHORTBOW;
+    feather.updateNameAndStats("Feather", 6, 2, 10);
+    
+    player3.addWeapon(feather);
     player3.addArmor(new Leather());
     
     PlayerCharacter player4 = new PlayerCharacter(
@@ -79,8 +88,8 @@ public class CharacterSelecter
         new Dwarf(), 
         0 // id 
     );
-    player5.addWeapon( new Handaxe() );
-    player5.addOffHandWeapon( new Handaxe() );
+    player5.addWeapon(Axe.HANDAXE );
+    player5.addOffHandWeapon(Axe.HANDAXE);
     player5.addArmor(new Plate());
 //    player5.addShield( new Shield() );
     

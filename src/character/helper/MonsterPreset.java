@@ -92,7 +92,7 @@ public class MonsterPreset {
         monster.setHealth(15);
         monster.setTempHP(15);
         monster.setpClass(new Fighter());
-        monster.addWeapon(new Mace());
+        monster.addWeapon(BluntWeapon.MACE);
         monster.addArmor(new Leather());
         return monster;
     }
@@ -107,7 +107,7 @@ public class MonsterPreset {
         monster.setHealth(10);
         monster.setTempHP(10);
         monster.setpClass(new Cleric());
-        monster.addWeapon(new Mace());
+        monster.addWeapon(BluntWeapon.MACE);
         monster.addArmor(new Cloth());
         monster.getSpellBook().addSpell(new HealingWord());
         return monster;
@@ -122,7 +122,7 @@ public class MonsterPreset {
         monster.setHealth(8);
         monster.setTempHP(8);
         monster.setpClass(new Fighter());
-        monster.addWeapon(new Handaxe());
+        monster.addWeapon(Axe.HANDAXE);
         monster.addArmor(new ChainMail());
         monster.setMapToken('o');
         return monster;
@@ -138,8 +138,8 @@ public class MonsterPreset {
         monster.setHealth(12);
         monster.setTempHP(12);
         monster.setpClass(new Fighter());
-        monster.setWeaponSlot(new Claw());
-        monster.setOffHandWeaponSlot(new Claw());
+        monster.setWeaponSlot(AnimalWeapon.CLAW);
+        monster.setOffHandWeaponSlot(AnimalWeapon.CLAW);
         monster.setMapToken('B');
         return monster; 
     }
@@ -154,7 +154,7 @@ public class MonsterPreset {
         monster.setHealth(10);
         monster.setTempHP(10);
         monster.setpClass(new Fighter());
-        monster.setWeaponSlot(new Claw());
+        monster.setWeaponSlot(AnimalWeapon.CLAW);
         monster.setMapToken('W');
         return monster; 
     }

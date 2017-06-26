@@ -16,26 +16,20 @@ public class AnimalWeapon extends Weapon {
     public static AnimalWeapon CLAW = getClaws();
     
     public AnimalWeapon() {
-        this.setDurability(100);
-        this.setDamageDie(10);
-        this.setDistance(1);
+        super();
+        this.setDamageDie(8);
         this.setDieCount(1);
+        this.setDistance(1);
         this.setCat(Proficiency.WEAPON_TYPE_MELEE);
         this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
     }
 
     private static AnimalWeapon getClaws() {
-        
         AnimalWeapon claw = new AnimalWeapon();
-        claw.setType(Proficiency.WEAPON_HAND);
-        claw.setName(Proficiency.WEAPON_HAND.name());
         claw.setDistance(2);
+        claw.setType(Proficiency.WEAPON_HAND);
         claw.getProperties().add(Proficiency.DUALHANDED);
         claw.getProperties().add(Proficiency.REACH);
-    return claw;
- 
+        return claw;
     }
-    
-    
-    
 }

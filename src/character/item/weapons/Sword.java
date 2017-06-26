@@ -6,6 +6,7 @@
 package character.item.weapons;
 
 import enums.Proficiency;
+import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  *
@@ -15,16 +16,18 @@ import enums.Proficiency;
 public class Sword extends Weapon{
    
     public static Sword LONGSWORD = getLongsword();
+    public static Sword SHORTSWORD = getShortsword();
     
     public Sword() {
-        this.setCat(Proficiency.WEAPON_TYPE_MELEE);
+        super();
+        this.setDamageDie(6);
         this.setDieCount(1);
-        this.setDurability(100);
-        
+        this.setCat(Proficiency.WEAPON_TYPE_MELEE);
+        this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
     }
     
-    public Sword(String name, int damageDie, int durability, int dieCount, Proficiency type, Proficiency cat, int distance, Proficiency weaponGroup) {
-        super(name, damageDie, durability, dieCount, type, cat, distance, weaponGroup);
+    public Sword( String name, int damageDie, int durability, int dieCount,Proficiency type, Proficiency cat, int distance, Proficiency weaponGroup ){
+        super( name, damageDie, durability, dieCount, type, cat, distance, weaponGroup );
     }
     
     public Sword(Proficiency type) {
@@ -32,18 +35,24 @@ public class Sword extends Weapon{
     }
     
     private static Sword getLongsword() {
-        
         Sword longsword = new Sword();
-        longsword.setName("Simple " + Proficiency.WEAPON_LONGSWORD);
-        longsword.setDamageDie(8);
+        longsword.setDamageDie(10);
+        longsword.setDieCount(1);
         longsword.setType(Proficiency.WEAPON_LONGSWORD);
         longsword.setWeaponGroup(Proficiency.WEAPON_GROUP_MARTIAL);
         longsword.getProperties().add(Proficiency.VERSITILE);
-        
         return longsword;
     }
     
-    
+    private static Sword getShortsword(){
+        Sword shortsword = new Sword();
+        shortsword.setDamageDie(8);
+        shortsword.setDieCount(1);
+        shortsword.setType(Proficiency.WEAPON_SHORTSWORD);
+        shortsword.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
+        shortsword.getProperties().add(Proficiency.SINGLEHANDED);
+        return shortsword;
+    }
     
     
     

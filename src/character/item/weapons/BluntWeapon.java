@@ -16,14 +16,10 @@ public class BluntWeapon extends Weapon{
     public static BluntWeapon MACE = getMace();
 
     public BluntWeapon() {
-        // Basics
-        this.setDieCount(1);
-        this.setDistance(1);
-        this.setDurability(100);
+        super();
         this.setCat(Proficiency.WEAPON_TYPE_MELEE);
-        this.getProperties().add(Proficiency.SINGLEHANDED);
         this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
-        
+        this.getProperties().add(Proficiency.SINGLEHANDED);
     }
 
     public BluntWeapon(String name, int damageDie, int durability, int dieCount, Proficiency type, Proficiency cat, int distance, Proficiency weaponGroup) {
@@ -35,11 +31,11 @@ public class BluntWeapon extends Weapon{
     }
     
     public static BluntWeapon getMace() {
-        
         BluntWeapon mace = new BluntWeapon();
-        mace.setName(Weapon.getSimpleName(Proficiency.WEAPON_MACE));
         mace.setDamageDie(6);
+        mace.setDieCount(1);
         mace.setType(Proficiency.WEAPON_MACE);
+        mace.getProperties().add(Proficiency.SINGLEHANDED);
         return mace;
     }
     

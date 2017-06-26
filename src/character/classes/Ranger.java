@@ -17,7 +17,7 @@ public class Ranger extends PlayerClass
         Proficiency.NONE,
         Proficiency.LIGHT_ARMOR,
         Proficiency.MEDIUM_ARMOR,
-        Proficiency.SHIELDS, 
+        Proficiency.SHIELD, 
         Proficiency.WEAPON_GROUP_SIMPLE,
         Proficiency.WEAPON_GROUP_MARTIAL,
         Proficiency.STRENGTH,

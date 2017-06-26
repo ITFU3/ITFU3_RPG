@@ -6,9 +6,9 @@ public class Leather extends Armor
 {
   public Leather()
   {
-    this.setName(this.getClass().getSimpleName());
-    this.setType(this.getClass().getSimpleName());
+    super();
     this.setArmorValue(11);
+    this.setType(Proficiency.ARMOR_LETHER);
     this.setCat(Proficiency.LIGHT_ARMOR);
   }
   

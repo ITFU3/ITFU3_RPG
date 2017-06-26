@@ -6,9 +6,9 @@ public class ChainMail extends Armor
 {
   public ChainMail()
   {
-    this.setName(this.getClass().getSimpleName());
-    this.setType(this.getClass().getSimpleName());
+    super();
     this.setArmorValue(16);
+    this.setType(Proficiency.ARMOR_CHAINMAIL);
     this.setCat(Proficiency.MEDIUM_ARMOR);
   }
   

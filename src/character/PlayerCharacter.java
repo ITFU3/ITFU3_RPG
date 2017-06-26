@@ -1,12 +1,12 @@
 package character;
 
 import base.Helper;
-import character.races.Race;
-import character.classes.PlayerClass;
-import character.item.weapons.Weapon;
-import character.item.armor.Armor;
-import character.item.shields.Shield;
-import character.item.spells.SpellBook;
+import character.races.*;
+import character.classes.*;
+import character.item.weapons.*;
+import character.item.armor.*;
+import character.item.shields.*;
+import character.item.spells.*;
 import enums.Proficiency;
 
 /**
@@ -184,7 +184,7 @@ public class PlayerCharacter extends BaseCharacter {
      */
     public void addArmor(Armor input) {
         if (this.isProficientWith(input.getCat())) {
-            if (input.getType().equalsIgnoreCase(Proficiency.NONE.toString())) {
+            if(input.getType() == Proficiency.NONE ) {
                 input.setArmorValue(
                     input.getArmorValue()
                     + this.getModifier(this.getDexterity())
@@ -358,7 +358,6 @@ public class PlayerCharacter extends BaseCharacter {
         if (this.getShieldSlot() != null) {
             ac = ac + this.getShieldSlot().getArmorValue();
         }
-        
         return ac;
     }
 
@@ -405,8 +404,6 @@ public class PlayerCharacter extends BaseCharacter {
         }
         return output;
     }
-    
-    
 
     /**
      * Returns the proficiency bonus OR the character level by experience points
@@ -567,8 +564,7 @@ public class PlayerCharacter extends BaseCharacter {
             output += "Shield: \t" + this.getShieldSlot().getName() + " (" + this.getShieldSlot().getArmorValue() + ")\n";
         }
 
-        output
-                += "Overall Armor: \t" + this.getAC() + "\n\n"
+        output  += "Overall Armor: \t" + this.getAC() + "\n\n"
                 + "Mov: \t" + this.getMovement() + "\n"
                 + "\n"
                 + "Str: \t" + this.getStrength() + " | " + this.getModifier(this.getStrength()) + "\n"
@@ -585,8 +581,8 @@ public class PlayerCharacter extends BaseCharacter {
                 + "Type: \t" + this.getWeaponSlot().getType() + "\n"
                 + "Range: \t" + this.getWeaponSlot().getDistance() + "\n";
 
-        if (!this.getOffHandWeaponSlot().getName().equalsIgnoreCase("hand")
-                && (this.getShieldSlot() == null || this.getShieldSlot().getArmorValue() == 0)) {
+        if ( this.getOffHandWeaponSlot().getType() != Proficiency.WEAPON_HAND
+            && (this.getShieldSlot() == null || this.getShieldSlot().getArmorValue() == 0)) {
             output += "\n"
                 + "Weapon: \t" + this.getOffHandWeaponSlot().getType() + "\n"
                 + "Weaponname: \t" + this.getOffHandWeaponSlot().getName() + "\n"
@@ -598,8 +594,7 @@ public class PlayerCharacter extends BaseCharacter {
 
         output += "= = = = = = = = = = = = = =\n";
 
-        if (this.getpClass().getName().equalsIgnoreCase("wizzard")
-                || this.getpClass().getName().equalsIgnoreCase("cleric")) {
+        if(this.getpClass() instanceof Wizzard || this.getpClass() instanceof Cleric){
             output += "'Spellbook':\n" + this.getSpellBook().showSpellBook() + "\n";
         }
         return output;

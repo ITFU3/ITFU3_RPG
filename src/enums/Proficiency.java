@@ -9,13 +9,24 @@ public enum Proficiency {
 //nothing
     NONE("none"),
     
-// Armor Type
+// Armor Groups
     LIGHT_ARMOR("light armor"),
     MEDIUM_ARMOR("medium armor"),
     HEAVY_ARMOR("heavy armor"),
     
-// Shields    
-    SHIELDS("shields"),
+// Armor Types
+    ARMOR_CLOTH("cloth"),
+    ARMOR_LETHER("leather"),
+    ARMOR_CHAINMAIL("chainmail"),
+    ARMOR_PLATEMAIL("platemail"),
+    
+// Shield Group
+    SHIELD("shield"),
+    
+// Shield Types
+    SMALL_SHIELD("small shield"),
+    MEDIUM_SHIELD("medium shield"),
+    HEAVY_SHIELD("heavy shield"),
     
 // Weapon Groups
     WEAPON_GROUP_SIMPLE("simple weapons"),

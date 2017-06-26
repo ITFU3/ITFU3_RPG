@@ -18,7 +18,6 @@ public class Axe extends Weapon{
     public Axe() {
         this.setDieCount(1);
         this.setDistance(1);
-        this.setDurability(100);
         this.setCat(Proficiency.WEAPON_TYPE_MELEE);
         this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
     }
@@ -30,12 +29,11 @@ public class Axe extends Weapon{
     public Axe(Proficiency type) {
         super(type);
     }
-
     
     private static Axe getHandAxe() {
         Axe handaxe = new Axe();
-        handaxe.setName(Weapon.getSimpleName(Proficiency.WEAPON_HANDAXE));
         handaxe.setDamageDie(6);
+        handaxe.setDieCount(1);
         handaxe.setType(Proficiency.WEAPON_HANDAXE);
         handaxe.getProperties().add(Proficiency.SINGLEHANDED);
         return handaxe;

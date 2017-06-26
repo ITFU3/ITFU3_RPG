@@ -6,9 +6,9 @@ public class Cloth extends Armor
 {
   public Cloth()
   {
-    this.setName(this.getClass().getSimpleName());
-    this.setType(this.getClass().getSimpleName());
+    super();
     this.setArmorValue(10);
+    this.setType(Proficiency.ARMOR_CLOTH);
     this.setCat(Proficiency.NONE);
   }
   

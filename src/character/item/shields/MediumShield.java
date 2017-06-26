@@ -9,10 +9,10 @@ public class MediumShield extends Shield
 {
     public MediumShield()
     {
-        this.setName(this.getClass().getSimpleName());
-        this.setType(this.getClass().getSimpleName());
+        super();
         this.setArmorValue(2);
-        this.setCat(Proficiency.SHIELDS);
+        this.setType(Proficiency.MEDIUM_SHIELD);
+        this.setCat(Proficiency.SHIELD);
     }
 
     public MediumShield(String inputName, int inputArmorValue)

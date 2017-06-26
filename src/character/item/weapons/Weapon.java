@@ -3,7 +3,6 @@ package character.item.weapons;
 import enums.Proficiency;
 import character.item.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 //public class Weapon extends Item
 public class Weapon extends OffHandItem
@@ -22,29 +21,38 @@ public class Weapon extends OffHandItem
   public Weapon()
   {
     this.setName("NoName");
-    this.setDamageDie(4);
     this.setDurability(100);
-    this.setDieCount(2);
+    this.setDamageDie(4);
+    this.setDieCount(1);
+    this.setDistance(1);
     this.setType(Proficiency.WEAPON_HAND);
     this.setCat(Proficiency.WEAPON_TYPE_MELEE);
-    this.setDistance(1);
     this.setWeaponGroup(Proficiency.NONE);
     
   }
 
-    public Weapon(String name, int damageDie, int durability, int dieCount, Proficiency type, Proficiency cat, int distance, Proficiency weaponGroup) {
-        this.name = name;
-        this.damageDie = damageDie;
-        this.durability = durability;
-        this.dieCount = dieCount;
-        this.type = type;
-        this.cat = cat;
-        this.distance = distance;
-        this.weaponGroup = weaponGroup;
+    public Weapon(
+        String name,
+        int damageDie,
+        int durability,
+        int dieCount,
+        Proficiency type,
+        Proficiency cat,
+        int distance,
+        Proficiency weaponGroup
+    ){
+        this.setName(name);
+        this.setDamageDie(damageDie);
+        this.setDurability(durability);
+        this.setDieCount(dieCount);
+        this.setType(type);
+        this.setCat(cat);
+        this.setDistance(distance);
+        this.setWeaponGroup(weaponGroup);
     }
 
     public Weapon(Proficiency type) {
-        this.type = type;
+        this.setType(type);
     }
     
     public void updateNameAndStats(String name, int damageDie, int dieCount, int distance) {
@@ -83,13 +91,6 @@ public class Weapon extends OffHandItem
   public void setDieCount(int dieCount) {
   	this.dieCount = dieCount;
   }
-  public Proficiency getType() {
-  	return type;
-  }
-  public void setType(Proficiency type) {
-    this.type = type;
-  }
-  
   public int getDistance() {
     return distance;
   }
@@ -113,9 +114,5 @@ public class Weapon extends OffHandItem
 
   public boolean isProperty(Proficiency input){
       return this.getProperties().contains(input);
-  }
-  @Override
-  public String toString(){
-    return this.getClass().getSimpleName();
   }
 }

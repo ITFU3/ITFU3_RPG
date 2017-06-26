@@ -9,10 +9,10 @@ public class HeavyShield extends Shield
 {
     public HeavyShield()
     {
-        this.setName(this.getClass().getSimpleName());
-        this.setType(this.getClass().getSimpleName());
+        super();
         this.setArmorValue(3);
-        this.setCat(Proficiency.SHIELDS);
+        this.setType(Proficiency.HEAVY_SHIELD);
+        this.setCat(Proficiency.SHIELD);
     }
 
     public HeavyShield(String inputName, int inputArmorValue)

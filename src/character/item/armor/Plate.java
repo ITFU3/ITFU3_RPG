@@ -6,9 +6,9 @@ public class Plate extends Armor
 {
   public Plate()
   {
-    this.setName(this.getClass().getSimpleName());
-    this.setType(this.getClass().getSimpleName());
+    super();
     this.setArmorValue(18);
+    this.setType(Proficiency.ARMOR_PLATEMAIL);
     this.setCat(Proficiency.HEAVY_ARMOR);
   }
   

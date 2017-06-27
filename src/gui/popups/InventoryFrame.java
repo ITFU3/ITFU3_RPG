@@ -5,10 +5,10 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import character.item.Item;
-import character.item.weapons.*;
 import character.item.armor.*;
-import gameHandler.InputHandler;
-import gameHandler.KeyHandler;
+import character.item.shields.*;
+import character.item.weapons.*;
+import enums.Proficiency;
 import main.Game;
 
 
@@ -82,9 +82,15 @@ public class InventoryFrame extends JFrame{
     {
         DefaultListModel<Item> ItemListModel = new DefaultListModel<>();
         
-        ItemListModel.addElement(main.Game.getPlayer().getArmorSlot());
-        ItemListModel.addElement(main.Game.getPlayer().getWeaponSlot());
-            
+        ItemListModel.addElement(Game.getPlayer().getArmorSlot());
+        ItemListModel.addElement(Game.getPlayer().getWeaponSlot());
+        // adding shield and offhand items to the list if exist.
+        if(Game.getPlayer().getShieldSlot().getArmorValue() != 0){
+            ItemListModel.addElement(Game.getPlayer().getShieldSlot());
+        }
+        if(Game.getPlayer().getOffHandWeaponSlot().getType() != Proficiency.WEAPON_HAND){
+            ItemListModel.addElement(Game.getPlayer().getOffHandWeaponSlot());
+        }
         this.itemList.setModel(ItemListModel);
         this.scrollPane.setViewportView(this.itemList);
     }
@@ -119,6 +125,13 @@ public class InventoryFrame extends JFrame{
                                 + "Type: " + a.getType() + "\n"
                                 + "Armor Value: " + a.getArmorValue()  + "\n"
                                 + "Category: " + a.getCat();
+                        }else if(baseClass.equalsIgnoreCase("Shield"))
+                        {
+                            Shield s = (Shield) item;
+                            tmp = "Name: " + s.getName() + "\n"
+                                + "Type: " + s.getType() + "\n"
+                                + "Armor Value: " + s.getArmorValue()  + "\n"
+                                + "Category: " + s.getCat();
                         }
                         itemInfoArea.setText(tmp);
                     }

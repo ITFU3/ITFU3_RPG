@@ -161,7 +161,7 @@ public class Game
             monsterAi.think();
 //            monsterAi.resetTurnStats(); // now private in think
             updateGUI();
-            if (getPlayer().getTempHP() < 0) {
+            if (getPlayer().getTempHP() <= 0) {
                 Game.over();
                 return;
             }

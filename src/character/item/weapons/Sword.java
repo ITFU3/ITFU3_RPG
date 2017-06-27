@@ -40,7 +40,7 @@ public class Sword extends Weapon{
         longsword.setDieCount(1);
         longsword.setType(Proficiency.WEAPON_LONGSWORD);
         longsword.setWeaponGroup(Proficiency.WEAPON_GROUP_MARTIAL);
-        longsword.getProperties().add(Proficiency.VERSITILE);
+        longsword.getProperties().add(Proficiency.PROPERTY_VERSITILE);
         return longsword;
     }
     
@@ -50,7 +50,7 @@ public class Sword extends Weapon{
         shortsword.setDieCount(1);
         shortsword.setType(Proficiency.WEAPON_SHORTSWORD);
         shortsword.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
-        shortsword.getProperties().add(Proficiency.SINGLEHANDED);
+        shortsword.getProperties().add(Proficiency.PROPERTY_SINGLEHANDED);
         return shortsword;
     }
     

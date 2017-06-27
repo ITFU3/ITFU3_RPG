@@ -3,7 +3,6 @@ package gameHandler;
 import base.*;
 import enums.MoveDirection;
 import enums.Proficiency;
-import enums.Spell;
 import gui.popups.CharacterInfoFrame;
 import gui.popups.InventoryFrame;
 import gui.popups.SpellbookFrame;
@@ -69,8 +68,7 @@ public class InputHandler {
             if(!spellname.equals(Proficiency.NONE.toString())) {
                 if(attacker.getSpellBook()
                     .getSpellByName(spellname)
-                    .getSpellEffect()
-                    .equalsIgnoreCase(Proficiency.HEAL.toString())
+                    .getSpellEffect() == Proficiency.SPELLEFFECT_HEAL
                 ){
                     target = attacker;
                 } else{

@@ -20,7 +20,7 @@ public class Bow  extends Weapon {
         super();
         this.setCat(Proficiency.WEAPON_TYPE_RANGE);
         this.setWeaponGroup(Proficiency.WEAPON_GROUP_SIMPLE);
-        this.getProperties().add(Proficiency.DUALHANDED);
+        this.getProperties().add(Proficiency.PROPERTY_DUALHANDED);
     }
     
     public Bow(String name, int damageDie, int durability, int dieCount, Proficiency type, Proficiency cat, int distance, Proficiency weaponGroup) {

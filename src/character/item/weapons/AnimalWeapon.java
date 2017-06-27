@@ -28,8 +28,8 @@ public class AnimalWeapon extends Weapon {
         AnimalWeapon claw = new AnimalWeapon();
         claw.setDistance(2);
         claw.setType(Proficiency.WEAPON_HAND);
-        claw.getProperties().add(Proficiency.DUALHANDED);
-        claw.getProperties().add(Proficiency.REACH);
+        claw.getProperties().add(Proficiency.PROPERTY_DUALHANDED);
+        claw.getProperties().add(Proficiency.PROPERTY_REACH);
         return claw;
     }
 }

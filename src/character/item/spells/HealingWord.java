@@ -8,7 +8,7 @@ public class HealingWord extends Spell
   {
     this.setName(this.getClass().getSimpleName());
     this.setCastingTime(1);
-    this.setSpellEffect(Proficiency.HEAL.toString());
+    this.setSpellEffect(Proficiency.SPELLEFFECT_HEAL);
     this.setDamageDie(4);
     this.setDieCount(2);
     this.setSpellRange(4);

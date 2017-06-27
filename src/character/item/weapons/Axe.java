@@ -35,7 +35,7 @@ public class Axe extends Weapon{
         handaxe.setDamageDie(6);
         handaxe.setDieCount(1);
         handaxe.setType(Proficiency.WEAPON_HANDAXE);
-        handaxe.getProperties().add(Proficiency.SINGLEHANDED);
+        handaxe.getProperties().add(Proficiency.PROPERTY_SINGLEHANDED);
         return handaxe;
     }
     

@@ -1,12 +1,15 @@
 package character.item.spells;
 
 // It's in the item package, but it does not inherit from the item class.
+
+import enums.Proficiency;
+
 public class Spell
 {
   private String name;
   private int level;
   private int castingTime;
-  private String spellEffect;
+  private Proficiency spellEffect;
   private int damageDie;
   private int dieCount;
   private int spellRange;
@@ -16,7 +19,7 @@ public class Spell
     this.setName("-");
     this.setLevel(1);
     this.setCastingTime(0);
-    this.setSpellEffect("-");
+    this.setSpellEffect(Proficiency.NONE);
     this.setDamageDie(0);
     this.setDieCount(0);
     this.setSpellRange(0);
@@ -46,10 +49,10 @@ public class Spell
   public void setCastingTime(int castingTime) {
     this.castingTime = castingTime;
   }
-  public String getSpellEffect() {
+  public Proficiency getSpellEffect() {
     return spellEffect;
   }
-  public void setSpellEffect(String spellEffect) {
+  public void setSpellEffect(Proficiency spellEffect) {
     this.spellEffect = spellEffect;
   }
   public int getDamageDie() {

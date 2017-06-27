@@ -1,5 +1,6 @@
 package character.item.spells;
 
+import enums.Proficiency;
 import java.util.ArrayList;
 
 public class SpellBook {
@@ -48,10 +49,10 @@ public class SpellBook {
      * @param input - SpellEffect as String
      * @return boolean
      */
-    public boolean containsSpellWithEffect(String input) {
+    public boolean containsSpellWithEffect(Proficiency input) {
         boolean output = false;
         for (Spell spell : listOfSpells) {
-            if (spell.getSpellEffect().equalsIgnoreCase(input)) {
+            if (spell.getSpellEffect() == input) {
                 output = true;
                 break;
             }

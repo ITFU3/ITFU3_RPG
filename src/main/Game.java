@@ -171,9 +171,7 @@ public class Game
         
         getInstance().roundCount ++;
       
-        updateAttackInfo(   "##############################\n"+
-                            "# It is your turn. Wake up.! #\n"+
-                            "##############################");
+        updateAttackInfo( UserInfo.PLAYERS_TURN );
        
         getInstance().getGameFrame().getCurrentActiveCharLabel().setText(Game.getPlayer().getName() +"'s turn");
         
@@ -319,11 +317,9 @@ public class Game
      */
     private static void upgradeMonsters()
     {
-       
         for (MonsterCharacter monster : getMonsters()) {
             monster.grow();
         }
-      
     }
     
     /**
@@ -331,7 +327,6 @@ public class Game
      */
     private static void over()
     {
-        
         Game.updateAttackInfo(UserInfo.GAME_OVER);
         System.out.println(UserInfo.GAME_OVER);
         
@@ -354,7 +349,6 @@ public class Game
         Game.getInstance().getGameFrame().setVisible(false);
         // start again
         new SelectionFrame();
-        
     }
     
     // Getter and Setter

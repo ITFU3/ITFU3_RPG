@@ -51,4 +51,9 @@ public class UserInfo {
                 
     public static String NO_MONSTER = "What do you want to attack?\n"
                                     + "There are no Monsters around. ";
+    
+    public static String PLAYERS_TURN = "##############################\n"+
+                                        "# It is your turn. Wake up.! #\n"+
+                                        "##############################";
+    
 }

@@ -22,7 +22,8 @@ public class PlayerClass
     this.setMyBook(new SpellBook());
     this.setLevel(1);
     this.setHitDie(1);
-    this.setProficiencies(new Proficiency[0]);
+    Proficiency[] profs = { Proficiency.NONE };
+    this.setProficiencies( profs );
   }
 
   // ######### Getter / Setter #########

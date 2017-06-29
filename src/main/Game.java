@@ -5,6 +5,7 @@ import character.PlayerCharacter;
 import gameHandler.KeyHandler;
 import gameHandler.MonsterAI;
 import base.*;
+import enums.Component;
 import gui.GameFrame;
 import gui.SelectionFrame;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
+import javax.swing.Timer;
 
 /**
  *
@@ -19,7 +21,7 @@ import javax.swing.JTextArea;
  */
 public class Game implements Runnable
 {
-    
+    private Component componentToBeUpdated = Component.NONE;
     public static Game instance;
     private KeyHandler keyhandler = new KeyHandler();
     
@@ -162,7 +164,7 @@ public class Game implements Runnable
 //            monsterAi.calcMovesToPlayer(); // now private in think
             monsterAi.think();
 //            monsterAi.resetTurnStats(); // now private in think
-            updateGUI();
+            //updateGUI();
             if (getPlayer().getTempHP() < 0) {
                 Game.over();
                 return;
@@ -188,7 +190,7 @@ public class Game implements Runnable
         getPlayer().setAllowedAttacks(
                 getPlayer().getAttacks()
         );
-        updateGUI();
+        //updateGUI();
     }
     
     /**
@@ -236,8 +238,8 @@ public class Game implements Runnable
                 getAttackInfoTextArea().getGraphics()
         );
         
-        int tmpLength = getAttackInfoTextArea().getText().length();
-        getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
+        //int tmpLength = getAttackInfoTextArea().getText().length();
+       // getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
         
         getInstance().setAttackInfo(newOldString);
         Game.waitFor(SleepTime.ATTACK_INFO);
@@ -449,10 +451,77 @@ public class Game implements Runnable
     }
     
     private void update() {
+      
         
     }
     
     private void render() {
+        switch (componentToBeUpdated) {
+            case NONE:
+                // do nothing
+                break;
+            case MAP:
+                getInstance().getGameFrame().getArenaTextArea().setText(Map.getInstance().getMap());
+                getInstance().getGameFrame().getArenaTextArea().update(
+                        getInstance().getGameFrame().getArenaTextArea().getGraphics()
+                );
+                break;
+            case ATTACK_INFO:
+                break;
+            
+               
+            case MONSTER_INFO:
+              break;
+            case PLAYER_HEALTH:
+                break;
+            case PLAYER_ATTACK:
+                break;
+            case PLAYER_MOVEMENT:
+                break;
+                
+        }
+        
+        
+       
+        /*
+        updateAttackInfo(getInstance().getAttackInfo());
+        
+        int tmpLength = getAttackInfoTextArea().getText().length();
+        getAttackInfoTextArea().setCaretPosition( ((tmpLength>0) ? --tmpLength : tmpLength) );
+        
+        getInstance().getGameFrame().getMonsterInfoTextArea().setText(getInstance().monsterInfo);
+        getInstance().getGameFrame().getMonsterInfoTextArea().update(
+                getInstance().getGameFrame().getMonsterInfoTextArea().getGraphics()
+        );
+        
+        getInstance().getGameFrame().getValueMovesLeftLabel().setText(
+                String.valueOf(getPlayer().getAllowedMoves())
+        );
+        getInstance().getGameFrame().getValueAttacksLeftLabel().setText(
+                String.valueOf(getPlayer().getAllowedAttacks())
+        );
+        getInstance().getGameFrame().getRoundLabel().setText(
+                "Round " + getInstance().roundCount
+        );
+        getInstance().getGameFrame().getLevelLabel().setText(
+                "Level " + getInstance().getLevel()
+        );
+        
+        getInstance().getGameFrame().getValueAttacksLeftLabel().setText(
+                getPlayer().getAllowedAttacks() +"/"+getPlayer().getAttacks()
+        );
+        getInstance().getGameFrame().getValueMovesLeftLabel().setText(
+                getPlayer().getAllowedMoves()+"/"+getPlayer().getMovement()
+        );
+        
+        // Update HP-Bar for the Player
+        updateHealthBar( getPlayer().getTempHP() );
+        
+        getInstance().getGameFrame().repaint();
+        */
+             
         updateGUI();
     }
+    
+    
 }

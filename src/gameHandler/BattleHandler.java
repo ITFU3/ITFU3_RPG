@@ -23,7 +23,7 @@ public class BattleHandler
      */
     public static void tryToAttack(PlayerCharacter attacker, PlayerCharacter target)
     {
-        Game.updateAttackInfo(attacker.getName() + " wants to attack.\n");
+        Game.addToAttackInfoString(attacker.getName() + " wants to attack.\n", false);
         Game.waitFor(SleepTime.ATTACK_WAIT);
         int distance = Map.getInstance().getDistance(attacker, target);
         
@@ -49,7 +49,8 @@ public class BattleHandler
                     output += "hits " + target.getName() + " with a " + chanceToHit[1]
                             + " and does " + dmg + " damage.\n"
                             + target.getName()+ " has " + target.getTempHP() + " HP left.\n";
-                    Game.hitDisplay();
+                    Game.addToAttackInfoString(output, false);
+                    Game.addToAttackInfoString(UserInfo.HIT, false);
                     
                     if(target.getTempHP() <= 0){
                         output += target.getName() + " is no more.\n";
@@ -71,7 +72,7 @@ public class BattleHandler
         System.out.println("gameHandler.BattleHandler.tryToAttack\n===>\n" + output + "\n<===");
         Game.addToAttackInfoString(output, true);
         Game.updateMonsterInfo();
-        Game.updateGUI();
+        //Game.updateGUI();
     }
     
     /**

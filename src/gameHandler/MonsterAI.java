@@ -145,7 +145,7 @@ public class MonsterAI {
         boolean next = false;
         calcMovesToPlayer();
         do{
-            Game.updateAttackInfo(ego.getName()+" thinks...");
+            Game.addToAttackInfoString(ego.getName()+" thinks...", false);
             Game.waitFor(SleepTime.MONSTER_THINK_FIRST);
             SpellBook spellbook = ego.getSpellBook();
             
@@ -168,7 +168,7 @@ public class MonsterAI {
                 next = moving();
             }
             Game.waitFor(SleepTime.MONSTER_AFTER_THOUHGT);
-            Game.updateGUI();
+            //Game.updateGUI();
         } while(next);
         resetTurnStats();
     }

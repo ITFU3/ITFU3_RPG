@@ -1,8 +1,8 @@
 package gameHandler;
 
-import enums.Spell;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import main.Game;
 
 /**
@@ -10,8 +10,8 @@ import main.Game;
  * @author Steffen Haas
  */
 public class KeyHandler implements KeyListener {
-    
-    
+    // temp idea
+    private ArrayList<Integer> keyBuffer = new ArrayList();
     
     // key setup
     private final int up = KeyEvent.VK_W;
@@ -47,58 +47,80 @@ public class KeyHandler implements KeyListener {
     
     @Override
     public void keyReleased(KeyEvent e) {
-        keyAction(e);
+        this.addToKeyBuffer(e);
     }
     
-    public void keyAction(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        switch (keyCode) {
-        // Movement
-        case up:
-            InputHandler.moveUp();
-            break;
-        case down:
-            InputHandler.moveDown();
-            break;
-        case left:
-            InputHandler.moveLeft();
-            break;
-        case right:
-            InputHandler.moveRight();
-            break;
-            // Battle Commands
-        case attack:
-            InputHandler.attack();
-            break;
-        case secondaryAttack: // spell
-            //InputHandler.spellattack(Game.getPlayer().getPrimarySpell().string);
-            // My take on the primary spell task.
-            InputHandler.spellattack(Game.getPlayer().getSpellBook().getPrimarySpell());
-            break;
-        case spellbook:
-            InputHandler.openCloseSpellbook();
-            break;
-        // Info
-        case inventory:
-            InputHandler.openCloseInventory();
-            break;
-        case character:
-            InputHandler.openCloseCharacterScreen();
-            break;
-     
-        case changeFocus:
-            InputHandler.setControlFocus(false);
-            break;
-            // System Commands
-        case pause:
-            System.err.println("Pause");
-            break;
-        case esc:
-            System.err.println("Esc");
-            break;
-        case enter:
-            InputHandler.endRound();
-            break;
+    public void addToKeyBuffer(KeyEvent e) {
+        this.keyBuffer.add(e.getKeyCode());
+        //searching the right place??
+        if( Game.isPlayerTurn() ){
+            this.processInputBuffer();
+        }else{
+            this.clearInputBuffer();
+        }
+    }
+    
+    public void clearInputBuffer(){
+        this.keyBuffer.clear();
+    }
+    
+    public void processInputBuffer()
+    {
+        int bufferIndex = 0;
+        int bufferSize = this.keyBuffer.size();
+        while( bufferSize > 0 )
+        {
+            int keyCode = this.keyBuffer.get(bufferIndex);
+            switch (keyCode)
+            {
+                // Movement
+                case up:
+                    InputHandler.moveUp();
+                    break;
+                case down:
+                    InputHandler.moveDown();
+                    break;
+                case left:
+                    InputHandler.moveLeft();
+                    break;
+                case right:
+                    InputHandler.moveRight();
+                    break;
+                    // Battle Commands
+                case attack:
+                    InputHandler.attack();
+                    break;
+                case secondaryAttack: // spell
+                    //InputHandler.spellattack(Game.getPlayer().getPrimarySpell().string);
+                    // My take on the primary spell task.
+                    InputHandler.spellattack(Game.getPlayer().getSpellBook().getPrimarySpell());
+                    break;
+                case spellbook:
+                    InputHandler.openCloseSpellbook();
+                    break;
+                // Info
+                case inventory:
+                    InputHandler.openCloseInventory();
+                    break;
+                case character:
+                    InputHandler.openCloseCharacterScreen();
+                    break;
+                case changeFocus:
+                    InputHandler.setControlFocus(false);
+                    break;
+                    // System Commands
+                case pause:
+                    System.err.println("Pause");
+                    break;
+                case esc:
+                    System.err.println("Esc");
+                    break;
+                case enter:
+                    InputHandler.endRound();
+                    break;
+            }
+            this.keyBuffer.remove(bufferIndex);
+            bufferSize = this.keyBuffer.size();
         }
     }
 }

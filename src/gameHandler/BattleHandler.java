@@ -115,7 +115,7 @@ public class BattleHandler
             output[1] += attacker.getModifier(attacker.getIntellegence());
             output[1] += attacker.getProficiencyOrLevel('p');
         }else{
-            if(attacker.getWeaponSlot().getCat()!= Proficiency.WEAPON_TYPE_RANGE){
+            if(attacker.getWeaponSlot().getCat() == Proficiency.WEAPON_TYPE_RANGE){
                 // a range weapon is used
                 output[1] += attacker.getModifier(attacker.getDexterity());
             }else{

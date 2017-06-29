@@ -58,7 +58,7 @@ public class Map
                 "#                                     #"+
                 "#                                     #"+
                 "#        P                            #"+
-                "#        O                            #"+
+                "#        W                            #"+
                 "#                                     #"+
                 "#                                     #"+
                 "#                                     #"+
@@ -70,7 +70,7 @@ public class Map
         this.width = 39;
         this.height = 12;
 //        Game.getInstance().addMonster( new MonsterCharacter(new Rat()));
-        Game.getInstance().addMonster( MonsterPreset.createOgerShaman() );
+        Game.getInstance().addMonster( MonsterPreset.createWolf());
         Game.getInstance().setLevel(1);
         this.buildMapArray();
     }
@@ -142,7 +142,7 @@ public class Map
                 break;
             default:
                 // spawn rat
-                monster = MonsterPreset.createRat();
+                monster = MonsterPreset.createNormalRandom();
         }
         monster.setAllCoordinates(y, x);
         Game.getInstance().addMonster( monster );

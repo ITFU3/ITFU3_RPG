@@ -8,6 +8,7 @@ package gui.popups;
 import enums.UpdateAbleStats;
 import character.PlayerCharacter;
 import character.helper.CharacterSelecter;
+import enums.Proficiency;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import main.Game;
@@ -34,6 +35,7 @@ public class PlayerUpdate extends javax.swing.JFrame {
     
     /**
      * Creates new form PlayerUpdate
+     * @param pc - PlayerCharacter
      */
     public PlayerUpdate(PlayerCharacter pc) {
         initComponents();
@@ -310,20 +312,22 @@ public class PlayerUpdate extends javax.swing.JFrame {
     
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
    
-        pc.setStrength(strength + pc.getpRace().getStatsBonus()[0]);
-        pc.setDexterity(dexterity + pc.getpRace().getStatsBonus()[1]);
-        pc.setConstitution(constituion + pc.getpRace().getStatsBonus()[2]);
-        pc.setWisdom(wisdom + pc.getpRace().getStatsBonus()[3]);
-        pc.setIntellegence(intellegence + pc.getpRace().getStatsBonus()[4]);
-        pc.setCharisma(charisma + pc.getpRace().getStatsBonus()[5]);
-        pc.setMovement(moves + pc.getpRace().getStatsBonus()[6]);
+        pc.setStrength(strength + pc.getpRace().getStatsBonus()[Proficiency.STRENGTH.getIndex()]);
+        pc.setDexterity(dexterity + pc.getpRace().getStatsBonus()[Proficiency.DEXTERITY.getIndex()]);
+        pc.setConstitution(constituion + pc.getpRace().getStatsBonus()[Proficiency.CONSTITUTION.getIndex()]);
+        pc.setWisdom(wisdom + pc.getpRace().getStatsBonus()[Proficiency.WISDOM.getIndex()]);
+        pc.setIntellegence(intellegence + pc.getpRace().getStatsBonus()[Proficiency.INTELLEGENCE.getIndex()]);
+        pc.setCharisma(charisma + pc.getpRace().getStatsBonus()[Proficiency.CHARISMA.getIndex()]);
+        
+        pc.setMovement(moves);
         int newTempMov = moves - pc.getMovement() + pc.getAllowedMoves();
         pc.setAllowedMoves(newTempMov);
+        
         pc.setAttacks(attacks);
         pc.setUnUsedExperience(pc.getUnUsedExperience() - usedExperience);
-        int newTempHealth = health - pc.getHealth() + pc.getTempHP();
         
-        pc.setHealth(health + pc.getpRace().getStatsBonus()[7]);
+        pc.setHealth(health + pc.getpRace().getStatsBonus()[Proficiency.HEALTH.getIndex()]);
+        int newTempHealth = health - pc.getHealth() + pc.getTempHP();
         pc.setTempHP(newTempHealth);
         
         Game.getInstance().setPlayer(pc);

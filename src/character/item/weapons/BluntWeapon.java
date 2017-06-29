@@ -39,4 +39,13 @@ public class BluntWeapon extends Weapon{
         return mace;
     }
     
+    public static BluntWeapon getMaul(){
+        BluntWeapon maul = new BluntWeapon();
+        maul.setDamageDie(10);
+        maul.setDieCount(1);
+        maul.setType(Proficiency.WEAPON_MAUL);
+        maul.getProperties().add(Proficiency.PROPERTY_DUALHANDED);
+        return maul;
+    }
+    
 }

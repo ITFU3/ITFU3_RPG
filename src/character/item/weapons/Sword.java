@@ -6,7 +6,6 @@
 package character.item.weapons;
 
 import enums.Proficiency;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  *

@@ -10,9 +10,6 @@ import main.Game;
  * @author Steffen Haas
  */
 public class KeyHandler implements KeyListener {
-    // temp idea
-    private ArrayList<Integer> keyBuffer = new ArrayList();
-    
     // key setup
     private final int up = KeyEvent.VK_W;
     private final int down = KeyEvent.VK_S;
@@ -47,34 +44,12 @@ public class KeyHandler implements KeyListener {
     
     @Override
     public void keyReleased(KeyEvent e) {
-        this.addToKeyBuffer(e);
-    }
-    
-    public void addToKeyBuffer(KeyEvent e) {
-        this.keyBuffer.add(e.getKeyCode());
         java.util.Date compareTime = new java.util.Date();
-        System.out.println("Event Time Diff: " + e.getWhen() + " | " + compareTime.getTime() + " => " + (compareTime.getTime() - e.getWhen()) );
+        System.out.println("Event Time Diff => " + (compareTime.getTime() - e.getWhen()) );
         if( Game.isPlayerTurn()
             && !((compareTime.getTime() - e.getWhen()) >= 200)
         ){
-            this.processInputBuffer();
-        }else{
-            this.clearInputBuffer();
-        }
-    }
-    
-    public void clearInputBuffer(){
-        this.keyBuffer.clear();
-    }
-    
-    public void processInputBuffer()
-    {
-        int bufferIndex = 0;
-        int bufferSize = this.keyBuffer.size();
-        while( bufferSize > 0 )
-        {
-            int keyCode = this.keyBuffer.get(bufferIndex);
-            switch (keyCode)
+            switch( e.getKeyCode() )
             {
                 // Movement
                 case up:
@@ -122,8 +97,6 @@ public class KeyHandler implements KeyListener {
                     InputHandler.endRound();
                     break;
             }
-            this.keyBuffer.remove(bufferIndex);
-            bufferSize = this.keyBuffer.size();
         }
     }
 }

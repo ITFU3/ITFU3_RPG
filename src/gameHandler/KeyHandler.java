@@ -52,8 +52,11 @@ public class KeyHandler implements KeyListener {
     
     public void addToKeyBuffer(KeyEvent e) {
         this.keyBuffer.add(e.getKeyCode());
-        //searching the right place??
-        if( Game.isPlayerTurn() ){
+        java.util.Date compareTime = new java.util.Date();
+        System.out.println("Event Time Diff: " + e.getWhen() + " | " + compareTime.getTime() + " => " + (compareTime.getTime() - e.getWhen()) );
+        if( Game.isPlayerTurn()
+            && !((compareTime.getTime() - e.getWhen()) >= 200)
+        ){
             this.processInputBuffer();
         }else{
             this.clearInputBuffer();
